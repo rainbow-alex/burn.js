@@ -4,9 +4,7 @@ let NodeFiber = require( "fibers" );
 let vm = exports;
 
 vm.Value = CLASS( {
-	isTruthy: function( fiber ) {
-		return true;
-	},
+	suggestName: function( name ) {},
 	toBurnString: function( fiber ) {
 		return new vm.String( this.repr );
 	},
@@ -16,7 +14,18 @@ vm.Value = CLASS( {
 			fiber.stack
 		);
 	},
-	suggestName: function( name ) {},
+	isTruthy: function( fiber ) {
+		return true;
+	},
+	canEq: function( value ) {
+		return Object.getPrototypeOf( this ) === Object.getPrototypeOf( value );
+	},
+	eq: function( other ) {
+		return this === other;
+	},
+	canOrd: function( value ) {
+		return false;
+	},
 } );
 
 vm.Nothing = CLASS( vm.Value, {
@@ -34,11 +43,11 @@ vm.Boolean = CLASS( vm.Value, {
 		this.value = value;
 	},
 	repr: "<Boolean>",
-	isTruthy: function( fiber ) {
-		return this.value;
-	},
 	toBurnString: function( fiber ) {
 		return new vm.String( this.value ? "true" : "false" );
+	},
+	isTruthy: function( fiber ) {
+		return this.value;
 	},
 } );
 
@@ -47,14 +56,20 @@ vm.Integer = CLASS( vm.Value, {
 		this.value = value;
 	},
 	repr: "<Integer>",
+	toBurnString: function( fiber ) {
+		return new vm.String( "" + this.value );
+	},
 	isTruthy: function( fiber ) {
 		return this.value !== 0;
 	},
 	eq: function( fiber, other ) {
 		return this.value === other.value;
 	},
-	toBurnString: function( fiber ) {
-		return new vm.String( "" + this.value );
+	canOrd: function( value ) {
+		return value instanceof vm.Integer || value instanceof vm.Float;
+	},
+	lt: function( fiber, other ) {
+		return this.value < other.value;
 	},
 } );
 
@@ -63,11 +78,17 @@ vm.Float = CLASS( vm.Value, {
 		this.value = value;
 	},
 	repr: "<Float>",
+	toBurnString: function( fiber ) {
+		return new vm.String( "" + this.value );
+	},
 	isTruthy: function( fiber ) {
 		return this.value !== 0;
 	},
-	toBurnString: function( fiber ) {
-		return new vm.String( "" + this.value );
+	canOrd: function( value ) {
+		return value instanceof vm.Integer || value instanceof vm.Float;
+	},
+	lt: function( fiber, other ) {
+		return this.value < other.value;
 	},
 } );
 
@@ -76,11 +97,17 @@ vm.String = CLASS( vm.Value, {
 		this.value = value;
 	},
 	repr: "<String>",
+	toBurnString: function( fiber ) {
+		return this;
+	},
 	isTruthy: function( fiber ) {
 		return this.value.length > 0;
 	},
-	toBurnString: function( fiber ) {
-		return this;
+	canOrd: function( value ) {
+		return value instanceof vm.String;
+	},
+	lt: function( fiber, other ) {
+		return this.value < other.value;
 	},
 } );
 

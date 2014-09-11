@@ -86,9 +86,9 @@ runtime.is_not = function( fiber, l, r ) {
 };
 
 runtime.eq = function( fiber, l, r ) {
-	if( Object.getPrototypeOf( l ) !== Object.getPrototypeOf( r ) ) {
+	if( ! l.canEq( r ) ) {
 		throw new errors.TypeErrorInstance(
-			"TypeError: Can't compare " + l.repr + " and " + r.repr,
+			"TypeError: Equivalence of " + l.repr + " and " + r.repr + " is undefined.",
 			fiber.stack
 		);
 	}
@@ -97,6 +97,28 @@ runtime.eq = function( fiber, l, r ) {
 
 runtime.neq = function( fiber, l, r ) {
 	return new vm.Boolean( ! runtime.eq( fiber, l, r ).value );
+};
+
+runtime.lt = function( fiber, l, r ) {
+	if( ! l.canOrd( r ) ) {
+		throw new errors.TypeErrorInstance(
+			"TypeError: Ordering of " + l.repr + " and " + r.repr + " is undefined.",
+			fiber.stack
+		);
+	}
+	return new vm.Boolean( l.lt( fiber, r ) );
+};
+
+runtime.gt = function( fiber, l, r ) {
+	return runtime.lt( fiber, r, l );
+};
+
+runtime.lteq = function( fiber, l, r ) {
+	return ! runtime.lt( fiber, r, l );
+};
+
+runtime.gteq = function( fiber, l, r ) {
+	return ! runtime.lt( fiber, l, r );
 };
 
 runtime.and = function( fiber, l, rf ) {

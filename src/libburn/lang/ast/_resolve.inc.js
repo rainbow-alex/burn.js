@@ -91,6 +91,9 @@ ast.LetStatement.prototype.resolve = function( scope ) {
 	}
 	scope.declareVariable( this.variable.value );
 	ast.Node.prototype.resolve.call( this, scope );
+	if( this.initialValue instanceof ast.FunctionExpression ) {
+		this.initialValue.name = this.variable.value;
+	}
 };
 
 ast.ImportStatement.prototype.resolve = function( scope ) {

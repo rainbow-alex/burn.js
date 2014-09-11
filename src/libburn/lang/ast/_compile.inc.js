@@ -212,6 +212,38 @@ ast.NeqExpression.prototype.compile = function( output ) {
 	output.code += ')';
 };
 
+ast.LtExpression.prototype.compile = function( output ) {
+	output.code += '_.lt(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ')';
+};
+
+ast.GtExpression.prototype.compile = function( output ) {
+	output.code += '_.gt(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ')';
+};
+
+ast.LtEqExpression.prototype.compile = function( output ) {
+	output.code += '_.lteq(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ')';
+};
+
+ast.GtEqExpression.prototype.compile = function( output ) {
+	output.code += '_.gteq(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ')';
+};
+
 ast.UnionExpression.prototype.compile = function( output ) {
 	output.code += '_.union(';
 	this.left.compile( output );

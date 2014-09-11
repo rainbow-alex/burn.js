@@ -1,52 +1,50 @@
-eq.burn:
-	print 1 == 1
-	print 1 == 2
+lt.burn:
+	print 3 < 4
 
-$ burn eq.burn
+$ burn lt.burn
 	* stdout
 		true
-		false
 
-int_eq_string.burn:
+int_lt_float.burn:
+	print 3 < 3.5
+	print 3.5 < 4
+
+$ burn int_lt_float.burn
+	* stdout
+		true
+		true
+
+strings.burn:
+	print "a" < "b"
+
+$ burn strings.burn
+	* stdout
+		true
+
+int_lt_string.burn:
 	try {
-		3 == "3"
+		3 < "4"
 	} catch TypeError $e {
 		print "TypeError"
 	}
 
-$ burn int_eq_string.burn
+$ burn int_lt_string.burn
 	* stdout
 		TypeError
 
-int_eq_float.burn:
-	try {
-		3 == 3.0
-	} catch TypeError $e {
-		print "TypeError"
-	}
-
-$ burn int_eq_string.burn
-	* stdout
-		TypeError
-
-@todo more typing tests
-
 err.burn:
-	== 1
+	< 3
 $ burn err.burn
 	* exit status nonzero
-
 err.burn:
-	1 ==
+	3 <
 $ burn err.burn
 	* exit status nonzero
-
 err.burn:
-	==
+	<
 $ burn err.burn
 	* exit status nonzero
-
 err.burn:
-	1 == 1 == 1
+	1 < 2 < 3
 $ burn err.burn
 	* exit status nonzero
