@@ -1,11 +1,14 @@
-This is an implementation of [burn](http://www.github.com/rainbow-alex/burn), a light-weight, general-purpose programming language, in Javascript.
-It is intended as a reference implementation. It is also a relatively painless way to experiment with the language's design.
+This is an implementation of [burn](http://www.github.com/rainbow-alex/burn),
+a light-weight, general-purpose programming language, in Javascript.
+It is intended as a reference implementation.
+It is also a relatively painless way to experiment with the language's design.
 
 ```
 node --harmony src/bin/burn.js examples/hello_world.burn
 ```
 
-There is another, outdated implementation of burn at [rainbow-alex/burn](http://www.github.com/rainbow-alex/burn)
+There is another, currently outdated implementation of burn at
+[rainbow-alex/burn](http://www.github.com/rainbow-alex/burn)
 which will (hopefully) reach production quality some day.
 
 ## Dependencies ##
