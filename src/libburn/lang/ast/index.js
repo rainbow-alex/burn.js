@@ -1,0 +1,62 @@
+"use strict";
+
+exports.Node = CLASS( {
+	init: function( properties ) {
+		if( properties ) {
+			for( let k in properties ) {
+				this[k] = properties[k];
+			}
+		}
+	},
+} );
+
+exports.Script = CLASS( exports.Node, {} );
+
+exports.Statement = CLASS( exports.Node, {} );
+exports.IfStatement = CLASS( exports.Statement, {} );
+exports.TryStatement = CLASS( exports.Statement, {} );
+exports.WhileStatement = CLASS( exports.Statement, {} );
+exports.LetStatement = CLASS( exports.Statement, {} );
+exports.PrintStatement = CLASS( exports.Statement, {} );
+exports.ThrowStatement = CLASS( exports.Statement, {} );
+exports.ReturnStatement = CLASS( exports.Statement, {} );
+exports.ImportStatement = CLASS( exports.Statement, {} );
+exports.IncludeStatement = CLASS( exports.Statement, {} );
+exports.ExpressionStatement = CLASS( exports.Statement, {} );
+exports.AssignmentStatement = CLASS( exports.Statement, {} );
+
+exports.ElseIfClause = CLASS( exports.Node );
+exports.ElseClause = CLASS( exports.Node );
+exports.CatchClause = CLASS( exports.Node );
+exports.FinallyClause = CLASS( exports.Node );
+
+exports.Expression = CLASS( exports.Node );
+exports.AndExpression = CLASS( exports.Expression, {} );
+exports.OrExpression = CLASS( exports.Expression, {} );
+exports.NotExpression = CLASS( exports.Expression, {} );
+exports.IsExpression = CLASS( exports.Expression, {} );
+exports.EqExpression = CLASS( exports.Expression, {} );
+exports.NeqExpression = CLASS( exports.Expression, {} );
+exports.UnionExpression = CLASS( exports.Expression, {} );
+exports.AdditionExpression = CLASS( exports.Expression, {} );
+exports.SubtractionExpression = CLASS( exports.Expression, {} );
+exports.CallExpression = CLASS( exports.Expression, {} );
+exports.DotAccessExpression = CLASS( exports.Expression, {} );
+exports.FunctionExpression = CLASS( exports.Expression, {} );
+exports.ParenthesizedExpression = CLASS( exports.Expression, {} );
+exports.IdentifierExpression = CLASS( exports.Expression, {} );
+exports.VariableExpression = CLASS( exports.Expression, {} );
+exports.StringLiteral = CLASS( exports.Expression, {} );
+exports.IntegerLiteral = CLASS( exports.Expression, {} );
+exports.FloatLiteral = CLASS( exports.Expression, {} );
+exports.BooleanLiteral = CLASS( exports.Expression, {} );
+exports.NothingLiteral = CLASS( exports.Expression, {} );
+
+exports.CallArgument = CLASS( exports.Node );
+exports.FunctionParameter = CLASS( exports.Node );
+
+exports.Lvalue = CLASS( exports.Node );
+exports.VariableLvalue = CLASS( exports.Lvalue );
+
+require( "./_resolve.inc.js" );
+require( "./_compile.inc.js" );

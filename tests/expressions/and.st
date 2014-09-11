@@ -1,0 +1,87 @@
+and.burn:
+	print true and true
+	print true and false
+	print false and true
+	print false and false
+
+$ burn and.burn
+	* stdout
+		true
+		false
+		false
+		false
+
+and_and.burn:
+	print true and true and true
+	print true and true and false
+	print true and false and true
+	print true and false and false
+	print false and true and true
+	print false and true and false
+	print false and false and true
+	print false and false and false
+
+$ burn andand.burn
+	* stdout
+		true
+		false
+		false
+		false
+		false
+		false
+		false
+		false
+
+// Operands need not be booleans, they are tested for truthiness.
+// The result is the operand that determines the result.
+truthy.burn:
+	print 1 and 0
+	print 1 and 2
+	print 0 and 1
+
+$ burn truthy.burn
+	* stdout
+		0
+		2
+		0
+
+// verify that operands are evaluated left-to-right
+order.burn:
+	let $p = function( $v ) {
+		print $v
+		return $v
+	}
+	$p( 1 ) and $p( 2 ) and $p( 3 )
+
+$ burn order.burn
+	* stdout
+		1
+		2
+		3
+
+// verify that the operator short-circuits
+sc.burn:
+	let $p = function( $v ) {
+		print $v
+		return $v
+	}
+	$p( false ) and $p( true )
+
+$ burn sc.burn
+	* stdout
+		false
+
+err.burn:
+	true and
+$ burn err.burn
+	* exit status nonzero
+
+err.burn:
+	and true
+$ burn err.burn
+	* exit status nonzero
+
+err.burn:
+	and
+$ burn err.burn
+	* exit status nonzero

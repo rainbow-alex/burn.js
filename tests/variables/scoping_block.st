@@ -1,0 +1,43 @@
+scope.burn:
+	if true {
+		let $foo
+	}
+	print $foo
+
+$ burn scope.burn
+	* exit status nonzero
+
+scope2.burn:
+	let $foo = 1
+	if true {
+		let $foo = 2
+	}
+	print $foo
+
+$ burn scope2.burn
+	* stdout
+		1
+
+shadow.burn:
+	let $foo = 1
+	if true {
+		$foo = 2
+	}
+	print $foo
+
+$ burn shadow.burn
+	* stdout
+		2
+
+nest.burn:
+		let $foo = 1
+		if true {
+			if true {
+				$foo = 2
+			}
+		}
+		print $foo
+
+$ burn nest.burn
+	* stdout
+		2
