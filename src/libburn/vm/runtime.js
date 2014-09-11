@@ -3,6 +3,7 @@ let burn = require( "../" );
 let vm = require( "./" );
 let types = require( "libburn/builtin/burn/types" );
 let errors = require( "libburn/builtin/burn/errors" );
+let list = require( "libburn/builtin/burn/list" );
 
 let runtime = exports;
 
@@ -28,6 +29,10 @@ runtime.createString = function( v ) {
 
 runtime.createFunction = function( implementation, options ) {
 	return new vm.Function( implementation, options );
+};
+
+runtime.createList = function( items ) {
+	return new list.JsListInstance( items );
 };
 
 runtime.add = function( fiber, l, r ) {

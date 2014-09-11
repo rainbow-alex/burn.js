@@ -270,6 +270,15 @@ ast.FunctionExpression.prototype.compile = function( output ) {
 	output.code += '})';
 };
 
+ast.ListLiteral.prototype.compile = function( output ) {
+	output.code += '_.createList([';
+	this.items.forEach( function( i ) {
+		i.compile( output );
+		output.code += ',';
+	} );
+	output.code += '])';
+};
+
 ast.ParenthesizedExpression.prototype.compile = function( output ) {
 	output.code += '(';
 	this.expression.compile( output );

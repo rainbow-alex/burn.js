@@ -139,6 +139,17 @@ vm.Special = CLASS( vm.Value, {
 	toString: function() {
 		return this.repr;
 	},
+	getProperty: function( fiber, name ) {
+		if( this[ "getProperty_" + name ] ) {
+			return this[ "getProperty_" + name ]( fiber );
+		} else if( this[ "callMethod_" + name ] ) {
+			return new vm.BoundMethod( this, new vm.Method( function( fiber, owner, args ) {
+				return owner[ "callMethod_" + name ]( fiber, args );
+			} ) );
+		} else {
+			vm.Value.prototype.getProperty.call( this, fiber, name );
+		}
+	},
 } );
 
 vm.Module = CLASS( vm.Value, {
@@ -165,6 +176,63 @@ vm.Module = CLASS( vm.Value, {
 	},
 	getProperty: function( fiber, name ) {
 		return this[ "$" + name ] || vm.Value.prototype.getProperty.call( this, fiber, name );
+	},
+} );
+
+vm.Method = CLASS( vm.Value, {
+	init: function( implementation, options ) {
+		this.implementation = implementation;
+		options = options || {};
+		this.name = options.name;
+		this.origin = options.origin;
+		this.line = options.line;
+	},
+	suggestName: function( name ) {
+		this.name = this.name || name;
+	},
+	get repr() {
+		if( this.name ) {
+			return "<Method:" + this.name + ">";
+		} else {
+			return "<Method>";
+		}
+	},
+	call: function( fiber, owner, args ) {
+		fiber.stack.push( new vm.Fiber.MethodFrame( this ) );
+		try {
+			return this.implementation.call( this, fiber, owner, args ) || new vm.Nothing();
+		} finally {
+			fiber.stack.pop();
+		}
+	},
+} );
+
+vm.AsyncMethod = CLASS( vm.Method, {
+	call: function( fiber, owner, args ) {
+		fiber.stack.push( new vm.Fiber.MethodFrame( this ) );
+		let currentFiber = NodeFiber.current;
+		this.implementation( fiber, owner, args, function( err, res ) {
+			if( err ) {
+				currentFiber.throwInto( err );
+			} else {
+				currentFiber.run( res || new vm.Nothing() );
+			}
+		} );
+		try {
+			return NodeFiber.yield();
+		} finally {
+			fiber.stack.pop();
+		}
+	},
+} );
+
+vm.BoundMethod = CLASS( vm.Value, {
+	init: function( owner, method ) {
+		this.owner = owner;
+		this.method = method;
+	},
+	call: function( fiber, args ) {
+		return this.method.call( fiber, this.owner, args );
 	},
 } );
 

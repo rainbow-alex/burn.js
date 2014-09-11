@@ -30,13 +30,13 @@ $ burn shadow.burn
 		2
 
 nest.burn:
-		let $foo = 1
+	let $foo = 1
+	if true {
 		if true {
-			if true {
-				$foo = 2
-			}
+			$foo = 2
 		}
-		print $foo
+	}
+	print $foo
 
 $ burn nest.burn
 	* stdout

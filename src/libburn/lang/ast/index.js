@@ -47,6 +47,7 @@ exports.SubtractionExpression = CLASS( exports.Expression );
 exports.CallExpression = CLASS( exports.Expression );
 exports.DotAccessExpression = CLASS( exports.Expression );
 exports.FunctionExpression = CLASS( exports.Expression );
+exports.ListLiteral = CLASS( exports.Expression );
 exports.ParenthesizedExpression = CLASS( exports.Expression );
 exports.IdentifierExpression = CLASS( exports.Expression );
 exports.VariableExpression = CLASS( exports.Expression );

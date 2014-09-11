@@ -1,0 +1,25 @@
+empty.burn:
+	let $list = []
+	print $list.length
+
+$ burn empty.burn
+	* stdout
+		0
+
+list.burn:
+	let $list = [ 1, 2, 3 ]
+	print $list.length
+
+$ burn list.burn
+	* stdout
+		3
+
+push.burn:
+	let $list = []
+	$list.push( 1 )
+	$list.push( 2 )
+	print $list.length
+
+$ burn push.burn
+	* stdout
+		2

@@ -522,15 +522,10 @@ module.exports = function( tokens ) {
 	function parseAtomExpression() {
 		if( peek().type === "function" ) {
 			return parseFunction();
+		} else if( peek().type === "[" ) {
+			return parseListLiteral();
 		} else if( peek().type === "(" ) {
-			read();
-			startIgnoringNewlines();
-			let expression = parseExpression();
-			read( ")" );
-			stopIgnoringNewlines();
-			return new ast.ParenthesizedExpression( {
-				expression: expression,
-			} );
+			return parseParenthesizedExpression();
 		} else if( peek().type === "identifier" ) {
 			return new ast.IdentifierExpression( { token: read() } );
 		} else if( peek().type === "variable" ) {
@@ -587,6 +582,37 @@ module.exports = function( tokens ) {
 			keyword: keyword,
 			parameters: parameters,
 			block: block,
+		} );
+	}
+	
+	function parseListLiteral() {
+		read( "[" );
+		startIgnoringNewlines();
+		let items = [];
+		while( peek().type !== "]" ) {
+			items.push( parseExpression() );
+			if( peek().type === "," ) {
+				read();
+				continue;
+			} else {
+				break;
+			}
+		}
+		read( "]" );
+		stopIgnoringNewlines();
+		return new ast.ListLiteral( {
+			items: items,
+		} );
+	}
+	
+	function parseParenthesizedExpression() {
+		read( "(" );
+		startIgnoringNewlines();
+		let expression = parseExpression();
+		read( ")" );
+		stopIgnoringNewlines();
+		return new ast.ParenthesizedExpression( {
+			expression: expression,
 		} );
 	}
 	

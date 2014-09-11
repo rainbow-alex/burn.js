@@ -24,6 +24,12 @@ Fiber.FunctionFrame = CLASS( Fiber.Frame, {
 	},
 } );
 
+Fiber.MethodFrame = CLASS( Fiber.Frame, {
+	init: function( method ) {
+		this.method = method;
+	},
+} );
+
 Fiber.ImportFrame = CLASS( Fiber.Frame, {
 	init: function( origin, line ) {
 		this.origin = origin;

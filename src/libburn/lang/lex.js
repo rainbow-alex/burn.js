@@ -31,7 +31,7 @@ module.exports = function( origin ) {
 		// symbols
 		} else if( m = source.substr(i).match( /^(==|!=|<=|>=)/ ) ) {
 			tokens.push( { origin: origin, type: m[0], line: line, offset: offset } );
-		} else if( m = source.substr(i).match( /^({|}|\(|\)|,|<|>|\||=|\+|\*|\/|\.)/ ) ) {
+		} else if( m = source.substr(i).match( /^({|}|\(|\)|,|<|>|\||=|\+|\*|\/|\.|\[|\])/ ) ) {
 			tokens.push( { origin: origin, type: m[0], line: line, offset: offset } );
 		
 		// keywords

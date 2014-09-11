@@ -24,6 +24,22 @@ let Scope = CLASS( {
 	},
 } );
 
+ast.Node.prototype.resolve = function( scope ) {
+	for( let k in this ) {
+		if( this.hasOwnProperty( k ) ) {
+			if( Array.isArray( this[k] ) ) {
+				this[k].forEach( function( i ) {
+					if( i instanceof ast.Node ) {
+						i.resolve( scope );
+					}
+				} );
+			} else if( this[k] instanceof ast.Node ) {
+				this[k].resolve( scope );
+			}
+		}
+	}
+};
+
 ast.Script.prototype.resolve = function() {
 	let scope = new Scope();
 	this.statements.forEach( function( s ) {
@@ -74,42 +90,18 @@ ast.LetStatement.prototype.resolve = function( scope ) {
 		throw new Error( "Duplicate declaration of " + this.variable.value + ".", this.variable );
 	}
 	scope.declareVariable( this.variable.value );
-	if( this.initialValue ) {
-		this.initialValue.resolve( scope );
-		if( this.initialValue instanceof ast.FunctionExpression ) {
-			this.initialValue.name = this.variable.value;
-		}
-	}
-};
-
-ast.PrintStatement.prototype.resolve = function( scope ) {
-	this.expression.resolve( scope );
-};
-
-ast.ReturnStatement.prototype.resolve = function( scope ) {
-	if( this.expression ) {
-		this.expression.resolve( scope );
-	}
+	ast.Node.prototype.resolve.call( this, scope );
 };
 
 ast.ImportStatement.prototype.resolve = function( scope ) {
 	scope.declareName( this.alias.value );
 };
 
-ast.IncludeStatement.prototype.resolve = function( scope ) {
-	this.expression.resolve( scope );
-}
-
 ast.AssignmentStatement.prototype.resolve = function( scope ) {
-	this.lvalue.resolve( scope );
-	this.rvalue.resolve( scope );
+	ast.Node.prototype.resolve.call( this, scope );
 	if( this.rvalue instanceof ast.FunctionExpression ) {
 		this.rvalue.name = this.lvalue.suggestName();
 	}
-};
-
-ast.ExpressionStatement.prototype.resolve = function( scope ) {
-	this.expression.resolve( scope );
 };
 
 ast.ElseIfClause.prototype.resolve = function( scope ) {
@@ -145,42 +137,6 @@ ast.FinallyClause.prototype.resolve = function( scope ) {
 	} );
 };
 
-ast.AndExpression.prototype.resolve =
-ast.OrExpression.prototype.resolve =
-ast.EqExpression.prototype.resolve =
-ast.NeqExpression.prototype.resolve =
-ast.LtExpression.prototype.resolve =
-ast.GtExpression.prototype.resolve =
-ast.LtEqExpression.prototype.resolve =
-ast.GtEqExpression.prototype.resolve =
-ast.UnionExpression.prototype.resolve =
-ast.AdditionExpression.prototype.resolve =
-ast.SubtractionExpression.prototype.resolve =
-function( scope ) {
-	this.left.resolve( scope );
-	this.right.resolve( scope );
-};
-
-ast.NotExpression.prototype.resolve = function( scope ) {
-	this.expression.resolve( scope );
-};
-
-ast.IsExpression.prototype.resolve = function( scope ) {
-	this.expression.resolve( scope );
-	this.type.resolve( scope );
-};
-
-ast.CallExpression.prototype.resolve = function( scope ) {
-	this.callee.resolve( scope );
-	this.arguments.forEach( function( a ) {
-		a.resolve( scope );
-	} );
-};
-
-ast.DotAccessExpression.prototype.resolve = function( scope ) {
-	this.expression.resolve( scope );
-};
-
 ast.FunctionExpression.prototype.resolve = function( scope ) {
 	let functionScope = scope.createNested();
 	this.parameters.forEach( function( p ) {
@@ -201,10 +157,6 @@ ast.FunctionParameter.prototype.resolve = function( scope ) {
 	}
 };
 
-ast.ParenthesizedExpression.prototype.resolve = function( scope ) {
-	this.expression.resolve( scope );
-};
-
 ast.IdentifierExpression.prototype.resolve = function( scope ) {
 	if( this.token.value === "magic:filename" && this.token.origin.filename ) {
 		this.magicValue = path.resolve( this.token.origin.filename );
@@ -222,13 +174,6 @@ ast.VariableExpression.prototype.resolve = function( scope ) {
 		throw new Error( "Variable " + this.token.value + " not found.", this.token );
 	}
 };
-
-ast.StringLiteral.prototype.resolve =
-ast.IntegerLiteral.prototype.resolve =
-ast.FloatLiteral.prototype.resolve =
-ast.BooleanLiteral.prototype.resolve =
-ast.NothingLiteral.prototype.resolve =
-function( scope ) {};
 
 ast.VariableLvalue.prototype.resolve = function( scope ) {
 	if( ! scope.isVariableDeclared( this.token.value ) ) {
