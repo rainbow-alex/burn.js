@@ -2,8 +2,6 @@
 let Error = require( "./Error" );
 let ast = require( "./ast" );
 
-let ERR_PRECEDENCE_UNCLEAR = "Add parentheses to disambiguate these expressions.";
-
 module.exports = function( tokens ) {
 	
 	let offset = 0;
@@ -313,47 +311,43 @@ module.exports = function( tokens ) {
 	}
 	
 	function parseExpression() {
-		return parseBinaryLogicExpression();
+		return parseOrExpression();
 	}
 	
-	function parseBinaryLogicExpression() {
+	function parseOrExpression() {
+		let left = parseAndExpression();
+		while( peek().type === "or" ) {
+			let operator = read();
+			let right = parseAndExpression();
+			left = new ast.OrExpression( {
+				left: left,
+				operator: operator,
+				right: right,
+			} );
+		}
+		return left;
+	}
+	
+	function parseAndExpression() {
 		let left = parseNotExpression();
-		if( peek().type === "and" ) {
-			do {
-				read();
-				let right = parseNotExpression();
-				left = new ast.AndExpression( {
-					left: left,
-					right: right,
-				} );
-			} while( peek().type === "and" );
-			if( peek().type === "or" ) {
-				throwError( ERR_PRECEDENCE_UNCLEAR );
-			}
-		} else if( peek().type === "or" ) {
-			do {
-				read();
-				let right = parseNotExpression();
-				left = new ast.OrExpression( {
-					left: left,
-					right: right,
-				} );
-			} while( peek().type === "or" );
-			if( peek().type === "and" ) {
-				throwError( ERR_PRECEDENCE_UNCLEAR );
-			}
+		while( peek().type === "and" ) {
+			let operator = read();
+			let right = parseNotExpression();
+			left = new ast.AndExpression( {
+				left: left,
+				operator: operator,
+				right: right,
+			} );
 		}
 		return left;
 	}
 	
 	function parseNotExpression() {
 		if( peek().type === "not" ) {
-			read();
-			let expression = parseUnionExpression();
-			if( [ "and", "or", "is", "==", "!=", "<", ">", "<=", ">=" ].indexOf( peek().type ) !== -1 ) {
-				throwError( ERR_PRECEDENCE_UNCLEAR );
-			}
+			let operator = read();
+			let expression = parseComparisonExpression();
 			return new ast.NotExpression( {
+				operator: operator,
 				expression: expression,
 			} );
 		} else {

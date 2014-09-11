@@ -149,6 +149,10 @@ ast.AndExpression.prototype.resolve =
 ast.OrExpression.prototype.resolve =
 ast.EqExpression.prototype.resolve =
 ast.NeqExpression.prototype.resolve =
+ast.LtExpression.prototype.resolve =
+ast.GtExpression.prototype.resolve =
+ast.LtEqExpression.prototype.resolve =
+ast.GtEqExpression.prototype.resolve =
 ast.UnionExpression.prototype.resolve =
 ast.AdditionExpression.prototype.resolve =
 ast.SubtractionExpression.prototype.resolve =
@@ -224,7 +228,7 @@ ast.IntegerLiteral.prototype.resolve =
 ast.FloatLiteral.prototype.resolve =
 ast.BooleanLiteral.prototype.resolve =
 ast.NothingLiteral.prototype.resolve =
-function( scope ) {}
+function( scope ) {};
 
 ast.VariableLvalue.prototype.resolve = function( scope ) {
 	if( ! scope.isVariableDeclared( this.token.value ) ) {

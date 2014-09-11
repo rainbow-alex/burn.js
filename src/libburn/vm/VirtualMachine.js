@@ -9,6 +9,7 @@ let Process = require( "libburn/builtin/burn/Process" );
 module.exports = CLASS( {
 	init: function( path ) {
 		this.path = path;
+		this.enableLint = true;
 		this._root = {
 			burn: burn.exposes,
 		};
@@ -23,6 +24,9 @@ module.exports = CLASS( {
 	compile: function( origin ) {
 		let ast = libburn.lang.parse( libburn.lang.lex( origin ) );
 		ast.resolve();
+		if( this.enableLint ) {
+			ast.lint();
+		}
 		return ast.compile();
 	},
 	

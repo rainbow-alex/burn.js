@@ -3,7 +3,7 @@
 global.CLASS = function( parent, properties ) {
 	
 	let constructor = function() {
-		console.assert( this instanceof constructor );
+		console.assert( this instanceof constructor, "constructor was called without new" );
 		if( this.init ) {
 			this.init.apply( this, arguments );
 		}

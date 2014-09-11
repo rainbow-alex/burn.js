@@ -3,8 +3,11 @@
 let libburn = require( "libburn" );
 let path = require( "path" );
 
+let vm = new libburn.vm.VirtualMachine( [
+	process.cwd(),
+] );
+
 let origin;
-let verbose = true;
 let remaining_args;
 
 ( function() {
@@ -17,10 +20,16 @@ let remaining_args;
 			console.log( "Read and run burn program from file. Use - to from stdin." );
 			console.log();
 			console.log( "options:" );
-			console.log( "-h | --help     Print this help message." );
+			console.log( "-h | --help     Print this help message and exit." );
+			console.log( "-v | --version  Print version and exit." );
+			console.log( "--tolerant      By default, the compiler may refuse to compile code if" );
+			console.log( "                it detects code quality issues. Enable to override." );
 			process.exit();
-		} else if( process.argv[i] === "-q" || process.argv[i] === "--quiet" ) {
-			verbose = false;
+		} else if( process.argv[i] === "-v" || process.argv[i] === "--version" ) {
+			console.log( "Burn 0.1" );
+			process.exit();
+		} else if( process.argv[i] === "--tolerant" ) {
+			vm.enableLint = false;
 		} else if( process.argv[i] === "-" ) {
 			origin = new libburn.vm.origin.StdinOrigin();
 			break;
@@ -32,10 +41,6 @@ let remaining_args;
 	
 	remaining_args = process.argv.slice( i + 1 );
 }() );
-
-let vm = new libburn.vm.VirtualMachine( [
-	process.cwd(),
-] );
 
 vm.onUncaughtThrowable( function( e ) {
 	printRuntimeError( e );
