@@ -142,21 +142,17 @@ function importRootModule( fiber, name ) {
 		let importOrigin = new burn.vm.origin.ScriptOrigin( filename );
 		fiber.stack.push( new vm.Fiber.ImportFrame( importOrigin ) );
 		try {
-			let ast;
+			let code;
 			try {
-				ast = burn.lang.parse( burn.lang.lex( importOrigin ) );
-				ast.resolve();
-			} catch( e ) {
+				code = fiber.vm.compile( importOrigin );
+			} catch( e ) { if( e instanceof lang.Error ) {
 				fiber.setLine( e.line );
 				throw new errors.ImportErrorInstance(
 					"ImportError: Error importing module `" + name + "`.\n" + e.message,
 					fiber.stack
 				);
-			}
-			let code = ast.compile();
-			runtime._fiber = fiber;
-			runtime._origin = importOrigin;
-			eval( code );
+			} else { throw e; } }
+			fiber.vm._run( fiber, importOrigin, code );
 		} finally {
 			fiber.stack.pop();
 		}
@@ -176,21 +172,17 @@ runtime.include = function( fiber, origin, filename ) {
 	let includeOrigin = new burn.vm.origin.ScriptOrigin( filename.value );
 	fiber.stack.push( new vm.Fiber.IncludeFrame( includeOrigin ) );
 	try {
-		let ast;
+		let code;
 		try {
-			ast = burn.lang.parse( burn.lang.lex( includeOrigin ) );
-			ast.resolve();
-		} catch( e ) {
+			code = fiber.vm.compile( includeOrigin );
+		} catch( e ) { if( e instanceof lang.Error ) {
 			fiber.setLine( e.line );
 			throw new errors.IncludeErrorInstance(
 				"IncludeError: Error including \"" + filename + "\".\n" + e.message,
 				fiber.stack
 			);
-		}
-		let code = ast.compile();
-		runtime._fiber = fiber;
-		runtime._origin = includeOrigin;
-		eval( code );
+		} else { throw e; } }
+		fiber.vm._run( fiber, includeOrigin, code );
 	} finally {
 		fiber.stack.pop();
 	}

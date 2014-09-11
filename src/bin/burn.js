@@ -1,6 +1,6 @@
 #!/usr/bin/env node-harmony
 "use strict";
-let burn = require( "libburn" );
+let libburn = require( "libburn" );
 let path = require( "path" );
 
 let origin;
@@ -22,10 +22,10 @@ let remaining_args;
 		} else if( process.argv[i] === "-q" || process.argv[i] === "--quiet" ) {
 			verbose = false;
 		} else if( process.argv[i] === "-" ) {
-			origin = new burn.vm.origin.StdinOrigin();
+			origin = new libburn.vm.origin.StdinOrigin();
 			break;
 		} else {
-			origin = new burn.vm.origin.ScriptOrigin( process.argv[i] );
+			origin = new libburn.vm.origin.ScriptOrigin( process.argv[i] );
 			break;
 		}
 	}
@@ -33,9 +33,8 @@ let remaining_args;
 	remaining_args = process.argv.slice( i + 1 );
 }() );
 
-let vm = new burn.vm.VirtualMachine( [
+let vm = new libburn.vm.VirtualMachine( [
 	process.cwd(),
-	path.join( __dirname, "../modules" ),
 ] );
 
 vm.onUncaughtThrowable( function( e ) {
@@ -47,20 +46,14 @@ if( ! origin ) {
 	console.error( "REPL is not implemented in burn.js." );
 	process.exit( 1 );
 } else {
-	let ast;
+	let code;
 	try {
-		ast = burn.lang.parse( burn.lang.lex( origin ) );
-		ast.resolve();
-	} catch( e ) {
-		if( e instanceof burn.lang.Error ) {
-			printError( e );
-			process.exit( 1 );
-		} else {
-			throw e;
-		}
-	}
-	let code = ast.compile();
-	vm.run( origin, code );
+		code = vm.compile( origin );
+	} catch( e ) { if( e instanceof libburn.lang.Error ) {
+		printError( e );
+		process.exit( 1 );
+	} else { throw e; } }
+	vm.runMain( origin, code );
 }
 
 function printError( e ) {
@@ -80,19 +73,19 @@ function printRuntimeError( e ) {
 			let next = e.stack[i+1];
 			if( ! next ) {
 				process.stderr.write( "in " );
-			} else if( next instanceof burn.vm.Fiber.FunctionFrame ) {
+			} else if( next instanceof libburn.vm.Fiber.FunctionFrame ) {
 				process.stderr.write( "called from " );
-			} else if( next instanceof burn.vm.Fiber.ImportFrame ) {
+			} else if( next instanceof libburn.vm.Fiber.ImportFrame ) {
 				process.stderr.write( "imported from " );
-			} else if( next instanceof burn.vm.Fiber.IncludeFrame ) {
+			} else if( next instanceof libburn.vm.Fiber.IncludeFrame ) {
 				process.stderr.write( "included from " );
 			} else {
 				console.assert( false );
 			}
 			let frame = e.stack[i];
-			if( frame instanceof burn.vm.Fiber.RootFrame ) {
+			if( frame instanceof libburn.vm.Fiber.RootFrame ) {
 				process.stderr.write( frame.origin.toString() );
-			} else if( frame instanceof burn.vm.Fiber.FunctionFrame ) {
+			} else if( frame instanceof libburn.vm.Fiber.FunctionFrame ) {
 				if( frame.function_.name ) {
 					process.stderr.write( "function " + frame.function_.name );
 				} else {
@@ -103,9 +96,9 @@ function printRuntimeError( e ) {
 				} else {
 					process.stderr.write( " (builtin)" );
 				}
-			} else if( frame instanceof burn.vm.Fiber.ImportFrame ) {
+			} else if( frame instanceof libburn.vm.Fiber.ImportFrame ) {
 				process.stderr.write( frame.origin.toString() );
-			} else if( frame instanceof burn.vm.Fiber.IncludeFrame ) {
+			} else if( frame instanceof libburn.vm.Fiber.IncludeFrame ) {
 				process.stderr.write( frame.origin.toString() );
 			} else {
 				console.assert( false );

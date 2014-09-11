@@ -1,0 +1,9 @@
+a.burn:
+	include "b.burn"
+
+b.burn:
+	print "b"
+
+$ burn a.burn
+	* stdout
+		b

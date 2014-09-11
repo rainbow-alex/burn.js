@@ -1,0 +1,16 @@
+example/burn_module.json:
+	{
+		"sources": [
+			"src/example.burn"
+		]
+	}
+
+example/src/example.burn:
+	print "example loaded"
+
+main.burn:
+	import example
+
+$ burn main.burn
+	* stdout
+		example loaded
