@@ -21,7 +21,7 @@ and_and.burn:
 	print false and false and true
 	print false and false and false
 
-$ burn andand.burn
+$ burn and_and.burn
 	* stdout
 		true
 		false
