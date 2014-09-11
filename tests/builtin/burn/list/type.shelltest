@@ -1,0 +1,6 @@
+is.burn:
+	print [] is List
+
+$ burn is.burn
+	* stdout
+		true

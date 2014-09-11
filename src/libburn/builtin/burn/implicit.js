@@ -2,6 +2,7 @@
 let vm = require( "libburn/vm" );
 let types = require( "./types" );
 let errors = require( "./errors" );
+let list = require( "./list" );
 
 let implicit = module.exports;
 
@@ -15,6 +16,8 @@ implicit.exposes = new vm.Module( {
 	String: types.String,
 	Function: types.Function,
 	Type: types.Type,
+	
+	List: list.List,
 	
 	TypeError: errors.TypeError,
 	ArgumentError: errors.ArgumentError,

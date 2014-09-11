@@ -1,0 +1,29 @@
+push.burn:
+	let $list = []
+	$list.push( 1 )
+	$list.push( 2 )
+	print $list.length
+
+$ burn push.burn
+	* stdout
+		2
+
+no_args.burn:
+	try {
+		[].push()
+	} catch ArgumentError $e {
+		print "ArgumentError"
+	}
+$ burn no_args.burn
+	* stdout
+		ArgumentError
+
+too_many_args.burn:
+	try {
+		[].push( 1, 2 )
+	} catch ArgumentError $e {
+		print "ArgumentError"
+	}
+$ burn too_many_args.burn
+	* stdout
+		ArgumentError

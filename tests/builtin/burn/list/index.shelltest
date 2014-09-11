@@ -1,0 +1,39 @@
+index.burn:
+	let $list = [ "a", "b" ]
+	print $list.magic:index( 0 )
+	print $list.magic:index( 1 )
+
+$ burn index.burn
+	* stdout
+		a
+		b
+
+no_args.burn:
+	try {
+		[].magic:index()
+	} catch ArgumentError $e {
+		print "ArgumentError"
+	}
+$ burn no_args.burn
+	* stdout
+		ArgumentError
+
+too_many_args.burn:
+	try {
+		[].magic:index( 1, 2 )
+	} catch ArgumentError $e {
+		print "ArgumentError"
+	}
+$ burn too_many_args.burn
+	* stdout
+		ArgumentError
+
+wrong_arg_type.burn:
+	try {
+		[].magic:index( "1" )
+	} catch ArgumentError $e {
+		print "ArgumentError"
+	}
+$ burn wrong_arg_type.burn
+	* stdout
+		ArgumentError

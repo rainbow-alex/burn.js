@@ -486,7 +486,7 @@ module.exports = function( tokens ) {
 			if( peek().type === "." ) {
 				let dot = read();
 				let property = read( "identifier" );
-				expression = new ast.DotAccessExpression( {
+				expression = new ast.PropertyExpression( {
 					expression: expression,
 					dot: dot,
 					property: property,

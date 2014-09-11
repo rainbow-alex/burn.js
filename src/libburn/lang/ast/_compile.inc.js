@@ -279,7 +279,7 @@ ast.CallExpression.prototype.compile = function( output ) {
 	output.code += '],void _fiber.setLine(' + this.lparen.line + '))';
 };
 
-ast.DotAccessExpression.prototype.compile = function( output ) {
+ast.PropertyExpression.prototype.compile = function( output ) {
 	this.expression.compile( output );
 	output.code += '.getProperty(_fiber,"' + this.property.value + '",void _fiber.setLine(' + this.dot.line + '))';
 };

@@ -13,13 +13,3 @@ list.burn:
 $ burn list.burn
 	* stdout
 		3
-
-push.burn:
-	let $list = []
-	$list.push( 1 )
-	$list.push( 2 )
-	print $list.length
-
-$ burn push.burn
-	* stdout
-		2
