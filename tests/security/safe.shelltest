@@ -1,0 +1,11 @@
+types.burn:
+	print 1 is Safe
+	print "" is Safe
+	import burn
+	print burn is Safe
+
+$ burn types.burn
+	* stdout
+		true
+		true
+		true

@@ -11,41 +11,29 @@ types.Float = new util.JsInstanceofType( Value.Float );
 types.String = new util.JsInstanceofType( Value.String );
 types.Function = new util.JsInstanceofType( Value.Function );
 
-types.Type = new ( CLASS( Value.Special, {
-	repr: "Type",
-	typeTest: function( fiber, v ) {
-		if( v instanceof Value.Special && v.typeTest ) {
-			return true;
-		} else {
-			return false;
-		}
-	},
-} ) )();
+types.Type = new util.JsFunctionType( function( fiber, v ) {
+	return Boolean( v.typeTest );
+} );
 
-types.Anything = new ( CLASS( Value.Special, {
-	typeTest: function( fiber, v ) {
-		return ! v instanceof Value.Nothing;
-	},
-} ) )();
+types.Safe = new util.JsFunctionType( function( fiber, v ) {
+	return v.isSafe();
+} );
 
-types.Truthy = new ( CLASS( Value.Special, {
-	typeTest: function( fiber, v ) {
-		return v.isTruthy();
-	},
-} ) )();
+types.Anything = new util.JsFunctionType( function( fiber, v ) {
+	return ! v instanceof Value.Nothing;
+} );
 
-types.Falsy = new ( CLASS( Value.Special, {
-	typeTest: function( fiber, v ) {
-		return ! v.isTruthy();
-	},
-} ) )();
+types.Truthy = new util.JsFunctionType( function( fiber, v ) {
+	return v.isTruthy();
+} );
 
-types.Number = new ( CLASS( Value.Special, {
-	repr: "Number",
-	typeTest: function( fiber, v ) {
-		return v instanceof Value.Integer || v instanceof Value.Float;
-	},
-} ) )();
+types.Falsy = new util.JsFunctionType( function( fiber, v ) {
+	return ! v.isTruthy();
+} );
+
+types.Number = new util.JsFunctionType( function( fiber, v ) {
+	return v instanceof Value.Integer || v instanceof Value.Float;
+} );
 
 types.exposes = new Value.Module( {
 	Nothing: types.Nothing,
@@ -55,6 +43,7 @@ types.exposes = new Value.Module( {
 	String: types.String,
 	Function: types.Function,
 	Type: types.Type,
+	Safe: types.Safe,
 	Anything: types.Anything,
 	Truthy: types.Truthy,
 	Falsy: types.Falsy,

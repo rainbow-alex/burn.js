@@ -24,6 +24,9 @@ let Value = module.exports = CLASS( {
 	canSet: function( property ) {
 		return false;
 	},
+	isSafe: function() {
+		return false;
+	},
 } );
 
 Value.Nothing = CLASS( Value, {
@@ -33,6 +36,9 @@ Value.Nothing = CLASS( Value, {
 	},
 	isTruthy: function( fiber ) {
 		return false;
+	},
+	isSafe: function() {
+		return true;
 	},
 } );
 
@@ -46,6 +52,9 @@ Value.Boolean = CLASS( Value, {
 	},
 	isTruthy: function( fiber ) {
 		return this.value;
+	},
+	isSafe: function() {
+		return true;
 	},
 } );
 
@@ -69,6 +78,9 @@ Value.Integer = CLASS( Value, {
 	lt: function( fiber, value ) {
 		return this.value < value.value;
 	},
+	isSafe: function() {
+		return true;
+	},
 } );
 
 Value.Float = CLASS( Value, {
@@ -88,6 +100,9 @@ Value.Float = CLASS( Value, {
 	lt: function( fiber, value ) {
 		return this.value < value.value;
 	},
+	isSafe: function() {
+		return true;
+	},
 } );
 
 Value.String = CLASS( Value, {
@@ -106,6 +121,9 @@ Value.String = CLASS( Value, {
 	},
 	lt: function( fiber, other ) {
 		return this.value < other.value;
+	},
+	isSafe: function() {
+		return true;
 	},
 } );
 
@@ -181,6 +199,9 @@ Value.Module = CLASS( Value, {
 	_set: function( name, value ) {
 		this[ "$" + name ] = value;
 		value.suggestName( name );
+	},
+	isSafe: function() {
+		return true;
 	},
 } );
 

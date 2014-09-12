@@ -93,3 +93,17 @@ help.JsInstanceofType = CLASS( Value.Special, {
 		return v instanceof this.constructor;
 	},
 } );
+
+help.JsFunctionType = CLASS( Value.Special, {
+	init: function( test ) {
+		this.test = test;
+	},
+	suggestName: function( name ) {
+		if( ! this.hasOwnProperty( "repr" ) ) {
+			this.repr = name;
+		}
+	},
+	typeTest: function( fiber, v ) {
+		return ( this.test )( fiber, v );
+	},
+} );

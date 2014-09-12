@@ -15,13 +15,14 @@ implicit.exposes = new Value.Module( {
 	String: types.String,
 	Function: types.Function,
 	Type: types.Type,
-	
-	List: list.List,
+	Safe: types.Safe,
 	
 	TypeError: errors.TypeError,
 	ArgumentError: errors.ArgumentError,
 	ImportError: errors.ImportError,
 	IncludeError: errors.IncludeError,
+	
+	List: list.List,
 	
 	main: new Value.Function( function( fiber, args ) {
 		fiber.vm.main = args[0]; // TODO typecheck
