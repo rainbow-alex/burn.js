@@ -163,8 +163,6 @@ ast.FunctionParameter.prototype.resolve = function( scope ) {
 ast.IdentifierExpression.prototype.resolve = function( scope ) {
 	if( this.token.value === "magic:filename" && this.token.origin.filename ) {
 		this.magicValue = path.resolve( this.token.origin.filename );
-	} else if( this.token.value === "magic:dirname" && this.token.origin.filename ) {
-		this.magicValue = path.dirname( path.resolve( this.token.origin.filename ) );
 	} else if( this.token.value === "magic:line" ) {
 		this.magicValue = this.token.line;
 	} else {

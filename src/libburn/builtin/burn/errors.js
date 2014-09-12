@@ -1,10 +1,10 @@
 "use strict";
-let vm = require( "libburn/vm" );
-let JsInstanceofType = vm.helpers.JsInstanceofType;
+let Value = require( "libburn/vm/Value" );
+let util = require( "libburn/vm/util" );
 
 let errors = module.exports;
 
-let ErrorInstance = CLASS( vm.Special, {
+let ErrorInstance = CLASS( Value.Special, {
 	init: function( message, stack ) {
 		this.message = message;
 		this.stack = stack.map( function( f ) {
@@ -20,20 +20,24 @@ let ErrorInstance = CLASS( vm.Special, {
 } );
 
 errors.TypeErrorInstance = CLASS( ErrorInstance );
-errors.TypeError = new JsInstanceofType( errors.TypeErrorInstance );
+errors.TypeError = new util.JsInstanceofType( errors.TypeErrorInstance );
+
+errors.PropertyErrorInstance = CLASS( ErrorInstance );
+errors.PropertyError = new util.JsInstanceofType( errors.PropertyErrorInstance );
 
 errors.ArgumentErrorInstance = CLASS( ErrorInstance );
-errors.ArgumentError = new JsInstanceofType( errors.ArgumentErrorInstance );
+errors.ArgumentError = new util.JsInstanceofType( errors.ArgumentErrorInstance );
 
 errors.ImportErrorInstance = CLASS( ErrorInstance );
-errors.ImportError = new JsInstanceofType( errors.ImportErrorInstance );
+errors.ImportError = new util.JsInstanceofType( errors.ImportErrorInstance );
 
 errors.IncludeErrorInstance = CLASS( ErrorInstance );
-errors.IncludeError = new JsInstanceofType( errors.IncludeErrorInstance );
+errors.IncludeError = new util.JsInstanceofType( errors.IncludeErrorInstance );
 
-errors.exposes = new vm.Module( {
+errors.exposes = new Value.Module( {
 	
 	TypeError: errors.TypeError,
+	PropertyError: errors.PropertyError,
 	ArgumentError: errors.TypeError,
 	ImportError: errors.ImportError,
 	IncludeError: errors.IncludeError,

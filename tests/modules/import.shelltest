@@ -1,9 +1,7 @@
 example/burn_module.json:
-	{
-		"sources": [
-			"src/example.burn"
-		]
-	}
+	{ "sources": [
+		"src/example.burn"
+	] }
 
 example/src/example.burn:
 	print "example loaded"
@@ -14,3 +12,61 @@ main.burn:
 $ burn main.burn
 	* stdout
 		example loaded
+
+@todo duplicate name
+@todo shadowing
+
+bad/burn_module.json:
+	invalid json
+
+main.burn:
+	try {
+		import bad
+	} catch ImportError $e {
+		print "ImportError"
+	}
+
+$ burn main.burn
+	* stdout
+		ImportError
+
+bad2/burn_module.json:
+	{ "sources": [
+		"src/exists.burn",
+		"src/missing.burn"
+	] }
+
+bad2/src/exists.burn:
+	print "existing file"
+
+main.burn:
+	try {
+		import bad2
+	} catch ImportError $e {
+		print "ImportError"
+	}
+
+$ burn main.burn
+	* stdout
+		ImportError
+
+bad3/burn_module.json:
+	{ "sources": [
+		"src/syntax_error.burn"
+	] }
+
+bad3/src/syntax_error.burn:
+	foo bar baz
+
+main.burn:
+	try {
+		import bad3
+	} catch ImportError $e {
+		print "ImportError"
+	}
+
+$ burn main.burn
+	* stdout
+		ImportError
+
+@todo bad file permissions

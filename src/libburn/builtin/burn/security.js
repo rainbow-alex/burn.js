@@ -1,17 +1,17 @@
 "use strict";
-let vm = require( "libburn/vm" );
-let JsInstanceofType = vm.helpers.JsInstanceofType;
+let Value = require( "libburn/vm/Value" );
+let util = require( "libburn/vm/util" );
 
 let security = module.exports;
 
-security.KeyInstance = CLASS( vm.Special, {
+security.KeyInstance = CLASS( Value.Special, {
 	init: function( id ) {
 		this.id = id;
 	},
 } );
-security.Key = new JsInstanceofType( security.KeyInstance );
+security.Key = new util.JsInstanceofType( security.KeyInstance );
 
-security.exposes = new vm.Module( {
+security.exposes = new Value.Module( {
 	Key: security.Key,
 } );
 

@@ -1,0 +1,8 @@
+main.burn:
+	main( function() {
+		print "foo"
+	} )
+
+$ burn main.burn
+	* stdout
+		foo

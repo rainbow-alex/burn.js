@@ -1,30 +1,30 @@
 "use strict";
-let vm = require( "libburn/vm" );
-let helpers = vm.helpers;
+let Value = require( "libburn/vm/Value" );
+let util = require( "libburn/vm/util" );
 let types = require( "libburn/builtin/burn/types" );
 
 let list = module.exports;
 
-list.JsListInstance = CLASS( vm.Special, {
+list.JsListInstance = CLASS( Value.Special, {
 	init: function( items ) {
 		this.items = items;
 	},
 	repr: "<List>",
-	getProperty_length: function( fiber ) {
-		return new vm.Integer( this.items.length );
+	get_length: function( fiber ) {
+		return new Value.Integer( this.items.length );
 	},
-	"callMethod_magic:index": function( fiber, args ) {
-		helpers.validateArguments( fiber, [ types.Integer ], args );
+	getIndex: function( fiber, index ) {
+		util.validateIndex( fiber, types.Integer, index );
 		return this.items[ args[0].value ];
 	},
-	callMethod_push: function( fiber, args ) {
-		helpers.validateArguments( fiber, [ {} ], args );
+	call_push: function( fiber, args ) {
+		util.validateArguments( fiber, [ {} ], args );
 		this.items.push( args[0] );
 	},
 } );
 
-list.List = new helpers.JsInstanceofType( list.JsListInstance ); // TODO other types should be able to be a List
+list.List = new util.JsInstanceofType( list.JsListInstance ); // TODO other types should be able to be a List
 
-list.exposes = new vm.Module( {
+list.exposes = new Value.Module( {
 	List: list.List,
 } );

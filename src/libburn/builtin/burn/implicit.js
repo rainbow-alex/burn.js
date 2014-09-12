@@ -1,18 +1,17 @@
 "use strict";
-let vm = require( "libburn/vm" );
+let Value = require( "libburn/vm/Value" );
 let types = require( "./types" );
 let errors = require( "./errors" );
 let list = require( "./list" );
 
 let implicit = module.exports;
 
-implicit.exposes = new vm.Module( {
+implicit.exposes = new Value.Module( {
 	
 	Nothing: types.Nothing,
 	Boolean: types.Boolean,
 	Integer: types.Integer,
 	Float: types.Float,
-	Number: types.Number,
 	String: types.String,
 	Function: types.Function,
 	Type: types.Type,
@@ -21,8 +20,10 @@ implicit.exposes = new vm.Module( {
 	
 	TypeError: errors.TypeError,
 	ArgumentError: errors.ArgumentError,
+	ImportError: errors.ImportError,
+	IncludeError: errors.IncludeError,
 	
-	main: new vm.Function( function( fiber, args ) {
+	main: new Value.Function( function( fiber, args ) {
 		fiber.vm.main = args[0]; // TODO typecheck
 	} ),
 	

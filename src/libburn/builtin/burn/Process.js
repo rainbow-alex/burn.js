@@ -1,12 +1,12 @@
 "use strict";
-let vm = require( "libburn/vm" );
-let JsInstanceofType = vm.helpers.JsInstanceofType;
+let Value = require( "libburn/vm/Value" );
+let util = require( "libburn/vm/util" );
 
 let Process = module.exports;
 
-Process.ProcessInstance = CLASS( vm.Special, {
+Process.ProcessInstance = CLASS( Value.Special, {
 	repr: "<Process>",
 } );
-Process.Process = new JsInstanceofType( Process.ProcessInstance )
+Process.Process = new util.JsInstanceofType( Process.ProcessInstance )
 
 Process.exposes = Process.Process;

@@ -3,7 +3,7 @@ let Error = require( "./Error" );
 
 module.exports = function( origin ) {
 	
-	let source = origin.source;
+	let source = origin.sourceCode;
 	
 	let tokens = [];
 	let i = 0;

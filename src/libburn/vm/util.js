@@ -1,23 +1,22 @@
 "use strict";
-let vm = require( "./" );
+let nodefibers = require( "fibers" );
+let Value = require( "./Value" );
 
-let helpers = module.exports;
+let help = module.exports;
 
-helpers.JsInstanceofType = CLASS( vm.Special, {
-	init: function( constructor ) {
-		this.constructor = constructor;
-	},
-	suggestName: function( name ) {
-		if( ! this.hasOwnProperty( "repr" ) ) {
-			this.repr = name;
+help.async = function( f ) {
+	let current = nodefibers.current;
+	f( function( err, res ) {
+		if( err ) {
+			current.throwInto( err );
+		} else {
+			current.run( res );
 		}
-	},
-	typeTest: function( fiber, v ) {
-		return v instanceof this.constructor;
-	},
-} );
+	} );
+	return nodefibers.yield();
+};
 
-helpers.validateArguments = function( fiber, signature, args ) {
+help.validateArguments = function( fiber, signature, args ) {
 	let frame = fiber.stack[ fiber.stack.length - 1 ];
 	let callable = frame.method || frame.function_;
 	
@@ -48,7 +47,7 @@ helpers.validateArguments = function( fiber, signature, args ) {
 		}
 		
 		let type;
-		if( sig instanceof vm.Value ) {
+		if( sig instanceof Value ) {
 			type = sig;
 		} else {
 			type = sig.type;
@@ -71,3 +70,26 @@ helpers.validateArguments = function( fiber, signature, args ) {
 		}
 	}
 };
+
+help.validateIndex = function( fiber, type, index ) {
+	if( ! type.typeTest( fiber, index ) ) {
+		throw new errors.TypeErrorInstance(
+			"TypeError: Index must be " + type.repr + ", got " + index.repr,
+			fiber.stack
+		);
+	}
+};
+
+help.JsInstanceofType = CLASS( Value.Special, {
+	init: function( constructor ) {
+		this.constructor = constructor;
+	},
+	suggestName: function( name ) {
+		if( ! this.hasOwnProperty( "repr" ) ) {
+			this.repr = name;
+		}
+	},
+	typeTest: function( fiber, v ) {
+		return v instanceof this.constructor;
+	},
+} );

@@ -1,9 +1,9 @@
 "use strict";
-let vm = require( "libburn/vm" );
+let Value = require( "libburn/vm/Value" );
 
 let burn = module.exports;
 
-burn.exposes = new vm.Module( {
+burn.exposes = new Value.Module( {
 	types: require( "./types" ).exposes,
 	errors: require( "./errors" ).exposes,
 	list: require( "./list" ).exposes,

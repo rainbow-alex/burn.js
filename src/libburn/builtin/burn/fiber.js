@@ -1,29 +1,17 @@
 "use strict";
-let NodeFiber = require( "fibers" );
-let vm = require( "libburn/vm" );
+let Value = require( "libburn/vm/Value" );
 
 let fiber = module.exports;
 
-fiber.exposes = new vm.Module( {
+fiber.exposes = new Value.Module( {
 	
-	fork: new vm.Function( function( fiber, args ) {
-		let forkFiber = new vm.Fiber( fiber.vm );
-		setImmediate( function() {
-			try {
-				NodeFiber( function() {
-					args[0].call( forkFiber, [] );
-				} ).run();
-			} catch( e ) {
-				if( e instanceof vm.Value ) {
-					forkFiber.vm.dispatchUncaughtThrowable( e );
-				} else {
-					throw e;
-				}
-			}
+	fork: new Value.Function( function( fiber, args ) {
+		fiber.vm.fork( function( forkFiber ) {
+			args[0].call( forkFiber, [] );
 		} );
 	} ),
 	
-	yield: new vm.AsyncFunction( function( fiber, args, cb ) {
+	yield: new Value.AsyncFunction( function( fiber, args, cb ) {
 		setImmediate( cb );
 	} ),
 	

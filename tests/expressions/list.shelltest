@@ -13,3 +13,23 @@ list.burn:
 $ burn list.burn
 	* stdout
 		3
+
+trailing_comma.burn:
+	let $list = [ 1, 2, 3, ]
+	print $list.length
+
+$ burn trailing_comma.burn
+	* stdout
+		3
+
+newlines.burn:
+	let $list = [
+		"foo",
+		"bar",
+		"baz",
+	]
+	print $list.length
+
+$ burn newlines.burn
+	* stdout
+		3

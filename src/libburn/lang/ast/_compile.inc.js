@@ -16,7 +16,7 @@ function encodeString( s ) {
 
 ast.Script.prototype.compile = function() {
 	let output = { code: "", tmp: 0 };
-	output.code += 'let _=require("libburn/vm/runtime");';
+	output.code += 'let _=require("libburn/vm/rt");';
 	output.code += 'let _origin=_._origin;delete _._origin;';
 	output.code += 'let _fiber=_._fiber;delete _._fiber;';
 	this.statements.forEach( function( s ) {
@@ -280,8 +280,9 @@ ast.CallExpression.prototype.compile = function( output ) {
 };
 
 ast.PropertyExpression.prototype.compile = function( output ) {
+	output.code += '_.get(_fiber,';
 	this.expression.compile( output );
-	output.code += '.getProperty(_fiber,"' + this.property.value + '",void _fiber.setLine(' + this.dot.line + '))';
+	output.code += ',"' + this.property.value + '",void _fiber.setLine(' + this.dot.line + '))';
 };
 
 ast.FunctionExpression.prototype.compile = function( output ) {

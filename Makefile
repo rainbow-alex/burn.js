@@ -8,4 +8,4 @@ tests_extra:
 
 .PHONY: todo
 todo:
-	grep -HrnIi --color=always "TODO" src tests | sed "s/^/    /"
+	grep -HrnIi --color=always "todo" src tests | sed "s/^/    /"

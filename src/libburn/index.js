@@ -24,5 +24,6 @@ global.CLASS = function( parent, properties ) {
 	return constructor;
 };
 
+exports.origin = require( "./origin" );
 exports.lang = require( "./lang" );
 exports.vm = require( "./vm" );

@@ -1,11 +1,11 @@
 "use strict";
 let fs = require( "fs" );
 
-exports.ScriptOrigin = CLASS( {
+exports.Script = CLASS( {
 	init: function( filename ) {
 		this.filename = filename;
 	},
-	get source() {
+	get sourceCode() {
 		return fs.readFileSync( this.filename, "utf-8" );
 	},
 	toString: function() {
@@ -13,8 +13,8 @@ exports.ScriptOrigin = CLASS( {
 	},
 } );
 
-exports.StdinOrigin = CLASS( {
-	get source() {
+exports.Stdin = CLASS( {
+	get sourceCode() {
 		return this._source || ( this._source = fs.readFileSync( "/dev/stdin", "utf-8" ) );
 	},
 	toString: function() {

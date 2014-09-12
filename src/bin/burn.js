@@ -31,10 +31,10 @@ let remaining_args;
 		} else if( process.argv[i] === "--tolerant" ) {
 			vm.enableLint = false;
 		} else if( process.argv[i] === "-" ) {
-			origin = new libburn.vm.origin.StdinOrigin();
+			origin = new libburn.origin.Stdin();
 			break;
 		} else {
-			origin = new libburn.vm.origin.ScriptOrigin( process.argv[i] );
+			origin = new libburn.origin.Script( process.argv[i] );
 			break;
 		}
 	}
@@ -51,20 +51,18 @@ if( ! origin ) {
 	console.error( "REPL is not implemented in burn.js." );
 	process.exit( 1 );
 } else {
-	let code;
 	try {
-		code = vm.compile( origin );
+		vm.start( origin );
 	} catch( e ) { if( e instanceof libburn.lang.Error ) {
 		printError( e );
 		process.exit( 1 );
 	} else { throw e; } }
-	vm.runMain( origin, code );
 }
 
 function printError( e ) {
 	console.error( e.message );
 	console.error( "in " + e.origin + " on line " + e.line );
-	let line = e.origin.source.split("\n")[ e.line - 1 ];
+	let line = e.origin.sourceCode.split("\n")[ e.line - 1 ];
 	let indicator = line.substr( 0, e.offset ).replace(/\t/g, "    " ).replace( /./g, " " ) + "^";
 	line = line.replace(/\t/g, "    " );
 	console.error( "\t" + line );
