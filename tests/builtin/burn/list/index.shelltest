@@ -1,0 +1,7 @@
+index.burn:
+	let $list = [ "a", "b" ]
+	print $list[ 1 ]
+
+$ burn index.burn
+	* stdout
+		b

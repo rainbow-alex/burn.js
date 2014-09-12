@@ -483,15 +483,7 @@ module.exports = function( tokens ) {
 	function parseAccessExpression() {
 		let expression = parseAtomExpression();
 		while( true ) {
-			if( peek().type === "." ) {
-				let dot = read();
-				let property = read( "identifier" );
-				expression = new ast.PropertyExpression( {
-					expression: expression,
-					dot: dot,
-					property: property,
-				} );
-			} else if( peek().type === "(" ) {
+			if( peek().type === "(" ) {
 				let lparen = read();
 				startIgnoringNewlines();
 				let args = [];
@@ -511,6 +503,25 @@ module.exports = function( tokens ) {
 					callee: expression,
 					lparen: lparen,
 					arguments: args,
+				} );
+			} else if( peek().type === "." ) {
+				let dot = read();
+				let property = read( "identifier" );
+				expression = new ast.PropertyExpression( {
+					expression: expression,
+					dot: dot,
+					property: property,
+				} );
+			} else if( peek().type === "[" ) {
+				let lbracket = read();
+				startIgnoringNewlines();
+				let index = parseExpression();
+				read( "]" );
+				stopIgnoringNewlines();
+				expression = new ast.IndexExpression( {
+					expression: expression,
+					lbracket: lbracket,
+					index: index,
 				} );
 			} else {
 				break;

@@ -3,9 +3,6 @@ let Fiber = require( "./Fiber" );
 
 let Value = module.exports = CLASS( {
 	suggestName: function( name ) {},
-	has: function( fiber, property ) {
-		return false;
-	},
 	toBurnString: function( fiber ) {
 		return new Value.String( this.repr );
 	},
@@ -19,6 +16,12 @@ let Value = module.exports = CLASS( {
 		return this === value;
 	},
 	canOrd: function( value ) {
+		return false;
+	},
+	canGet: function( property ) {
+		return false;
+	},
+	canSet: function( property ) {
 		return false;
 	},
 } );
@@ -151,7 +154,8 @@ Value.Module = CLASS( Value, {
 	init: function( contents ) {
 		if( contents ) {
 			for( var k in contents ) {
-				this.set( null, k, contents[k] );
+				console.assert( contents[k] instanceof Value, "\"" + k + "\" should be a Value" );
+				this._set( k, contents[k] );
 			}
 		}
 	},
@@ -165,14 +169,16 @@ Value.Module = CLASS( Value, {
 			return "<Module>";
 		}
 	},
-	has: function( name ) {
+	canGet: function( name ) {
 		return Boolean( this[ "$" + name ] );
 	},
 	get: function( fiber, name ) {
 		return this[ "$" + name ];
 	},
 	set: function( fiber, name, value ) {
-		console.assert( value instanceof Value, "\"" + name + "\" should be a Value" );
+		this._set( name, value );
+	},
+	_set: function( name, value ) {
 		this[ "$" + name ] = value;
 		value.suggestName( name );
 	},
@@ -180,7 +186,10 @@ Value.Module = CLASS( Value, {
 
 Value.Special = CLASS( Value, {
 	repr: "<Special>",
-	has: function( name ) {
+	toBurnString: function( fiber ) {
+		return new Value.String( this.toString() );
+	},
+	canGet: function( name ) {
 		return Boolean( this[ "get_" + name ] || this[ "call_" + name ] );
 	},
 	get: function( fiber, name ) {
@@ -189,9 +198,6 @@ Value.Special = CLASS( Value, {
 		} else {
 			return this[ "get_" + name ]( fiber );
 		}
-	},
-	toBurnString: function( fiber ) {
-		return new Value.String( this.toString() );
 	},
 	toString: function() {
 		return this.repr;

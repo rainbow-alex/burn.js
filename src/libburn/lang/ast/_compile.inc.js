@@ -285,6 +285,14 @@ ast.PropertyExpression.prototype.compile = function( output ) {
 	output.code += ',"' + this.property.value + '",void _fiber.setLine(' + this.dot.line + '))';
 };
 
+ast.IndexExpression.prototype.compile = function( output ) {
+	output.code += '_.getIndex(_fiber,';
+	this.expression.compile( output );
+	output.code += ',';
+	this.index.compile( output );
+	output.code += ',void _fiber.setLine(' + this.lbracket.line + '))';
+};
+
 ast.FunctionExpression.prototype.compile = function( output ) {
 	output.code += '_.createFunction(function(_fiber,_args){';
 	this.parameters.forEach( function( a, i ) {

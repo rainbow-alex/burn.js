@@ -10,12 +10,12 @@ list.JsListInstance = CLASS( Value.Special, {
 		this.items = items;
 	},
 	repr: "<List>",
-	get_length: function( fiber ) {
-		return new Value.Integer( this.items.length );
-	},
 	getIndex: function( fiber, index ) {
 		util.validateIndex( fiber, types.Integer, index );
-		return this.items[ args[0].value ];
+		return this.items[ index.value ];
+	},
+	get_length: function( fiber ) {
+		return new Value.Integer( this.items.length );
 	},
 	call_push: function( fiber, args ) {
 		util.validateArguments( fiber, [ {} ], args );

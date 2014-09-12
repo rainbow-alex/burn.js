@@ -38,13 +38,24 @@ rt.createList = function( items ) {
 };
 
 rt.get = function( fiber, value, property ) {
-	if( ! value.has( property ) ) {
+	if( value.canGet( property ) ) {
+		return value.get( fiber, property );
+	} else {
 		throw new errors.PropertyErrorInstance(
 			"PropertyError: " + value.repr + " has no property `" + property + "`.",
 			fiber.stack
 		);
+	}
+};
+
+rt.getIndex = function( fiber, value, index ) {
+	if( value.getIndex ) {
+		return value.getIndex( fiber, index );
 	} else {
-		return value.get( fiber, property );
+		throw new errors.TypeErrorInstance(
+			"TypeError: " + value.repr + " is not Indexable.",
+			fiber.stack
+		);
 	}
 };
 
@@ -149,13 +160,14 @@ rt.not = function( fiber, e ) {
 rt.import = function( fiber, fqn ) {
 	let x = fiber.vm.importRootModule( fiber, fqn[0] );
 	fqn.slice(1).forEach( function( p ) {
-		if( ! x.has( p ) ) {
+		if( x.canGet( p ) ) {
+			x = x.get( fiber, p );
+		} else {
 			throw new errors.ImportErrorInstance(
-				"ImportError: ...",
+				"ImportError: ...", // TODO message
 				fiber.stack
 			);
 		}
-		x = x.get( fiber, p );
 	} );
 	return x;
 };
