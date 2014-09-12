@@ -3,15 +3,19 @@ let ast = require( "./" );
 
 function encodeVariable( v ) {
 	console.assert( v[0] === "$" );
-	return "$" + v.replace( /:/g, "$" );
+	return '$' + v.replace( /:/g, '$' );
 }
 
 function encodeName( n ) {
-	return "$" + n.replace( /:/g, "$" );
+	return '$' + n.replace( /:/g, '$' );
 }
 
 function encodeString( s ) {
 	return JSON.stringify( s );
+}
+
+function encodeBoolean( b ) {
+	return b ? 'true' : 'false';
 }
 
 ast.Script.prototype.compile = function() {
@@ -306,6 +310,7 @@ ast.FunctionExpression.prototype.compile = function( output ) {
 	if( this.name ) {
 		output.code += 'name:' + encodeString( this.name ) + ',';
 	}
+	output.code += 'safe:' + encodeBoolean( this.safe ) + ',';
 	output.code += 'origin:_origin,';
 	output.code += 'line:' + this.keyword.line + ',';
 	output.code += '})';

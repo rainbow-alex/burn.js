@@ -9,3 +9,30 @@ $ burn types.burn
 		true
 		true
 		true
+
+safe_fn.burn:
+	print function() {} is Safe
+
+$ burn safe_fn.burn
+	* stdout
+		true
+
+unsafe_fn.burn:
+	let $foo
+	print function() {
+		( $foo )
+	} is Safe
+	print function() {
+		$foo = 3
+	} is Safe
+	print function() {
+		function() {
+			( $foo )
+		}
+	} is Safe
+
+$ burn unsafe_fn.burn
+	* stdout
+		false
+		false
+		false

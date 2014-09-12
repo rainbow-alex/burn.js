@@ -9,10 +9,10 @@ fiber.exposes = new Value.Module( {
 		fiber.vm.fork( function( forkFiber ) {
 			args[0].call( forkFiber, [] );
 		} );
-	} ),
+	}, { safe: true } ),
 	
 	yield: new Value.AsyncFunction( function( fiber, args, cb ) {
 		setImmediate( cb );
-	} ),
+	}, { safe: true } ),
 	
 } );

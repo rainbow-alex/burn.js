@@ -92,6 +92,9 @@ help.JsInstanceofType = CLASS( Value.Special, {
 	typeTest: function( fiber, v ) {
 		return v instanceof this.constructor;
 	},
+	isSafe: function() {
+		return true;
+	},
 } );
 
 help.JsFunctionType = CLASS( Value.Special, {
@@ -105,5 +108,8 @@ help.JsFunctionType = CLASS( Value.Special, {
 	},
 	typeTest: function( fiber, v ) {
 		return ( this.test )( fiber, v );
+	},
+	isSafe: function() {
+		return true;
 	},
 } );

@@ -43,7 +43,6 @@ module.exports = CLASS( {
 		}.bind( this ) ).run();
 	},
 	
-	// TODO Fiber.fork
 	fork: function( f ) {
 		let forkFiber = new Fiber( this );
 		setImmediate( function() {

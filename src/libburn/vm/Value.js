@@ -134,6 +134,7 @@ Value.Function = CLASS( Value, {
 		this.name = options.name;
 		this.origin = options.origin;
 		this.line = options.line;
+		this.safe = options.safe || false;
 	},
 	suggestName: function( name ) {
 		this.name = this.name || name;
@@ -152,6 +153,9 @@ Value.Function = CLASS( Value, {
 		} finally {
 			fiber.stack.pop();
 		}
+	},
+	isSafe: function() {
+		return this.safe;
 	},
 } );
 
@@ -173,6 +177,7 @@ Value.Module = CLASS( Value, {
 		if( contents ) {
 			for( var k in contents ) {
 				console.assert( contents[k] instanceof Value, "\"" + k + "\" should be a Value" );
+				console.assert( contents[k].isSafe(), "\"" + k + "\" should be Safe" );
 				this._set( k, contents[k] );
 			}
 		}

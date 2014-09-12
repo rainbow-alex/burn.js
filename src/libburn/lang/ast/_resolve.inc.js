@@ -4,23 +4,50 @@ let Error = require( "../Error" );
 let ast = require( "./" );
 
 let Scope = CLASS( {
-	declareName: function( name ) {
-		this[ "n:" + name ] = true;
+	init: function( parent, fn ) {
+		this.parent = parent;
+		this.fn = fn;
+		this.names = [];
+		this.variables = {};
 	},
-	declareVariable: function( name ) {
-		this[ "v:" + name ] = true;
+	declareName: function( name ) {
+		this.names[ name ] = true;
 	},
 	isNameDeclared: function( name ) {
-		return Boolean( this[ "n:" + name ] );
+		return Boolean(
+			this.names[ name ]
+			|| ( this.parent && this.parent.isNameDeclared( name ) )
+		);
+	},
+	declareVariable: function( name ) {
+		this.variables[ name ] = { fn: this.fn };
 	},
 	isVariableDeclared: function( name ) {
-		return Boolean( this[ "v:" + name ] );
+		return Boolean( this._findVariable( name ) );
 	},
 	isVariableDeclaredInThisScope: function( name ) {
-		return this.hasOwnProperty( "v:" + name );
+		return Boolean( this.variables[ name ] );
 	},
-	createNested: function() {
-		return Object.create( this );
+	_findVariable: function( name ) {
+		return this.variables[ name ] || ( this.parent && this.parent._findVariable( name ) );
+	},
+	useVariable: function( name ) {
+		let v = this._findVariable( name );
+		if( v.fn !== this.fn ) {
+			this.fn.closes = true;
+			if( this.parent ) {
+				this.parent.useVariable( name );
+			}
+		}
+	},
+	isClosure: function() {
+		return this.fn.closes;
+	},
+	spawnNestedBlockScope: function() {
+		return new Scope( this, this.fn );
+	},
+	spawnNestedFunctionScope: function() {
+		return new Scope( this, {} );
 	},
 } );
 
@@ -49,7 +76,7 @@ ast.Script.prototype.resolve = function() {
 
 ast.IfStatement.prototype.resolve = function( scope ) {
 	this.test.resolve( scope );
-	let blockScope = scope.createNested();
+	let blockScope = scope.spawnNestedBlockScope();
 	this.block.forEach( function( s ) {
 		s.resolve( blockScope );
 	} );
@@ -62,7 +89,7 @@ ast.IfStatement.prototype.resolve = function( scope ) {
 };
 
 ast.TryStatement.prototype.resolve = function( scope ) {
-	let tryScope = scope.createNested();
+	let tryScope = scope.spawnNestedBlockScope();
 	this.block.forEach( function( s ) {
 		s.resolve( tryScope );
 	} );
@@ -79,7 +106,7 @@ ast.TryStatement.prototype.resolve = function( scope ) {
 
 ast.WhileStatement.prototype.resolve = function( scope ) {
 	this.test.resolve( scope );
-	let blockScope = scope.createNested();
+	let blockScope = scope.spawnNestedBlockScope();
 	this.block.forEach( function( s ) {
 		s.resolve( blockScope );
 	} );
@@ -109,14 +136,14 @@ ast.AssignmentStatement.prototype.resolve = function( scope ) {
 
 ast.ElseIfClause.prototype.resolve = function( scope ) {
 	this.test.resolve( scope );
-	let blockScope = scope.createNested();
+	let blockScope = scope.spawnNestedBlockScope();
 	this.block.forEach( function( s ) {
 		s.resolve( blockScope );
 	} );
 };
 
 ast.ElseClause.prototype.resolve = function( scope ) {
-	let blockScope = scope.createNested();
+	let blockScope = scope.spawnNestedBlockScope();
 	this.block.forEach( function( s ) {
 		s.resolve( blockScope );
 	} );
@@ -126,7 +153,7 @@ ast.CatchClause.prototype.resolve = function( scope ) {
 	if( this.type ) {
 		this.type.resolve( scope );
 	}
-	let blockScope = scope.createNested();
+	let blockScope = scope.spawnNestedBlockScope();
 	blockScope.declareVariable( this.variable.value );
 	this.block.forEach( function( s ) {
 		s.resolve( blockScope );
@@ -134,20 +161,21 @@ ast.CatchClause.prototype.resolve = function( scope ) {
 };
 
 ast.FinallyClause.prototype.resolve = function( scope ) {
-	let blockScope = scope.createNested();
+	let blockScope = scope.spawnNestedBlockScope();
 	this.block.forEach( function( s ) {
 		s.resolve( blockScope );
 	} );
 };
 
 ast.FunctionExpression.prototype.resolve = function( scope ) {
-	let functionScope = scope.createNested();
+	let functionScope = scope.spawnNestedFunctionScope( this );
 	this.parameters.forEach( function( p ) {
 		p.resolve( functionScope );
 	} );
 	this.block.forEach( function( s ) {
 		s.resolve( functionScope );
 	} );
+	this.safe = ! functionScope.isClosure();
 };
 
 ast.FunctionParameter.prototype.resolve = function( scope ) {
@@ -174,12 +202,14 @@ ast.VariableExpression.prototype.resolve = function( scope ) {
 	if( ! scope.isVariableDeclared( this.token.value ) ) {
 		throw new Error( "Variable " + this.token.value + " not found.", this.token );
 	}
+	scope.useVariable( this.token.value );
 };
 
 ast.VariableLvalue.prototype.resolve = function( scope ) {
 	if( ! scope.isVariableDeclared( this.token.value ) ) {
 		throw new Error( "Variable " + this.token.value + " not found.", this.token );
 	}
+	scope.useVariable( this.token.value );
 };
 
 ast.VariableLvalue.prototype.suggestName = function() {
