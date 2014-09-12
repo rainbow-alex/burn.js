@@ -10,30 +10,35 @@ types.Integer = new util.JsInstanceofType( Value.Integer );
 types.Float = new util.JsInstanceofType( Value.Float );
 types.String = new util.JsInstanceofType( Value.String );
 types.Function = new util.JsInstanceofType( Value.Function );
+types.Module = new util.JsInstanceofType( Value.Module );
 
 types.Type = new util.JsFunctionType( function( fiber, v ) {
 	return Boolean( v.typeTest );
-} );
+}, { permanent: true } );
 
 types.Safe = new util.JsFunctionType( function( fiber, v ) {
 	return v.isSafe();
-} );
+}, { permanent: true } );
 
-types.Anything = new util.JsFunctionType( function( fiber, v ) {
+types.Permanent = new util.JsFunctionType( function( fiber, v ) {
+	return v.isPermanent();
+}, { permanent: true } );
+
+types.Something = new util.JsFunctionType( function( fiber, v ) {
 	return ! v instanceof Value.Nothing;
-} );
+}, { permanent: true } );
 
 types.Truthy = new util.JsFunctionType( function( fiber, v ) {
 	return v.isTruthy();
-} );
+}, { permanent: false } );
 
 types.Falsy = new util.JsFunctionType( function( fiber, v ) {
 	return ! v.isTruthy();
-} );
+}, { permanent: false } );
 
 types.Number = new util.JsFunctionType( function( fiber, v ) {
 	return v instanceof Value.Integer || v instanceof Value.Float;
-} );
+}, { permanent: true } );
 
 types.exposes = new Value.Module( {
 	Nothing: types.Nothing,
@@ -44,7 +49,8 @@ types.exposes = new Value.Module( {
 	Function: types.Function,
 	Type: types.Type,
 	Safe: types.Safe,
-	Anything: types.Anything,
+	Permanent: types.Permanent,
+	Something: types.Something,
 	Truthy: types.Truthy,
 	Falsy: types.Falsy,
 	Number: types.Number,

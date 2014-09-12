@@ -95,11 +95,16 @@ help.JsInstanceofType = CLASS( Value.Special, {
 	isSafe: function() {
 		return true;
 	},
+	isPermanent: function() {
+		return true;
+	},
 } );
 
 help.JsFunctionType = CLASS( Value.Special, {
-	init: function( test ) {
+	init: function( test, options ) {
 		this.test = test;
+		console.assert( options && options.permanent !== undefined, "JsFunctionTypes should specify wether they are Permanent." );
+		this.permanent = options.permanent;
 	},
 	suggestName: function( name ) {
 		if( ! this.hasOwnProperty( "repr" ) ) {
@@ -111,5 +116,8 @@ help.JsFunctionType = CLASS( Value.Special, {
 	},
 	isSafe: function() {
 		return true;
+	},
+	isPermanent: function() {
+		return this.permanent;
 	},
 } );

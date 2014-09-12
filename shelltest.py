@@ -16,30 +16,33 @@ COLOR_GREEN = "\033[32m"
 COLOR_GRAY = "\033[37m"
 
 def main():
-	
-	global passed
-	global failed
-	passed = 0
-	failed = 0
-	
-	i = 1
-	while i < len( sys.argv ):
-		arg = sys.argv[i]
-		if arg == "--path":
-			i += 1
-			try:
-				path = sys.argv[i]
+	try:
+		global passed
+		global failed
+		passed = 0
+		failed = 0
+		
+		i = 1
+		while i < len( sys.argv ):
+			arg = sys.argv[i]
+			if arg == "--path":
 				i += 1
-			except IndexError:
-				print( "%s: missing argument to --path" % sys.argv[0], file=sys.stderr )
-				sys.exit( 1 )
-			os.environ[ "PATH" ] = os.path.realpath( path ) + ":" + os.environ[ "PATH" ]
-		else:
-			break
-	
-	while i < len( sys.argv ):
-		scan( sys.argv[i] )
-		i += 1
+				try:
+					path = sys.argv[i]
+					i += 1
+				except IndexError:
+					print( "%s: missing argument to --path" % sys.argv[0], file=sys.stderr )
+					sys.exit( 1 )
+				os.environ[ "PATH" ] = os.path.realpath( path ) + ":" + os.environ[ "PATH" ]
+			else:
+				break
+		
+		while i < len( sys.argv ):
+			scan( sys.argv[i] )
+			i += 1
+		
+	except KeyboardInterrupt:
+		print( "*** INTERRUPTED ***" )
 	
 	print()
 	print( "%s%s%s/%s%s" % ( COLOR_GREEN if not failed else COLOR_RED, COLOR_BOLD, passed, passed + failed, COLOR_RESET ) )

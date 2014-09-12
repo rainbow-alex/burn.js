@@ -14,8 +14,9 @@ implicit.exposes = new Value.Module( {
 	Float: types.Float,
 	String: types.String,
 	Function: types.Function,
+	Module: types.Module,
 	Type: types.Type,
-	Safe: types.Safe,
+	Something: types.Something,
 	
 	TypeError: errors.TypeError,
 	ArgumentError: errors.ArgumentError,

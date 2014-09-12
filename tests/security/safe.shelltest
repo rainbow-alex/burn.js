@@ -1,4 +1,5 @@
 types.burn:
+	import burn.types.Safe
 	print 1 is Safe
 	print "" is Safe
 	import burn
@@ -11,6 +12,7 @@ $ burn types.burn
 		true
 
 safe_fn.burn:
+	import burn.types.Safe
 	print function() {} is Safe
 
 $ burn safe_fn.burn
@@ -18,6 +20,7 @@ $ burn safe_fn.burn
 		true
 
 unsafe_fn.burn:
+	import burn.types.Safe
 	let $foo
 	print function() {
 		( $foo )

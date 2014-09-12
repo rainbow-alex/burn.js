@@ -1,0 +1,34 @@
+types.burn:
+	import burn.types
+	import burn.types.Permanent
+	print Nothing is Permanent
+	print Boolean is Permanent
+	print Integer is Permanent
+	print Float is Permanent
+	print String is Permanent
+	print Function is Permanent
+	print Module is Permanent
+	print Type is Permanent
+	print types.Safe is Permanent
+	print Permanent is Permanent
+	print Something is Permanent
+	print types.Truthy is not Permanent
+	print types.Falsy is not Permanent
+	print types.Number is Permanent
+
+$ burn types.burn
+	* stdout
+		true
+		true
+		true
+		true
+		true
+		true
+		true
+		true
+		true
+		true
+		true
+		true
+		true
+		true
