@@ -21,7 +21,7 @@ module.exports = function( origin ) {
 		// comments
 		} else if( m = source.substr(i).match( /^\/(\*+)(.|\n)*?([^*]\1\/|$)/ ) ) {
 			// pass
-		} else if( m = source.substr(i).match( /^\/\/.*?(\n|$)/ ) ) {
+		} else if( m = source.substr(i).match( /^\/\/.*?(?=\n|$)/ ) ) {
 			// pass
 		
 		// newline

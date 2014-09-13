@@ -12,9 +12,14 @@ import re
 
 class BurnEvalError (Exception): pass
 
-def eval_burn( source ):
-	if "burn" in source:
-		source = "import burn\n" + source
+def create_test( expression, catch_type_error = True ):
+	if catch_type_error:
+		return "try { print %s } catch TypeError $e { print \"TypeError\" }\n" % expression
+	else:
+		return "print %s\n" % expression
+
+def eval_burn( source, imports = [] ):
+	source = "".join( "import %s\n" % i for i in imports ) + source
 	process = subprocess.Popen(
 		"../src/bin/burn.js --tolerant -",
 		stdin = subprocess.PIPE,
@@ -30,11 +35,8 @@ def eval_burn( source ):
 	stdout = process.stdout.read().decode( "utf-8" )
 	return stdout
 
-def eval_burn_expression( expression ):
-	return eval_burn( "print " + expression )[:-1]
-
-def eval_burn_expressions( expressions ):
-	return eval_burn( "".join( "print %s\n" % e for e in expressions ) ).splitlines()
+def eval_burn_expressions( expressions, imports ):
+	return eval_burn( "".join( map( create_test, expressions ) ), imports ).splitlines()
 
 #
 # operator definitions
@@ -98,19 +100,18 @@ def stderr_end_line():
 		print( file=sys.stderr )
 	stderr_newline = True
 
-def print_test( name, source, stdout ):
+def print_test( name, source, stdout=None ):
 	assert source
 	print()
 	print( "%s.burn:" % name )
-	if "burn" in source:
-		print( "\timport burn" )
 	for l in source.splitlines():
 		print( "\t%s" % l )
 	print()
 	print( "$ burn --tolerant %s.burn" % name )
-	print( "	* stdout" )
-	for l in stdout.splitlines():
-		print( "\t\t%s" % l )
+	if stdout:
+		print( "	* stdout" )
+		for l in stdout.splitlines():
+			print( "\t\t%s" % l )
 
 #
 # generating routines
@@ -132,166 +133,115 @@ if sys.argv[1] == "result":
 		"true", "false",
 		"0", "2", "-2",
 		"0.0", "2.0",  "-0.5",
-		"\"\"", "\"foo\"",
-		"function(){}",
-		"Something",
-		"burn"
+		"\"\"", "\"apple\"", "\"banana\"",
+		"repr", "function(){}",
+		"Something", "Type",
+		"types", "errors",
 	]
 	
 	# extra numbers to expose arithmetic operator edge cases
 	if op.name in [ "add", "sub", "mul", "div" ]:
 		values += [ "3", "8", "0.3", "0.33333333333", "0.7" ]
 	
+	types = [ "Nothing", "Boolean", "Integer", "Float", "String", "Function", "Module", "Type" ]
+	
 	if isinstance( op, BinOp ):
-		for test_no, v1 in zip( count(1), values ):
-			stderr_print( "%s %s ? " % ( v1, op.symbol ) )
-			source = ""
-			stdout = ""
-			for i, v2 in zip( count(1), values ):
+		def generate_tests():
+			for i, v1 in zip( count(1), values ):
 				stderr_tick()
-				expression = "%s %s %s" % ( v1, op.symbol, v2 )
-				try:
-					result_type, output = eval_burn_expressions( ( "repr(%s)" % expression, expression ) )
-				except BurnEvalError:
-					pass
-				else:
-					test = "$r%s" % i
-					if result_type == "<Float>":
-						lower_bound = "%.4f" % ( round( float( output ), 4 ) - 0.0001 )
-						upper_bound = "%.4f" % ( round( float( output ), 4 ) + 0.0001 )
-						test = "( %s < $r%s ) and ( $r%s < %s )" % ( lower_bound, i, i, upper_bound )
-						output = "true"
-					source += "let $r%s = %s\nprint repr( $r%s )\nprint %s\n" % ( i, expression, i, test )
-					stdout += "%s\n%s\n" % ( result_type, output )
-			if source:
-				print_test( "%s_result_%s" % ( op.name, test_no ), source, stdout )
-			stderr_end_line()
-		
+				name = "%s_result_%s" % ( op.name, i )
+				expressions = [ "%s %s %s" % ( v1, op.symbol, v2 ) for v2 in values ]
+				yield name, expressions
 	else:
 		assert isinstance( op, UnOp )
-		source = ""
-		stdout = ""
-		for i, v in zip( count(1), values ):
-			stderr_tick()
-			expression = "%s %s" % ( op.symbol, v )
-			try:
-				result_type, output = eval_burn_expressions( ( "repr(%s)" % expression, expression ) )
-			except BurnEvalError:
-				pass
+		def generate_tests():
+			name = "%s_result" % op.name
+			expressions = [ "%s %s" % ( op.symbol, v ) for v in values ]
+			yield name, expressions
+	
+	for name, expressions in generate_tests():
+		value_expressions = expressions
+		type_expressions = []
+		for e in expressions:
+			type_expressions += [ "( %s ) is %s" % ( e, t ) for t in types ]
+		value_outputs = eval_burn_expressions( value_expressions, [ "burn.types", "burn.errors" ] )
+		type_outputs = eval_burn_expressions( type_expressions, [ "burn.types", "burn.errors" ] )
+		source = "import burn.types\nimport burn.errors\n"
+		for i in range( len( value_expressions ) ):
+			expression = value_expressions[i]
+			output = value_outputs[i]
+			source += "\n"
+			if output == "TypeError":
+				source += "try { %s }\ncatch TypeError $e {}\nelse { assert( false ) }\n" % expression
 			else:
-				source += "let $r%s = %s\nprint repr( $r%s )\nprint $r%s\n" % ( i, expression, i, i )
-				stdout += "%s\n%s\n" % ( result_type, output )
-		print_test( "%s_result" % op.name, source, stdout )
-		stderr_end_line()
-	
-elif sys.argv[1] == "type_error":
-	assert len( sys.argv ) == 3
-	
-	op = get_op( sys.argv[2] )
-	values = [
-		"nothing",
-		"true",
-		"1",
-		"1.0",
-		"\"foo\"",
-		"function(){}",
-		"Something",
-		"burn"
-	]
-	
-	if isinstance( op, BinOp ):
-		source = ""
-		stdout = ""
-		for v1 in values:
-			stderr_print( "%s %s ? " % ( v1, op.symbol ) )
-			for v2 in values:
-				stderr_tick()
-				expression = "%s %s %s" % ( v1, op.symbol, v2 )
-				try:
-					eval_burn_expression( expression )
-				except BurnEvalError:
-					source += "try { %s } catch TypeError $e { print \"TypeError\" }\n" % expression
-					stdout += "TypeError\n"
-					break
-			stderr_end_line()
-		if source:
-			print_test( "%s_type_error" % op.name, source, stdout )
-		
-	else:
-		assert isinstance( op, UnOp )
-		source = ""
-		stdout = ""
-		for i, v in zip( count(1), values ):
-			stderr_tick()
-			expression = "%s %s" % ( op.symbol, v )
-			try:
-				eval_burn_expression( expression )
-			except BurnEvalError:
-				source += "try { %s } catch TypeError $e { print \"TypeError\" }\n" % expression
-				stdout += "TypeError\n"
-		stderr_end_line()
-		if source:
-			print_test( "%s_type_error" % op.name, source, stdout )
+				var = "$" + chr( 97 + i )
+				type_ = types[ type_outputs[i*len(types):(i+1)*len(types)].index( "true" ) ]
+				source += "let %s = %s\n" % ( var, expression )
+				source += "assert( %s is %s )\n" % ( var, type_ )
+				if type_ == "Nothing":
+					pass
+				elif type_ == "Boolean":
+					source += "assert( %s == %s )\n" % ( var, output )
+				elif type_ == "Integer":
+					source += "assert( %s == %s )\n" % ( var, output )
+				elif type_ == "Float":
+					lower_bound = "%.4f" % ( round( float( output ), 4 ) - 0.0001 )
+					upper_bound = "%.4f" % ( round( float( output ), 4 ) + 0.0001 )
+					source += "assert( ( %s < %s ) and ( %s < %s ) )\n" % ( lower_bound, var, var, upper_bound )
+				else:
+					pass # TODO
+		print_test( name, source )
+	stderr_end_line()
 	
 elif sys.argv[1] == "precedence":
 	assert len( sys.argv ) == 3
 	
 	op1 = get_op( sys.argv[2] )
-	values = [ "true", "false" ]
+	values = [ "true", "false", "0", "2", "4", "Something" ]
 	
 	if isinstance( op1, BinOp ):
-		for op2 in BINARY_OPS:
-			stderr_print( "%s VS %s " % ( op1.symbol, op2.symbol ) )
-			try:
-				for v1 in values:
-					for v2 in values:
-						for v3 in values:
-							stderr_tick()
-							e1 = "( %s %s %s ) %s %s" % ( v1, op1.symbol, v2, op2.symbol, v3 )
-							e2 = "%s %s ( %s %s %s )" % ( v1, op1.symbol, v2, op2.symbol, v3 )
-							e = "%s %s %s %s %s" % ( v1, op1.symbol, v2, op2.symbol, v3 )
-							try:
-								r1, r2, r = eval_burn_expressions( ( e1, e2, e ) )
-							except BurnEvalError:
-								pass
-							else:
-								if r1 != r2:
-									print_test(
-										"%s_%s" % ( op1.name, op2.name ),
-										"\n".join( "print %s" % e for e in (e1, e2, e) ),
-										"\n".join( (r1, r2, r) )
-									)
-									raise Break()
-			except Break:
-				pass
-			stderr_end_line()
-	
+		def generate_expressions( op1, op2 ):
+			for v1 in values:
+				for v2 in values:
+					for v3 in values:
+						e1 = "( %s %s %s ) %s %s" % ( v1, op1.symbol, v2, op2.symbol, v3 )
+						e2 = "%s %s ( %s %s %s )" % ( v1, op1.symbol, v2, op2.symbol, v3 )
+						e = "%s %s %s %s %s" % ( v1, op1.symbol, v2, op2.symbol, v3 )
+						yield ( e1, e2, e )
 	else:
 		assert isinstance( op1, UnOp )
-		for op2 in BINARY_OPS:
-			stderr_print( "%s VS %s " % ( op1.symbol, op2.symbol ) )
+		def generate_expressions( op1, op2 ):
+			for v1 in values:
+				for v2 in values:
+					e1 = "( %s %s ) %s %s" % ( op1.symbol, v1, op2.symbol, v2 )
+					e2 = "%s ( %s %s %s )" % ( op1.symbol, v1, op2.symbol, v2 )
+					e = "%s %s %s %s" % ( op1.symbol, v1, op2.symbol, v2 )
+					yield ( e1, e2, e )
+	
+	for op2 in BINARY_OPS:
+		stderr_print( "%s VS %s " % ( op1.symbol, op2.symbol ) )
+		combinable = False
+		for e1, e2, e in generate_expressions( op1, op2 ):
+			stderr_tick()
 			try:
-				for v1 in values:
-					for v2 in values:
-						stderr_tick()
-						e1 = "( %s %s ) %s %s" % ( op1.symbol, v1, op2.symbol, v2 )
-						e2 = "%s ( %s %s %s )" % ( op1.symbol, v1, op2.symbol, v2 )
-						e = "%s %s %s %s" % ( op1.symbol, v1, op2.symbol, v2 )
-						try:
-							r1, r2, r = eval_burn_expressions( ( e1, e2, e ) )
-						except BurnEvalError:
-							pass
-						else:
-							if r1 != r2:
-								print_test(
-									"%s_%s" % ( op1.name, op2.name ),
-									"".join( "print %s\n" % e for e in (e1, e2, e) ),
-									"".join( "%s\n" % r for r in (r1, r2, r) )
-								)
-								raise Break()
-			except Break:
+				r1, r2, r = eval_burn_expressions( ( e1, e2, e ) )
+			except BurnEvalError:
 				pass
-			stderr_end_line()
+			else:
+				combinable = True
+				if r1 != r2:
+					t1 = create_test( e1, catch_type_error = r1 == "TypeError" )
+					t2 = create_test( e2, catch_type_error = r2 == "TypeError" )
+					t = create_test( e, catch_type_error = r == "TypeError" )
+					print_test(
+						"%s_%s" % ( op1.name, op2.name ),
+						t1 + t2 + t,
+						"%s\n%s\n%s\n" % ( r1, r2, r )
+					)
+					break
+		else:
+			stderr_print( "no test found for %s and %s" % ( op1.symbol, op2.symbol ) )
+		stderr_end_line()
 	
 else:
 	assert False

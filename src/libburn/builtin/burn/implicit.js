@@ -33,4 +33,10 @@ implicit.exposes = new Value.Module( {
 		return new Value.String( args[0].repr );
 	}, { safe: true } ),
 	
+	assert: new Value.Function( function( fiber, args ) {
+		if( ! args[0].isTruthy( fiber ) ) {
+			throw new errors.AssertionErrorInstance(); // TODO
+		}
+	}, { safe: true } ),
+	
 } );

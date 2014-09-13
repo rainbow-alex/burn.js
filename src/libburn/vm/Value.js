@@ -12,8 +12,8 @@ let Value = module.exports = CLASS( {
 	canEq: function( value ) {
 		return Object.getPrototypeOf( this ) === Object.getPrototypeOf( value );
 	},
-	eq: function( fiber, value ) {
-		return this === value;
+	eq: function( fiber, other ) {
+		return this === other;
 	},
 	canOrd: function( value ) {
 		return false;
@@ -56,6 +56,9 @@ Value.Boolean = CLASS( Value, {
 	isSafe: function() {
 		return true;
 	},
+	eq: function( fiber, other ) {
+		return this.value === other.value;
+	},
 } );
 
 Value.Integer = CLASS( Value, {
@@ -75,8 +78,8 @@ Value.Integer = CLASS( Value, {
 	canOrd: function( value ) {
 		return value instanceof Value.Integer || value instanceof Value.Float;
 	},
-	lt: function( fiber, value ) {
-		return this.value < value.value;
+	lt: function( fiber, other ) {
+		return this.value < other.value;
 	},
 	isSafe: function() {
 		return true;
@@ -94,11 +97,14 @@ Value.Float = CLASS( Value, {
 	isTruthy: function( fiber ) {
 		return this.value !== 0;
 	},
+	eq: function( fiber, other ) {
+		return this.value === other.value;
+	},
 	canOrd: function( value ) {
 		return value instanceof Value.Integer || value instanceof Value.Float;
 	},
-	lt: function( fiber, value ) {
-		return this.value < value.value;
+	lt: function( fiber, other ) {
+		return this.value < other.value;
 	},
 	isSafe: function() {
 		return true;
@@ -115,6 +121,9 @@ Value.String = CLASS( Value, {
 	},
 	isTruthy: function( fiber ) {
 		return this.value.length > 0;
+	},
+	eq: function( fiber, other ) {
+		return this.value === other.value;
 	},
 	canOrd: function( value ) {
 		return value instanceof Value.String;

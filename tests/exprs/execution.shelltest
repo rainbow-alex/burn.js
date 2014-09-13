@@ -1,0 +1,28 @@
+order.burn:
+	let $p = function( $v ) {
+		print $v
+		return $v
+	}
+	$p( true ) and $p( false )
+	$p( false ) or $p( true )
+
+$ burn order.burn
+	* stdout
+		true
+		false
+		false
+		true
+
+short_circuit.burn:
+	let $p = function( $v ) {
+		print $v
+		return $v
+	}
+	$p( false ) and $p( true )
+	$p( true ) or $p( false )
+
+$ burn short_circuit.burn
+	* stdout
+		false
+		true
+

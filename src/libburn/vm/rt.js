@@ -138,11 +138,11 @@ rt.gt = function( fiber, l, r ) {
 };
 
 rt.lteq = function( fiber, l, r ) {
-	return ! rt.lt( fiber, r, l );
+	return new Value.Boolean( ! rt.lt( fiber, r, l ).value );
 };
 
 rt.gteq = function( fiber, l, r ) {
-	return ! rt.lt( fiber, l, r );
+	return new Value.Boolean( ! rt.lt( fiber, l, r ).value );
 };
 
 rt.and = function( fiber, l, rf ) {

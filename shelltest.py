@@ -83,6 +83,7 @@ def run( filename ):
 			while i < len( lines ) and lines[i].startswith( "\t" ):
 				body.append( lines[i][1:] )
 				i += 1
+			body = body or [ "* exit status zero" ]
 			
 			if statement.startswith( "$" ):
 				
