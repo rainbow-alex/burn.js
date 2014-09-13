@@ -159,12 +159,12 @@ rt.not = function( fiber, e ) {
 
 rt.import = function( fiber, fqn ) {
 	let x = fiber.vm.importRootModule( fiber, fqn[0] );
-	fqn.slice(1).forEach( function( p ) {
+	fqn.slice(1).forEach( function( p, i ) {
 		if( x.canGet( p ) ) {
 			x = x.get( fiber, p );
 		} else {
 			throw new errors.ImportErrorInstance(
-				"ImportError: ...", // TODO message
+				"ImportError: could not get " + fqn.slice(i).join( "." ), // TODO message
 				fiber.stack
 			);
 		}

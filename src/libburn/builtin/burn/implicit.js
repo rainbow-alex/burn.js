@@ -29,4 +29,8 @@ implicit.exposes = new Value.Module( {
 		fiber.vm.main = args[0]; // TODO typecheck
 	}, { safe: true } ),
 	
+	repr: new Value.Function( function( fiber, args ) {
+		return new Value.String( args[0].repr );
+	}, { safe: true } ),
+	
 } );

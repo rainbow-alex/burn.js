@@ -1,16 +1,3 @@
-or.burn:
-	print true or true
-	print true or false
-	print false or true
-	print false and false
-
-$ burn or.burn
-	* stdout
-		true
-		true
-		true
-		false
-
 or_or.burn:
 	print true or true or true
 	print true or true or false
@@ -31,19 +18,6 @@ $ burn or_or.burn
 		true
 		true
 		false
-
-// Operands need not be booleans, they are tested for truthiness.
-// The result is the operand that determines the result.
-typed.burn:
-	print nothing or 0
-	print 1 or 2
-	print 0 or 1
-
-$ burn typed.burn
-	* stdout
-		0
-		1
-		1
 
 // verify that operands are evaluated left-to-right
 order.burn:
@@ -70,18 +44,3 @@ sc.burn:
 $ burn sc.burn
 	* stdout
 		true
-
-err.burn:
-	true or
-$ burn err.burn
-	* exit status nonzero
-
-err.burn:
-	or true
-$ burn err.burn
-	* exit status nonzero
-
-err.burn:
-	or
-$ burn err.burn
-	* exit status nonzero
