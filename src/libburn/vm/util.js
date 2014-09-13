@@ -58,7 +58,6 @@ help.validateArguments = function( fiber, signature, args ) {
 	}
 	
 	function err( m ) {
-		let errors = require( "libburn/builtin/burn/errors" );
 		throw new errors.ArgumentErrorInstance( m, fiber.stack );
 	}
 	
@@ -121,3 +120,6 @@ help.JsFunctionType = CLASS( Value.Special, {
 		return this.permanent;
 	},
 } );
+
+// it's not really a circular dependency, I'd just rather not split up this module
+let errors = require( "libburn/builtin/burn/errors" );

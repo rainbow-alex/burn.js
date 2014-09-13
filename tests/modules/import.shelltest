@@ -1,37 +1,49 @@
 example/burn_module.json:
-	{ "sources": [
-		"src/example.burn"
-	] }
+	{ "include": "src/example.burn" }
 
 example/src/example.burn:
 	print "example loaded"
 
-main.burn:
+import_example.burn:
 	import example
 
-$ burn main.burn
+$ burn import_example.burn
 	* stdout
 		example loaded
 
-@todo duplicate name
-@todo shadowing
+import_cached.burn:
+	let $foo = function() {
+		import example
+	}
+	$foo()
+	$foo()
+
+$ burn import_cached.burn
+	* stdout
+		example loaded
+
+// TODO no include
+// TODO include array
+// TODO include glob
+// TODO duplicate name
+// TODO shadowing
 
 bad/burn_module.json:
 	invalid json
 
-main.burn:
+import_bad.burn:
 	try {
 		import bad
 	} catch ImportError $e {
 		print "ImportError"
 	}
 
-$ burn main.burn
+$ burn import_bad.burn
 	* stdout
 		ImportError
 
 bad2/burn_module.json:
-	{ "sources": [
+	{ "include": [
 		"src/exists.burn",
 		"src/missing.burn"
 	] }
@@ -39,34 +51,32 @@ bad2/burn_module.json:
 bad2/src/exists.burn:
 	print "existing file"
 
-main.burn:
+import_bad2.burn:
 	try {
 		import bad2
 	} catch ImportError $e {
 		print "ImportError"
 	}
 
-$ burn main.burn
+$ burn import_bad2.burn
 	* stdout
 		ImportError
 
 bad3/burn_module.json:
-	{ "sources": [
-		"src/syntax_error.burn"
-	] }
+	{ "include": "src/syntax_error.burn" }
 
 bad3/src/syntax_error.burn:
 	foo bar baz
 
-main.burn:
+import_bad3.burn:
 	try {
 		import bad3
 	} catch ImportError $e {
 		print "ImportError"
 	}
 
-$ burn main.burn
+$ burn import_bad3.burn
 	* stdout
 		ImportError
 
-@todo bad file permissions
+// TODO bad file permissions

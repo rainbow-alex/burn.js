@@ -1,7 +1,17 @@
 index.burn:
-	let $list = [ "a", "b" ]
-	print $list[ 1 ]
+	print [ "a", "b" ][ 1 ]
 
 $ burn index.burn
 	* stdout
 		b
+
+index_string.burn:
+	try {
+		[][ "a" ]
+	} catch TypeError $e {
+		print "TypeError"
+	}
+
+$ burn index_string.burn
+	* stdout
+		TypeError

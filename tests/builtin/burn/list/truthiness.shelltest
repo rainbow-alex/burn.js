@@ -1,0 +1,12 @@
+truthiness.burn:
+	import burn.types.Truthy
+	import burn.types.Falsy
+	print [] is Falsy
+	print [ 1, 2, 3 ] is Truthy
+	print [ false ] is Truthy
+
+$ burn truthiness.burn
+	* stdout
+		true
+		true
+		true

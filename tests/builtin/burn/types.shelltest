@@ -1,12 +1,15 @@
-types.burn:
+types_primitive.burn:
+	import burn.types
 	print nothing is Nothing
 	print true is Boolean
 	print 1 is Integer
 	print 1.2 is Float
 	print "" is String
 	print function() {} is Function
+	print types is Module
+	print Type is Type
 
-$ burn types.burn
+$ burn types_primitive.burn
 	* stdout
 		true
 		true
@@ -14,3 +17,32 @@ $ burn types.burn
 		true
 		true
 		true
+		true
+		true
+
+types_lang.burn:
+	import burn.types
+	print 1 is types.Safe
+	print Type is types.Permanent
+	print 1 is types.Truthy
+
+$ burn types_lang.burn
+	* stdout
+		true
+		true
+		true
+
+derivative.burn:
+	import burn.types
+	print nothing is not Something
+	print 1 is Something
+	print "" is types.Falsy
+	print 2 is types.Number and 1.2 is types.Number
+
+$ burn derivative.burn
+	* stdout
+		true
+		true
+		true
+		true
+

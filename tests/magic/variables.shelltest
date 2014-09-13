@@ -1,8 +1,20 @@
 filename.burn:
 	print magic:filename
 
-$ burn filename.burn
-@todo check against process.cwd
+$ burn filename.burn | grep ^`pwd`/filename\.burn\$ | wc -l
+	* stdout
+		1
+
+a.burn:
+	print magic:filename
+	include "b.burn"
+
+b.burn:
+	print magic:filename
+
+$ burn a.burn | uniq | wc -l
+	* stdout
+		2
 
 line.burn:
 	print magic:line

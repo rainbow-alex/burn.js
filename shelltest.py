@@ -181,9 +181,6 @@ def run( filename ):
 					os.makedirs( os.path.dirname( path ) )
 				open( path, "w" ).write( "\n".join( body ) + "\n" )
 			
-			elif statement.startswith( "@todo " ):
-				print( "    %s@todo %s%s" % ( COLOR_YELLOW, statement[6:], COLOR_RESET ) )
-			
 			else:
 				print( "%s: error parsing statement at line %s" % ( sys.argv[0], statement_lineno ), file=sys.stderr )
 				sys.exit( 1 )

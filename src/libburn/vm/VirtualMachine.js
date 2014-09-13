@@ -89,7 +89,10 @@ module.exports = CLASS( {
 			} else { throw e; } }
 			
 			let base = path.dirname( descriptionFilename );
-			let sources = description.sources.map( function( s ) {
+			if( typeof description.include === "string" ) {
+				description.include = [ description.include ];
+			}
+			let sources = description.include.map( function( s ) {
 				return path.resolve( base, s );
 			} );
 			

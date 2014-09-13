@@ -29,7 +29,7 @@ $ burn int_eq_string.burn
 	* stdout
 		TypeError
 
-@todo more typing tests
+// TODO more typing tests
 
 err.burn:
 	== 1

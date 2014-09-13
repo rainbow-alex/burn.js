@@ -25,7 +25,7 @@ types.Permanent = new util.JsFunctionType( function( fiber, v ) {
 }, { permanent: true } );
 
 types.Something = new util.JsFunctionType( function( fiber, v ) {
-	return ! v instanceof Value.Nothing;
+	return ! ( v instanceof Value.Nothing );
 }, { permanent: true } );
 
 types.Truthy = new util.JsFunctionType( function( fiber, v ) {

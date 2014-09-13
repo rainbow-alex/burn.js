@@ -61,4 +61,4 @@ $ burn a.burn
 	* stdout
 		TypeError
 
-@todo bad file permissions
+// TODO file permissions

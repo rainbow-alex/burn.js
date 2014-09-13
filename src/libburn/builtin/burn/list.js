@@ -10,6 +10,9 @@ list.JsListInstance = CLASS( Value.Special, {
 		this.items = items;
 	},
 	repr: "<List>",
+	isTruthy: function() {
+		return this.items.length !== 0;
+	},
 	getIndex: function( fiber, index ) {
 		util.validateIndex( fiber, types.Integer, index );
 		return this.items[ index.value ];

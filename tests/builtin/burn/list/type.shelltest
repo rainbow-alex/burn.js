@@ -1,6 +1,12 @@
 is.burn:
+	import burn.types.Safe
+	import burn.types.Permanent
+	print [] is not Safe
 	print [] is List
+	print List is Permanent
 
 $ burn is.burn
 	* stdout
+		true
+		true
 		true
