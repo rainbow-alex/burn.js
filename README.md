@@ -29,8 +29,8 @@ Run them by executing `make tests`.
 Other implementations of burn should pass this suite.
 
 The tests in `tests_extra/` check additional features that are not required or might differ per implementation.
-You can run these tests with `make tests_extra`.
 This includes error message details, stack traces, lint messages, ...
+You can run these tests with `make tests_extra`.
 It only makes sense to run this suite for this implementation.
 
 You can run individual parts of either suite with `make tests/<path>` or `make tests_extra/<path>`.
