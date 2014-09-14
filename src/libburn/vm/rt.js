@@ -4,9 +4,11 @@ let libburn = require( "libburn" );
 let Value = require( "./Value" );
 let Fiber = require( "./Fiber" );
 let util = require( "./util" );
+let msg = require( "../messages" );
 let types = require( "libburn/builtin/burn/types" );
 let errors = require( "libburn/builtin/burn/errors" );
 let list = require( "libburn/builtin/burn/list" );
+let implicit = require( "libburn/builtin/burn/implicit" );
 
 let rt = exports;
 
@@ -116,10 +118,7 @@ rt.is_not = function( fiber, l, r ) {
 
 rt.eq = function( fiber, l, r ) {
 	if( ! l.canEq( r ) ) {
-		throw new errors.TypeErrorInstance(
-			"TypeError: Equivalence of " + l.repr + " and " + r.repr + " is undefined.",
-			fiber.stack
-		);
+		throw new errors.TypeErrorInstance( msg.eq_undefined( l, r ), fiber.stack );
 	}
 	return new Value.Boolean( l.eq( fiber, r ) );
 };
@@ -130,10 +129,7 @@ rt.neq = function( fiber, l, r ) {
 
 rt.lt = function( fiber, l, r ) {
 	if( ! l.canOrd( r ) ) {
-		throw new errors.TypeErrorInstance(
-			"TypeError: Ordering of " + l.repr + " and " + r.repr + " is undefined.",
-			fiber.stack
-		);
+		throw new errors.TypeErrorInstance( msg.ord_undefined( l, r ), fiber.stack );
 	}
 	return new Value.Boolean( l.lt( fiber, r ) );
 };
@@ -168,10 +164,7 @@ rt.import = function( fiber, fqn ) {
 		if( x.canGet( p ) ) {
 			x = x.get( fiber, p );
 		} else {
-			throw new errors.ImportErrorInstance(
-				"ImportError: could not get " + fqn.slice(i).join( "." ), // TODO message
-				fiber.stack
-			);
+			throw new errors.ImportErrorInstance( msg.import_get_error( fqn, i+1 ), fiber.stack );
 		}
 	} );
 	return x;
@@ -180,7 +173,7 @@ rt.import = function( fiber, fqn ) {
 rt.include = function( fiber, origin, filename ) {
 	if( !( filename instanceof Value.String ) ) {
 		throw new errors.TypeErrorInstance(
-			"TypeError: Include statement takes a <String>, got " + filename.repr + ".",
+			msg.include_type_error( filename ),
 			fiber.stack
 		);
 	}
@@ -193,5 +186,9 @@ rt.include = function( fiber, origin, filename ) {
 };
 
 rt.implicit = function( fiber, name ) {
-	return rt.import( fiber, [ "burn", "implicit", name ] );
+	if( implicit.exposes.canGet( name ) ) {
+		return implicit.exposes.get( fiber, name );
+	} else {
+		throw new errors.NameErrorInstance( msg.implicit_name_error( name ), fiber.stack );
+	}
 };

@@ -366,7 +366,7 @@ ast.IdentifierExpression.prototype.compile = function( output ) {
 	} else if( this.declared ) {
 		output.code += encodeName( this.token.value );
 	} else {
-		output.code += '_.implicit(_fiber,"' + this.token.value + '")';
+		output.code += '_.implicit(_fiber,"' + this.token.value + '",void _fiber.setLine(' + this.token.line + '))';
 	}
 };
 

@@ -19,6 +19,9 @@ let ErrorInstance = CLASS( Value.Special, {
 	},
 } );
 
+errors.NameErrorInstance = CLASS( ErrorInstance );
+errors.NameError = new util.JsInstanceofType( errors.NameErrorInstance );
+
 errors.TypeErrorInstance = CLASS( ErrorInstance );
 errors.TypeError = new util.JsInstanceofType( errors.TypeErrorInstance );
 
@@ -39,6 +42,7 @@ errors.AssertionError = new util.JsInstanceofType( errors.AssertionErrorInstance
 
 errors.exposes = new Value.Module( {
 	
+	NameError: errors.NameError,
 	TypeError: errors.TypeError,
 	PropertyError: errors.PropertyError,
 	ArgumentError: errors.TypeError,

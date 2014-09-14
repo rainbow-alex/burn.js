@@ -6,6 +6,7 @@ let libburn = require( "libburn" );
 let Fiber = require( "./Fiber" );
 let rt = require( "./rt" );
 let Value = require( "./Value" );
+let msg = require( "../messages" );
 let errors = require( "libburn/builtin/burn/errors" );
 
 module.exports = CLASS( {
@@ -57,24 +58,26 @@ module.exports = CLASS( {
 	},
 	
 	importRootModule: function( fiber, name ) {
+		
 		if( this._root[ name ] ) {
 			return this._root[ name ];
-		} else {
-			for( let i = 0 ; i < this.path.length ; i++ ) {
-				let json = path.join( this.path[i], name, "burn_module.json" );
-				if( fs.existsSync( json ) ) {
-					return this._root[ name ] = loadNativeModule.call( this, json );
-				}
-				let js = path.join( this.path[i], name, "burn_module.js" );
-				if( fs.existsSync( js ) ) {
-					return this._root[ name ] = loadJavascriptModule.call( this, js );
-				}
-			}
-			throw new errors.ImportErrorInstance(
-				"ImportError: Module " + name + " not found.",
-				fiber.stack
-			);
 		}
+		
+		for( let i = 0 ; i < this.path.length ; i++ ) {
+			let json = path.join( this.path[i], name, "burn_module.json" );
+			if( fs.existsSync( json ) ) {
+				return this._root[ name ] = loadNativeModule.call( this, json );
+			}
+			let js = path.join( this.path[i], name, "burn_module.js" );
+			if( fs.existsSync( js ) ) {
+				return this._root[ name ] = loadJavascriptModule.call( this, js );
+			}
+		}
+		
+		throw new errors.ImportErrorInstance(
+			msg.import_root_not_found( name ),
+			fiber.stack
+		);
 		
 		function loadNativeModule( descriptionFilename ) {
 			
