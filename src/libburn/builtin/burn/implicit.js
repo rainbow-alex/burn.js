@@ -49,13 +49,14 @@ implicit.exposes = new Value.Module( {
 		_throws: new Value.Function( function( fiber, args ) {
 			try {
 				args[0].call( fiber );
-			} catch( e ) { if( e instanceof Value ) {
+			} catch( e ) {
+				CATCH_IF( e, e instanceof Value )
 				if( ! args[1].typeTest( fiber, e ) ) {
 					throw new errors.AssertionErrorInstance( "AssertionError: wrong type", fiber.stack ); // TODO
 				} else {
 					return;
 				}
-			} else { throw e; } }
+			}
 			throw new errors.AssertionErrorInstance( "AssertionError: no error thrown", fiber.stack ); // TODO
 		}, { name: "throws", safe: true } ),
 	} ) ),

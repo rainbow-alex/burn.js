@@ -24,6 +24,12 @@ global.CLASS = function( parent, properties ) {
 	return constructor;
 };
 
+global.CATCH_IF = function( e, test ) {
+	if( ! test ) {
+		throw e;
+	}
+};
+
 exports.origin = require( "./origin" );
 exports.lang = require( "./lang" );
 exports.vm = require( "./vm" );

@@ -38,9 +38,10 @@ module.exports = CLASS( {
 						new Process.ProcessInstance(),
 					] );
 				}
-			} catch( e ) { if( e instanceof Value ) {
+			} catch( e ) {
+				CATCH_IF( e, e instanceof Value );
 				this.dispatchUncaughtThrowable( e );
-			} else { throw e; } }
+			}
 		}.bind( this ) ).run();
 	},
 	
@@ -51,9 +52,10 @@ module.exports = CLASS( {
 				nodefibers( function() {
 					f( forkFiber );
 				} ).run();
-			} catch( e ) { if( e instanceof Value ) {
+			} catch( e ) {
+				CATCH_IF( e, e instanceof Value );
 				forkFiber.vm.dispatchUncaughtThrowable( e );
-			} else { throw e; } }
+			}
 		} );
 	},
 	
@@ -84,12 +86,13 @@ module.exports = CLASS( {
 			let description;
 			try {
 				description = JSON.parse( fs.readFileSync( descriptionFilename ) );
-			} catch( e ) { if( e instanceof SyntaxError ) {
+			} catch( e ) {
+				CATCH_IF( e, e instanceof SyntaxError );
 				throw new errors.ImportErrorInstance(
 					"ImportError: [parsing `" + descriptionFilename + "`] " + e.message,
 					fiber.stack
 				);
-			} else { throw e; } }
+			}
 			
 			let base = path.dirname( descriptionFilename );
 			if( typeof description.include === "string" ) {
@@ -119,13 +122,14 @@ module.exports = CLASS( {
 					let code;
 					try {
 						code = this._compile( origin );
-					} catch( e ) { if( e instanceof libburn.lang.Error ) {
+					} catch( e ) {
+						CATCH_IF( e, e instanceof libburn.lang.Error );
 						fiber.setLine( e.line );
 						throw new errors.ImportErrorInstance(
 							"ImportError: Error importing module `" + name + "`.\n" + e.message,
 							fiber.stack
 						);
-					} else { throw e; } }
+					}
 					this._run( fiber, origin, code );
 				} finally {
 					fiber.stack.pop();
@@ -159,13 +163,14 @@ module.exports = CLASS( {
 			let code;
 			try {
 				code = this._compile( includeOrigin );
-			} catch( e ) { if( e instanceof libburn.lang.Error ) {
+			} catch( e ) {
+				CATCH_IF( e, e instanceof libburn.lang.Error );
 				fiber.setLine( e.line );
 				throw new errors.IncludeErrorInstance(
 					"IncludeError: Error including \"" + filename + "\".\n" + e.message,
 					fiber.stack
 				);
-			} else { throw e; } }
+			}
 			
 			this._run( fiber, includeOrigin, code );
 			

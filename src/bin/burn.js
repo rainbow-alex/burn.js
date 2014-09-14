@@ -53,10 +53,13 @@ if( ! origin ) {
 } else {
 	try {
 		vm.start( origin );
-	} catch( e ) { if( e instanceof libburn.lang.Error ) {
+	} catch( e ) {
+		if( ! ( e instanceof libburn.lang.Error ) ) {
+			throw e;
+		}
 		printError( e );
 		process.exit( 1 );
-	} else { throw e; } }
+	}
 }
 
 function printError( e ) {
