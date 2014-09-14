@@ -4,77 +4,41 @@ gteq_result_1.burn:
 	import burn.types
 	import burn.errors
 	
-	try { nothing >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= nothing }, TypeError )
 	
-	try { nothing >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= true }, TypeError )
 	
-	try { nothing >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= false }, TypeError )
 	
-	try { nothing >= 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= 0 }, TypeError )
 	
-	try { nothing >= 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= 2 }, TypeError )
 	
-	try { nothing >= -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= -2 }, TypeError )
 	
-	try { nothing >= 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= 0.0 }, TypeError )
 	
-	try { nothing >= 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= 2.0 }, TypeError )
 	
-	try { nothing >= -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= -0.5 }, TypeError )
 	
-	try { nothing >= "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= "" }, TypeError )
 	
-	try { nothing >= "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= "apple" }, TypeError )
 	
-	try { nothing >= "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= "banana" }, TypeError )
 	
-	try { nothing >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= repr }, TypeError )
 	
-	try { nothing >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= function(){} }, TypeError )
 	
-	try { nothing >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= Something }, TypeError )
 	
-	try { nothing >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= Type }, TypeError )
 	
-	try { nothing >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= types }, TypeError )
 	
-	try { nothing >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_1.burn
 
@@ -82,77 +46,41 @@ gteq_result_2.burn:
 	import burn.types
 	import burn.errors
 	
-	try { true >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= nothing }, TypeError )
 	
-	try { true >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= true }, TypeError )
 	
-	try { true >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= false }, TypeError )
 	
-	try { true >= 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= 0 }, TypeError )
 	
-	try { true >= 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= 2 }, TypeError )
 	
-	try { true >= -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= -2 }, TypeError )
 	
-	try { true >= 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= 0.0 }, TypeError )
 	
-	try { true >= 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= 2.0 }, TypeError )
 	
-	try { true >= -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= -0.5 }, TypeError )
 	
-	try { true >= "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= "" }, TypeError )
 	
-	try { true >= "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= "apple" }, TypeError )
 	
-	try { true >= "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= "banana" }, TypeError )
 	
-	try { true >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= repr }, TypeError )
 	
-	try { true >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= function(){} }, TypeError )
 	
-	try { true >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= Something }, TypeError )
 	
-	try { true >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= Type }, TypeError )
 	
-	try { true >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= types }, TypeError )
 	
-	try { true >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_2.burn
 
@@ -160,77 +88,41 @@ gteq_result_3.burn:
 	import burn.types
 	import burn.errors
 	
-	try { false >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= nothing }, TypeError )
 	
-	try { false >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= true }, TypeError )
 	
-	try { false >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= false }, TypeError )
 	
-	try { false >= 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= 0 }, TypeError )
 	
-	try { false >= 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= 2 }, TypeError )
 	
-	try { false >= -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= -2 }, TypeError )
 	
-	try { false >= 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= 0.0 }, TypeError )
 	
-	try { false >= 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= 2.0 }, TypeError )
 	
-	try { false >= -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= -0.5 }, TypeError )
 	
-	try { false >= "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= "" }, TypeError )
 	
-	try { false >= "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= "apple" }, TypeError )
 	
-	try { false >= "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= "banana" }, TypeError )
 	
-	try { false >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= repr }, TypeError )
 	
-	try { false >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= function(){} }, TypeError )
 	
-	try { false >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= Something }, TypeError )
 	
-	try { false >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= Type }, TypeError )
 	
-	try { false >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= types }, TypeError )
 	
-	try { false >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_3.burn
 
@@ -238,17 +130,11 @@ gteq_result_4.burn:
 	import burn.types
 	import burn.errors
 	
-	try { 0 >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 >= nothing }, TypeError )
 	
-	try { 0 >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 >= true }, TypeError )
 	
-	try { 0 >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 >= false }, TypeError )
 	
 	let $d = 0 >= 0
 	assert( $d is Boolean )
@@ -274,41 +160,23 @@ gteq_result_4.burn:
 	assert( $i is Boolean )
 	assert( $i == true )
 	
-	try { 0 >= "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 >= "" }, TypeError )
 	
-	try { 0 >= "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 >= "apple" }, TypeError )
 	
-	try { 0 >= "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 >= "banana" }, TypeError )
 	
-	try { 0 >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 >= repr }, TypeError )
 	
-	try { 0 >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 >= function(){} }, TypeError )
 	
-	try { 0 >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 >= Something }, TypeError )
 	
-	try { 0 >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 >= Type }, TypeError )
 	
-	try { 0 >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 >= types }, TypeError )
 	
-	try { 0 >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_4.burn
 
@@ -316,17 +184,11 @@ gteq_result_5.burn:
 	import burn.types
 	import burn.errors
 	
-	try { 2 >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 >= nothing }, TypeError )
 	
-	try { 2 >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 >= true }, TypeError )
 	
-	try { 2 >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 >= false }, TypeError )
 	
 	let $d = 2 >= 0
 	assert( $d is Boolean )
@@ -352,41 +214,23 @@ gteq_result_5.burn:
 	assert( $i is Boolean )
 	assert( $i == true )
 	
-	try { 2 >= "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 >= "" }, TypeError )
 	
-	try { 2 >= "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 >= "apple" }, TypeError )
 	
-	try { 2 >= "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 >= "banana" }, TypeError )
 	
-	try { 2 >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 >= repr }, TypeError )
 	
-	try { 2 >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 >= function(){} }, TypeError )
 	
-	try { 2 >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 >= Something }, TypeError )
 	
-	try { 2 >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 >= Type }, TypeError )
 	
-	try { 2 >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 >= types }, TypeError )
 	
-	try { 2 >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_5.burn
 
@@ -394,17 +238,11 @@ gteq_result_6.burn:
 	import burn.types
 	import burn.errors
 	
-	try { -2 >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 >= nothing }, TypeError )
 	
-	try { -2 >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 >= true }, TypeError )
 	
-	try { -2 >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 >= false }, TypeError )
 	
 	let $d = -2 >= 0
 	assert( $d is Boolean )
@@ -430,41 +268,23 @@ gteq_result_6.burn:
 	assert( $i is Boolean )
 	assert( $i == false )
 	
-	try { -2 >= "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 >= "" }, TypeError )
 	
-	try { -2 >= "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 >= "apple" }, TypeError )
 	
-	try { -2 >= "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 >= "banana" }, TypeError )
 	
-	try { -2 >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 >= repr }, TypeError )
 	
-	try { -2 >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 >= function(){} }, TypeError )
 	
-	try { -2 >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 >= Something }, TypeError )
 	
-	try { -2 >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 >= Type }, TypeError )
 	
-	try { -2 >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 >= types }, TypeError )
 	
-	try { -2 >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_6.burn
 
@@ -472,17 +292,11 @@ gteq_result_7.burn:
 	import burn.types
 	import burn.errors
 	
-	try { 0.0 >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 >= nothing }, TypeError )
 	
-	try { 0.0 >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 >= true }, TypeError )
 	
-	try { 0.0 >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 >= false }, TypeError )
 	
 	let $d = 0.0 >= 0
 	assert( $d is Boolean )
@@ -508,41 +322,23 @@ gteq_result_7.burn:
 	assert( $i is Boolean )
 	assert( $i == true )
 	
-	try { 0.0 >= "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 >= "" }, TypeError )
 	
-	try { 0.0 >= "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 >= "apple" }, TypeError )
 	
-	try { 0.0 >= "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 >= "banana" }, TypeError )
 	
-	try { 0.0 >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 >= repr }, TypeError )
 	
-	try { 0.0 >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 >= function(){} }, TypeError )
 	
-	try { 0.0 >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 >= Something }, TypeError )
 	
-	try { 0.0 >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 >= Type }, TypeError )
 	
-	try { 0.0 >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 >= types }, TypeError )
 	
-	try { 0.0 >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_7.burn
 
@@ -550,17 +346,11 @@ gteq_result_8.burn:
 	import burn.types
 	import burn.errors
 	
-	try { 2.0 >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 >= nothing }, TypeError )
 	
-	try { 2.0 >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 >= true }, TypeError )
 	
-	try { 2.0 >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 >= false }, TypeError )
 	
 	let $d = 2.0 >= 0
 	assert( $d is Boolean )
@@ -586,41 +376,23 @@ gteq_result_8.burn:
 	assert( $i is Boolean )
 	assert( $i == true )
 	
-	try { 2.0 >= "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 >= "" }, TypeError )
 	
-	try { 2.0 >= "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 >= "apple" }, TypeError )
 	
-	try { 2.0 >= "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 >= "banana" }, TypeError )
 	
-	try { 2.0 >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 >= repr }, TypeError )
 	
-	try { 2.0 >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 >= function(){} }, TypeError )
 	
-	try { 2.0 >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 >= Something }, TypeError )
 	
-	try { 2.0 >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 >= Type }, TypeError )
 	
-	try { 2.0 >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 >= types }, TypeError )
 	
-	try { 2.0 >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_8.burn
 
@@ -628,17 +400,11 @@ gteq_result_9.burn:
 	import burn.types
 	import burn.errors
 	
-	try { -0.5 >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 >= nothing }, TypeError )
 	
-	try { -0.5 >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 >= true }, TypeError )
 	
-	try { -0.5 >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 >= false }, TypeError )
 	
 	let $d = -0.5 >= 0
 	assert( $d is Boolean )
@@ -664,41 +430,23 @@ gteq_result_9.burn:
 	assert( $i is Boolean )
 	assert( $i == true )
 	
-	try { -0.5 >= "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 >= "" }, TypeError )
 	
-	try { -0.5 >= "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 >= "apple" }, TypeError )
 	
-	try { -0.5 >= "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 >= "banana" }, TypeError )
 	
-	try { -0.5 >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 >= repr }, TypeError )
 	
-	try { -0.5 >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 >= function(){} }, TypeError )
 	
-	try { -0.5 >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 >= Something }, TypeError )
 	
-	try { -0.5 >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 >= Type }, TypeError )
 	
-	try { -0.5 >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 >= types }, TypeError )
 	
-	try { -0.5 >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_9.burn
 
@@ -706,41 +454,23 @@ gteq_result_10.burn:
 	import burn.types
 	import burn.errors
 	
-	try { "" >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" >= nothing }, TypeError )
 	
-	try { "" >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" >= true }, TypeError )
 	
-	try { "" >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" >= false }, TypeError )
 	
-	try { "" >= 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" >= 0 }, TypeError )
 	
-	try { "" >= 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" >= 2 }, TypeError )
 	
-	try { "" >= -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" >= -2 }, TypeError )
 	
-	try { "" >= 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" >= 0.0 }, TypeError )
 	
-	try { "" >= 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" >= 2.0 }, TypeError )
 	
-	try { "" >= -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" >= -0.5 }, TypeError )
 	
 	let $j = "" >= ""
 	assert( $j is Boolean )
@@ -754,29 +484,17 @@ gteq_result_10.burn:
 	assert( $l is Boolean )
 	assert( $l == false )
 	
-	try { "" >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" >= repr }, TypeError )
 	
-	try { "" >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" >= function(){} }, TypeError )
 	
-	try { "" >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" >= Something }, TypeError )
 	
-	try { "" >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" >= Type }, TypeError )
 	
-	try { "" >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" >= types }, TypeError )
 	
-	try { "" >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_10.burn
 
@@ -784,41 +502,23 @@ gteq_result_11.burn:
 	import burn.types
 	import burn.errors
 	
-	try { "apple" >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" >= nothing }, TypeError )
 	
-	try { "apple" >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" >= true }, TypeError )
 	
-	try { "apple" >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" >= false }, TypeError )
 	
-	try { "apple" >= 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" >= 0 }, TypeError )
 	
-	try { "apple" >= 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" >= 2 }, TypeError )
 	
-	try { "apple" >= -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" >= -2 }, TypeError )
 	
-	try { "apple" >= 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" >= 0.0 }, TypeError )
 	
-	try { "apple" >= 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" >= 2.0 }, TypeError )
 	
-	try { "apple" >= -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" >= -0.5 }, TypeError )
 	
 	let $j = "apple" >= ""
 	assert( $j is Boolean )
@@ -832,29 +532,17 @@ gteq_result_11.burn:
 	assert( $l is Boolean )
 	assert( $l == false )
 	
-	try { "apple" >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" >= repr }, TypeError )
 	
-	try { "apple" >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" >= function(){} }, TypeError )
 	
-	try { "apple" >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" >= Something }, TypeError )
 	
-	try { "apple" >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" >= Type }, TypeError )
 	
-	try { "apple" >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" >= types }, TypeError )
 	
-	try { "apple" >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_11.burn
 
@@ -862,41 +550,23 @@ gteq_result_12.burn:
 	import burn.types
 	import burn.errors
 	
-	try { "banana" >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" >= nothing }, TypeError )
 	
-	try { "banana" >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" >= true }, TypeError )
 	
-	try { "banana" >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" >= false }, TypeError )
 	
-	try { "banana" >= 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" >= 0 }, TypeError )
 	
-	try { "banana" >= 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" >= 2 }, TypeError )
 	
-	try { "banana" >= -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" >= -2 }, TypeError )
 	
-	try { "banana" >= 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" >= 0.0 }, TypeError )
 	
-	try { "banana" >= 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" >= 2.0 }, TypeError )
 	
-	try { "banana" >= -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" >= -0.5 }, TypeError )
 	
 	let $j = "banana" >= ""
 	assert( $j is Boolean )
@@ -910,29 +580,17 @@ gteq_result_12.burn:
 	assert( $l is Boolean )
 	assert( $l == true )
 	
-	try { "banana" >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" >= repr }, TypeError )
 	
-	try { "banana" >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" >= function(){} }, TypeError )
 	
-	try { "banana" >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" >= Something }, TypeError )
 	
-	try { "banana" >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" >= Type }, TypeError )
 	
-	try { "banana" >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" >= types }, TypeError )
 	
-	try { "banana" >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_12.burn
 
@@ -940,77 +598,41 @@ gteq_result_13.burn:
 	import burn.types
 	import burn.errors
 	
-	try { repr >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= nothing }, TypeError )
 	
-	try { repr >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= true }, TypeError )
 	
-	try { repr >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= false }, TypeError )
 	
-	try { repr >= 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= 0 }, TypeError )
 	
-	try { repr >= 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= 2 }, TypeError )
 	
-	try { repr >= -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= -2 }, TypeError )
 	
-	try { repr >= 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= 0.0 }, TypeError )
 	
-	try { repr >= 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= 2.0 }, TypeError )
 	
-	try { repr >= -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= -0.5 }, TypeError )
 	
-	try { repr >= "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= "" }, TypeError )
 	
-	try { repr >= "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= "apple" }, TypeError )
 	
-	try { repr >= "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= "banana" }, TypeError )
 	
-	try { repr >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= repr }, TypeError )
 	
-	try { repr >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= function(){} }, TypeError )
 	
-	try { repr >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= Something }, TypeError )
 	
-	try { repr >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= Type }, TypeError )
 	
-	try { repr >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= types }, TypeError )
 	
-	try { repr >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_13.burn
 
@@ -1018,77 +640,41 @@ gteq_result_14.burn:
 	import burn.types
 	import burn.errors
 	
-	try { function(){} >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= nothing }, TypeError )
 	
-	try { function(){} >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= true }, TypeError )
 	
-	try { function(){} >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= false }, TypeError )
 	
-	try { function(){} >= 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= 0 }, TypeError )
 	
-	try { function(){} >= 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= 2 }, TypeError )
 	
-	try { function(){} >= -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= -2 }, TypeError )
 	
-	try { function(){} >= 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= 0.0 }, TypeError )
 	
-	try { function(){} >= 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= 2.0 }, TypeError )
 	
-	try { function(){} >= -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= -0.5 }, TypeError )
 	
-	try { function(){} >= "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= "" }, TypeError )
 	
-	try { function(){} >= "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= "apple" }, TypeError )
 	
-	try { function(){} >= "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= "banana" }, TypeError )
 	
-	try { function(){} >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= repr }, TypeError )
 	
-	try { function(){} >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= function(){} }, TypeError )
 	
-	try { function(){} >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= Something }, TypeError )
 	
-	try { function(){} >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= Type }, TypeError )
 	
-	try { function(){} >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= types }, TypeError )
 	
-	try { function(){} >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_14.burn
 
@@ -1096,77 +682,41 @@ gteq_result_15.burn:
 	import burn.types
 	import burn.errors
 	
-	try { Something >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= nothing }, TypeError )
 	
-	try { Something >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= true }, TypeError )
 	
-	try { Something >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= false }, TypeError )
 	
-	try { Something >= 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= 0 }, TypeError )
 	
-	try { Something >= 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= 2 }, TypeError )
 	
-	try { Something >= -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= -2 }, TypeError )
 	
-	try { Something >= 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= 0.0 }, TypeError )
 	
-	try { Something >= 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= 2.0 }, TypeError )
 	
-	try { Something >= -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= -0.5 }, TypeError )
 	
-	try { Something >= "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= "" }, TypeError )
 	
-	try { Something >= "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= "apple" }, TypeError )
 	
-	try { Something >= "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= "banana" }, TypeError )
 	
-	try { Something >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= repr }, TypeError )
 	
-	try { Something >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= function(){} }, TypeError )
 	
-	try { Something >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= Something }, TypeError )
 	
-	try { Something >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= Type }, TypeError )
 	
-	try { Something >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= types }, TypeError )
 	
-	try { Something >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_15.burn
 
@@ -1174,77 +724,41 @@ gteq_result_16.burn:
 	import burn.types
 	import burn.errors
 	
-	try { Type >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= nothing }, TypeError )
 	
-	try { Type >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= true }, TypeError )
 	
-	try { Type >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= false }, TypeError )
 	
-	try { Type >= 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= 0 }, TypeError )
 	
-	try { Type >= 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= 2 }, TypeError )
 	
-	try { Type >= -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= -2 }, TypeError )
 	
-	try { Type >= 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= 0.0 }, TypeError )
 	
-	try { Type >= 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= 2.0 }, TypeError )
 	
-	try { Type >= -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= -0.5 }, TypeError )
 	
-	try { Type >= "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= "" }, TypeError )
 	
-	try { Type >= "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= "apple" }, TypeError )
 	
-	try { Type >= "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= "banana" }, TypeError )
 	
-	try { Type >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= repr }, TypeError )
 	
-	try { Type >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= function(){} }, TypeError )
 	
-	try { Type >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= Something }, TypeError )
 	
-	try { Type >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= Type }, TypeError )
 	
-	try { Type >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= types }, TypeError )
 	
-	try { Type >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_16.burn
 
@@ -1252,77 +766,41 @@ gteq_result_17.burn:
 	import burn.types
 	import burn.errors
 	
-	try { types >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= nothing }, TypeError )
 	
-	try { types >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= true }, TypeError )
 	
-	try { types >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= false }, TypeError )
 	
-	try { types >= 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= 0 }, TypeError )
 	
-	try { types >= 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= 2 }, TypeError )
 	
-	try { types >= -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= -2 }, TypeError )
 	
-	try { types >= 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= 0.0 }, TypeError )
 	
-	try { types >= 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= 2.0 }, TypeError )
 	
-	try { types >= -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= -0.5 }, TypeError )
 	
-	try { types >= "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= "" }, TypeError )
 	
-	try { types >= "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= "apple" }, TypeError )
 	
-	try { types >= "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= "banana" }, TypeError )
 	
-	try { types >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= repr }, TypeError )
 	
-	try { types >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= function(){} }, TypeError )
 	
-	try { types >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= Something }, TypeError )
 	
-	try { types >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= Type }, TypeError )
 	
-	try { types >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= types }, TypeError )
 	
-	try { types >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_17.burn
 
@@ -1330,76 +808,40 @@ gteq_result_18.burn:
 	import burn.types
 	import burn.errors
 	
-	try { errors >= nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= nothing }, TypeError )
 	
-	try { errors >= true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= true }, TypeError )
 	
-	try { errors >= false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= false }, TypeError )
 	
-	try { errors >= 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= 0 }, TypeError )
 	
-	try { errors >= 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= 2 }, TypeError )
 	
-	try { errors >= -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= -2 }, TypeError )
 	
-	try { errors >= 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= 0.0 }, TypeError )
 	
-	try { errors >= 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= 2.0 }, TypeError )
 	
-	try { errors >= -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= -0.5 }, TypeError )
 	
-	try { errors >= "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= "" }, TypeError )
 	
-	try { errors >= "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= "apple" }, TypeError )
 	
-	try { errors >= "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= "banana" }, TypeError )
 	
-	try { errors >= repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= repr }, TypeError )
 	
-	try { errors >= function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= function(){} }, TypeError )
 	
-	try { errors >= Something }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= Something }, TypeError )
 	
-	try { errors >= Type }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= Type }, TypeError )
 	
-	try { errors >= types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= types }, TypeError )
 	
-	try { errors >= errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors >= errors }, TypeError )
 
 $ $BURN --tolerant gteq_result_18.burn

@@ -24,25 +24,27 @@ types.Permanent = new util.JsFunctionType( function( fiber, v ) {
 	return v.isPermanent();
 }, { permanent: true } );
 
-types.Something = new util.JsFunctionType( function( fiber, v ) {
-	return ! ( v instanceof Value.Nothing );
-}, { permanent: true } );
-
 types.Truthy = new util.JsFunctionType( function( fiber, v ) {
 	return v.isTruthy();
 }, { permanent: false } );
 
-types.Falsy = new util.JsFunctionType( function( fiber, v ) {
-	return ! v.isTruthy();
-}, { permanent: false } );
+types.Callable = new util.JsFunctionType( function( fiber, v ) {
+	return typeof v.call === "function";
+}, { permanent: true } );
+
+
+types.Something = new util.JsFunctionType( function( fiber, v ) {
+	return ! ( v instanceof Value.Nothing );
+}, { permanent: true } );
 
 types.Number = new util.JsFunctionType( function( fiber, v ) {
 	return v instanceof Value.Integer || v instanceof Value.Float;
 }, { permanent: true } );
 
-types.Callable = new util.JsFunctionType( function( fiber, v ) {
-	return typeof v.call === "function";
-}, { permanent: true } );
+types.Falsy = new util.JsFunctionType( function( fiber, v ) {
+	return ! v.isTruthy();
+}, { permanent: false } );
+
 
 types.exposes = new Value.Module( {
 	Nothing: types.Nothing,

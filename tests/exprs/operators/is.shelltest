@@ -4,61 +4,33 @@ is_result_1.burn:
 	import burn.types
 	import burn.errors
 	
-	try { nothing is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing is nothing }, TypeError )
 	
-	try { nothing is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing is true }, TypeError )
 	
-	try { nothing is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing is false }, TypeError )
 	
-	try { nothing is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing is 0 }, TypeError )
 	
-	try { nothing is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing is 2 }, TypeError )
 	
-	try { nothing is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing is -2 }, TypeError )
 	
-	try { nothing is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing is 0.0 }, TypeError )
 	
-	try { nothing is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing is 2.0 }, TypeError )
 	
-	try { nothing is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing is -0.5 }, TypeError )
 	
-	try { nothing is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing is "" }, TypeError )
 	
-	try { nothing is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing is "apple" }, TypeError )
 	
-	try { nothing is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing is "banana" }, TypeError )
 	
-	try { nothing is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing is repr }, TypeError )
 	
-	try { nothing is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing is function(){} }, TypeError )
 	
 	let $o = nothing is Something
 	assert( $o is Boolean )
@@ -68,13 +40,9 @@ is_result_1.burn:
 	assert( $p is Boolean )
 	assert( $p == false )
 	
-	try { nothing is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing is types }, TypeError )
 	
-	try { nothing is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { nothing is errors }, TypeError )
 
 $ $BURN --tolerant is_result_1.burn
 
@@ -82,61 +50,33 @@ is_result_2.burn:
 	import burn.types
 	import burn.errors
 	
-	try { true is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true is nothing }, TypeError )
 	
-	try { true is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true is true }, TypeError )
 	
-	try { true is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true is false }, TypeError )
 	
-	try { true is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true is 0 }, TypeError )
 	
-	try { true is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true is 2 }, TypeError )
 	
-	try { true is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true is -2 }, TypeError )
 	
-	try { true is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true is 0.0 }, TypeError )
 	
-	try { true is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true is 2.0 }, TypeError )
 	
-	try { true is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true is -0.5 }, TypeError )
 	
-	try { true is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true is "" }, TypeError )
 	
-	try { true is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true is "apple" }, TypeError )
 	
-	try { true is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true is "banana" }, TypeError )
 	
-	try { true is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true is repr }, TypeError )
 	
-	try { true is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true is function(){} }, TypeError )
 	
 	let $o = true is Something
 	assert( $o is Boolean )
@@ -146,13 +86,9 @@ is_result_2.burn:
 	assert( $p is Boolean )
 	assert( $p == false )
 	
-	try { true is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true is types }, TypeError )
 	
-	try { true is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { true is errors }, TypeError )
 
 $ $BURN --tolerant is_result_2.burn
 
@@ -160,61 +96,33 @@ is_result_3.burn:
 	import burn.types
 	import burn.errors
 	
-	try { false is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false is nothing }, TypeError )
 	
-	try { false is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false is true }, TypeError )
 	
-	try { false is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false is false }, TypeError )
 	
-	try { false is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false is 0 }, TypeError )
 	
-	try { false is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false is 2 }, TypeError )
 	
-	try { false is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false is -2 }, TypeError )
 	
-	try { false is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false is 0.0 }, TypeError )
 	
-	try { false is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false is 2.0 }, TypeError )
 	
-	try { false is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false is -0.5 }, TypeError )
 	
-	try { false is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false is "" }, TypeError )
 	
-	try { false is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false is "apple" }, TypeError )
 	
-	try { false is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false is "banana" }, TypeError )
 	
-	try { false is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false is repr }, TypeError )
 	
-	try { false is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false is function(){} }, TypeError )
 	
 	let $o = false is Something
 	assert( $o is Boolean )
@@ -224,13 +132,9 @@ is_result_3.burn:
 	assert( $p is Boolean )
 	assert( $p == false )
 	
-	try { false is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false is types }, TypeError )
 	
-	try { false is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { false is errors }, TypeError )
 
 $ $BURN --tolerant is_result_3.burn
 
@@ -238,61 +142,33 @@ is_result_4.burn:
 	import burn.types
 	import burn.errors
 	
-	try { 0 is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 is nothing }, TypeError )
 	
-	try { 0 is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 is true }, TypeError )
 	
-	try { 0 is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 is false }, TypeError )
 	
-	try { 0 is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 is 0 }, TypeError )
 	
-	try { 0 is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 is 2 }, TypeError )
 	
-	try { 0 is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 is -2 }, TypeError )
 	
-	try { 0 is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 is 0.0 }, TypeError )
 	
-	try { 0 is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 is 2.0 }, TypeError )
 	
-	try { 0 is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 is -0.5 }, TypeError )
 	
-	try { 0 is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 is "" }, TypeError )
 	
-	try { 0 is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 is "apple" }, TypeError )
 	
-	try { 0 is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 is "banana" }, TypeError )
 	
-	try { 0 is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 is repr }, TypeError )
 	
-	try { 0 is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 is function(){} }, TypeError )
 	
 	let $o = 0 is Something
 	assert( $o is Boolean )
@@ -302,13 +178,9 @@ is_result_4.burn:
 	assert( $p is Boolean )
 	assert( $p == false )
 	
-	try { 0 is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 is types }, TypeError )
 	
-	try { 0 is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0 is errors }, TypeError )
 
 $ $BURN --tolerant is_result_4.burn
 
@@ -316,61 +188,33 @@ is_result_5.burn:
 	import burn.types
 	import burn.errors
 	
-	try { 2 is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 is nothing }, TypeError )
 	
-	try { 2 is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 is true }, TypeError )
 	
-	try { 2 is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 is false }, TypeError )
 	
-	try { 2 is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 is 0 }, TypeError )
 	
-	try { 2 is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 is 2 }, TypeError )
 	
-	try { 2 is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 is -2 }, TypeError )
 	
-	try { 2 is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 is 0.0 }, TypeError )
 	
-	try { 2 is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 is 2.0 }, TypeError )
 	
-	try { 2 is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 is -0.5 }, TypeError )
 	
-	try { 2 is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 is "" }, TypeError )
 	
-	try { 2 is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 is "apple" }, TypeError )
 	
-	try { 2 is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 is "banana" }, TypeError )
 	
-	try { 2 is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 is repr }, TypeError )
 	
-	try { 2 is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 is function(){} }, TypeError )
 	
 	let $o = 2 is Something
 	assert( $o is Boolean )
@@ -380,13 +224,9 @@ is_result_5.burn:
 	assert( $p is Boolean )
 	assert( $p == false )
 	
-	try { 2 is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 is types }, TypeError )
 	
-	try { 2 is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2 is errors }, TypeError )
 
 $ $BURN --tolerant is_result_5.burn
 
@@ -394,61 +234,33 @@ is_result_6.burn:
 	import burn.types
 	import burn.errors
 	
-	try { -2 is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 is nothing }, TypeError )
 	
-	try { -2 is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 is true }, TypeError )
 	
-	try { -2 is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 is false }, TypeError )
 	
-	try { -2 is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 is 0 }, TypeError )
 	
-	try { -2 is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 is 2 }, TypeError )
 	
-	try { -2 is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 is -2 }, TypeError )
 	
-	try { -2 is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 is 0.0 }, TypeError )
 	
-	try { -2 is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 is 2.0 }, TypeError )
 	
-	try { -2 is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 is -0.5 }, TypeError )
 	
-	try { -2 is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 is "" }, TypeError )
 	
-	try { -2 is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 is "apple" }, TypeError )
 	
-	try { -2 is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 is "banana" }, TypeError )
 	
-	try { -2 is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 is repr }, TypeError )
 	
-	try { -2 is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 is function(){} }, TypeError )
 	
 	let $o = -2 is Something
 	assert( $o is Boolean )
@@ -458,13 +270,9 @@ is_result_6.burn:
 	assert( $p is Boolean )
 	assert( $p == false )
 	
-	try { -2 is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 is types }, TypeError )
 	
-	try { -2 is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -2 is errors }, TypeError )
 
 $ $BURN --tolerant is_result_6.burn
 
@@ -472,61 +280,33 @@ is_result_7.burn:
 	import burn.types
 	import burn.errors
 	
-	try { 0.0 is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 is nothing }, TypeError )
 	
-	try { 0.0 is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 is true }, TypeError )
 	
-	try { 0.0 is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 is false }, TypeError )
 	
-	try { 0.0 is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 is 0 }, TypeError )
 	
-	try { 0.0 is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 is 2 }, TypeError )
 	
-	try { 0.0 is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 is -2 }, TypeError )
 	
-	try { 0.0 is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 is 0.0 }, TypeError )
 	
-	try { 0.0 is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 is 2.0 }, TypeError )
 	
-	try { 0.0 is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 is -0.5 }, TypeError )
 	
-	try { 0.0 is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 is "" }, TypeError )
 	
-	try { 0.0 is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 is "apple" }, TypeError )
 	
-	try { 0.0 is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 is "banana" }, TypeError )
 	
-	try { 0.0 is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 is repr }, TypeError )
 	
-	try { 0.0 is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 is function(){} }, TypeError )
 	
 	let $o = 0.0 is Something
 	assert( $o is Boolean )
@@ -536,13 +316,9 @@ is_result_7.burn:
 	assert( $p is Boolean )
 	assert( $p == false )
 	
-	try { 0.0 is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 is types }, TypeError )
 	
-	try { 0.0 is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 0.0 is errors }, TypeError )
 
 $ $BURN --tolerant is_result_7.burn
 
@@ -550,61 +326,33 @@ is_result_8.burn:
 	import burn.types
 	import burn.errors
 	
-	try { 2.0 is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 is nothing }, TypeError )
 	
-	try { 2.0 is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 is true }, TypeError )
 	
-	try { 2.0 is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 is false }, TypeError )
 	
-	try { 2.0 is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 is 0 }, TypeError )
 	
-	try { 2.0 is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 is 2 }, TypeError )
 	
-	try { 2.0 is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 is -2 }, TypeError )
 	
-	try { 2.0 is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 is 0.0 }, TypeError )
 	
-	try { 2.0 is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 is 2.0 }, TypeError )
 	
-	try { 2.0 is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 is -0.5 }, TypeError )
 	
-	try { 2.0 is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 is "" }, TypeError )
 	
-	try { 2.0 is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 is "apple" }, TypeError )
 	
-	try { 2.0 is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 is "banana" }, TypeError )
 	
-	try { 2.0 is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 is repr }, TypeError )
 	
-	try { 2.0 is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 is function(){} }, TypeError )
 	
 	let $o = 2.0 is Something
 	assert( $o is Boolean )
@@ -614,13 +362,9 @@ is_result_8.burn:
 	assert( $p is Boolean )
 	assert( $p == false )
 	
-	try { 2.0 is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 is types }, TypeError )
 	
-	try { 2.0 is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { 2.0 is errors }, TypeError )
 
 $ $BURN --tolerant is_result_8.burn
 
@@ -628,61 +372,33 @@ is_result_9.burn:
 	import burn.types
 	import burn.errors
 	
-	try { -0.5 is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 is nothing }, TypeError )
 	
-	try { -0.5 is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 is true }, TypeError )
 	
-	try { -0.5 is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 is false }, TypeError )
 	
-	try { -0.5 is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 is 0 }, TypeError )
 	
-	try { -0.5 is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 is 2 }, TypeError )
 	
-	try { -0.5 is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 is -2 }, TypeError )
 	
-	try { -0.5 is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 is 0.0 }, TypeError )
 	
-	try { -0.5 is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 is 2.0 }, TypeError )
 	
-	try { -0.5 is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 is -0.5 }, TypeError )
 	
-	try { -0.5 is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 is "" }, TypeError )
 	
-	try { -0.5 is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 is "apple" }, TypeError )
 	
-	try { -0.5 is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 is "banana" }, TypeError )
 	
-	try { -0.5 is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 is repr }, TypeError )
 	
-	try { -0.5 is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 is function(){} }, TypeError )
 	
 	let $o = -0.5 is Something
 	assert( $o is Boolean )
@@ -692,13 +408,9 @@ is_result_9.burn:
 	assert( $p is Boolean )
 	assert( $p == false )
 	
-	try { -0.5 is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 is types }, TypeError )
 	
-	try { -0.5 is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { -0.5 is errors }, TypeError )
 
 $ $BURN --tolerant is_result_9.burn
 
@@ -706,61 +418,33 @@ is_result_10.burn:
 	import burn.types
 	import burn.errors
 	
-	try { "" is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" is nothing }, TypeError )
 	
-	try { "" is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" is true }, TypeError )
 	
-	try { "" is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" is false }, TypeError )
 	
-	try { "" is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" is 0 }, TypeError )
 	
-	try { "" is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" is 2 }, TypeError )
 	
-	try { "" is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" is -2 }, TypeError )
 	
-	try { "" is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" is 0.0 }, TypeError )
 	
-	try { "" is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" is 2.0 }, TypeError )
 	
-	try { "" is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" is -0.5 }, TypeError )
 	
-	try { "" is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" is "" }, TypeError )
 	
-	try { "" is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" is "apple" }, TypeError )
 	
-	try { "" is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" is "banana" }, TypeError )
 	
-	try { "" is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" is repr }, TypeError )
 	
-	try { "" is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" is function(){} }, TypeError )
 	
 	let $o = "" is Something
 	assert( $o is Boolean )
@@ -770,13 +454,9 @@ is_result_10.burn:
 	assert( $p is Boolean )
 	assert( $p == false )
 	
-	try { "" is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" is types }, TypeError )
 	
-	try { "" is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "" is errors }, TypeError )
 
 $ $BURN --tolerant is_result_10.burn
 
@@ -784,61 +464,33 @@ is_result_11.burn:
 	import burn.types
 	import burn.errors
 	
-	try { "apple" is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" is nothing }, TypeError )
 	
-	try { "apple" is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" is true }, TypeError )
 	
-	try { "apple" is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" is false }, TypeError )
 	
-	try { "apple" is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" is 0 }, TypeError )
 	
-	try { "apple" is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" is 2 }, TypeError )
 	
-	try { "apple" is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" is -2 }, TypeError )
 	
-	try { "apple" is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" is 0.0 }, TypeError )
 	
-	try { "apple" is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" is 2.0 }, TypeError )
 	
-	try { "apple" is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" is -0.5 }, TypeError )
 	
-	try { "apple" is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" is "" }, TypeError )
 	
-	try { "apple" is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" is "apple" }, TypeError )
 	
-	try { "apple" is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" is "banana" }, TypeError )
 	
-	try { "apple" is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" is repr }, TypeError )
 	
-	try { "apple" is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" is function(){} }, TypeError )
 	
 	let $o = "apple" is Something
 	assert( $o is Boolean )
@@ -848,13 +500,9 @@ is_result_11.burn:
 	assert( $p is Boolean )
 	assert( $p == false )
 	
-	try { "apple" is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" is types }, TypeError )
 	
-	try { "apple" is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "apple" is errors }, TypeError )
 
 $ $BURN --tolerant is_result_11.burn
 
@@ -862,61 +510,33 @@ is_result_12.burn:
 	import burn.types
 	import burn.errors
 	
-	try { "banana" is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" is nothing }, TypeError )
 	
-	try { "banana" is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" is true }, TypeError )
 	
-	try { "banana" is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" is false }, TypeError )
 	
-	try { "banana" is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" is 0 }, TypeError )
 	
-	try { "banana" is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" is 2 }, TypeError )
 	
-	try { "banana" is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" is -2 }, TypeError )
 	
-	try { "banana" is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" is 0.0 }, TypeError )
 	
-	try { "banana" is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" is 2.0 }, TypeError )
 	
-	try { "banana" is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" is -0.5 }, TypeError )
 	
-	try { "banana" is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" is "" }, TypeError )
 	
-	try { "banana" is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" is "apple" }, TypeError )
 	
-	try { "banana" is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" is "banana" }, TypeError )
 	
-	try { "banana" is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" is repr }, TypeError )
 	
-	try { "banana" is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" is function(){} }, TypeError )
 	
 	let $o = "banana" is Something
 	assert( $o is Boolean )
@@ -926,13 +546,9 @@ is_result_12.burn:
 	assert( $p is Boolean )
 	assert( $p == false )
 	
-	try { "banana" is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" is types }, TypeError )
 	
-	try { "banana" is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { "banana" is errors }, TypeError )
 
 $ $BURN --tolerant is_result_12.burn
 
@@ -940,61 +556,33 @@ is_result_13.burn:
 	import burn.types
 	import burn.errors
 	
-	try { repr is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr is nothing }, TypeError )
 	
-	try { repr is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr is true }, TypeError )
 	
-	try { repr is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr is false }, TypeError )
 	
-	try { repr is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr is 0 }, TypeError )
 	
-	try { repr is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr is 2 }, TypeError )
 	
-	try { repr is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr is -2 }, TypeError )
 	
-	try { repr is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr is 0.0 }, TypeError )
 	
-	try { repr is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr is 2.0 }, TypeError )
 	
-	try { repr is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr is -0.5 }, TypeError )
 	
-	try { repr is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr is "" }, TypeError )
 	
-	try { repr is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr is "apple" }, TypeError )
 	
-	try { repr is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr is "banana" }, TypeError )
 	
-	try { repr is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr is repr }, TypeError )
 	
-	try { repr is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr is function(){} }, TypeError )
 	
 	let $o = repr is Something
 	assert( $o is Boolean )
@@ -1004,13 +592,9 @@ is_result_13.burn:
 	assert( $p is Boolean )
 	assert( $p == false )
 	
-	try { repr is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr is types }, TypeError )
 	
-	try { repr is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { repr is errors }, TypeError )
 
 $ $BURN --tolerant is_result_13.burn
 
@@ -1018,61 +602,33 @@ is_result_14.burn:
 	import burn.types
 	import burn.errors
 	
-	try { function(){} is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} is nothing }, TypeError )
 	
-	try { function(){} is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} is true }, TypeError )
 	
-	try { function(){} is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} is false }, TypeError )
 	
-	try { function(){} is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} is 0 }, TypeError )
 	
-	try { function(){} is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} is 2 }, TypeError )
 	
-	try { function(){} is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} is -2 }, TypeError )
 	
-	try { function(){} is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} is 0.0 }, TypeError )
 	
-	try { function(){} is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} is 2.0 }, TypeError )
 	
-	try { function(){} is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} is -0.5 }, TypeError )
 	
-	try { function(){} is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} is "" }, TypeError )
 	
-	try { function(){} is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} is "apple" }, TypeError )
 	
-	try { function(){} is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} is "banana" }, TypeError )
 	
-	try { function(){} is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} is repr }, TypeError )
 	
-	try { function(){} is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} is function(){} }, TypeError )
 	
 	let $o = function(){} is Something
 	assert( $o is Boolean )
@@ -1082,13 +638,9 @@ is_result_14.burn:
 	assert( $p is Boolean )
 	assert( $p == false )
 	
-	try { function(){} is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} is types }, TypeError )
 	
-	try { function(){} is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { function(){} is errors }, TypeError )
 
 $ $BURN --tolerant is_result_14.burn
 
@@ -1096,61 +648,33 @@ is_result_15.burn:
 	import burn.types
 	import burn.errors
 	
-	try { Something is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something is nothing }, TypeError )
 	
-	try { Something is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something is true }, TypeError )
 	
-	try { Something is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something is false }, TypeError )
 	
-	try { Something is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something is 0 }, TypeError )
 	
-	try { Something is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something is 2 }, TypeError )
 	
-	try { Something is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something is -2 }, TypeError )
 	
-	try { Something is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something is 0.0 }, TypeError )
 	
-	try { Something is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something is 2.0 }, TypeError )
 	
-	try { Something is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something is -0.5 }, TypeError )
 	
-	try { Something is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something is "" }, TypeError )
 	
-	try { Something is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something is "apple" }, TypeError )
 	
-	try { Something is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something is "banana" }, TypeError )
 	
-	try { Something is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something is repr }, TypeError )
 	
-	try { Something is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something is function(){} }, TypeError )
 	
 	let $o = Something is Something
 	assert( $o is Boolean )
@@ -1160,13 +684,9 @@ is_result_15.burn:
 	assert( $p is Boolean )
 	assert( $p == true )
 	
-	try { Something is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something is types }, TypeError )
 	
-	try { Something is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Something is errors }, TypeError )
 
 $ $BURN --tolerant is_result_15.burn
 
@@ -1174,61 +694,33 @@ is_result_16.burn:
 	import burn.types
 	import burn.errors
 	
-	try { Type is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type is nothing }, TypeError )
 	
-	try { Type is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type is true }, TypeError )
 	
-	try { Type is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type is false }, TypeError )
 	
-	try { Type is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type is 0 }, TypeError )
 	
-	try { Type is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type is 2 }, TypeError )
 	
-	try { Type is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type is -2 }, TypeError )
 	
-	try { Type is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type is 0.0 }, TypeError )
 	
-	try { Type is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type is 2.0 }, TypeError )
 	
-	try { Type is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type is -0.5 }, TypeError )
 	
-	try { Type is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type is "" }, TypeError )
 	
-	try { Type is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type is "apple" }, TypeError )
 	
-	try { Type is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type is "banana" }, TypeError )
 	
-	try { Type is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type is repr }, TypeError )
 	
-	try { Type is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type is function(){} }, TypeError )
 	
 	let $o = Type is Something
 	assert( $o is Boolean )
@@ -1238,13 +730,9 @@ is_result_16.burn:
 	assert( $p is Boolean )
 	assert( $p == true )
 	
-	try { Type is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type is types }, TypeError )
 	
-	try { Type is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { Type is errors }, TypeError )
 
 $ $BURN --tolerant is_result_16.burn
 
@@ -1252,61 +740,33 @@ is_result_17.burn:
 	import burn.types
 	import burn.errors
 	
-	try { types is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types is nothing }, TypeError )
 	
-	try { types is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types is true }, TypeError )
 	
-	try { types is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types is false }, TypeError )
 	
-	try { types is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types is 0 }, TypeError )
 	
-	try { types is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types is 2 }, TypeError )
 	
-	try { types is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types is -2 }, TypeError )
 	
-	try { types is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types is 0.0 }, TypeError )
 	
-	try { types is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types is 2.0 }, TypeError )
 	
-	try { types is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types is -0.5 }, TypeError )
 	
-	try { types is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types is "" }, TypeError )
 	
-	try { types is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types is "apple" }, TypeError )
 	
-	try { types is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types is "banana" }, TypeError )
 	
-	try { types is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types is repr }, TypeError )
 	
-	try { types is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types is function(){} }, TypeError )
 	
 	let $o = types is Something
 	assert( $o is Boolean )
@@ -1316,13 +776,9 @@ is_result_17.burn:
 	assert( $p is Boolean )
 	assert( $p == false )
 	
-	try { types is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types is types }, TypeError )
 	
-	try { types is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { types is errors }, TypeError )
 
 $ $BURN --tolerant is_result_17.burn
 
@@ -1330,61 +786,33 @@ is_result_18.burn:
 	import burn.types
 	import burn.errors
 	
-	try { errors is nothing }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors is nothing }, TypeError )
 	
-	try { errors is true }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors is true }, TypeError )
 	
-	try { errors is false }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors is false }, TypeError )
 	
-	try { errors is 0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors is 0 }, TypeError )
 	
-	try { errors is 2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors is 2 }, TypeError )
 	
-	try { errors is -2 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors is -2 }, TypeError )
 	
-	try { errors is 0.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors is 0.0 }, TypeError )
 	
-	try { errors is 2.0 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors is 2.0 }, TypeError )
 	
-	try { errors is -0.5 }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors is -0.5 }, TypeError )
 	
-	try { errors is "" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors is "" }, TypeError )
 	
-	try { errors is "apple" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors is "apple" }, TypeError )
 	
-	try { errors is "banana" }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors is "banana" }, TypeError )
 	
-	try { errors is repr }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors is repr }, TypeError )
 	
-	try { errors is function(){} }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors is function(){} }, TypeError )
 	
 	let $o = errors is Something
 	assert( $o is Boolean )
@@ -1394,12 +822,8 @@ is_result_18.burn:
 	assert( $p is Boolean )
 	assert( $p == false )
 	
-	try { errors is types }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors is types }, TypeError )
 	
-	try { errors is errors }
-	catch TypeError $e {}
-	else { assert( false ) }
+	assert.throws( function() { errors is errors }, TypeError )
 
 $ $BURN --tolerant is_result_18.burn

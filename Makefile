@@ -18,13 +18,13 @@ todo:
 
 OPERATORS = or and not is eq neq lt gt lteq gteq add sub
 
-.PHONY: operator_tests
+.PHONY: generate_operator_tests
 generate_operator_tests: $(patsubst %, generate_operator_test_%, $(OPERATORS))
 generate_operator_test_%:
 	@mkdir -p tests/exprs/operators/
 	etc/generate_operator_test.py result $* > tests/exprs/operators/$*.shelltest
 
-.PHONY: precedence_tests
+.PHONY: generate_precedence_tests
 generate_precedence_tests: $(patsubst %, generate_precedence_test_%, $(OPERATORS))
 generate_precedence_test_%:
 	@mkdir -p tests/exprs/precedence/

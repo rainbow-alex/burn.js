@@ -1,0 +1,5 @@
+assert_module.burn:
+	assert( assert is Module )
+	assert( assert is Callable )
+
+$ $BURN assert_module.burn

@@ -166,3 +166,24 @@ messages.ord_undefined = function( l, r ) {
 		{ l: l.repr, r: r.repr }
 	);
 };
+
+messages.assert_throws_wrong_type = function( fiber, callable, type, thrown ) {
+	return format(
+		"AssertionError: $callable was expected to throw $type, but it threw $thrown.",
+		{
+			callable: callable.repr,
+			type: type.toBurnString( fiber ).value,
+			thrown: thrown.repr,
+		}
+	);
+};
+
+messages.assert_throws_didnt_throw = function( fiber, callable, type ) {
+	return format(
+		"AssertionError: $callable was expected to throw $type, but it didn't throw anything.",
+		{
+			callable: callable.repr,
+			type: type.toBurnString( fiber ).value, // TODO catch errors in toBurnString
+		}
+	);
+};

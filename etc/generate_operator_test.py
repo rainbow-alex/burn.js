@@ -172,7 +172,7 @@ if sys.argv[1] == "result":
 			output = value_outputs[i]
 			source += "\n"
 			if output == "TypeError":
-				source += "try { %s }\ncatch TypeError $e {}\nelse { assert( false ) }\n" % expression
+				source += "assert.throws( function() { %s }, TypeError )\n" % expression
 			else:
 				var = "$" + chr( 97 + i )
 				type_ = types[ type_outputs[i*len(types):(i+1)*len(types)].index( "true" ) ]

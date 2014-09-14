@@ -1,0 +1,29 @@
+truthy.burn:
+	assert.truthy( true )
+	assert.truthy( 1 )
+	assert.truthy( [ 1, 2, 3 ] )
+
+$ $BURN truthy.burn
+
+falsy1.burn:
+	assert.truthy( false )
+
+$ $BURN falsy1.burn
+	* exit status nonzero
+
+falsy2.burn:
+	assert.truthy( 0 )
+
+$ $BURN falsy2.burn
+	* exit status nonzero
+
+fail.burn:
+	try {
+		assert.truthy( false )
+	} catch AssertionError $e {
+		print "AssertionError"
+	}
+
+$ $BURN fail.burn
+	* stdout
+		AssertionError
