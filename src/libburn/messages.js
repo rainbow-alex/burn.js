@@ -84,6 +84,27 @@ messages.function_call_wrong_arg_type = function( function_, parameters, args, i
 	);
 };
 
+messages.function_call_return_type_is_not_a_type = function( function_, type ) {
+	return format(
+		"TypeError: return type for $fn is not Type, but $actual.",
+		{
+			fn: function_.repr,
+			actual: type.repr,
+		}
+	);
+};
+
+messages.function_call_wrong_return_type = function( fiber, function_, type, value ) {
+	return format(
+		"TypeError: $fn returned $value, which is not $type.",
+		{
+			fn: function_.repr,
+			type: type.toBurnString( fiber ).value,
+			value: value.repr,
+		}
+	);
+};
+
 messages.method_call_not_enough_args = function( context, method, parameters, args ) {
 	let min = parameters.length;
 	while( parameters[ min - 1 ].default ) { min--; }

@@ -170,21 +170,27 @@ ast.FinallyClause.prototype.resolve = function( scope ) {
 ast.FunctionExpression.prototype.resolve = function( scope ) {
 	let functionScope = scope.spawnNestedFunctionScope( this );
 	this.parameters.forEach( function( p ) {
+		p.resolveType( scope );
 		p.resolve( functionScope );
 	} );
+	if( this.returnType ) {
+		this.returnType.resolve( scope );
+	}
 	this.block.forEach( function( s ) {
 		s.resolve( functionScope );
 	} );
 	this.safe = ! functionScope.isClosure();
 };
 
+ast.FunctionParameter.prototype.resolveType = function( scope ) {
+	if( this.type ) {
+		this.type.resolve( scope );
+	}
+};
+
 ast.FunctionParameter.prototype.resolve = function( scope ) {
 	if( scope.isVariableDeclaredInThisScope( this.variable.value ) ) {
 		throw new Error( "Duplicate declaration of " + this.variable.value, this.variable );
-	}
-	if( this.type ) {
-		this.type.resolve( scope );
-		// TODO compile this so it is in the parent scope, not the function scope
 	}
 	scope.declareVariable( this.variable.value );
 	if( this.defaultValue ) {

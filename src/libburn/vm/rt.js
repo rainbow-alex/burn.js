@@ -40,6 +40,21 @@ rt.validateFunctionCallArguments = function( fiber, fn, parameters, args ) {
 	util.validateFunctionCallArguments( fiber, fn, parameters, args );
 };
 
+rt.validateFunctionCallReturnType = function( fiber, fn, type, value ) {
+	if( ! types.Type.typeTest( fiber, type ) ) {
+		throw new errors.TypeErrorInstance(
+			msg.function_call_return_type_is_not_a_type( fn, type ),
+			fiber.stack
+		);
+	}
+	if( ! type.typeTest( fiber, value ) ) {
+		throw new errors.TypeErrorInstance(
+			msg.function_call_wrong_return_type( fiber, fn, type, value ),
+			fiber.stack
+		);
+	}
+};
+
 rt.createList = function( items ) {
 	return new list.JsListInstance( items );
 };

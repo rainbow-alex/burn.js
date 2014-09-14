@@ -332,13 +332,20 @@ ast.FunctionExpression.prototype.compile = function( output ) {
 		output.code += '},';
 	} );
 	output.code += '],args);';
+	output.code += 'let r=function(){';
 	this.parameters.forEach( function( parameter, i ) {
 		output.code += 'let ' + encodeVariable( parameter.variable.value ) + '=args[' + i + '];';
 	} );
 	this.block.forEach( function( s ) {
 		s.compile( output );
 	} );
-	output.code += '},{';
+	output.code += '}();';
+	if( this.returnType ) {
+		output.code += '_.validateFunctionCallReturnType(_fiber,this,';
+		this.returnType.compile( output );
+		output.code += ',r);';
+	}
+	output.code += 'return r;},{';
 	if( this.name ) {
 		output.code += 'name:' + encodeString( this.name ) + ',';
 	}

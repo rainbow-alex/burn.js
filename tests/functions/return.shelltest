@@ -1,0 +1,49 @@
+return.burn:
+	assert( function() {
+		return
+	}() == nothing )
+
+$ $BURN return.burn
+
+return_value.burn:
+	assert( function() {
+		return 3
+	}() == 3 )
+
+$ $BURN return_value.burn
+
+return_flow.burn:
+	function() {
+		print "a"
+		return
+		print "b"
+	}()
+
+$ $BURN return_flow.burn
+	* stdout
+		a
+
+return_type.burn:
+	function() -> Integer {
+		return 3
+	}()
+
+$ $BURN return_type.burn
+
+wrong_return_value_type.burn:
+	assert.throws( function() {
+		function() -> Integer {
+			return "3"
+		}()
+	}, TypeError )
+
+$ $BURN wrong_return_value_type.burn
+
+invalid_return_type.burn:
+	assert.throws( function() {
+		function() -> 3 {
+			return
+		}()
+	}, TypeError )
+
+$ $BURN invalid_return_type.burn

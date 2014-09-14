@@ -604,11 +604,17 @@ module.exports = function( tokens ) {
 			}
 		}
 		read( ")" );
+		let returnType;
+		if( peek().type === "->" ) {
+			read();
+			returnType = parseExpression();
+		}
 		let block = parseBlock();
 		stopIgnoringNewlines();
 		return new ast.FunctionExpression( {
 			keyword: keyword,
 			parameters: parameters,
+			returnType: returnType,
 			block: block,
 		} );
 	}
