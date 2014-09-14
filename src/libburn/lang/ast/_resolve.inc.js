@@ -182,6 +182,10 @@ ast.FunctionParameter.prototype.resolve = function( scope ) {
 	if( scope.isVariableDeclaredInThisScope( this.variable.value ) ) {
 		throw new Error( "Duplicate declaration of " + this.variable.value, this.variable );
 	}
+	if( this.type ) {
+		this.type.resolve( scope );
+		// TODO compile this so it is in the parent scope, not the function scope
+	}
 	scope.declareVariable( this.variable.value );
 	if( this.defaultValue ) {
 		this.defaultValue.resolve( scope );

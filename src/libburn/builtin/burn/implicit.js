@@ -34,10 +34,28 @@ implicit.exposes = new Value.Module( {
 		return new Value.String( args[0].repr );
 	}, { safe: true } ),
 	
-	assert: new Value.Function( function( fiber, args ) {
-		if( ! args[0].isTruthy( fiber ) ) {
-			throw new errors.AssertionErrorInstance(); // TODO
-		}
-	}, { safe: true } ),
+	assert: new ( CLASS( Value.Special, {
+		call: function( fiber, args ) {
+			if( ! args[0].isTruthy( fiber ) ) {
+				throw new errors.AssertionErrorInstance( "", fiber.stack ); // TODO
+			}
+		},
+		safe: true,
+		get_throws: function( fiber ) {
+			return this._throws;
+		},
+		_throws: new Value.Function( function( fiber, args ) {
+			try {
+				args[0].call( fiber );
+			} catch( e ) { if( e instanceof Value ) {
+				if( ! args[1].typeTest( fiber, e ) ) {
+					throw new errors.AssertionErrorInstance( "AssertionError: wrong type", fiber.stack ); // TODO
+				} else {
+					return;
+				}
+			} else { throw e; } }
+			throw new errors.AssertionErrorInstance( "AssertionError: no error thrown", fiber.stack ); // TODO
+		}, { name: "throws", safe: true } ),
+	} ) ),
 	
 } );

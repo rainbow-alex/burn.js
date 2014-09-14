@@ -237,6 +237,9 @@ Value.Special = CLASS( Value, {
 	toString: function() {
 		return this.repr;
 	},
+	isSafe: function() {
+		return this.safe || false;
+	},
 } );
 
 Value.Special.BoundMethod = CLASS( Value, {

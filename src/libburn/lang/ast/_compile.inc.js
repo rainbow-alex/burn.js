@@ -307,9 +307,14 @@ ast.IndexExpression.prototype.compile = function( output ) {
 
 ast.FunctionExpression.prototype.compile = function( output ) {
 	output.code += '_.createFunction(function(_fiber,_args){';
-	this.parameters.forEach( function( a, i ) {
-		output.code += 'let ' + encodeVariable(a.variable.value) + '=_args[' + i + '];';
-		// TODO
+	this.parameters.forEach( function( parameter, i ) {
+		let v = encodeVariable( parameter.variable.value );
+		output.code += 'let ' + v + '=_args[' + i + '];';
+		if( parameter.type ) {
+			output.code += '_.argTest(_fiber,' + v + ',';
+			parameter.type.compile( output );
+			output.code += ');';
+		}
 	} );
 	this.block.forEach( function( s ) {
 		s.compile( output );

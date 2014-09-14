@@ -33,6 +33,12 @@ rt.createFunction = function( implementation, options ) {
 	return new Value.Function( implementation, options );
 };
 
+rt.argTest = function( fiber, value, type ) {
+	if( ! type.typeTest( fiber, value ) ) {
+		throw new errors.ArgumentErrorInstance( "", fiber.stack ); // TODO
+	}
+};
+
 rt.createList = function( items ) {
 	return new list.JsListInstance( items );
 };

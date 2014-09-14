@@ -1,0 +1,15 @@
+parameters.burn:
+	let $add = function( $a, $b ) {
+		return $a + $b
+	}
+	assert( $add( 1, 2 ) == 3 )
+
+$ $BURN parameters.burn
+
+typed_parameters.burn:
+	import burn.types.Number
+	assert.throws( function() {
+		function( Number $p ) {} ( "string" )
+	}, ArgumentError )
+
+$ $BURN typed_parameters.burn
