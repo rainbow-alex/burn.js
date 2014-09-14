@@ -1,0 +1,48 @@
+scalars.burn:
+	print repr( nothing )
+	print repr( true )
+	print repr( 0 )
+	print repr( 0.0 )
+	print repr( "" )
+
+$ $BURN scalars.burn
+	* stdout
+		<Nothing>
+		<Boolean>
+		<Integer>
+		<Float>
+		<String>
+
+functions.burn:
+	print repr( function() {} )
+	let $foo = function() {}
+	print repr( $foo )
+	print repr( main )
+
+$ $BURN functions.burn
+	* stdout
+		<Function>
+		<Function '$foo'>
+		<Function 'main'>
+
+types.burn:
+	print repr( Integer )
+
+$ $BURN types.burn
+	* stdout
+		<Type>
+
+modules.burn:
+	import burn.types
+	print repr( types )
+
+$ $BURN modules.burn
+	* stdout
+		<Module 'types'>
+
+methods.burn:
+	print repr( [].push )
+
+$ $BURN methods.burn
+	* stdout
+		<BoundMethod 'push' of <List>>

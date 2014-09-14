@@ -150,7 +150,7 @@ Value.Function = CLASS( Value, {
 	},
 	get repr() {
 		if( this.name ) {
-			return "<Function:" + this.name + ">";
+			return "<Function '" + this.name + "'>";
 		} else {
 			return "<Function>";
 		}
@@ -196,7 +196,7 @@ Value.Module = CLASS( Value, {
 	},
 	get repr() {
 		if( this.name ) {
-			return "<Module:" + this.name + ">";
+			return "<Module '" + this.name + "'>";
 		} else {
 			return "<Module>";
 		}
@@ -248,8 +248,7 @@ Value.Special.BoundMethod = CLASS( Value, {
 		this.method = method;
 	},
 	get repr() {
-		// TODO figure out consistent repr for all value types
-		return "<Method " + this.name + ">";
+		return "<BoundMethod '" + this.method + "' of " + this.value.repr + ">";
 	},
 	call: function( fiber, args ) {
 		fiber.stack.push( new Fiber.MethodFrame( this ) );

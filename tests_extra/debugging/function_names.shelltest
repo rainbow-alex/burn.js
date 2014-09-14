@@ -12,7 +12,7 @@ var.burn:
 
 $ $BURN var.burn
 	* stdout
-		<Function:$foo>
+		<Function '$foo'>
 
 reassigned.burn:
 	let $foo = function() {}
@@ -21,4 +21,4 @@ reassigned.burn:
 
 $ $BURN reassigned.burn
 	* stdout
-		<Function:$foo>
+		<Function '$foo'>

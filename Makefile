@@ -8,6 +8,8 @@ tests*/*/*: .FORCE
 	BURN=$(BURN) ./shelltest.py $@
 tests*/*/*/*: .FORCE
 	BURN=$(BURN) ./shelltest.py $@
+tests*/*/*/*/*: .FORCE
+	BURN=$(BURN) ./shelltest.py $@
 .PHONY: .FORCE
 
 .PHONY: todo

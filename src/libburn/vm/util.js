@@ -95,10 +95,9 @@ help.JsInstanceofType = CLASS( Value.Special, {
 		this.constructor = constructor;
 	},
 	suggestName: function( name ) {
-		if( ! this.hasOwnProperty( "repr" ) ) {
-			this.repr = name;
-		}
+		this.name = this.name || name;
 	},
+	repr: "<Type>",
 	typeTest: function( fiber, v ) {
 		return v instanceof this.constructor;
 	},
@@ -107,6 +106,9 @@ help.JsInstanceofType = CLASS( Value.Special, {
 	},
 	isPermanent: function() {
 		return true;
+	},
+	toString: function() {
+		return this.name || this.repr;
 	},
 } );
 
@@ -117,10 +119,9 @@ help.JsFunctionType = CLASS( Value.Special, {
 		this.permanent = options.permanent;
 	},
 	suggestName: function( name ) {
-		if( ! this.hasOwnProperty( "repr" ) ) {
-			this.repr = name;
-		}
+		this.name = this.name || name;
 	},
+	repr: "<Type>",
 	typeTest: function( fiber, v ) {
 		return ( this.test )( fiber, v );
 	},
@@ -129,5 +130,8 @@ help.JsFunctionType = CLASS( Value.Special, {
 	},
 	isPermanent: function() {
 		return this.permanent;
+	},
+	toString: function() {
+		return this.name || this.repr;
 	},
 } );
