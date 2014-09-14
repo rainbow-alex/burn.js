@@ -126,7 +126,13 @@ module.exports = function( tokens ) {
 	}
 	
 	function parseStatement() {
-		if( peek().type === "import" ) {
+		if( peek().type === "break" ) {
+			return parseBreakStatement();
+		} else if( peek().type === "continue" ) {
+			return parseContinueStatement();
+		} else if( peek().type === "if" ) {
+			return parseIfStatement();
+		} else if( peek().type === "import" ) {
 			return parseImportStatement();
 		} else if( peek().type === "include" ) {
 			return parseIncludeStatement();
@@ -134,16 +140,14 @@ module.exports = function( tokens ) {
 			return parseLetStatement();
 		} else if( peek().type === "print" ) {
 			return parsePrintStatement();
-		} else if( peek().type === "throw" ) {
-			return parseThrowStatement();
 		} else if( peek().type === "return" ) {
 			return parseReturnStatement();
-		} else if( peek().type === "if" ) {
-			return parseIfStatement();
-		} else if( peek().type === "while" ) {
-			return parseWhileStatement();
+		} else if( peek().type === "throw" ) {
+			return parseThrowStatement();
 		} else if( peek().type === "try" ) {
 			return parseTryStatement();
+		} else if( peek().type === "while" ) {
+			return parseWhileStatement();
 		} else {
 			let expression = parseExpression();
 			if( peek().type === "=" ) {
@@ -155,6 +159,47 @@ module.exports = function( tokens ) {
 				return new ast.ExpressionStatement( { expression: expression } );
 			}
 		}
+	}
+	
+	function parseBreakStatement() {
+		read( "break" );
+		return new ast.BreakStatement();
+	}
+	
+	function parseContinueStatement() {
+		read( "continue" );
+		return new ast.ContinueStatement();
+	}
+	
+	function parseIfStatement() {
+		read( "if" );
+		startIgnoringNewlines();
+		let test = parseExpression();
+		let block = parseBlock();
+		let elseIfClauses = [];
+		let elseClause;
+		while( peek().type === "else" ) {
+			read();
+			if( peek().type === "if" ) {
+				read();
+				let elseIfTest = parseExpression();
+				let elseIfBlock = parseBlock();
+				elseIfClauses.push( new ast.ElseIfClause( {
+					test: elseIfTest,
+					block: elseIfBlock,
+				} ) );
+			} else {
+				elseClause = new ast.ElseClause( { block: parseBlock() } );
+				break;
+			}
+		}
+		stopIgnoringNewlines();
+		return new ast.IfStatement( {
+			test: test,
+			block: block,
+			elseIfClauses: elseIfClauses,
+			elseClause: elseClause,
+		} );
 	}
 	
 	function parseImportStatement() {
@@ -190,53 +235,34 @@ module.exports = function( tokens ) {
 		return path;
 	}
 	
-	function parseIfStatement() {
-		read( "if" );
-		startIgnoringNewlines();
-		let test = parseExpression();
-		let block = parseBlock();
-		let elseIfClauses = [];
-		let elseClause;
-		while( peek().type === "else" ) {
-			read();
-			if( peek().type === "if" ) {
-				read();
-				let elseIfTest = parseExpression();
-				let elseIfBlock = parseBlock();
-				elseIfClauses.push( new ast.ElseIfClause( {
-					test: elseIfTest,
-					block: elseIfBlock,
-				} ) );
-			} else {
-				elseClause = new ast.ElseClause( { block: parseBlock() } );
-				break;
-			}
+	function parseLetStatement() {
+		read( "let" );
+		let variable = read( "variable" );
+		let initialValue;
+		if( peek().type !== "newline" && peek().type !== "}" ) {
+			read( "=" );
+			initialValue = parseExpression();
 		}
-		stopIgnoringNewlines();
-		return new ast.IfStatement( {
-			test: test,
-			block: block,
-			elseIfClauses: elseIfClauses,
-			elseClause: elseClause,
+		return new ast.LetStatement( {
+			variable: variable,
+			initialValue: initialValue,
 		} );
 	}
 	
-	function parseWhileStatement() {
-		read( "while" );
-		startIgnoringNewlines();
-		let test = parseExpression();
-		let block = parseBlock();
-		let elseClause;
-		if( peek().type === "else" ) {
-			read();
-			elseClause = new ast.ElseClause( { block: parseBlock() } );
-		}
-		stopIgnoringNewlines();
-		return new ast.WhileStatement( {
-			test: test,
-			block: block,
-			elseClause: elseClause,
-		} );
+	function parsePrintStatement() {
+		read( "print" );
+		return new ast.PrintStatement( { expression: parseExpression() } );
+	}
+	
+	function parseReturnStatement() {
+		read( "return" );
+		// TODO
+		return new ast.ReturnStatement( { expression: parseExpression() } );
+	}
+	
+	function parseThrowStatement() {
+		read( "throw" );
+		return new ast.ThrowStatement( { expression: parseExpression() } );
 	}
 	
 	function parseTryStatement() {
@@ -280,34 +306,22 @@ module.exports = function( tokens ) {
 		} );
 	}
 	
-	function parseLetStatement() {
-		read( "let" );
-		let variable = read( "variable" );
-		let initialValue;
-		if( peek().type !== "newline" && peek().type !== "}" ) {
-			read( "=" );
-			initialValue = parseExpression();
+	function parseWhileStatement() {
+		read( "while" );
+		startIgnoringNewlines();
+		let test = parseExpression();
+		let block = parseBlock();
+		let elseClause;
+		if( peek().type === "else" ) {
+			read();
+			elseClause = new ast.ElseClause( { block: parseBlock() } );
 		}
-		return new ast.LetStatement( {
-			variable: variable,
-			initialValue: initialValue,
+		stopIgnoringNewlines();
+		return new ast.WhileStatement( {
+			test: test,
+			block: block,
+			elseClause: elseClause,
 		} );
-	}
-	
-	function parsePrintStatement() {
-		read( "print" );
-		return new ast.PrintStatement( { expression: parseExpression() } );
-	}
-	
-	function parseReturnStatement() {
-		read( "return" );
-		// TODO
-		return new ast.ReturnStatement( { expression: parseExpression() } );
-	}
-	
-	function parseThrowStatement() {
-		read( "throw" );
-		return new ast.ThrowStatement( { expression: parseExpression() } );
 	}
 	
 	function parseExpression() {

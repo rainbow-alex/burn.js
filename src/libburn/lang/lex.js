@@ -36,7 +36,7 @@ module.exports = function( origin ) {
 		
 		// keywords
 		} else if( m = source.substr(i).match(
-			/^(and|catch|class|else|false|finally|for|function|if|import|in|include|is|let|not|nothing|or|print|return|this|throw|true|try|while)\b/
+			/^(and|break|catch|class|continue|else|false|finally|for|function|if|import|in|include|is|let|not|nothing|or|print|return|this|throw|true|try|while)\b/
 		) ) {
 			tokens.push( { origin: origin, type: m[0], line: line, offset: offset } );
 		

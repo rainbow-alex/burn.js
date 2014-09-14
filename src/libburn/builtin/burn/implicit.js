@@ -22,6 +22,7 @@ implicit.exposes = new Value.Module( {
 	ArgumentError: errors.ArgumentError,
 	ImportError: errors.ImportError,
 	IncludeError: errors.IncludeError,
+	AssertionError: errors.AssertionError,
 	
 	List: list.List,
 	

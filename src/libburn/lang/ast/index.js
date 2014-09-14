@@ -13,15 +13,17 @@ exports.Node = CLASS( {
 exports.Script = CLASS( exports.Node );
 
 exports.Statement = CLASS( exports.Node );
+exports.BreakStatement = CLASS( exports.Statement );
+exports.ContinueStatement = CLASS( exports.Statement );
 exports.IfStatement = CLASS( exports.Statement );
-exports.TryStatement = CLASS( exports.Statement );
-exports.WhileStatement = CLASS( exports.Statement );
-exports.LetStatement = CLASS( exports.Statement );
-exports.PrintStatement = CLASS( exports.Statement );
-exports.ThrowStatement = CLASS( exports.Statement );
-exports.ReturnStatement = CLASS( exports.Statement );
 exports.ImportStatement = CLASS( exports.Statement );
 exports.IncludeStatement = CLASS( exports.Statement );
+exports.LetStatement = CLASS( exports.Statement );
+exports.PrintStatement = CLASS( exports.Statement );
+exports.ReturnStatement = CLASS( exports.Statement );
+exports.ThrowStatement = CLASS( exports.Statement );
+exports.TryStatement = CLASS( exports.Statement );
+exports.WhileStatement = CLASS( exports.Statement );
 exports.ExpressionStatement = CLASS( exports.Statement );
 exports.AssignmentStatement = CLASS( exports.Statement );
 

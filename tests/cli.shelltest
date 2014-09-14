@@ -1,0 +1,11 @@
+pass.burn:
+	print "ok"
+
+$ burn pass.burn
+	* exit status zero
+
+fail.burn:
+	3 + "3"
+
+$ burn fail.burn
+	* exit status nonzero

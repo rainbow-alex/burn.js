@@ -34,6 +34,9 @@ errors.ImportError = new util.JsInstanceofType( errors.ImportErrorInstance );
 errors.IncludeErrorInstance = CLASS( ErrorInstance );
 errors.IncludeError = new util.JsInstanceofType( errors.IncludeErrorInstance );
 
+errors.AssertionErrorInstance = CLASS( ErrorInstance );
+errors.AssertionError = new util.JsInstanceofType( errors.AssertionErrorInstance );
+
 errors.exposes = new Value.Module( {
 	
 	TypeError: errors.TypeError,
@@ -41,5 +44,6 @@ errors.exposes = new Value.Module( {
 	ArgumentError: errors.TypeError,
 	ImportError: errors.ImportError,
 	IncludeError: errors.IncludeError,
+	AssertionError: errors.AssertionError,
 	
 } );

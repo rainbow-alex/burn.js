@@ -1,0 +1,66 @@
+error_return.burn:
+	let $foo = function() {
+		try {
+			3 + "3"
+		} finally {
+			return "finally"
+		}
+	}
+	print $foo()
+	print "no error"
+
+$ burn error_return.burn
+	* stdout
+		finally
+		no error
+	* exit status zero
+
+error_break.burn:
+	while true {
+		try {
+			3 + "3"
+		} finally {
+			break
+		}
+	}
+	print "no error"
+
+$ burn error_break.burn
+	* stdout
+		no error
+	* exit status zero
+
+error_continue.burn:
+	let $i = 0
+	while $i < 2 {
+		$i = $i + 1
+		print $i
+		try {
+			3 + "3"
+		} finally {
+			continue
+		}
+	}
+
+$ burn error_continue.burn
+	* stdout
+		1
+		2
+	* exit status zero
+
+return_return.burn:
+	let $foo = function() {
+		try {
+			return "try"
+		} finally {
+			return "finally"
+		}
+	}
+	print $foo()
+
+$ burn return_return.burn
+	* stdout
+		finally
+	* exit status zero
+
+// TODO more combinations

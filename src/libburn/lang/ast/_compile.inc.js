@@ -29,6 +29,14 @@ ast.Script.prototype.compile = function() {
 	return output.code;
 };
 
+ast.BreakStatement.prototype.compile = function( output ) {
+	output.code += 'break;';
+};
+
+ast.ContinueStatement.prototype.compile = function( output ) {
+	output.code += 'continue;';
+};
+
 ast.IfStatement.prototype.compile = function( output ) {
 	output.code += 'if((';
 	this.test.compile( output );
@@ -53,6 +61,44 @@ ast.IfStatement.prototype.compile = function( output ) {
 		} );
 		output.code += '}';
 	}
+};
+
+ast.ImportStatement.prototype.compile = function( output ) {
+	output.code += 'let ' + encodeName( this.alias.value ) + '=' + '_.import(_fiber,[';
+	this.fqn.forEach( function( p ) {
+		output.code += '"' + p.value + '",';
+	} );
+	output.code += '],void _fiber.setLine(' + this.keyword.line + '));';
+};
+
+ast.IncludeStatement.prototype.compile = function( output ) {
+	output.code += '_.include(_fiber,_origin,';
+	this.expression.compile( output );
+	output.code += ',void _fiber.setLine(' + this.keyword.line + '));';
+};
+
+ast.LetStatement.prototype.compile = function( output ) {
+	output.code += 'let ' + encodeVariable( this.variable.value ) + '=';
+	if( this.initialValue ) {
+		this.initialValue.compile( output );
+	} else {
+		output.code += '_.createNothing()';
+	}
+	output.code += ';';
+};
+
+ast.PrintStatement.prototype.compile = function( output ) {
+	output.code += 'console.log((';
+	this.expression.compile( output );
+	output.code += ').toBurnString(_fiber).value);';
+};
+
+ast.ReturnStatement.prototype.compile = function( output ) {
+	output.code += 'return ';
+	if( this.expression ) {
+		this.expression.compile( output );
+	}
+	output.code += ';';
 };
 
 ast.TryStatement.prototype.compile = function( output ) {
@@ -118,44 +164,6 @@ ast.WhileStatement.prototype.compile = function( output ) {
 		s.compile( output );
 	} );
 	output.code += '}';
-};
-
-ast.LetStatement.prototype.compile = function( output ) {
-	output.code += 'let ' + encodeVariable( this.variable.value ) + '=';
-	if( this.initialValue ) {
-		this.initialValue.compile( output );
-	} else {
-		output.code += '_.createNothing()';
-	}
-	output.code += ';';
-};
-
-ast.PrintStatement.prototype.compile = function( output ) {
-	output.code += 'console.log((';
-	this.expression.compile( output );
-	output.code += ').toBurnString(_fiber).value);';
-};
-
-ast.ReturnStatement.prototype.compile = function( output ) {
-	output.code += 'return ';
-	if( this.expression ) {
-		this.expression.compile( output );
-	}
-	output.code += ';';
-};
-
-ast.ImportStatement.prototype.compile = function( output ) {
-	output.code += 'let ' + encodeName( this.alias.value ) + '=' + '_.import(_fiber,[';
-	this.fqn.forEach( function( p ) {
-		output.code += '"' + p.value + '",';
-	} );
-	output.code += '],void _fiber.setLine(' + this.keyword.line + '));';
-};
-
-ast.IncludeStatement.prototype.compile = function( output ) {
-	output.code += '_.include(_fiber,_origin,';
-	this.expression.compile( output );
-	output.code += ',void _fiber.setLine(' + this.keyword.line + '));';
 };
 
 ast.AssignmentStatement.prototype.compile = function( output ) {
