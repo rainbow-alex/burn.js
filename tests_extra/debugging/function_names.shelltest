@@ -2,7 +2,7 @@ anon.burn:
 	let $foo = ( function() {} )
 	print $foo
 
-$ burn anon.burn
+$ $BURN anon.burn
 	* stdout
 		<Function>
 
@@ -10,7 +10,7 @@ var.burn:
 	let $foo = function() {}
 	print $foo
 
-$ burn var.burn
+$ $BURN var.burn
 	* stdout
 		<Function:$foo>
 
@@ -19,6 +19,6 @@ reassigned.burn:
 	let $bar = $foo
 	print $bar
 
-$ burn reassigned.burn
+$ $BURN reassigned.burn
 	* stdout
 		<Function:$foo>

@@ -4,7 +4,7 @@ push.burn:
 	$list.push( 2 )
 	print $list.length
 
-$ burn push.burn
+$ $BURN push.burn
 	* stdout
 		2
 
@@ -14,7 +14,7 @@ no_args.burn:
 	} catch ArgumentError $e {
 		print "ArgumentError"
 	}
-$ burn no_args.burn
+$ $BURN no_args.burn
 	* stdout
 		ArgumentError
 
@@ -24,6 +24,6 @@ too_many_args.burn:
 	} catch ArgumentError $e {
 		print "ArgumentError"
 	}
-$ burn too_many_args.burn
+$ $BURN too_many_args.burn
 	* stdout
 		ArgumentError

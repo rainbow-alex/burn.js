@@ -4,7 +4,7 @@ scope.burn:
 	}
 	print $foo
 
-$ burn scope.burn
+$ $BURN scope.burn
 	* exit status nonzero
 
 scope2.burn:
@@ -14,7 +14,7 @@ scope2.burn:
 	}
 	print $foo
 
-$ burn scope2.burn
+$ $BURN scope2.burn
 	* stdout
 		1
 
@@ -25,7 +25,7 @@ shadow.burn:
 	}
 	print $foo
 
-$ burn shadow.burn
+$ $BURN shadow.burn
 	* stdout
 		2
 
@@ -38,6 +38,6 @@ nest.burn:
 	}
 	print $foo
 
-$ burn nest.burn
+$ $BURN nest.burn
 	* stdout
 		2

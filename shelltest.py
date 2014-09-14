@@ -22,24 +22,8 @@ def main():
 		n_passed = 0
 		n_failed = 0
 		
-		i = 1
-		while i < len( sys.argv ):
-			arg = sys.argv[i]
-			if arg == "--path":
-				i += 1
-				try:
-					path = sys.argv[i]
-					i += 1
-				except IndexError:
-					print( "%s: missing argument to --path" % sys.argv[0], file=sys.stderr )
-					sys.exit( 1 )
-				os.environ[ "PATH" ] = os.path.realpath( path ) + ":" + os.environ[ "PATH" ]
-			else:
-				break
-		
-		while i < len( sys.argv ):
-			scan( sys.argv[i] )
-			i += 1
+		for arg in sys.argv[1:]:
+			scan( arg )
 		
 	except KeyboardInterrupt:
 		print( "*** INTERRUPTED ***" )

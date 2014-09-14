@@ -4,7 +4,7 @@ include_a.burn:
 include_b.burn:
 	print "b"
 
-$ burn include_a.burn
+$ $BURN include_a.burn
 	* stdout
 		b
 
@@ -20,7 +20,7 @@ resolve_b.burn:
 resolve_inc/resolve_b.burn:
 	print "inc b"
 
-$ burn resolve_a.burn
+$ $BURN resolve_a.burn
 	* stdout
 		inc b
 
@@ -35,7 +35,7 @@ scope_a.burn:
 scope_b.burn:
 	print $foo
 
-$ burn scope_a.burn
+$ $BURN scope_a.burn
 	* stdout
 		IncludeError
 
@@ -46,7 +46,7 @@ include_missing.burn:
 		print "IncludeError"
 	}
 
-$ burn include_missing.burn
+$ $BURN include_missing.burn
 	* stdout
 		IncludeError
 
@@ -57,7 +57,7 @@ include_int.burn:
 		print "TypeError"
 	}
 
-$ burn include_int.burn
+$ $BURN include_int.burn
 	* stdout
 		TypeError
 

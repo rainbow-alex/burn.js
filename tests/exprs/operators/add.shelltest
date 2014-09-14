@@ -96,7 +96,7 @@ add_result_1.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant add_result_1.burn
+$ $BURN --tolerant add_result_1.burn
 
 add_result_2.burn:
 	import burn.types
@@ -194,7 +194,7 @@ add_result_2.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant add_result_2.burn
+$ $BURN --tolerant add_result_2.burn
 
 add_result_3.burn:
 	import burn.types
@@ -292,7 +292,7 @@ add_result_3.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant add_result_3.burn
+$ $BURN --tolerant add_result_3.burn
 
 add_result_4.burn:
 	import burn.types
@@ -390,7 +390,7 @@ add_result_4.burn:
 	assert( $w is Float )
 	assert( ( 0.6999 < $w ) and ( $w < 0.7001 ) )
 
-$ burn --tolerant add_result_4.burn
+$ $BURN --tolerant add_result_4.burn
 
 add_result_5.burn:
 	import burn.types
@@ -488,7 +488,7 @@ add_result_5.burn:
 	assert( $w is Float )
 	assert( ( 2.6999 < $w ) and ( $w < 2.7001 ) )
 
-$ burn --tolerant add_result_5.burn
+$ $BURN --tolerant add_result_5.burn
 
 add_result_6.burn:
 	import burn.types
@@ -586,7 +586,7 @@ add_result_6.burn:
 	assert( $w is Float )
 	assert( ( -1.3001 < $w ) and ( $w < -1.2999 ) )
 
-$ burn --tolerant add_result_6.burn
+$ $BURN --tolerant add_result_6.burn
 
 add_result_7.burn:
 	import burn.types
@@ -684,7 +684,7 @@ add_result_7.burn:
 	assert( $w is Float )
 	assert( ( 0.6999 < $w ) and ( $w < 0.7001 ) )
 
-$ burn --tolerant add_result_7.burn
+$ $BURN --tolerant add_result_7.burn
 
 add_result_8.burn:
 	import burn.types
@@ -782,7 +782,7 @@ add_result_8.burn:
 	assert( $w is Float )
 	assert( ( 2.6999 < $w ) and ( $w < 2.7001 ) )
 
-$ burn --tolerant add_result_8.burn
+$ $BURN --tolerant add_result_8.burn
 
 add_result_9.burn:
 	import burn.types
@@ -880,7 +880,7 @@ add_result_9.burn:
 	assert( $w is Float )
 	assert( ( 0.1999 < $w ) and ( $w < 0.2001 ) )
 
-$ burn --tolerant add_result_9.burn
+$ $BURN --tolerant add_result_9.burn
 
 add_result_10.burn:
 	import burn.types
@@ -978,7 +978,7 @@ add_result_10.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant add_result_10.burn
+$ $BURN --tolerant add_result_10.burn
 
 add_result_11.burn:
 	import burn.types
@@ -1076,7 +1076,7 @@ add_result_11.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant add_result_11.burn
+$ $BURN --tolerant add_result_11.burn
 
 add_result_12.burn:
 	import burn.types
@@ -1174,7 +1174,7 @@ add_result_12.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant add_result_12.burn
+$ $BURN --tolerant add_result_12.burn
 
 add_result_13.burn:
 	import burn.types
@@ -1272,7 +1272,7 @@ add_result_13.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant add_result_13.burn
+$ $BURN --tolerant add_result_13.burn
 
 add_result_14.burn:
 	import burn.types
@@ -1370,7 +1370,7 @@ add_result_14.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant add_result_14.burn
+$ $BURN --tolerant add_result_14.burn
 
 add_result_15.burn:
 	import burn.types
@@ -1468,7 +1468,7 @@ add_result_15.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant add_result_15.burn
+$ $BURN --tolerant add_result_15.burn
 
 add_result_16.burn:
 	import burn.types
@@ -1566,7 +1566,7 @@ add_result_16.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant add_result_16.burn
+$ $BURN --tolerant add_result_16.burn
 
 add_result_17.burn:
 	import burn.types
@@ -1664,7 +1664,7 @@ add_result_17.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant add_result_17.burn
+$ $BURN --tolerant add_result_17.burn
 
 add_result_18.burn:
 	import burn.types
@@ -1762,7 +1762,7 @@ add_result_18.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant add_result_18.burn
+$ $BURN --tolerant add_result_18.burn
 
 add_result_19.burn:
 	import burn.types
@@ -1860,7 +1860,7 @@ add_result_19.burn:
 	assert( $w is Float )
 	assert( ( 3.6999 < $w ) and ( $w < 3.7001 ) )
 
-$ burn --tolerant add_result_19.burn
+$ $BURN --tolerant add_result_19.burn
 
 add_result_20.burn:
 	import burn.types
@@ -1958,7 +1958,7 @@ add_result_20.burn:
 	assert( $w is Float )
 	assert( ( 8.6999 < $w ) and ( $w < 8.7001 ) )
 
-$ burn --tolerant add_result_20.burn
+$ $BURN --tolerant add_result_20.burn
 
 add_result_21.burn:
 	import burn.types
@@ -2056,7 +2056,7 @@ add_result_21.burn:
 	assert( $w is Float )
 	assert( ( 0.9999 < $w ) and ( $w < 1.0001 ) )
 
-$ burn --tolerant add_result_21.burn
+$ $BURN --tolerant add_result_21.burn
 
 add_result_22.burn:
 	import burn.types
@@ -2154,7 +2154,7 @@ add_result_22.burn:
 	assert( $w is Float )
 	assert( ( 1.0332 < $w ) and ( $w < 1.0334 ) )
 
-$ burn --tolerant add_result_22.burn
+$ $BURN --tolerant add_result_22.burn
 
 add_result_23.burn:
 	import burn.types
@@ -2252,4 +2252,4 @@ add_result_23.burn:
 	assert( $w is Float )
 	assert( ( 1.3999 < $w ) and ( $w < 1.4001 ) )
 
-$ burn --tolerant add_result_23.burn
+$ $BURN --tolerant add_result_23.burn

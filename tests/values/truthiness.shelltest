@@ -2,7 +2,7 @@ nothing.burn:
 	import burn.types.Falsy
 	print nothing is Falsy
 
-$ burn nothing.burn
+$ $BURN nothing.burn
 	* stdout
 		true
 
@@ -12,7 +12,7 @@ bool.burn:
 	print true is Truthy
 	print false is Falsy
 
-$ burn bool.burn
+$ $BURN bool.burn
 	* stdout
 		true
 		true
@@ -25,7 +25,7 @@ int.burn:
 	print 2 is Truthy
 	print -1 is Truthy
 
-$ burn int.burn
+$ $BURN int.burn
 	* stdout
 		true
 		true
@@ -40,7 +40,7 @@ float.burn:
 	print 2.3 is Truthy
 	print -1.4 is Truthy
 
-$ burn float.burn
+$ $BURN float.burn
 	* stdout
 		true
 		true
@@ -55,7 +55,7 @@ string.burn:
 	print "0" is Truthy
 	print "false" is Truthy
 
-$ burn string.burn
+$ $BURN string.burn
 	* stdout
 		true
 		true
@@ -67,7 +67,7 @@ function.burn:
 	print function() {} is Truthy
 	print main is Truthy
 
-$ burn function.burn
+$ $BURN function.burn
 	* stdout
 		true
 		true
@@ -77,6 +77,6 @@ type.burn:
 	import burn.types.Truthy
 	print burn is Truthy
 
-$ burn type.burn
+$ $BURN type.burn
 	* stdout
 		true

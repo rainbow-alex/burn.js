@@ -25,13 +25,13 @@ Little effort is made to make this implementation useful or performant.
 ## Tests ##
 
 The tests in `tests/` verify that the core language and builtin modules work correctly.
-Run all these tests by executing `make tests`.
+Run them by executing `make tests`.
 Other implementations of burn should pass this suite.
 
 The tests in `tests_extra/` check additional features that are not required or might differ per implementation.
+You can run these tests with `make tests_extra`.
 This includes error message details, stack traces, lint messages, ...
 It only makes sense to run this suite for this implementation.
 
-You can run individual parts of either suite with `./shelltest.py --path tests/bin/ [path ...]`.
-If you want to run tests against another implementation, use `./shelltest.py --path basedir/`,
-where `basedir/` is a directory containg the `burn` executable that should be used.
+You can run individual parts of either suite with `make tests/<path>` or `make tests_extra/<path>`.
+If you want to run tests against another implementation, use `BURN=<absolute/path/to/burn> make ...`.

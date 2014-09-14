@@ -1,7 +1,7 @@
 index.burn:
 	print [ "a", "b" ][ 1 ]
 
-$ burn index.burn
+$ $BURN index.burn
 	* stdout
 		b
 
@@ -12,6 +12,6 @@ index_string.burn:
 		print "TypeError"
 	}
 
-$ burn index_string.burn
+$ $BURN index_string.burn
 	* stdout
 		TypeError

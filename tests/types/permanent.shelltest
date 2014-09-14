@@ -16,7 +16,7 @@ types.burn:
 	print types.Falsy is not Permanent
 	print types.Number is Permanent
 
-$ burn types.burn
+$ $BURN types.burn
 	* stdout
 		true
 		true

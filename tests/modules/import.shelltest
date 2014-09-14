@@ -7,7 +7,7 @@ example/src/example.burn:
 import_example.burn:
 	import example
 
-$ burn import_example.burn
+$ $BURN import_example.burn
 	* stdout
 		example loaded
 
@@ -18,7 +18,7 @@ import_cached.burn:
 	$foo()
 	$foo()
 
-$ burn import_cached.burn
+$ $BURN import_cached.burn
 	* stdout
 		example loaded
 
@@ -38,7 +38,7 @@ import_bad.burn:
 		print "ImportError"
 	}
 
-$ burn import_bad.burn
+$ $BURN import_bad.burn
 	* stdout
 		ImportError
 
@@ -58,7 +58,7 @@ import_bad2.burn:
 		print "ImportError"
 	}
 
-$ burn import_bad2.burn
+$ $BURN import_bad2.burn
 	* stdout
 		ImportError
 
@@ -75,7 +75,7 @@ import_bad3.burn:
 		print "ImportError"
 	}
 
-$ burn import_bad3.burn
+$ $BURN import_bad3.burn
 	* stdout
 		ImportError
 

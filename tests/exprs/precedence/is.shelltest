@@ -5,7 +5,7 @@ is_or.burn:
 	print true is ( false or Something )
 	try { print true is false or Something } catch TypeError $e { print "TypeError" }
 
-$ burn --tolerant is_or.burn
+$ $BURN --tolerant is_or.burn
 	* stdout
 		TypeError
 		true
@@ -16,7 +16,7 @@ is_and.burn:
 	print true is ( true and Something )
 	try { print true is true and Something } catch TypeError $e { print "TypeError" }
 
-$ burn --tolerant is_and.burn
+$ $BURN --tolerant is_and.burn
 	* stdout
 		TypeError
 		true

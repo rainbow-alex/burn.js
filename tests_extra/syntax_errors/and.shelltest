@@ -1,7 +1,7 @@
 err.burn:
 	true and
 
-$ burn err.burn
+$ $BURN err.burn
 	* stderr
 		Expected expression.
 		in err.burn on line 1
@@ -12,7 +12,7 @@ $ burn err.burn
 err.burn:
 	and true
 
-$ burn err.burn
+$ $BURN err.burn
 	* stderr
 		Expected expression.
 		in err.burn on line 1
@@ -23,7 +23,7 @@ $ burn err.burn
 err.burn:
 	and
 
-$ burn err.burn
+$ $BURN err.burn
 	* stderr
 		Expected expression.
 		in err.burn on line 1

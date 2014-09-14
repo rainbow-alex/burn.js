@@ -1,7 +1,7 @@
 filename.burn:
 	print magic:filename
 
-$ burn filename.burn | grep ^`pwd`/filename\.burn\$ | wc -l
+$ $BURN filename.burn | grep ^`pwd`/filename\.burn\$ | wc -l
 	* stdout
 		1
 
@@ -12,7 +12,7 @@ a.burn:
 b.burn:
 	print magic:filename
 
-$ burn a.burn | uniq | wc -l
+$ $BURN a.burn | uniq | wc -l
 	* stdout
 		2
 
@@ -20,7 +20,7 @@ line.burn:
 	print magic:line
 	print magic:line
 
-$ burn line.burn
+$ $BURN line.burn
 	* stdout
 		1
 		2

@@ -1,7 +1,7 @@
 and_or.burn:
 	true and true or true
 
-$ burn and_or.burn
+$ $BURN and_or.burn
 	* stderr
 		Add parentheses to make `and`/`or` precedence explicit.
 		in and_or.burn on line 1
@@ -12,7 +12,7 @@ $ burn and_or.burn
 or_and.burn:
 	true or true and true
 
-$ burn or_and.burn
+$ $BURN or_and.burn
 	* stderr
 		Add parentheses to make `or`/`and` precedence explicit.
 		in or_and.burn on line 1
@@ -23,7 +23,7 @@ $ burn or_and.burn
 not_or.burn:
 	not true or false
 
-$ burn not_or.burn
+$ $BURN not_or.burn
 	* stderr
 		Add parentheses to make `not`/`or` precedence explicit.
 		in not_or.burn on line 1
@@ -34,7 +34,7 @@ $ burn not_or.burn
 not_and.burn:
 	not true and false
 
-$ burn not_and.burn
+$ $BURN not_and.burn
 	* stderr
 		Add parentheses to make `not`/`and` precedence explicit.
 		in not_and.burn on line 1
@@ -45,7 +45,7 @@ $ burn not_and.burn
 not_is.burn:
 	not 1 is String
 
-$ burn not_is.burn
+$ $BURN not_is.burn
 	* stderr
 		Use `... is not ...` instead of `not ... is ...`.
 		in not_is.burn on line 1
@@ -58,7 +58,7 @@ ok.burn:
 	print false or not false
 	print 3 is not String
 
-$ burn ok.burn
+$ $BURN ok.burn
 	* stdout
 		true
 		true
@@ -71,4 +71,4 @@ tolerant.burn:
 	not true and false
 	not 1 is String
 
-$ burn --tolerant tolerant.burn
+$ $BURN --tolerant tolerant.burn

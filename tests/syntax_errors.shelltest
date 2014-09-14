@@ -1,3 +1,6 @@
+lex1.burn:
+	&
+
 var1.burn:
 	let $
 var2.burn:
@@ -11,6 +14,9 @@ var5.burn:
 var6.burn:
 	let $foo::bar
 
+include1.burn:
+	include
+
 catch1.burn:
 	try {
 	} catch {
@@ -21,4 +27,4 @@ catch2.burn:
 	}
 
 // all scripts must fail to pass
-$ for f in `ls`; do if burn $f 2> /dev/null; then >&2 echo "$f passed"; exit 1; fi done
+$ for f in `ls`; do if $BURN $f 2> /dev/null; then >&2 echo "$f passed"; exit 1; fi done

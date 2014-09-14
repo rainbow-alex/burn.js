@@ -5,7 +5,7 @@ is.burn:
 	print [] is List
 	print List is Permanent
 
-$ burn is.burn
+$ $BURN is.burn
 	* stdout
 		true
 		true

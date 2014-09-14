@@ -5,7 +5,7 @@ types.burn:
 	import burn
 	print burn is Safe
 
-$ burn types.burn
+$ $BURN types.burn
 	* stdout
 		true
 		true
@@ -15,7 +15,7 @@ safe_fn.burn:
 	import burn.types.Safe
 	print function() {} is Safe
 
-$ burn safe_fn.burn
+$ $BURN safe_fn.burn
 	* stdout
 		true
 
@@ -34,7 +34,7 @@ unsafe_fn.burn:
 		}
 	} is Safe
 
-$ burn unsafe_fn.burn
+$ $BURN unsafe_fn.burn
 	* stdout
 		false
 		false

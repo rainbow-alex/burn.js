@@ -107,7 +107,7 @@ def print_test( name, source, stdout=None ):
 	for l in source.splitlines():
 		print( "\t%s" % l )
 	print()
-	print( "$ burn --tolerant %s.burn" % name )
+	print( "$ $BURN --tolerant %s.burn" % name )
 	if stdout:
 		print( "	* stdout" )
 		for l in stdout.splitlines():

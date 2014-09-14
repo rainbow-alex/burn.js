@@ -1,7 +1,7 @@
 err.burn:
 	not
 
-$ burn err.burn
+$ $BURN err.burn
 	* stderr
 		Expected expression.
 		in err.burn on line 1

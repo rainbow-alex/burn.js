@@ -6,7 +6,7 @@ pass.burn:
 	}
 	print "main"
 
-$ burn pass.burn
+$ $BURN pass.burn
 	* stdout
 		try
 		finally
@@ -24,7 +24,7 @@ catch.burn:
 	}
 	print "main"
 
-$ burn catch.burn
+$ $BURN catch.burn
 	* stdout
 		try 1
 		catch
@@ -41,7 +41,7 @@ fail.burn:
 	}
 	print "main"
 
-$ burn fail.burn
+$ $BURN fail.burn
 	* stdout
 		try 1
 		finally

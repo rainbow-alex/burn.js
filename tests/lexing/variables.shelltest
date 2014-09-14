@@ -4,4 +4,4 @@ vars.burn:
 	let $foo_bar
 	let $foo:bar
 
-$ burn vars.burn
+$ $BURN vars.burn

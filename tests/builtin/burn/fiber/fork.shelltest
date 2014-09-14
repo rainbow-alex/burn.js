@@ -5,7 +5,7 @@ fork.burn:
 	} )
 	print "main"
 
-$ burn fork.burn
+$ $BURN fork.burn
 	* stdout
 		main
 		fork
@@ -19,7 +19,7 @@ order.burn:
 		print "b"
 	} )
 
-$ burn order.burn
+$ $BURN order.burn
 	* stdout
 		a
 		b
@@ -34,7 +34,7 @@ nest.burn:
 	} )
 	print 1
 
-$ burn nest.burn
+$ $BURN nest.burn
 	* stdout
 		1
 		2
@@ -51,7 +51,7 @@ throw.burn:
 	}
 	print "not thrown in main"
 
-$ burn throw.burn
+$ $BURN throw.burn
 	* stdout
 		not thrown in main
 	* exit status nonzero

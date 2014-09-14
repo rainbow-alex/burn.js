@@ -3,7 +3,7 @@ no_var.burn:
 	} catch {
 	}
 
-$ burn no_var.burn
+$ $BURN no_var.burn
 	* stderr
 		Expected <variable>.
 		in no_var.burn on line 2
@@ -16,7 +16,7 @@ type_no_var.burn:
 	} catch TypeError {
 	}
 
-$ burn type_no_var.burn
+$ $BURN type_no_var.burn
 	* stderr
 		Expected <variable>.
 		in type_no_var.burn on line 2

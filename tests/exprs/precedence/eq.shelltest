@@ -5,7 +5,7 @@ eq_or.burn:
 	try { print true == ( false or 0 ) } catch TypeError $e { print "TypeError" }
 	print true == false or 0
 
-$ burn --tolerant eq_or.burn
+$ $BURN --tolerant eq_or.burn
 	* stdout
 		0
 		TypeError
@@ -16,7 +16,7 @@ eq_and.burn:
 	try { print true == ( true and 0 ) } catch TypeError $e { print "TypeError" }
 	print true == true and 0
 
-$ burn --tolerant eq_and.burn
+$ $BURN --tolerant eq_and.burn
 	* stdout
 		0
 		TypeError
@@ -27,7 +27,7 @@ eq_add.burn:
 	print 0 == ( 0 + 0 )
 	print 0 == 0 + 0
 
-$ burn --tolerant eq_add.burn
+$ $BURN --tolerant eq_add.burn
 	* stdout
 		TypeError
 		true
@@ -38,7 +38,7 @@ eq_sub.burn:
 	print 0 == ( 0 - 0 )
 	print 0 == 0 - 0
 
-$ burn --tolerant eq_sub.burn
+$ $BURN --tolerant eq_sub.burn
 	* stdout
 		TypeError
 		true

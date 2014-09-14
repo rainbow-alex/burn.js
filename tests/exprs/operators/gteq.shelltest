@@ -76,7 +76,7 @@ gteq_result_1.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_1.burn
+$ $BURN --tolerant gteq_result_1.burn
 
 gteq_result_2.burn:
 	import burn.types
@@ -154,7 +154,7 @@ gteq_result_2.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_2.burn
+$ $BURN --tolerant gteq_result_2.burn
 
 gteq_result_3.burn:
 	import burn.types
@@ -232,7 +232,7 @@ gteq_result_3.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_3.burn
+$ $BURN --tolerant gteq_result_3.burn
 
 gteq_result_4.burn:
 	import burn.types
@@ -310,7 +310,7 @@ gteq_result_4.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_4.burn
+$ $BURN --tolerant gteq_result_4.burn
 
 gteq_result_5.burn:
 	import burn.types
@@ -388,7 +388,7 @@ gteq_result_5.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_5.burn
+$ $BURN --tolerant gteq_result_5.burn
 
 gteq_result_6.burn:
 	import burn.types
@@ -466,7 +466,7 @@ gteq_result_6.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_6.burn
+$ $BURN --tolerant gteq_result_6.burn
 
 gteq_result_7.burn:
 	import burn.types
@@ -544,7 +544,7 @@ gteq_result_7.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_7.burn
+$ $BURN --tolerant gteq_result_7.burn
 
 gteq_result_8.burn:
 	import burn.types
@@ -622,7 +622,7 @@ gteq_result_8.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_8.burn
+$ $BURN --tolerant gteq_result_8.burn
 
 gteq_result_9.burn:
 	import burn.types
@@ -700,7 +700,7 @@ gteq_result_9.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_9.burn
+$ $BURN --tolerant gteq_result_9.burn
 
 gteq_result_10.burn:
 	import burn.types
@@ -778,7 +778,7 @@ gteq_result_10.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_10.burn
+$ $BURN --tolerant gteq_result_10.burn
 
 gteq_result_11.burn:
 	import burn.types
@@ -856,7 +856,7 @@ gteq_result_11.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_11.burn
+$ $BURN --tolerant gteq_result_11.burn
 
 gteq_result_12.burn:
 	import burn.types
@@ -934,7 +934,7 @@ gteq_result_12.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_12.burn
+$ $BURN --tolerant gteq_result_12.burn
 
 gteq_result_13.burn:
 	import burn.types
@@ -1012,7 +1012,7 @@ gteq_result_13.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_13.burn
+$ $BURN --tolerant gteq_result_13.burn
 
 gteq_result_14.burn:
 	import burn.types
@@ -1090,7 +1090,7 @@ gteq_result_14.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_14.burn
+$ $BURN --tolerant gteq_result_14.burn
 
 gteq_result_15.burn:
 	import burn.types
@@ -1168,7 +1168,7 @@ gteq_result_15.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_15.burn
+$ $BURN --tolerant gteq_result_15.burn
 
 gteq_result_16.burn:
 	import burn.types
@@ -1246,7 +1246,7 @@ gteq_result_16.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_16.burn
+$ $BURN --tolerant gteq_result_16.burn
 
 gteq_result_17.burn:
 	import burn.types
@@ -1324,7 +1324,7 @@ gteq_result_17.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_17.burn
+$ $BURN --tolerant gteq_result_17.burn
 
 gteq_result_18.burn:
 	import burn.types
@@ -1402,4 +1402,4 @@ gteq_result_18.burn:
 	catch TypeError $e {}
 	else { assert( false ) }
 
-$ burn --tolerant gteq_result_18.burn
+$ $BURN --tolerant gteq_result_18.burn

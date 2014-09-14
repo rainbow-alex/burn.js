@@ -9,7 +9,7 @@ error_return.burn:
 	print $foo()
 	print "no error"
 
-$ burn error_return.burn
+$ $BURN error_return.burn
 	* stdout
 		finally
 		no error
@@ -24,7 +24,7 @@ error_break.burn:
 	}
 	print "no error"
 
-$ burn error_break.burn
+$ $BURN error_break.burn
 	* stdout
 		no error
 
@@ -40,7 +40,7 @@ error_continue.burn:
 		}
 	}
 
-$ burn error_continue.burn
+$ $BURN error_continue.burn
 	* stdout
 		1
 		2
@@ -55,7 +55,7 @@ return_return.burn:
 	}
 	print $foo()
 
-$ burn return_return.burn
+$ $BURN return_return.burn
 	* stdout
 		finally
 

@@ -58,7 +58,7 @@ and_result_1.burn:
 	let $r = nothing and errors
 	assert( $r is Nothing )
 
-$ burn --tolerant and_result_1.burn
+$ $BURN --tolerant and_result_1.burn
 
 and_result_2.burn:
 	import burn.types
@@ -126,7 +126,7 @@ and_result_2.burn:
 	let $r = true and errors
 	assert( $r is Module )
 
-$ burn --tolerant and_result_2.burn
+$ $BURN --tolerant and_result_2.burn
 
 and_result_3.burn:
 	import burn.types
@@ -204,7 +204,7 @@ and_result_3.burn:
 	assert( $r is Boolean )
 	assert( $r == false )
 
-$ burn --tolerant and_result_3.burn
+$ $BURN --tolerant and_result_3.burn
 
 and_result_4.burn:
 	import burn.types
@@ -282,7 +282,7 @@ and_result_4.burn:
 	assert( $r is Integer )
 	assert( $r == 0 )
 
-$ burn --tolerant and_result_4.burn
+$ $BURN --tolerant and_result_4.burn
 
 and_result_5.burn:
 	import burn.types
@@ -350,7 +350,7 @@ and_result_5.burn:
 	let $r = 2 and errors
 	assert( $r is Module )
 
-$ burn --tolerant and_result_5.burn
+$ $BURN --tolerant and_result_5.burn
 
 and_result_6.burn:
 	import burn.types
@@ -418,7 +418,7 @@ and_result_6.burn:
 	let $r = -2 and errors
 	assert( $r is Module )
 
-$ burn --tolerant and_result_6.burn
+$ $BURN --tolerant and_result_6.burn
 
 and_result_7.burn:
 	import burn.types
@@ -496,7 +496,7 @@ and_result_7.burn:
 	assert( $r is Float )
 	assert( ( -0.0001 < $r ) and ( $r < 0.0001 ) )
 
-$ burn --tolerant and_result_7.burn
+$ $BURN --tolerant and_result_7.burn
 
 and_result_8.burn:
 	import burn.types
@@ -564,7 +564,7 @@ and_result_8.burn:
 	let $r = 2.0 and errors
 	assert( $r is Module )
 
-$ burn --tolerant and_result_8.burn
+$ $BURN --tolerant and_result_8.burn
 
 and_result_9.burn:
 	import burn.types
@@ -632,7 +632,7 @@ and_result_9.burn:
 	let $r = -0.5 and errors
 	assert( $r is Module )
 
-$ burn --tolerant and_result_9.burn
+$ $BURN --tolerant and_result_9.burn
 
 and_result_10.burn:
 	import burn.types
@@ -692,7 +692,7 @@ and_result_10.burn:
 	let $r = "" and errors
 	assert( $r is String )
 
-$ burn --tolerant and_result_10.burn
+$ $BURN --tolerant and_result_10.burn
 
 and_result_11.burn:
 	import burn.types
@@ -760,7 +760,7 @@ and_result_11.burn:
 	let $r = "apple" and errors
 	assert( $r is Module )
 
-$ burn --tolerant and_result_11.burn
+$ $BURN --tolerant and_result_11.burn
 
 and_result_12.burn:
 	import burn.types
@@ -828,7 +828,7 @@ and_result_12.burn:
 	let $r = "banana" and errors
 	assert( $r is Module )
 
-$ burn --tolerant and_result_12.burn
+$ $BURN --tolerant and_result_12.burn
 
 and_result_13.burn:
 	import burn.types
@@ -896,7 +896,7 @@ and_result_13.burn:
 	let $r = repr and errors
 	assert( $r is Module )
 
-$ burn --tolerant and_result_13.burn
+$ $BURN --tolerant and_result_13.burn
 
 and_result_14.burn:
 	import burn.types
@@ -964,7 +964,7 @@ and_result_14.burn:
 	let $r = function(){} and errors
 	assert( $r is Module )
 
-$ burn --tolerant and_result_14.burn
+$ $BURN --tolerant and_result_14.burn
 
 and_result_15.burn:
 	import burn.types
@@ -1032,7 +1032,7 @@ and_result_15.burn:
 	let $r = Something and errors
 	assert( $r is Module )
 
-$ burn --tolerant and_result_15.burn
+$ $BURN --tolerant and_result_15.burn
 
 and_result_16.burn:
 	import burn.types
@@ -1100,7 +1100,7 @@ and_result_16.burn:
 	let $r = Type and errors
 	assert( $r is Module )
 
-$ burn --tolerant and_result_16.burn
+$ $BURN --tolerant and_result_16.burn
 
 and_result_17.burn:
 	import burn.types
@@ -1168,7 +1168,7 @@ and_result_17.burn:
 	let $r = types and errors
 	assert( $r is Module )
 
-$ burn --tolerant and_result_17.burn
+$ $BURN --tolerant and_result_17.burn
 
 and_result_18.burn:
 	import burn.types
@@ -1236,4 +1236,4 @@ and_result_18.burn:
 	let $r = errors and errors
 	assert( $r is Module )
 
-$ burn --tolerant and_result_18.burn
+$ $BURN --tolerant and_result_18.burn

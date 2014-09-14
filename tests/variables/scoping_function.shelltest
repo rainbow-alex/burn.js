@@ -5,7 +5,7 @@ bind.burn:
 	}()
 	print $foo
 
-$ burn bind.burn
+$ $BURN bind.burn
 	* stdout
 		2
 
@@ -18,7 +18,7 @@ bind2.burn:
 	$foo = 2
 	$p()
 
-$ burn bind2.burn
+$ $BURN bind2.burn
 	* stdout
 		1
 		2
@@ -32,6 +32,6 @@ nest.burn:
 	}()
 	print $foo
 
-$ burn nest.burn
+$ $BURN nest.burn
 	* stdout
 		2

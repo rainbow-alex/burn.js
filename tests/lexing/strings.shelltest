@@ -2,7 +2,7 @@ strings.burn:
 	print "foo"
 	print "ぎ"
 
-$ burn strings.burn
+$ $BURN strings.burn
 	* stdout
 		foo
 		ぎ
@@ -13,7 +13,7 @@ escape.burn:
 	print "foo\tbar"
 // TODO more escape codes, unicode etc.
 
-$ burn escape.burn
+$ $BURN escape.burn
 	* stdout
 		foo\bar
 		foo

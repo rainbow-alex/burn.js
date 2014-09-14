@@ -2,7 +2,7 @@ empty.burn:
 	let $list = []
 	print $list.length
 
-$ burn empty.burn
+$ $BURN empty.burn
 	* stdout
 		0
 
@@ -10,7 +10,7 @@ list.burn:
 	let $list = [ 1, 2, 3 ]
 	print $list.length
 
-$ burn list.burn
+$ $BURN list.burn
 	* stdout
 		3
 
@@ -18,7 +18,7 @@ trailing_comma.burn:
 	let $list = [ 1, 2, 3, ]
 	print $list.length
 
-$ burn trailing_comma.burn
+$ $BURN trailing_comma.burn
 	* stdout
 		3
 
@@ -30,6 +30,6 @@ newlines.burn:
 	]
 	print $list.length
 
-$ burn newlines.burn
+$ $BURN newlines.burn
 	* stdout
 		3

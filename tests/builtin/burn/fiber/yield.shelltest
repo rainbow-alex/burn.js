@@ -7,7 +7,7 @@ yield.burn:
 	fiber.yield()
 	print "main 2"
 
-$ burn yield.burn
+$ $BURN yield.burn
 	* stdout
 		main 1
 		fork

@@ -5,7 +5,7 @@ not_or.burn:
 	print not ( true or true )
 	print not true or true
 
-$ burn --tolerant not_or.burn
+$ $BURN --tolerant not_or.burn
 	* stdout
 		true
 		false
@@ -16,7 +16,7 @@ not_and.burn:
 	print not ( true and false )
 	print not true and false
 
-$ burn --tolerant not_and.burn
+$ $BURN --tolerant not_and.burn
 	* stdout
 		false
 		true
@@ -27,7 +27,7 @@ not_is.burn:
 	print not ( true is Something )
 	print not true is Something
 
-$ burn --tolerant not_is.burn
+$ $BURN --tolerant not_is.burn
 	* stdout
 		true
 		false
@@ -38,7 +38,7 @@ not_eq.burn:
 	try { print not ( 0 == true ) } catch TypeError $e { print "TypeError" }
 	try { print not 0 == true } catch TypeError $e { print "TypeError" }
 
-$ burn --tolerant not_eq.burn
+$ $BURN --tolerant not_eq.burn
 	* stdout
 		true
 		TypeError
@@ -49,7 +49,7 @@ not_neq.burn:
 	try { print not ( 0 != true ) } catch TypeError $e { print "TypeError" }
 	try { print not 0 != true } catch TypeError $e { print "TypeError" }
 
-$ burn --tolerant not_neq.burn
+$ $BURN --tolerant not_neq.burn
 	* stdout
 		false
 		TypeError
@@ -60,7 +60,7 @@ not_lt.burn:
 	print not ( 0 < 0 )
 	print not 0 < 0
 
-$ burn --tolerant not_lt.burn
+$ $BURN --tolerant not_lt.burn
 	* stdout
 		TypeError
 		true
@@ -71,7 +71,7 @@ not_gt.burn:
 	print not ( 0 > 0 )
 	print not 0 > 0
 
-$ burn --tolerant not_gt.burn
+$ $BURN --tolerant not_gt.burn
 	* stdout
 		TypeError
 		true
@@ -82,7 +82,7 @@ not_lteq.burn:
 	print not ( 0 <= 0 )
 	print not 0 <= 0
 
-$ burn --tolerant not_lteq.burn
+$ $BURN --tolerant not_lteq.burn
 	* stdout
 		TypeError
 		false
@@ -93,7 +93,7 @@ not_gteq.burn:
 	print not ( 0 >= 0 )
 	print not 0 >= 0
 
-$ burn --tolerant not_gteq.burn
+$ $BURN --tolerant not_gteq.burn
 	* stdout
 		TypeError
 		false
@@ -104,7 +104,7 @@ not_add.burn:
 	print not ( 0 + 0 )
 	print not 0 + 0
 
-$ burn --tolerant not_add.burn
+$ $BURN --tolerant not_add.burn
 	* stdout
 		TypeError
 		true
@@ -115,7 +115,7 @@ not_sub.burn:
 	print not ( 0 - 0 )
 	print not 0 - 0
 
-$ burn --tolerant not_sub.burn
+$ $BURN --tolerant not_sub.burn
 	* stdout
 		TypeError
 		true

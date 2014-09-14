@@ -1,10 +1,14 @@
-.PHONY: tests
-tests:
-	./shelltest.py --path tests/bin/ tests/
+BURN = $(realpath $(dir $(lastword $(MAKEFILE_LIST)))src/bin/burn.js)
 
-.PHONY: tests_extra
-tests_extra:
-	./shelltest.py --path tests/bin/ tests_extra/
+tests*: .FORCE
+	BURN=$(BURN) ./shelltest.py $@
+tests*/*: .FORCE
+	BURN=$(BURN) ./shelltest.py $@
+tests*/*/*: .FORCE
+	BURN=$(BURN) ./shelltest.py $@
+tests*/*/*/*: .FORCE
+	BURN=$(BURN) ./shelltest.py $@
+.PHONY: .FORCE
 
 .PHONY: todo
 todo:

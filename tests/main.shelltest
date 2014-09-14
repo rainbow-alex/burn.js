@@ -3,6 +3,6 @@ main.burn:
 		print "foo"
 	} )
 
-$ burn main.burn
+$ $BURN main.burn
 	* stdout
 		foo

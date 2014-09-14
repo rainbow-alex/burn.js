@@ -6,7 +6,7 @@ order.burn:
 	$p( true ) and $p( false )
 	$p( false ) or $p( true )
 
-$ burn order.burn
+$ $BURN order.burn
 	* stdout
 		true
 		false
@@ -21,7 +21,7 @@ short_circuit.burn:
 	$p( false ) and $p( true )
 	$p( true ) or $p( false )
 
-$ burn short_circuit.burn
+$ $BURN short_circuit.burn
 	* stdout
 		false
 		true

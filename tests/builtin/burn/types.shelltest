@@ -9,7 +9,7 @@ types_primitive.burn:
 	print types is Module
 	print Type is Type
 
-$ burn types_primitive.burn
+$ $BURN types_primitive.burn
 	* stdout
 		true
 		true
@@ -26,7 +26,7 @@ types_lang.burn:
 	print Type is types.Permanent
 	print 1 is types.Truthy
 
-$ burn types_lang.burn
+$ $BURN types_lang.burn
 	* stdout
 		true
 		true
@@ -39,7 +39,7 @@ derivative.burn:
 	print "" is types.Falsy
 	print 2 is types.Number and 1.2 is types.Number
 
-$ burn derivative.burn
+$ $BURN derivative.burn
 	* stdout
 		true
 		true

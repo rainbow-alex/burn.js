@@ -5,7 +5,7 @@ caught.burn:
 		print "caught"
 	}
 
-$ burn caught.burn
+$ $BURN caught.burn
 	* stdout
 		caught
 
@@ -16,7 +16,7 @@ caught_type.burn:
 		print "caught"
 	}
 
-$ burn caught_type.burn
+$ $BURN caught_type.burn
 	* stdout
 		caught
 
@@ -29,7 +29,7 @@ caught_types.burn:
 		print "TypeError"
 	}
 
-$ burn caught_types.burn
+$ $BURN caught_types.burn
 	* stdout
 		TypeError
 
@@ -40,5 +40,5 @@ uncaught_type.burn:
 		print "ArgumentError"
 	}
 
-$ burn uncaught_type.burn
+$ $BURN uncaught_type.burn
 	* exit status nonzero

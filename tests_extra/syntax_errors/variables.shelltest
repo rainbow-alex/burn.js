@@ -1,6 +1,6 @@
 invalid.burn:
 	let $
-$ burn invalid.burn
+$ $BURN invalid.burn
 	* stderr
 		Invalid variable.
 		in invalid.burn on line 1
@@ -10,7 +10,7 @@ $ burn invalid.burn
 
 invalid.burn:
 	let $0
-$ burn invalid.burn
+$ $BURN invalid.burn
 	* stderr
 		Invalid variable.
 		in invalid.burn on line 1
@@ -20,7 +20,7 @@ $ burn invalid.burn
 
 invalid.burn:
 	let $:
-$ burn invalid.burn
+$ $BURN invalid.burn
 	* stderr
 		Invalid variable.
 		in invalid.burn on line 1
@@ -30,7 +30,7 @@ $ burn invalid.burn
 
 invalid.burn:
 	let $:foo
-$ burn invalid.burn
+$ $BURN invalid.burn
 	* stderr
 		Invalid variable.
 		in invalid.burn on line 1
@@ -40,7 +40,7 @@ $ burn invalid.burn
 
 invalid.burn:
 	let $foo:
-$ burn invalid.burn
+$ $BURN invalid.burn
 	* stderr
 		Invalid variable.
 		in invalid.burn on line 1
@@ -50,7 +50,7 @@ $ burn invalid.burn
 
 invalid.burn:
 	let $foo::bar
-$ burn invalid.burn
+$ $BURN invalid.burn
 	* stderr
 		Invalid variable.
 		in invalid.burn on line 1
@@ -64,7 +64,7 @@ scope.burn:
 	}
 	print $foo
 
-$ burn scope.burn
+$ $BURN scope.burn
 	* stderr
 		Variable $foo not found.
 		in scope.burn on line 4

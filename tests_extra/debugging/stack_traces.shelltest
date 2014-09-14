@@ -4,7 +4,7 @@ stack1.burn:
 	}
 	$foo()
 
-$ burn stack1.burn
+$ $BURN stack1.burn
 	* stderr
 		TypeError: Can't add <Integer> and <String>.
 		in function $foo (stack1.burn:1) on line 2
@@ -20,7 +20,7 @@ stack2.burn:
 	}
 	$foo()
 
-$ burn stack2.burn
+$ $BURN stack2.burn
 	* stderr
 		TypeError: Can't add <Integer> and <String>.
 		in function $bar (stack2.burn:2) on line 3

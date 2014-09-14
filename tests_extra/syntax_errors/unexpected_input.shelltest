@@ -1,7 +1,7 @@
 amp.burn:
 	&
 
-$ burn amp.burn
+$ $BURN amp.burn
 	* stderr
 		Unexpected input.
 		in amp.burn on line 1

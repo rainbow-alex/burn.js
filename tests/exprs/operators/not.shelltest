@@ -76,4 +76,4 @@ not_result.burn:
 	assert( $r is Boolean )
 	assert( $r == false )
 
-$ burn --tolerant not_result.burn
+$ $BURN --tolerant not_result.burn

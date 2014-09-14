@@ -5,7 +5,7 @@ or_and.burn:
 	print true or ( true and false )
 	print true or true and false
 
-$ burn --tolerant or_and.burn
+$ $BURN --tolerant or_and.burn
 	* stdout
 		false
 		true
@@ -16,7 +16,7 @@ or_is.burn:
 	print true or ( true is true )
 	print true or true is true
 
-$ burn --tolerant or_is.burn
+$ $BURN --tolerant or_is.burn
 	* stdout
 		TypeError
 		true
@@ -27,7 +27,7 @@ or_eq.burn:
 	print true or ( true == false )
 	print true or true == false
 
-$ burn --tolerant or_eq.burn
+$ $BURN --tolerant or_eq.burn
 	* stdout
 		false
 		true
@@ -38,7 +38,7 @@ or_neq.burn:
 	print true or ( true != true )
 	print true or true != true
 
-$ burn --tolerant or_neq.burn
+$ $BURN --tolerant or_neq.burn
 	* stdout
 		false
 		true
@@ -49,7 +49,7 @@ or_lt.burn:
 	print true or ( true < true )
 	print true or true < true
 
-$ burn --tolerant or_lt.burn
+$ $BURN --tolerant or_lt.burn
 	* stdout
 		TypeError
 		true
@@ -60,7 +60,7 @@ or_gt.burn:
 	print true or ( true > true )
 	print true or true > true
 
-$ burn --tolerant or_gt.burn
+$ $BURN --tolerant or_gt.burn
 	* stdout
 		TypeError
 		true
@@ -71,7 +71,7 @@ or_lteq.burn:
 	print true or ( true <= true )
 	print true or true <= true
 
-$ burn --tolerant or_lteq.burn
+$ $BURN --tolerant or_lteq.burn
 	* stdout
 		TypeError
 		true
@@ -82,7 +82,7 @@ or_gteq.burn:
 	print true or ( true >= true )
 	print true or true >= true
 
-$ burn --tolerant or_gteq.burn
+$ $BURN --tolerant or_gteq.burn
 	* stdout
 		TypeError
 		true
@@ -93,7 +93,7 @@ or_add.burn:
 	print true or ( true + true )
 	print true or true + true
 
-$ burn --tolerant or_add.burn
+$ $BURN --tolerant or_add.burn
 	* stdout
 		TypeError
 		true
@@ -104,7 +104,7 @@ or_sub.burn:
 	print true or ( true - true )
 	print true or true - true
 
-$ burn --tolerant or_sub.burn
+$ $BURN --tolerant or_sub.burn
 	* stdout
 		TypeError
 		true

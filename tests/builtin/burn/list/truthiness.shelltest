@@ -5,7 +5,7 @@ truthiness.burn:
 	print [ 1, 2, 3 ] is Truthy
 	print [ false ] is Truthy
 
-$ burn truthiness.burn
+$ $BURN truthiness.burn
 	* stdout
 		true
 		true

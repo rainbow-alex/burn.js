@@ -1,18 +1,18 @@
-$ burn -v
+$ $BURN -v
 	* stdout
 		Burn 0.1
 
-$ burn --version
+$ $BURN --version
 	* stdout
 		Burn 0.1
 
-$ burn -h | head -n1 | grep "^usage:"
+$ $BURN -h | head -n1 | grep "^usage:"
 
-$ burn --help | head -n1 | grep "^usage:"
+$ $BURN --help | head -n1 | grep "^usage:"
 
 stdin.burn:
 	print "Hello world!"
 
-$ burn - < stdin.burn
+$ $BURN - < stdin.burn
 	* stdout
 		Hello world!
