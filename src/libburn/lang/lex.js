@@ -1,4 +1,5 @@
 "use strict";
+let Token = require( "./Token" );
 let Error = require( "./Error" );
 
 module.exports = function( origin ) {
@@ -26,49 +27,49 @@ module.exports = function( origin ) {
 		
 		// newline
 		} else if( m = source.substr(i).match( /^\n/ ) ) {
-			tokens.push( { origin: origin, type: "newline", line: line, offset: offset } );
+			tokens.push( new Token( "newline", null, origin, line, offset ) );
 		
 		// symbols
 		} else if( m = source.substr(i).match( /^(==|!=|<=|>=|->)/ ) ) {
-			tokens.push( { origin: origin, type: m[0], line: line, offset: offset } );
+			tokens.push( new Token( m[0], null, origin, line, offset ) );
 		} else if( m = source.substr(i).match( /^({|}|\(|\)|,|<|>|\||=|\+|\*|\/|\.|\[|\])/ ) ) {
-			tokens.push( { origin: origin, type: m[0], line: line, offset: offset } );
+			tokens.push( new Token( m[0], null, origin, line, offset ) );
 		
 		// keywords
 		} else if( m = source.substr(i).match(
 			/^(and|break|catch|class|continue|else|false|finally|for|function|if|import|in|include|is|let|not|nothing|or|print|return|this|throw|true|try|while)\b/
 		) ) {
-			tokens.push( { origin: origin, type: m[0], line: line, offset: offset } );
+			tokens.push( new Token( m[0], null, origin, line, offset ) );
 		
 		// identifiers
 		} else if( m = source.substr(i).match( /^[A-Za-z_][A-Za-z0-9_:]*/ ) ) {
 			if( m[0].match( /^:|::|:$/ ) ) {
 				throw new Error( "Invalid identifier.", origin, line, offset );
 			}
-			tokens.push( { origin: origin, type: "identifier", value: m[0], line: line, offset: offset } );
+			tokens.push( new Token( "identifier", m[0], origin, line, offset ) );
 		
 		// variables
 		} else if( m = source.substr(i).match( /^\$[A-Za-z_][A-Za-z0-9_:]*/ ) ) {
 			if( m[0].match( /::|:$/ ) ) {
 				throw new Error( "Invalid variable.", origin, line, offset );
 			}
-			tokens.push( { origin: origin, type: "variable", value: m[0], line: line, offset: offset } );
+			tokens.push( new Token( "variable", m[0], origin, line, offset ) );
 		} else if( m = source.substr(i).match( /^\$/ ) ) {
 			throw new Error( "Invalid variable.", origin, line, offset );
 		
 		// number literals
 		} else if( m = source.substr(i).match( /^-?(0|[1-9][0-9]*)\.[0-9]+/ ) ) {
-			tokens.push( { origin: origin, type: "float_literal", value: m[0], line: line, offset: offset } );
+			tokens.push( new Token( "float_literal", m[0], origin, line, offset ) );
 		} else if( m = source.substr(i).match( /^-?(0|[1-9][0-9]*)/ ) ) {
-			tokens.push( { origin: origin, type: "integer_literal", value: m[0], line: line, offset: offset } );
+			tokens.push( new Token( "integer_literal", m[0], origin, line, offset ) );
 		
 		// symbols (2)
 		} else if( m = source.substr(i).match( /^(-)/ ) ) {
-			tokens.push( { origin: origin, type: m[0], line: line, offset: offset } );
+			tokens.push( new Token( m[0], null, origin, line, offset ) );
 		
 		// string literals
 		} else if( m = source.substr(i).match( /^"(\\.|[^\\"])*"/ ) ) {
-			tokens.push( { origin: origin, type: "string_literal", value: m[0], line: line, offset: offset } );
+			tokens.push( new Token( "string_literal", m[0], origin, line, offset ) );
 		
 		} else {
 			throw new Error( "Unexpected input.", origin, line, offset );
@@ -83,8 +84,6 @@ module.exports = function( origin ) {
 		
 		i += m[0].length;
 	}
-	
-	tokens.push( { origin: origin, type: "newline", line: line, offset: offset } );
 	
 	return tokens;
 };

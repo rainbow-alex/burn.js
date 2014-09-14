@@ -1,9 +1,10 @@
 "use strict";
+let Token = require( "./Token" );
 
 let Error = module.exports = CLASS( {
 	init: function( message, origin, line, offset ) {
 		this.message = message;
-		if( origin.origin ) { // TODO Token base class
+		if( origin instanceof Token ) {
 			let token = origin;
 			this.origin = token.origin;
 			this.line = token.line;
