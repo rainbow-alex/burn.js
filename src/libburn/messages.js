@@ -1,4 +1,5 @@
 "use strict";
+let Value = require( "./vm/Value" );
 
 let messages = module.exports;
 
@@ -10,6 +11,16 @@ function format( str, params ) {
 			return params[p];
 		}
 	} );
+}
+
+function toString( fiber, value ) {
+	try {
+		let s = value.toBurnString( fiber );
+		console.assert( s instanceof Value.String );
+		return s.value;
+	} catch( e ) {
+		return value.repr + " [toString failed]";
+	}
 }
 
 messages.implicit_name_error = function( name ) {
@@ -99,7 +110,7 @@ messages.function_call_wrong_return_type = function( fiber, function_, type, val
 		"TypeError: $fn returned $value, which is not $type.",
 		{
 			fn: function_.repr,
-			type: type.toBurnString( fiber ).value,
+			type: toString( fiber, type ),
 			value: value.repr,
 		}
 	);
@@ -193,7 +204,7 @@ messages.assert_throws_wrong_type = function( fiber, callable, type, thrown ) {
 		"AssertionError: $callable was expected to throw $type, but it threw $thrown.",
 		{
 			callable: callable.repr,
-			type: type.toBurnString( fiber ).value,
+			type: toString( fiber, type ),
 			thrown: thrown.repr,
 		}
 	);
@@ -204,7 +215,7 @@ messages.assert_throws_didnt_throw = function( fiber, callable, type ) {
 		"AssertionError: $callable was expected to throw $type, but it didn't throw anything.",
 		{
 			callable: callable.repr,
-			type: type.toBurnString( fiber ).value, // TODO catch errors in toBurnString
+			type: toString( fiber, type ),
 		}
 	);
 };
