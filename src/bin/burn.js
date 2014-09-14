@@ -104,7 +104,7 @@ function printRuntimeError( e ) {
 			} else if( frame instanceof libburn.vm.Fiber.IncludeFrame ) {
 				process.stderr.write( frame.origin.toString() );
 			} else {
-				console.assert( false );
+				// TODO
 			}
 			if( frame.line ) {
 				process.stderr.write( " on line " + frame.line );

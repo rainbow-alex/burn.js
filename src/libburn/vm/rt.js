@@ -1,8 +1,9 @@
 "use strict";
 let path = require( "path" );
 let libburn = require( "libburn" );
-let Value = require( "libburn/vm/Value" );
-let Fiber = require( "libburn/vm/Fiber" );
+let Value = require( "./Value" );
+let Fiber = require( "./Fiber" );
+let util = require( "./util" );
 let types = require( "libburn/builtin/burn/types" );
 let errors = require( "libburn/builtin/burn/errors" );
 let list = require( "libburn/builtin/burn/list" );
@@ -33,10 +34,8 @@ rt.createFunction = function( implementation, options ) {
 	return new Value.Function( implementation, options );
 };
 
-rt.argTest = function( fiber, value, type ) {
-	if( ! type.typeTest( fiber, value ) ) {
-		throw new errors.ArgumentErrorInstance( "", fiber.stack ); // TODO
-	}
+rt.validateFunctionCallArguments = function( fiber, fn, parameters, args ) {
+	util.validateFunctionCallArguments( fiber, fn, parameters, args );
 };
 
 rt.createList = function( items ) {
@@ -83,7 +82,7 @@ rt.add = function( fiber, l, r ) {
 	);
 };
 
-rt.subtract = function( fiber, l, r ) {
+rt.sub = function( fiber, l, r ) {
 	if( l instanceof Value.Integer ) {
 		if( r instanceof Value.Integer ) {
 			return new Value.Integer( l.value - r.value );

@@ -158,7 +158,7 @@ Value.Function = CLASS( Value, {
 	call: function( fiber, args ) {
 		fiber.stack.push( new Fiber.FunctionFrame( this ) );
 		try {
-			return this.implementation.call( this, fiber, args ) || new Value.Nothing();
+			return this.implementation( fiber, args ) || new Value.Nothing();
 		} finally {
 			fiber.stack.pop();
 		}

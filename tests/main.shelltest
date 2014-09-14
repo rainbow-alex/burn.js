@@ -1,5 +1,5 @@
 main.burn:
-	main( function() {
+	main( function( $process ) {
 		print "foo"
 	} )
 

@@ -14,14 +14,14 @@ list.JsListInstance = CLASS( Value.Special, {
 		return this.items.length !== 0;
 	},
 	getIndex: function( fiber, index ) {
-		util.validateIndex( fiber, types.Integer, index );
+		util.validateIndex( fiber, this, types.Integer, index );
 		return this.items[ index.value ];
 	},
 	get_length: function( fiber ) {
 		return new Value.Integer( this.items.length );
 	},
 	call_push: function( fiber, args ) {
-		util.validateArguments( fiber, [ {} ], args );
+		util.validateMethodCallArguments( fiber, this, "push", [ { type: types.Integer } ], args );
 		this.items.push( args[0] );
 	},
 } );

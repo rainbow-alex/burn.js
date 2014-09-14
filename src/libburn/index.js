@@ -27,3 +27,4 @@ global.CLASS = function( parent, properties ) {
 exports.origin = require( "./origin" );
 exports.lang = require( "./lang" );
 exports.vm = require( "./vm" );
+exports.messages = require( "./messages" );

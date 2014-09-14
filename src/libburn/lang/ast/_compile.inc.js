@@ -273,7 +273,7 @@ ast.AdditionExpression.prototype.compile = function( output ) {
 };
 
 ast.SubtractionExpression.prototype.compile = function( output ) {
-	output.code += '_.subtract(_fiber,';
+	output.code += '_.sub(_fiber,';
 	this.left.compile( output );
 	output.code += ',';
 	this.right.compile( output );
@@ -306,15 +306,25 @@ ast.IndexExpression.prototype.compile = function( output ) {
 };
 
 ast.FunctionExpression.prototype.compile = function( output ) {
-	output.code += '_.createFunction(function(_fiber,_args){';
-	this.parameters.forEach( function( parameter, i ) {
-		let v = encodeVariable( parameter.variable.value );
-		output.code += 'let ' + v + '=_args[' + i + '];';
+	output.code += '_.createFunction(function(_fiber,args){args=args||[];';
+	output.code += '_.validateFunctionCallArguments(_fiber,this,[';
+	this.parameters.forEach( function( parameter ) {
+		output.code += '{';
 		if( parameter.type ) {
-			output.code += '_.argTest(_fiber,' + v + ',';
+			output.code += 'type:';
 			parameter.type.compile( output );
-			output.code += ');';
+			output.code += ',';
 		}
+		if( parameter.default ) {
+			output.code += 'default:function(){return(';
+			parameter.default.compile( output );
+			output.code += ');},';
+		}
+		output.code += '},';
+	} );
+	output.code += '],args);';
+	this.parameters.forEach( function( parameter, i ) {
+		output.code += 'let ' + encodeVariable( parameter.variable.value ) + '=args[' + i + '];';
 	} );
 	this.block.forEach( function( s ) {
 		s.compile( output );
