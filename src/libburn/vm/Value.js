@@ -204,6 +204,9 @@ Value.Module = CLASS( Value, {
 	canGet: function( name ) {
 		return Boolean( this[ "$" + name ] );
 	},
+	canSet: function( name ) {
+		return true;
+	},
 	get: function( fiber, name ) {
 		return this[ "$" + name ];
 	},

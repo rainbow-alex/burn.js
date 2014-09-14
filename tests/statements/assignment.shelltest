@@ -1,0 +1,13 @@
+assign_var.burn:
+	let $foo
+	$foo = 3
+	assert( $foo == 3 )
+
+$ $BURN assign_var.burn
+
+assign_property.burn:
+	import burn
+	burn.foo = 3
+	assert( burn.foo == 3 )
+
+$ $BURN assign_property.burn

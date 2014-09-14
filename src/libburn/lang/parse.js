@@ -646,8 +646,14 @@ module.exports = function( tokens ) {
 			return new ast.VariableLvalue( {
 				token: node.token,
 			} );
+		} else if( node instanceof ast.PropertyExpression ) {
+			return new ast.PropertyLvalue( {
+				expression: node.expression,
+				dot: node.dot,
+				property: node.property,
+			} );
 		} else {
-			console.assert( false ); // TODO
+			console.assert( false );
 		}
 	}
 };

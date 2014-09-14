@@ -3,6 +3,7 @@ let Value = require( "libburn/vm/Value" );
 let types = require( "./types" );
 let errors = require( "./errors" );
 let list = require( "./list" );
+let util = require( "libburn/vm/util" );
 
 let implicit = module.exports;
 
@@ -29,7 +30,8 @@ implicit.exposes = new Value.Module( {
 	List: list.List,
 	
 	main: new Value.Function( function( fiber, args ) {
-		fiber.vm.main = args[0]; // TODO typecheck
+		util.validateFunctionCallArguments( fiber, this, [ { type: types.Callable } ], args );
+		fiber.vm.main = args[0];
 	}, { safe: true } ),
 	
 	repr: new Value.Function( function( fiber, args ) {

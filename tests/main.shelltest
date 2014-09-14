@@ -1,8 +1,15 @@
-main.burn:
+main_hello.burn:
 	main( function( $process ) {
-		print "foo"
+		print "hello"
 	} )
 
-$ $BURN main.burn
+$ $BURN main_hello.burn
 	* stdout
-		foo
+		hello
+
+main_type.burn:
+	assert.throws( function() {
+		main( 3 )
+	}, ArgumentError )
+
+$ $BURN main_type.burn

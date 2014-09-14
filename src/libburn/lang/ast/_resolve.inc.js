@@ -219,3 +219,7 @@ ast.VariableLvalue.prototype.resolve = function( scope ) {
 ast.VariableLvalue.prototype.suggestName = function() {
 	return this.token.value.substr(1);
 };
+
+ast.PropertyLvalue.prototype.suggestName = function() {
+	return this.property.value;
+};

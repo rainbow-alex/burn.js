@@ -167,10 +167,19 @@ ast.WhileStatement.prototype.compile = function( output ) {
 };
 
 ast.AssignmentStatement.prototype.compile = function( output ) {
-	this.lvalue.compile( output );
-	output.code += '=';
-	this.rvalue.compile( output );
-	output.code += ';';
+	if( this.lvalue instanceof ast.VariableLvalue ) {
+		output.code += encodeVariable( this.lvalue.token.value ) + '=';
+		this.rvalue.compile( output );
+		output.code += ';';
+	} else if( this.lvalue instanceof ast.PropertyLvalue ) {
+		output.code += '_.set(_fiber,';
+		this.lvalue.expression.compile( output );
+		output.code += ',"' + this.lvalue.property.value + '",';
+		this.rvalue.compile( output );
+		output.code += ');';
+	} else {
+		console.assert( false );
+	}
 };
 
 ast.ExpressionStatement.prototype.compile = function( output ) {

@@ -55,6 +55,14 @@ rt.get = function( fiber, value, property ) {
 	}
 };
 
+rt.set = function( fiber, value, property, propertyValue ) {
+	if( value.canSet( property ) ) {
+		value.set( fiber, property, propertyValue );
+	} else {
+		console.assert( false ); // TODO
+	}
+};
+
 rt.getIndex = function( fiber, value, index ) {
 	if( value.getIndex ) {
 		return value.getIndex( fiber, index );

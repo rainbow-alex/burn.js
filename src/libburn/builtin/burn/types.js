@@ -40,6 +40,10 @@ types.Number = new util.JsFunctionType( function( fiber, v ) {
 	return v instanceof Value.Integer || v instanceof Value.Float;
 }, { permanent: true } );
 
+types.Callable = new util.JsFunctionType( function( fiber, v ) {
+	return typeof v.call === "function";
+}, { permanent: true } );
+
 types.exposes = new Value.Module( {
 	Nothing: types.Nothing,
 	Boolean: types.Boolean,
