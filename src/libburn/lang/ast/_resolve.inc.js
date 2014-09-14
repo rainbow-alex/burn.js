@@ -129,7 +129,7 @@ ast.ImportStatement.prototype.resolve = function( scope ) {
 
 ast.AssignmentStatement.prototype.resolve = function( scope ) {
 	ast.Node.prototype.resolve.call( this, scope );
-	if( this.rvalue instanceof ast.FunctionExpression ) {
+	if( this.rvalue instanceof ast.FunctionExpression && this.lvalue.suggestName ) {
 		this.rvalue.name = this.lvalue.suggestName();
 	}
 };

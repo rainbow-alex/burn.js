@@ -12,6 +12,13 @@ assign_property.burn:
 
 $ $BURN assign_property.burn
 
+assign_index.burn:
+	let $l = []
+	$l[0] = "one"
+	assert( $l[0] == "one" )
+
+$ $BURN assign_index.burn
+
 lvalue_execution_order.burn:
 	import burn
 	let $lvalue = function() {

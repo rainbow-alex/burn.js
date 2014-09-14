@@ -65,16 +65,22 @@ module.exports = CLASS( {
 			return this._root[ name ];
 		}
 		
+		let module;
 		for( let i = 0 ; i < this.path.length ; i++ ) {
 			let json = path.join( this.path[i], name, "burn_module.json" );
 			if( fs.existsSync( json ) ) {
-				return this._root[ name ] = loadNativeModule.call( this, json );
+				module = loadNativeModule.call( this, json );
+				break;
 			}
 			let js = path.join( this.path[i], name, "burn_module.js" );
 			if( fs.existsSync( js ) ) {
-				return this._root[ name ] = loadJavascriptModule.call( this, js );
+				module = loadJavascriptModule.call( this, js );
+				break;
 			}
 		}
+		module.suggestName( name );
+		this._root[ name ] = module;
+		return module;
 		
 		throw new errors.ImportErrorInstance(
 			msg.import_root_not_found( name ),
@@ -112,7 +118,6 @@ module.exports = CLASS( {
 			} );
 			
 			let module = new Value.Module();
-			module.suggestName( name );
 			module.set( fiber, "meta:path", new Value.String( base ) );
 			
 			sources.forEach( function( filename ) {
@@ -140,9 +145,7 @@ module.exports = CLASS( {
 		}
 		
 		function loadJavascriptModule( js ) {
-			let module = require( js ).exposes;
-			module.suggestName( name );
-			return module;
+			return require( js ).exposes;
 		}
 	},
 	

@@ -66,6 +66,7 @@ exports.FunctionParameter = CLASS( exports.Node );
 exports.Lvalue = CLASS( exports.Node );
 exports.VariableLvalue = CLASS( exports.Lvalue );
 exports.PropertyLvalue = CLASS( exports.Lvalue );
+exports.IndexLvalue = CLASS( exports.Lvalue );
 
 for( let k in exports ) {
 	if( exports[k].prototype instanceof exports.Node ) {

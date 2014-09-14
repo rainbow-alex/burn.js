@@ -661,7 +661,12 @@ module.exports = function( tokens ) {
 				dot: node.dot,
 				property: node.property,
 			} );
-		// TODO index lvalue
+		} else if( node instanceof ast.IndexExpression ) {
+			return new ast.IndexLvalue( {
+				expression: node.expression,
+				lbracket: node.lbracket,
+				index: node.index,
+			} );
 		} else {
 			console.assert( false );
 		}

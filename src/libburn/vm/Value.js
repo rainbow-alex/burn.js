@@ -2,7 +2,6 @@
 let Fiber = require( "./Fiber" );
 
 let Value = module.exports = CLASS( {
-	suggestName: function( name ) {},
 	toBurnString: function( fiber ) {
 		return new Value.String( this.repr );
 	},
@@ -191,6 +190,9 @@ Value.Module = CLASS( Value, {
 				console.assert( contents[k] instanceof Value, "\"" + k + "\" should be a Value" );
 				console.assert( contents[k].isSafe(), "\"" + k + "\" should be Safe" );
 				this._set( k, contents[k] );
+				if( contents[k].suggestName ) {
+					contents[k].suggestName( k );
+				}
 			}
 		}
 	},
@@ -218,7 +220,6 @@ Value.Module = CLASS( Value, {
 	},
 	_set: function( name, value ) {
 		this[ "$" + name ] = value;
-		value.suggestName( name );
 	},
 	isSafe: function() {
 		return true;

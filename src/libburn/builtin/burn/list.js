@@ -17,6 +17,10 @@ list.JsListInstance = CLASS( Value.Special, {
 		util.validateIndex( fiber, this, types.Integer, index );
 		return this.items[ index.value ];
 	},
+	setIndex: function( fiber, index, value ) {
+		util.validateIndex( fiber, this, types.Integer, index );
+		this.items[ index.value ] = value;
+	},
 	get_length: function( fiber ) {
 		return new Value.Integer( this.items.length );
 	},

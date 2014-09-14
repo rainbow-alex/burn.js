@@ -92,6 +92,17 @@ rt.getIndex = function( fiber, value, index ) {
 	}
 };
 
+rt.setIndex = function( fiber, value, index, itemValue ) {
+	if( value.setIndex ) {
+		return value.setIndex( fiber, index, itemValue );
+	} else {
+		throw new errors.TypeErrorInstance(
+			"TypeError: " + value.repr + " is not Indexable.",
+			fiber.stack
+		);
+	}
+};
+
 rt.add = function( fiber, l, r ) {
 	if( l instanceof Value.Integer ) {
 		if( r instanceof Value.Integer ) {

@@ -177,6 +177,14 @@ ast.AssignmentStatement.prototype.compile = function( output ) {
 		output.code += ',"' + this.lvalue.property.value + '",';
 		this.rvalue.compile( output );
 		output.code += ');';
+	} else if( this.lvalue instanceof ast.IndexLvalue ) {
+		output.code += '_.setIndex(_fiber,';
+		this.lvalue.expression.compile( output );
+		output.code += ',';
+		this.lvalue.index.compile( output );
+		output.code += ',';
+		this.rvalue.compile( output );
+		output.code += ');';
 	} else {
 		console.assert( false );
 	}
@@ -408,8 +416,4 @@ ast.BooleanLiteral.prototype.compile = function( output ) {
 
 ast.NothingLiteral.prototype.compile = function( output ) {
 	output.code += '_.createNothing()';
-};
-
-ast.VariableLvalue.prototype.compile = function( output ) {
-	output.code += encodeVariable( this.token.value );
 };
