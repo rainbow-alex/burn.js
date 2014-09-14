@@ -40,8 +40,16 @@ implicit.exposes = new Value.Module( {
 	
 	assert: new ( CLASS( Value.Special, {
 		call: function( fiber, args ) {
+			util.validateFunctionCallArguments( fiber, this, [ {}, { type: types.String, default: new Value.Nothing() } ], args );
 			if( ! args[0].isTruthy( fiber ) ) {
-				throw new errors.AssertionErrorInstance( "", fiber.stack ); // TODO
+				if( args[1] instanceof Value.String ) {
+					throw new errors.AssertionErrorInstance(
+						"AssertionError: " + args[1].value,
+						fiber.stack
+					);
+				} else {
+					throw new errors.AssertionErrorInstance( "AssertionError", fiber.stack );
+				}
 			}
 		},
 		safe: true,

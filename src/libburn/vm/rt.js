@@ -49,7 +49,7 @@ rt.get = function( fiber, value, property ) {
 		return value.get( fiber, property );
 	} else {
 		throw new errors.PropertyErrorInstance(
-			"PropertyError: " + value.repr + " has no property `" + property + "`.",
+			msg.get_missing_property( value, property ),
 			fiber.stack
 		);
 	}
@@ -59,7 +59,10 @@ rt.set = function( fiber, value, property, propertyValue ) {
 	if( value.canSet( property ) ) {
 		value.set( fiber, property, propertyValue );
 	} else {
-		console.assert( false ); // TODO
+		throw new errors.PropertyErrorInstance(
+			msg.set_missing_property( value, property ),
+			fiber.stack
+		);
 	}
 };
 

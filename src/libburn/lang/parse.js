@@ -256,8 +256,11 @@ module.exports = function( tokens ) {
 	
 	function parseReturnStatement() {
 		read( "return" );
-		// TODO
-		return new ast.ReturnStatement( { expression: parseExpression() } );
+		if( peek().type === "newline" || peek().type === "}" ) {
+			return new ast.ReturnStatement();
+		} else {
+			return new ast.ReturnStatement( { expression: parseExpression() } );
+		}
 	}
 	
 	function parseThrowStatement() {
@@ -652,6 +655,7 @@ module.exports = function( tokens ) {
 				dot: node.dot,
 				property: node.property,
 			} );
+		// TODO index lvalue
 		} else {
 			console.assert( false );
 		}

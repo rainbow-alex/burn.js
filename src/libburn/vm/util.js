@@ -50,12 +50,21 @@ help.validateFunctionCallArguments = function( fiber, function_, parameters, arg
 	}
 	
 	parameters.forEach( function( parameter, i ) {
-		let type = parameter instanceof Value ? parameter : parameter.type;
-		if( parameter.type && ! parameter.type.typeTest( fiber, args[i] ) ) {
-			throw new errors.ArgumentErrorInstance(
-				msg.function_call_wrong_arg_type( function_, parameters, args, i ),
-				fiber.stack
-			);
+		if( args[i] ) {
+			let type = parameter instanceof Value ? parameter : parameter.type;
+			if( parameter.type && ! parameter.type.typeTest( fiber, args[i] ) ) {
+				throw new errors.ArgumentErrorInstance(
+					msg.function_call_wrong_arg_type( function_, parameters, args, i ),
+					fiber.stack
+				);
+			}
+		} else {
+			console.assert( parameter.default );
+			if( typeof parameter.default === "function" ) {
+				args[i] = parameter.default();
+			} else {
+				args[i] = parameter.default;
+			}
 		}
 	} );
 };
@@ -80,12 +89,21 @@ help.validateMethodCallArguments = function( fiber, context, method, parameters,
 	}
 	
 	parameters.forEach( function( parameter, i ) {
-		let type = parameter instanceof Value ? parameter : parameter.type;
-		if( parameter.type && ! parameter.type.typeTest( fiber, args[i] ) ) {
-			throw new errors.ArgumentErrorInstance(
-				msg.method_call_wrong_arg_type( context, method, parameters, args, i ),
-				fiber.stack
-			);
+		if( args[i] ) {
+			let type = parameter instanceof Value ? parameter : parameter.type;
+			if( parameter.type && ! parameter.type.typeTest( fiber, args[i] ) ) {
+				throw new errors.ArgumentErrorInstance(
+					msg.method_call_wrong_arg_type( context, method, parameters, args, i ),
+					fiber.stack
+				);
+			}
+		} else {
+			console.assert( parameter.default );
+			if( typeof parameter.default === "function" ) {
+				args[i] = parameter.default();
+			} else {
+				args[i] = parameter.default;
+			}
 		}
 	} );
 };

@@ -1,0 +1,13 @@
+get_property.burn:
+	[].length
+
+$ $BURN get_property.burn
+
+get_missing_property.burn:
+	assert.throws( function() {
+		[].banana
+	}, PropertyError )
+
+$ $BURN get_missing_property.burn
+
+// setting covered by tests/statements/assignment.shelltest

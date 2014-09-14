@@ -11,3 +11,20 @@ assign_property.burn:
 	assert( burn.foo == 3 )
 
 $ $BURN assign_property.burn
+
+lvalue_execution_order.burn:
+	import burn
+	let $lvalue = function() {
+		print "lvalue"
+		return burn
+	}
+	let $rvalue = function() {
+		print "rvalue"
+		return 3
+	}
+	$lvalue().foo = $rvalue()
+
+$ $BURN lvalue_execution_order.burn
+	* stdout
+		lvalue
+		rvalue

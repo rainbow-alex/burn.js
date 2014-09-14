@@ -26,7 +26,7 @@ list.JsListInstance = CLASS( Value.Special, {
 	},
 } );
 
-list.List = new util.JsInstanceofType( list.JsListInstance ); // TODO other types should be able to be a List
+list.List = new util.JsInstanceofType( list.JsListInstance );
 
 list.exposes = new Value.Module( {
 	List: list.List,

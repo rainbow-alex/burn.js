@@ -19,6 +19,20 @@ messages.implicit_name_error = function( name ) {
 	);
 };
 
+messages.get_missing_property = function( value, property ) {
+	return format(
+		"PropertyError: $value has no property $property.",
+		{ value: value.repr, property: property }
+	);
+};
+
+messages.set_missing_property = function( value, property ) {
+	return format(
+		"PropertyError: $value has no property $property.",
+		{ value: value.repr, property: property }
+	);
+};
+
 messages.index_wrong_type = function( context, type, index ) {
 	return format(
 		"TypeError: $ctxt index must be $type, got $i.",
