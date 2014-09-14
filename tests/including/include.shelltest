@@ -1,63 +1,63 @@
-a.burn:
-	include "b.burn"
+include_a.burn:
+	include "include_b.burn"
 
-b.burn:
+include_b.burn:
 	print "b"
 
-$ burn a.burn
+$ burn include_a.burn
 	* stdout
 		b
 
-a.burn:
-	include "inc/a.burn"
+resolve_a.burn:
+	include "resolve_inc/resolve_a.burn"
 
-inc/a.burn:
-	include "b.burn"
+resolve_inc/resolve_a.burn:
+	include "resolve_b.burn"
 
-b.burn:
+resolve_b.burn:
 	print "top b"
 
-inc/b.burn:
+resolve_inc/resolve_b.burn:
 	print "inc b"
 
-$ burn a.burn
+$ burn resolve_a.burn
 	* stdout
 		inc b
 
-a.burn:
+scope_a.burn:
 	let $foo = 3
 	try {
-		include "b.burn"
+		include "scope_b.burn"
 	} catch IncludeError $e {
 		print "IncludeError"
 	}
 
-b.burn:
+scope_b.burn:
 	print $foo
 
-$ burn a.burn
+$ burn scope_a.burn
 	* stdout
 		IncludeError
 
-a.burn:
+include_missing.burn:
 	try {
 		include "missing.burn"
 	} catch IncludeError $e {
 		print "IncludeError"
 	}
 
-$ burn a.burn
+$ burn include_missing.burn
 	* stdout
 		IncludeError
 
-a.burn:
+include_int.burn:
 	try {
 		include 3
 	} catch TypeError $e {
 		print "TypeError"
 	}
 
-$ burn a.burn
+$ burn include_int.burn
 	* stdout
 		TypeError
 

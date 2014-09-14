@@ -7,10 +7,8 @@ $ burn --version
 		Burn 0.1
 
 $ burn -h | head -n1 | grep "^usage:"
-	* exit status zero
 
 $ burn --help | head -n1 | grep "^usage:"
-	* exit status zero
 
 stdin.burn:
 	print "Hello world!"

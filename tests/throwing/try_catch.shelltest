@@ -42,19 +42,3 @@ uncaught_type.burn:
 
 $ burn uncaught_type.burn
 	* exit status nonzero
-
-// syntax errors
-
-err.burn:
-	try {
-	} catch {
-	}
-$ burn err.burn
-	* exit status nonzero
-
-err.burn:
-	try {
-	} catch TypeError {
-	}
-$ burn err.burn
-	* exit status nonzero

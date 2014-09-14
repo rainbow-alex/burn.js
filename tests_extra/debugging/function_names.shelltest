@@ -14,8 +14,6 @@ $ burn var.burn
 	* stdout
 		<Function:$foo>
 
-@todo property assign
-
 reassigned.burn:
 	let $foo = function() {}
 	let $bar = $foo

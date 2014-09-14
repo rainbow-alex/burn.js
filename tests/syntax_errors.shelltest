@@ -1,0 +1,24 @@
+var1.burn:
+	let $
+var2.burn:
+	let $0
+var3.burn:
+	let $:
+var4.burn:
+	let $:foo
+var5.burn:
+	let $foo:
+var6.burn:
+	let $foo::bar
+
+catch1.burn:
+	try {
+	} catch {
+	}
+catch2.burn:
+	try {
+	} catch TypeError {
+	}
+
+// all scripts must fail to pass
+$ for f in `ls`; do if burn $f 2> /dev/null; then >&2 echo "$f passed"; exit 1; fi done

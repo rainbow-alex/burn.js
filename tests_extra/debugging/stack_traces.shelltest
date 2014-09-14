@@ -27,5 +27,3 @@ $ burn stack2.burn
 		called from function $foo (stack2.burn:1) on line 5
 		called from stack2.burn on line 7
 	* exit status nonzero
-
-@todo import, include

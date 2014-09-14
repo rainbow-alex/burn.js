@@ -17,10 +17,10 @@ COLOR_GRAY = "\033[37m"
 
 def main():
 	try:
-		global passed
-		global failed
-		passed = 0
-		failed = 0
+		global n_passed
+		global n_failed
+		n_passed = 0
+		n_failed = 0
 		
 		i = 1
 		while i < len( sys.argv ):
@@ -45,7 +45,7 @@ def main():
 		print( "*** INTERRUPTED ***" )
 	
 	print()
-	print( "%s%s%s/%s%s" % ( COLOR_GREEN if not failed else COLOR_RED, COLOR_BOLD, passed, passed + failed, COLOR_RESET ) )
+	print( "%s%s%s/%s%s" % ( COLOR_RED if n_failed else COLOR_GREEN, COLOR_BOLD, n_passed, n_passed + n_failed, COLOR_RESET ) )
 	print()
 
 def scan( x ):
@@ -59,7 +59,7 @@ def run( filename ):
 	
 	wd = tempfile.mkdtemp()
 	
-	global passed, failed
+	global n_passed, n_failed
 	
 	try:
 		
@@ -83,7 +83,6 @@ def run( filename ):
 			while i < len( lines ) and lines[i].startswith( "\t" ):
 				body.append( lines[i][1:] )
 				i += 1
-			body = body or [ "* exit status zero" ]
 			
 			if statement.startswith( "$" ):
 				
@@ -102,6 +101,7 @@ def run( filename ):
 				stdout = process.stdout.read().decode( "utf-8" )
 				stderr = process.stderr.read().decode( "utf-8" )
 				
+				passed = True
 				exit_status_checked = False
 				
 				j = 0
@@ -109,18 +109,11 @@ def run( filename ):
 					line = body[j]
 					j += 1
 					
-					if line == "* exit status zero":
-						ok = exit_status == 0
-						print( " "*8 + "%s%s%s" % ( COLOR_GREEN if ok else COLOR_RED, line, COLOR_RESET ) )
-						passed += ok
-						failed += not ok
-						exit_status_checked = True
-					
-					elif line == "* exit status nonzero":
+					if line == "* exit status nonzero":
 						ok = exit_status != 0
-						print( " "*8 + "%s%s%s" % ( COLOR_GREEN if ok else COLOR_RED, line, COLOR_RESET ) )
-						passed += ok
-						failed += not ok
+						if not ok:
+							print( " "*8 + "%s%s%s" % ( COLOR_RED, line, COLOR_RESET ) )
+						passed = passed and ok
 						exit_status_checked = True
 					
 					elif re.match( "^\* stdout$", line ):
@@ -129,13 +122,12 @@ def run( filename ):
 							expected += body[j][1:] + "\n"
 							j += 1
 						ok = expected == stdout
-						print( " "*8 + "%s* stdout%s" % ( COLOR_GREEN if ok else COLOR_RED, COLOR_RESET ) )
 						if not ok:
+							print( " "*8 + "%s* stdout%s" % ( COLOR_RED, COLOR_RESET ) )
 							for line in Differ().compare( expected.splitlines(), stdout.splitlines() ):
 								if line[0] != "?":
 									print( " "*12 + line )
-						passed += ok
-						failed += not ok
+						passed = passed and ok
 					
 					elif re.match( "^\* stderr$", line ):
 						expected = ""
@@ -143,13 +135,12 @@ def run( filename ):
 							expected += body[j][1:] + "\n"
 							j += 1
 						ok = expected == stderr
-						print( " "*8 + "%s* stderr%s" % ( COLOR_GREEN if ok else COLOR_RED, COLOR_RESET ) )
 						if not ok:
+							print( " "*8 + "%s* stderr%s" % ( COLOR_RED, COLOR_RESET ) )
 							for line in Differ().compare( expected.splitlines(), stderr.splitlines() ):
 								if line[0] != "?":
 									print( " "*12 + line )
-						passed += ok
-						failed += not ok
+						passed = passed and ok
 					
 					elif re.match( "^\? exit status", line ):
 						print( " "*8 + "%s? exit status%s" % ( COLOR_BLUE + COLOR_BOLD, COLOR_RESET ) )
@@ -169,14 +160,20 @@ def run( filename ):
 						print( "%s: error parsing assertion/query at line %s" % ( sys.argv[0], statement_lineno+j ), file=sys.stderr )
 						sys.exit( 1 )
 				
-				if not exit_status_checked and exit_status != 0:
-					print( " "*8 + "%s! exit status is %s%s" % ( COLOR_RED, exit_status, COLOR_RESET ) )
-					for line in stderr.splitlines():
-						print( " "*12 + line )
-					failed += 1
+				if not exit_status_checked:
+					ok = exit_status == 0
+					if not ok:
+						print( " "*8 + "%s! exit status is %s%s" % ( COLOR_RED, exit_status, COLOR_RESET ) )
+						for line in stderr.splitlines():
+							print( " "*12 + line )
+					passed = passed and ok
+				
+				n_passed += passed
+				n_failed += not passed
 			
 			elif re.match( ".+:", statement ):
 				filename = statement[:-1]
+				assert not os.path.exists( filename )
 				path = os.path.join( wd, statement[:-1] )
 				if not os.path.exists( os.path.dirname( path ) ):
 					os.makedirs( os.path.dirname( path ) )
