@@ -6,7 +6,7 @@ eq_result_1.burn:
 	
 	let $a = nothing == nothing
 	assert( $a is Boolean )
-	assert( $a == false )
+	assert( $a == true )
 	
 	try { nothing == true }
 	catch TypeError $e {}

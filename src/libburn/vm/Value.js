@@ -37,6 +37,9 @@ Value.Nothing = CLASS( Value, {
 	isTruthy: function( fiber ) {
 		return false;
 	},
+	eq: function( fiber, other ) {
+		return true;
+	},
 	isSafe: function() {
 		return true;
 	},
