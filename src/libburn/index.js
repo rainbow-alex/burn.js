@@ -30,6 +30,7 @@ global.CATCH_IF = function( e, test ) {
 	}
 };
 
+exports.utf8 = require( "./utf8" );
 exports.origin = require( "./origin" );
 exports.lang = require( "./lang" );
 exports.vm = require( "./vm" );

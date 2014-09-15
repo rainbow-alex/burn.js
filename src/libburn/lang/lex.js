@@ -1,17 +1,18 @@
 "use strict";
-let UTF8 = require( "utf-8" );
 let Token = require( "./Token" );
 let Error = require( "./Error" );
+let utf8 = require( "../utf8" );
 
 module.exports = function( origin ) {
 	
 	let bytes = origin.sourceCode;
+	let source;
 	
-	if( UTF8.isNotUTF8( bytes ) ) {
-		throw new Error( "not utf8" ); // TODO
+	try {
+		source = utf8.decode( bytes );
+	} catch( e ) {
+		throw new Error( "Not valid utf-8.", origin );
 	}
-	
-	let source = bytes.toString( "utf-8" );
 	
 	let tokens = [];
 	let i = 0;

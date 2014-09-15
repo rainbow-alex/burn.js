@@ -3,8 +3,90 @@ valid.burn:
 
 $ $BURN valid.burn
 
-// unexpected continuation byte
-$ echo -e "// \x80\n" | $BURN -
+// Malformed UTF-8 tests
+
+// unexpected continuation bytes
+
+$ echo -e "//\x80" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xbf" | $BURN -
+	* exit status nonzero
+
+// lonely start characters
+
+// 2 bytes
+$ echo -e "//\xc0 " | $BURN -
+	* exit status nonzero
+$ echo -e "//\xdf " | $BURN -
+	* exit status nonzero
+
+// 3 bytes
+$ echo -e "//\xe0 " | $BURN -
+	* exit status nonzero
+$ echo -e "//\xef " | $BURN -
+	* exit status nonzero
+
+// 4 bytes
+$ echo -e "//\xf0 " | $BURN -
+	* exit status nonzero
+$ echo -e "//\xf7 " | $BURN -
+	* exit status nonzero
+
+// 5 bytes
+$ echo -e "//\xf8 " | $BURN -
+	* exit status nonzero
+$ echo -e "//\xfb " | $BURN -
+	* exit status nonzero
+
+// 6 bytes
+$ echo -e "//\xfc " | $BURN -
+	* exit status nonzero
+$ echo -e "//\xfd " | $BURN -
+	* exit status nonzero
+
+// last continuation byte missing
+
+// 2 bytes
+$ echo -e "//\xc0" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xdf" | $BURN -
+	* exit status nonzero
+
+// 3 bytes
+$ echo -e "//\xe0\x80" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xef\xbf" | $BURN -
+	* exit status nonzero
+
+// 4 bytes
+$ echo -e "//\xf0\x80\x80" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xf7\xbf\xbf" | $BURN -
+	* exit status nonzero
+
+// 5 bytes
+$ echo -e "//\xf8\x80\x80\x80" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xfb\xbf\xbf\xbf" | $BURN -
+	* exit status nonzero
+
+// 6 bytes
+$ echo -e "//\xfc\x80\x80\x80\x80" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xfd\xbf\xbf\xbf\xbf" | $BURN -
+	* exit status nonzero
+
+// impossible bytes
+
+$ echo -e "//\xfe" | $BURN -
+	* exit status nonzero
+
+$ echo -e "//\xff" | $BURN -
+	* exit status nonzero
+
+// overlong sequences
+
+$ echo -e "//\xc0\xaf" | $BURN -
 	* exit status nonzero
 
 // TODO more tests from
