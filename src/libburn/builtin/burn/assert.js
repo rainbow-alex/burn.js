@@ -7,7 +7,7 @@ let msg = require( "libburn/messages" );
 
 let assert = module.exports;
 
-assert.truthy = new Value.Function( function( fiber, args ) {
+assert.isTruthy = new Value.Function( function( fiber, args ) {
 	
 	util.validateFunctionCallArguments( fiber, this,
 		[ {}, { type: types.String, default: new Value.Nothing() } ],
@@ -54,10 +54,10 @@ assert.throws = new Value.Function( function( fiber, args ) {
 }, { safe: true } );
 
 assert.exposes = new Value.Module( {
-	truthy: assert.truthy,
+	isTruthy: assert.isTruthy,
 	throws: assert.throws,
 } );
 
 assert.exposes.call = function( fiber, args ) {
-	assert.truthy.call( fiber, args );
+	assert.isTruthy.call( fiber, args );
 };

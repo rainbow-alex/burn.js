@@ -1,6 +1,14 @@
 lex1.burn:
 	&
 
+string1.burn:
+	"
+x1.burn:
+	"\x"
+x2.burn:
+	"\x?"
+// TODO more \x, also \u, \U, ...
+
 var1.burn:
 	let $
 var2.burn:

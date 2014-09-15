@@ -399,7 +399,12 @@ ast.VariableExpression.prototype.compile = function( output ) {
 };
 
 ast.StringLiteral.prototype.compile = function( output ) {
-	output.code += '_.createString(' + this.token.value + ')'; // TODO
+	output.code += '_.createString("';
+	for( let i = 0 ; i < this.value.length ; i++ ) {
+		let c = this.value.charCodeAt( i );
+		output.code += "\\u" + ( "0000" + c.toString( 16 ) ).slice( -4 );
+	}
+	output.code += '")';
 };
 
 ast.IntegerLiteral.prototype.compile = function( output ) {

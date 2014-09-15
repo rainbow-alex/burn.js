@@ -1,3 +1,5 @@
+// calling the module calls .isTruthy
+
 assert_module.burn:
 	assert( assert is Module )
 	assert( assert is Callable )

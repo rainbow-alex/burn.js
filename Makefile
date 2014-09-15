@@ -1,14 +1,8 @@
 BURN = $(realpath $(dir $(lastword $(MAKEFILE_LIST)))src/bin/burn.js)
 
-tests*: .FORCE
+$(shell find tests tests_extra): .FORCE
 	BURN=$(BURN) ./shelltest.py $@
-tests*/*: .FORCE
-	BURN=$(BURN) ./shelltest.py $@
-tests*/*/*: .FORCE
-	BURN=$(BURN) ./shelltest.py $@
-tests*/*/*/*: .FORCE
-	BURN=$(BURN) ./shelltest.py $@
-tests*/*/*/*/*: .FORCE
+$(patsubst %, %/, $(shell find tests tests_extra -type d)): .FORCE
 	BURN=$(BURN) ./shelltest.py $@
 .PHONY: .FORCE
 

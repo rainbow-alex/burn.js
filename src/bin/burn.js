@@ -64,12 +64,16 @@ if( ! origin ) {
 
 function printError( e ) {
 	console.error( e.message );
-	console.error( "in " + e.origin + " on line " + e.line );
-	let line = e.origin.sourceCode.split("\n")[ e.line - 1 ];
-	let indicator = line.substr( 0, e.offset ).replace(/\t/g, "    " ).replace( /./g, " " ) + "^";
-	line = line.replace(/\t/g, "    " );
-	console.error( "\t" + line );
-	console.error( "\t" + indicator );
+	if( e.line ) {
+		console.error( "in " + e.origin + " on line " + e.line );
+		let line = e.origin.sourceCode.toString().split("\n")[ e.line - 1 ];
+		let indicator = line.substr( 0, e.offset ).replace(/\t/g, "    " ).replace( /./g, " " ) + "^";
+		line = line.replace(/\t/g, "    " );
+		console.error( "\t" + line );
+		console.error( "\t" + indicator );
+	} else {
+		console.error( "in " + e.origin );
+	}
 }
 
 function printRuntimeError( e ) {

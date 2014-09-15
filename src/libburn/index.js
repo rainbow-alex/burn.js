@@ -34,3 +34,7 @@ exports.origin = require( "./origin" );
 exports.lang = require( "./lang" );
 exports.vm = require( "./vm" );
 exports.messages = require( "./messages" );
+
+// Unicode String polyfills
+require( "string.fromcodepoint" );
+require( "string.prototype.at" );

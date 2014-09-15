@@ -78,6 +78,7 @@ def run( filename ):
 					stdout = subprocess.PIPE,
 					stderr = subprocess.PIPE,
 					shell = True,
+					executable = "/bin/bash",
 					cwd = wd
 				)
 				

@@ -1,10 +1,17 @@
 "use strict";
+let UTF8 = require( "utf-8" );
 let Token = require( "./Token" );
 let Error = require( "./Error" );
 
 module.exports = function( origin ) {
 	
-	let source = origin.sourceCode;
+	let bytes = origin.sourceCode;
+	
+	if( UTF8.isNotUTF8( bytes ) ) {
+		throw new Error( "not utf8" ); // TODO
+	}
+	
+	let source = bytes.toString( "utf-8" );
 	
 	let tokens = [];
 	let i = 0;
@@ -68,7 +75,7 @@ module.exports = function( origin ) {
 			tokens.push( new Token( m[0], null, origin, line, offset ) );
 		
 		// string literals
-		} else if( m = source.substr(i).match( /^"(\\.|[^\\"])*"/ ) ) {
+		} else if( m = source.substr(i).match( /^"([^\\"]|\\.)*"/ ) ) {
 			tokens.push( new Token( "string_literal", m[0], origin, line, offset ) );
 		
 		} else {

@@ -1,5 +1,6 @@
 "use strict";
 let Fiber = require( "./Fiber" );
+let punycode = require( "punycode" );
 
 let Value = module.exports = CLASS( {
 	toBurnString: function( fiber ) {
@@ -132,6 +133,20 @@ Value.String = CLASS( Value, {
 	},
 	lt: function( fiber, other ) {
 		return this.value < other.value;
+	},
+	getIndex: function( fiber, index ) {
+		// TODO typecheck
+		return new Value.String( this.value.at( index.value ) );
+	},
+	canGet: function( property ) {
+		return [ "length" ].indexOf( property ) !== -1;
+	},
+	get: function( fiber, property ) {
+		if( property === "length" ) {
+			return new Value.Integer( punycode.ucs2.decode( this.value ).length );
+		} else {
+			console.assert( false );
+		}
 	},
 	isSafe: function() {
 		return true;

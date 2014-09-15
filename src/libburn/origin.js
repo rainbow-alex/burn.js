@@ -6,7 +6,7 @@ exports.Script = CLASS( {
 		this.filename = filename;
 	},
 	get sourceCode() {
-		return fs.readFileSync( this.filename, "utf-8" );
+		return fs.readFileSync( this.filename );
 	},
 	toString: function() {
 		return this.filename;
@@ -15,7 +15,7 @@ exports.Script = CLASS( {
 
 exports.Stdin = CLASS( {
 	get sourceCode() {
-		return this._source || ( this._source = fs.readFileSync( "/dev/stdin", "utf-8" ) );
+		return this._source || ( this._source = fs.readFileSync( "/dev/stdin" ) );
 	},
 	toString: function() {
 		return "<stdin>";

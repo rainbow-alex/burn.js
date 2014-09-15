@@ -13,9 +13,14 @@ which will (hopefully) reach production quality some day.
 
 ## Dependencies ##
 
-You will need node.js (>=0.10) with [fibers](https://github.com/laverdet/node-fibers/) (>=1.0) to run `burn.js`.
+You will need node.js (>=0.10) to run `burn.js`, with the following modules:
 
-You will need python 3 to run the tests.
+* [fibers](https://github.com/laverdet/node-fibers)
+* [UTF8.js](https://github.com/nfroidure/UTF8.js)
+* [String.fromCodePoint](https://github.com/mathiasbynens/String.fromCodePoint)
+* [String.prototype.at](https://github.com/mathiasbynens/String.prototype.at)
+
+Python 3 is needed to run the tests.
 
 ## Implementation ##
 

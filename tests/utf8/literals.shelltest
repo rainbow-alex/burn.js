@@ -1,0 +1,95 @@
+boring.burn:
+	print "foo"
+
+$ $BURN boring.burn | hexdump -v -e '1/1 "%02X\n"'
+	* stdout
+		66
+		6F
+		6F
+		0A
+
+not_escaped.burn:
+	print "𝌆"
+
+$ $BURN not_escaped.burn | hexdump -v -e '1/1 "%02X\n"'
+	* stdout
+		F0
+		9D
+		8C
+		86
+		0A
+
+special_escapes.burn:
+	print "\n"
+	print "\t"
+
+$ $BURN special_escapes.burn | hexdump -v -e '1/1 "%02X\n"'
+	* stdout
+		0A
+		0A
+		09
+		0A
+
+escapes_x.burn:
+	print "\x41"
+	print "\xC6"
+
+$ $BURN escapes_x.burn | hexdump -v -e '1/1 "%02X\n"'
+	* stdout
+		41
+		0A
+		C3
+		86
+		0A
+
+escapes_u.burn:
+	print "\u0041"
+	print "\u00C6"
+	print "\u2282"
+
+$ $BURN escapes_u.burn | hexdump -v -e '1/1 "%02X\n"'
+	* stdout
+		41
+		0A
+		C3
+		86
+		0A
+		E2
+		8A
+		82
+		0A
+
+escapes_U.burn:
+	print "\U00000041"
+	print "\U000000C6"
+	print "\U00002282"
+	print "\U0001D306"
+
+$ $BURN escapes_U.burn | hexdump -v -e '1/1 "%02X\n"'
+	* stdout
+		41
+		0A
+		C3
+		86
+		0A
+		E2
+		8A
+		82
+		0A
+		F0
+		9D
+		8C
+		86
+		0A
+
+surrogate1.burn:
+	print "\uD800"
+
+$ $BURN surrogate1.burn
+	* exit status nonzero
+
+surrogate2.burn:
+	print "\uDFFF"
+
+$ $BURN surrogate2.burn
+	* exit status nonzero

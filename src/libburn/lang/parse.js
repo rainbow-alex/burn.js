@@ -559,7 +559,7 @@ module.exports = function( tokens ) {
 		} else if( peek().type === "variable" ) {
 			return new ast.VariableExpression( { token: read() } );
 		} else if( peek().type === "string_literal" ) {
-			return new ast.StringLiteral( { token: read() } );
+			return parseStringLiteral();
 		} else if( peek().type === "integer_literal" ) {
 			return new ast.IntegerLiteral( { token: read() } );
 		} else if( peek().type === "float_literal" ) {
@@ -647,6 +647,73 @@ module.exports = function( tokens ) {
 		stopIgnoringNewlines();
 		return new ast.ParenthesizedExpression( {
 			expression: expression,
+		} );
+	}
+	
+	function parseStringLiteral() {
+		let token = peek();
+		console.assert( token.type === "string_literal" );
+		let source = token.value;
+		let value = "";
+		let i = 1;
+		while( i < source.length - 1 ) {
+			let c = source[i];
+			if( c === "\\" ) {
+				i++;
+				c = source[i];
+				if( c === "\\" ) {
+					value += "\\";
+					i++;
+				} else if( c === "n" ) {
+					value += "\n";
+					i++;
+				} else if( c === "t" ) {
+					value += "\t";
+					i++;
+				} else if( c === "x" ) {
+					let hex = source.substr( i+1, 2 );
+					if( ! hex.match( /^[0-9a-fA-F]{2}$/ ) ) {
+						throwError( "Invalid unicode escape sequence." );
+					}
+					let codepoint = parseInt( hex, 16 );
+					value += String.fromCodePoint( codepoint );
+					i += 3;
+				} else if( c === "u" ) {
+					let hex = source.substr( i+1, 4 );
+					if( ! hex.match( /^[0-9a-fA-F]{4}$/ ) ) {
+						throwError( "Invalid unicode escape sequence." );
+					}
+					let codepoint = parseInt( hex, 16 );
+					if( 0xD800 <= codepoint && codepoint <= 0xFFFF ) {
+						throwError( "Invalid unicode codepoint. U+" + hex + " is a surrogate." );
+					}
+					value += String.fromCodePoint( codepoint );
+					i += 5;
+				} else if( c === "U" ) {
+					let hex = source.substr( i+1, 8 );
+					if( ! hex.match( /^[0-9a-fA-F]{8}$/ ) ) {
+						throwError( "Invalid unicode escape sequence." );
+					}
+					let codepoint = parseInt( hex, 16 );
+					if( codepoint > 0x10FFFF ) {
+						throwError( "Invalid unicode codepoint. U+" + hex + " is out of the unicode range." );
+					} else if( 0xD800 <= codepoint && codepoint <= 0xFFFF ) {
+						throwError( "Invalid unicode codepoint. U+" + hex + " is a surrogate." );
+					}
+					value += String.fromCodePoint( codepoint );
+					i += 9;
+				} else {
+					throwError( "Invalid escape sequence." );
+				}
+			} else {
+				value += c;
+				i++;
+			}
+		}
+		read();
+		return new ast.StringLiteral( {
+			token: token,
+			value: value,
 		} );
 	}
 	
