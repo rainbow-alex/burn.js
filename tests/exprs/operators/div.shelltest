@@ -166,7 +166,7 @@ div_result_4.burn:
 	
 	assert.throws( function() { 0 / false }, TypeError )
 	
-	assert.throws( function() { 0 / 0 }, ValueError )
+	assert.throws( function() { 0 / 0 }, TypeError )
 	
 	let $v4 = 0 / 2
 	assert( $v4 is Float )
@@ -176,7 +176,7 @@ div_result_4.burn:
 	assert( $v5 is Float )
 	assert( ( -0.0001 < $v5 ) and ( $v5 < 0.0001 ) )
 	
-	assert.throws( function() { 0 / 0.0 }, ValueError )
+	assert.throws( function() { 0 / 0.0 }, TypeError )
 	
 	let $v7 = 0 / 2.0
 	assert( $v7 is Float )
@@ -236,7 +236,7 @@ div_result_5.burn:
 	
 	assert.throws( function() { 2 / false }, TypeError )
 	
-	assert.throws( function() { 2 / 0 }, ValueError )
+	assert.throws( function() { 2 / 0 }, TypeError )
 	
 	let $v4 = 2 / 2
 	assert( $v4 is Float )
@@ -246,7 +246,7 @@ div_result_5.burn:
 	assert( $v5 is Float )
 	assert( ( -1.0001 < $v5 ) and ( $v5 < -0.9999 ) )
 	
-	assert.throws( function() { 2 / 0.0 }, ValueError )
+	assert.throws( function() { 2 / 0.0 }, TypeError )
 	
 	let $v7 = 2 / 2.0
 	assert( $v7 is Float )
@@ -306,7 +306,7 @@ div_result_6.burn:
 	
 	assert.throws( function() { -2 / false }, TypeError )
 	
-	assert.throws( function() { -2 / 0 }, ValueError )
+	assert.throws( function() { -2 / 0 }, TypeError )
 	
 	let $v4 = -2 / 2
 	assert( $v4 is Float )
@@ -316,7 +316,7 @@ div_result_6.burn:
 	assert( $v5 is Float )
 	assert( ( 0.9999 < $v5 ) and ( $v5 < 1.0001 ) )
 	
-	assert.throws( function() { -2 / 0.0 }, ValueError )
+	assert.throws( function() { -2 / 0.0 }, TypeError )
 	
 	let $v7 = -2 / 2.0
 	assert( $v7 is Float )
@@ -376,7 +376,7 @@ div_result_7.burn:
 	
 	assert.throws( function() { 0.0 / false }, TypeError )
 	
-	assert.throws( function() { 0.0 / 0 }, ValueError )
+	assert.throws( function() { 0.0 / 0 }, TypeError )
 	
 	let $v4 = 0.0 / 2
 	assert( $v4 is Float )
@@ -386,7 +386,7 @@ div_result_7.burn:
 	assert( $v5 is Float )
 	assert( ( -0.0001 < $v5 ) and ( $v5 < 0.0001 ) )
 	
-	assert.throws( function() { 0.0 / 0.0 }, ValueError )
+	assert.throws( function() { 0.0 / 0.0 }, TypeError )
 	
 	let $v7 = 0.0 / 2.0
 	assert( $v7 is Float )
@@ -446,7 +446,7 @@ div_result_8.burn:
 	
 	assert.throws( function() { 2.0 / false }, TypeError )
 	
-	assert.throws( function() { 2.0 / 0 }, ValueError )
+	assert.throws( function() { 2.0 / 0 }, TypeError )
 	
 	let $v4 = 2.0 / 2
 	assert( $v4 is Float )
@@ -456,7 +456,7 @@ div_result_8.burn:
 	assert( $v5 is Float )
 	assert( ( -1.0001 < $v5 ) and ( $v5 < -0.9999 ) )
 	
-	assert.throws( function() { 2.0 / 0.0 }, ValueError )
+	assert.throws( function() { 2.0 / 0.0 }, TypeError )
 	
 	let $v7 = 2.0 / 2.0
 	assert( $v7 is Float )
@@ -516,7 +516,7 @@ div_result_9.burn:
 	
 	assert.throws( function() { -0.5 / false }, TypeError )
 	
-	assert.throws( function() { -0.5 / 0 }, ValueError )
+	assert.throws( function() { -0.5 / 0 }, TypeError )
 	
 	let $v4 = -0.5 / 2
 	assert( $v4 is Float )
@@ -526,7 +526,7 @@ div_result_9.burn:
 	assert( $v5 is Float )
 	assert( ( 0.2499 < $v5 ) and ( $v5 < 0.2501 ) )
 	
-	assert.throws( function() { -0.5 / 0.0 }, ValueError )
+	assert.throws( function() { -0.5 / 0.0 }, TypeError )
 	
 	let $v7 = -0.5 / 2.0
 	assert( $v7 is Float )
@@ -1054,7 +1054,7 @@ div_result_19.burn:
 	
 	assert.throws( function() { 3 / false }, TypeError )
 	
-	assert.throws( function() { 3 / 0 }, ValueError )
+	assert.throws( function() { 3 / 0 }, TypeError )
 	
 	let $v4 = 3 / 2
 	assert( $v4 is Float )
@@ -1064,7 +1064,7 @@ div_result_19.burn:
 	assert( $v5 is Float )
 	assert( ( -1.5001 < $v5 ) and ( $v5 < -1.4999 ) )
 	
-	assert.throws( function() { 3 / 0.0 }, ValueError )
+	assert.throws( function() { 3 / 0.0 }, TypeError )
 	
 	let $v7 = 3 / 2.0
 	assert( $v7 is Float )
@@ -1124,7 +1124,7 @@ div_result_20.burn:
 	
 	assert.throws( function() { 8 / false }, TypeError )
 	
-	assert.throws( function() { 8 / 0 }, ValueError )
+	assert.throws( function() { 8 / 0 }, TypeError )
 	
 	let $v4 = 8 / 2
 	assert( $v4 is Float )
@@ -1134,7 +1134,7 @@ div_result_20.burn:
 	assert( $v5 is Float )
 	assert( ( -4.0001 < $v5 ) and ( $v5 < -3.9999 ) )
 	
-	assert.throws( function() { 8 / 0.0 }, ValueError )
+	assert.throws( function() { 8 / 0.0 }, TypeError )
 	
 	let $v7 = 8 / 2.0
 	assert( $v7 is Float )
@@ -1194,7 +1194,7 @@ div_result_21.burn:
 	
 	assert.throws( function() { 0.3 / false }, TypeError )
 	
-	assert.throws( function() { 0.3 / 0 }, ValueError )
+	assert.throws( function() { 0.3 / 0 }, TypeError )
 	
 	let $v4 = 0.3 / 2
 	assert( $v4 is Float )
@@ -1204,7 +1204,7 @@ div_result_21.burn:
 	assert( $v5 is Float )
 	assert( ( -0.1501 < $v5 ) and ( $v5 < -0.1499 ) )
 	
-	assert.throws( function() { 0.3 / 0.0 }, ValueError )
+	assert.throws( function() { 0.3 / 0.0 }, TypeError )
 	
 	let $v7 = 0.3 / 2.0
 	assert( $v7 is Float )
@@ -1264,7 +1264,7 @@ div_result_22.burn:
 	
 	assert.throws( function() { 0.33333333333 / false }, TypeError )
 	
-	assert.throws( function() { 0.33333333333 / 0 }, ValueError )
+	assert.throws( function() { 0.33333333333 / 0 }, TypeError )
 	
 	let $v4 = 0.33333333333 / 2
 	assert( $v4 is Float )
@@ -1274,7 +1274,7 @@ div_result_22.burn:
 	assert( $v5 is Float )
 	assert( ( -0.1668 < $v5 ) and ( $v5 < -0.1666 ) )
 	
-	assert.throws( function() { 0.33333333333 / 0.0 }, ValueError )
+	assert.throws( function() { 0.33333333333 / 0.0 }, TypeError )
 	
 	let $v7 = 0.33333333333 / 2.0
 	assert( $v7 is Float )
@@ -1334,7 +1334,7 @@ div_result_23.burn:
 	
 	assert.throws( function() { 0.7 / false }, TypeError )
 	
-	assert.throws( function() { 0.7 / 0 }, ValueError )
+	assert.throws( function() { 0.7 / 0 }, TypeError )
 	
 	let $v4 = 0.7 / 2
 	assert( $v4 is Float )
@@ -1344,7 +1344,7 @@ div_result_23.burn:
 	assert( $v5 is Float )
 	assert( ( -0.3501 < $v5 ) and ( $v5 < -0.3499 ) )
 	
-	assert.throws( function() { 0.7 / 0.0 }, ValueError )
+	assert.throws( function() { 0.7 / 0.0 }, TypeError )
 	
 	let $v7 = 0.7 / 2.0
 	assert( $v7 is Float )

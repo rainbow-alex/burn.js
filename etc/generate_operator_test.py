@@ -28,7 +28,7 @@ def eval_burn( source, imports = [] ):
 def eval_burn_expressions( expressions, imports = [] ):
 	return eval_burn(
 		"".join(
-			"try { print %s } catch TypeError $e { print \"TypeError\" } catch ValueError $e { print \"ValueError\" }\n" % e
+			"try { print %s } catch TypeError $e { print \"TypeError\" }\n" % e
 			for e in expressions
 		),
 		imports
@@ -158,8 +158,8 @@ for name, expressions in generate_tests():
 				lower_bound = "%.4f" % ( round( float( output ), 4 ) - 0.0001 )
 				upper_bound = "%.4f" % ( round( float( output ), 4 ) + 0.0001 )
 				print( "	assert( ( %s < %s ) and ( %s < %s ) )" % ( lower_bound, var, var, upper_bound ) )
-			else:
-				pass # TODO
+			elif type_ == "String":
+				print( "	assert( %s == \"%s\" )" % ( var, output ) )
 	
 	print()
 	print( "$ $BURN --tolerant %s.burn" % name )

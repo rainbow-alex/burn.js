@@ -151,16 +151,42 @@ rt.sub = function( fiber, l, r ) {
 	);
 };
 
+function repeatString( s, n ) {
+	let o = "";
+	for( let i = 0 ; i < n ; i++ ) {
+		o += s;
+	}
+	return o;
+}
+
 rt.mul = function( fiber, l, r ) {
 	if( l instanceof Value.Integer ) {
 		if( r instanceof Value.Integer ) {
 			return new Value.Integer( l.value * r.value );
 		} else if( r instanceof Value.Float ) {
 			return new Value.Float( l.value * r.value );
+		} else if( r instanceof Value.String ) {
+			if( l.value < 0 ) {
+				throw new errors.TypeErrorInstance(
+					"TypeError: Can't apply `*` to " + l.repr + " and <burn.math.StrictlyNegative>",
+					fiber.stack
+				);
+			}
+			return new Value.String( repeatString( r.value, l.value ) );
 		}
 	} else if( l instanceof Value.Float ) {
 		if( r instanceof Value.Integer || r instanceof Value.Float ) {
 			return new Value.Float( l.value * r.value );
+		}
+	} else if( l instanceof Value.String ) {
+		if( r instanceof Value.Integer ) {
+			if( r.value < 0 ) {
+				throw new errors.TypeErrorInstance(
+					"TypeError: Can't apply `*` to <burn.math.StrictlyNegative> and " + r.repr,
+					fiber.stack
+				);
+			}
+			return new Value.String( repeatString( l.value, r.value ) );
 		}
 	}
 	throw new errors.TypeErrorInstance(
@@ -172,7 +198,7 @@ rt.mul = function( fiber, l, r ) {
 rt.div = function( fiber, l, r ) {
 	if( ( l instanceof Value.Integer || l instanceof Value.Float ) && ( r instanceof Value.Integer || r instanceof Value.Float ) ) {
 		if( r.value === 0 ) {
-			throw new errors.ValueErrorInstance( "ValueError: Division by zero.", fiber.stack );
+			throw new errors.TypeErrorInstance( "TypeError: Division by burn.math.Zero.", fiber.stack );
 		}
 		return new Value.Float( l.value / r.value );
 	}

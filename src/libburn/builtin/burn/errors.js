@@ -25,9 +25,6 @@ errors.NameError = new util.JsInstanceofType( errors.NameErrorInstance );
 errors.TypeErrorInstance = CLASS( ErrorInstance );
 errors.TypeError = new util.JsInstanceofType( errors.TypeErrorInstance );
 
-errors.ValueErrorInstance = CLASS( ErrorInstance );
-errors.ValueError = new util.JsInstanceofType( errors.ValueErrorInstance );
-
 errors.PropertyErrorInstance = CLASS( ErrorInstance );
 errors.PropertyError = new util.JsInstanceofType( errors.PropertyErrorInstance );
 
@@ -46,7 +43,6 @@ errors.AssertionError = new util.JsInstanceofType( errors.AssertionErrorInstance
 errors.exposes = new Value.Module( {
 	NameError: errors.NameError,
 	TypeError: errors.TypeError,
-	ValueError: errors.ValueError,
 	PropertyError: errors.PropertyError,
 	ArgumentError: errors.TypeError,
 	ImportError: errors.ImportError,
