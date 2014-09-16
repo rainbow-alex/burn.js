@@ -10,8 +10,6 @@ import re
 # evaluation helpers
 #
 
-class BurnEvalError (Exception): pass
-
 def eval_burn( source, imports = [] ):
 	source = "".join( "import %s\n" % i for i in imports ) + source
 	process = subprocess.Popen(
@@ -24,16 +22,15 @@ def eval_burn( source, imports = [] ):
 	process.stdin.write( source.encode( "utf-8" ) )
 	process.stdin.close()
 	exit_status = process.wait( 1 )
-	if exit_status != 0:
-		raise BurnEvalError()
-	stdout = process.stdout.read().decode( "utf-8" )
-	return stdout
+	assert exit_status == 0
+	return process.stdout.read().decode( "utf-8" )
 
 def eval_burn_expressions( expressions, imports = [] ):
 	return eval_burn(
 		"".join(
 			"try { print %s } catch TypeError $e { print \"TypeError\" } catch ValueError $e { print \"ValueError\" }\n" % e
-		for e in expressions ),
+			for e in expressions
+		),
 		imports
 	).splitlines()
 
@@ -79,44 +76,6 @@ def get_op( name ):
 		assert False
 
 #
-# output helpers
-#
-
-stderr_newline = True
-
-def stderr_print( text ):
-	stderr_end_line()
-	print( text, end="", file=sys.stderr )
-	sys.stderr.flush()
-	global stderr_newline
-	stderr_newline = False
-
-def stderr_tick():
-	print( ".", end="", file=sys.stderr )
-	sys.stderr.flush()
-	global stderr_newline
-	stderr_newline = False
-
-def stderr_end_line():
-	global stderr_newline
-	if not stderr_newline:
-		print( file=sys.stderr )
-	stderr_newline = True
-
-def print_test( name, source, stdout=None ):
-	assert source
-	print()
-	print( "%s.burn:" % name )
-	for l in source.splitlines():
-		print( "\t%s" % l )
-	print()
-	print( "$ $BURN --tolerant %s.burn" % name )
-	if stdout:
-		print( "	* stdout" )
-		for l in stdout.splitlines():
-			print( "\t\t%s" % l )
-
-#
 # generating routines
 #
 
@@ -147,7 +106,8 @@ types = [ "Nothing", "Boolean", "Integer", "Float", "String", "Function", "Modul
 if isinstance( op, BinOp ):
 	def generate_tests():
 		for i, v1 in zip( count(1), values ):
-			stderr_tick()
+			print( ".", end="", file=sys.stderr )
+			sys.stderr.flush()
 			name = "%s_result_%s" % ( op.name, i )
 			expressions = [ "%s %s %s" % ( v1, op.symbol, v2 ) for v2 in values ]
 			yield name, expressions
@@ -159,35 +119,49 @@ else:
 		yield name, expressions
 
 for name, expressions in generate_tests():
+	
+	print()
+	print( "%s.burn:" % name )
+	print( "	import burn.types" )
+	print( "	import burn.errors" )
+	
 	value_expressions = expressions
 	type_expressions = []
 	for e in expressions:
 		type_expressions += [ "( %s ) is %s" % ( e, t ) for t in types ]
+	
 	value_outputs = eval_burn_expressions( value_expressions, [ "burn.types", "burn.errors" ] )
 	type_outputs = eval_burn_expressions( type_expressions, [ "burn.types", "burn.errors" ] )
-	source = "import burn.types\nimport burn.errors\n"
+	
 	for i in range( len( value_expressions ) ):
 		expression = value_expressions[i]
 		output = value_outputs[i]
-		source += "\n"
+		
+		print( "\t" )
+		
 		if output == "TypeError" or output == "ValueError":
-			source += "assert.throws( function() { %s }, %s )\n" % ( expression, output )
+			print( "	assert.throws( function() { %s }, %s )" % ( expression, output ) )
+		
 		else:
 			var = "$v" + str( i )
 			type_ = types[ type_outputs[i*len(types):(i+1)*len(types)].index( "true" ) ]
-			source += "let %s = %s\n" % ( var, expression )
-			source += "assert( %s is %s )\n" % ( var, type_ )
+			print( "	let %s = %s" % ( var, expression ) )
+			print( "	assert( %s is %s )" % ( var, type_ ) )
+			
 			if type_ == "Nothing":
 				pass
 			elif type_ == "Boolean":
-				source += "assert( %s == %s )\n" % ( var, output )
+				print( "	assert( %s == %s )" % ( var, output ) )
 			elif type_ == "Integer":
-				source += "assert( %s == %s )\n" % ( var, output )
+				print( "	assert( %s == %s )" % ( var, output ) )
 			elif type_ == "Float":
 				lower_bound = "%.4f" % ( round( float( output ), 4 ) - 0.0001 )
 				upper_bound = "%.4f" % ( round( float( output ), 4 ) + 0.0001 )
-				source += "assert( ( %s < %s ) and ( %s < %s ) )\n" % ( lower_bound, var, var, upper_bound )
+				print( "	assert( ( %s < %s ) and ( %s < %s ) )" % ( lower_bound, var, var, upper_bound ) )
 			else:
 				pass # TODO
-	print_test( name, source )
-stderr_end_line()
+	
+	print()
+	print( "$ $BURN --tolerant %s.burn" % name )
+
+print( file=sys.stderr )
