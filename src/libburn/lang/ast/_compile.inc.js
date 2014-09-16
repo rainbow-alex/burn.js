@@ -274,7 +274,7 @@ ast.GtEqExpression.prototype.compile = function( output ) {
 };
 
 ast.UnionExpression.prototype.compile = function( output ) {
-	output.code += '_.union(';
+	output.code += '_.union(_fiber,';
 	this.left.compile( output );
 	output.code += ',';
 	this.right.compile( output );

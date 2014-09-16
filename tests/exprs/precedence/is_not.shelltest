@@ -1,0 +1,63 @@
+// TODO: is_not-or
+
+// TODO: is_not-and
+
+// TODO: is_not-not
+
+is_not_is.burn:
+	nothing is not nothing is nothing
+
+$ $BURN --tolerant is_not_is.burn
+	* exit status nonzero
+
+is_not_is_not.burn:
+	nothing is not nothing is not nothing
+
+$ $BURN --tolerant is_not_is_not.burn
+	* exit status nonzero
+
+is_not_eq.burn:
+	nothing is not nothing == nothing
+
+$ $BURN --tolerant is_not_eq.burn
+	* exit status nonzero
+
+is_not_neq.burn:
+	nothing is not nothing != nothing
+
+$ $BURN --tolerant is_not_neq.burn
+	* exit status nonzero
+
+is_not_lt.burn:
+	nothing is not nothing < nothing
+
+$ $BURN --tolerant is_not_lt.burn
+	* exit status nonzero
+
+is_not_gt.burn:
+	nothing is not nothing > nothing
+
+$ $BURN --tolerant is_not_gt.burn
+	* exit status nonzero
+
+is_not_lteq.burn:
+	nothing is not nothing <= nothing
+
+$ $BURN --tolerant is_not_lteq.burn
+	* exit status nonzero
+
+is_not_gteq.burn:
+	nothing is not nothing >= nothing
+
+$ $BURN --tolerant is_not_gteq.burn
+	* exit status nonzero
+
+// TODO: is_not-union
+
+// TODO: is_not-add
+
+// TODO: is_not-sub
+
+// TODO: is_not-mul
+
+// TODO: is_not-div

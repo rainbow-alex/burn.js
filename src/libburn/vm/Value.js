@@ -95,7 +95,11 @@ Value.Float = CLASS( Value, {
 	},
 	repr: "<Float>",
 	toBurnString: function( fiber ) {
-		return new Value.String( String(this.value) );
+		if( Math.round( this.value ) === this.value ) {
+			return new Value.String( this.value.toFixed( 1 ) );
+		} else {
+			return new Value.String( this.value.toString() );
+		}
 	},
 	isTruthy: function( fiber ) {
 		return this.value !== 0;
@@ -279,5 +283,31 @@ Value.Special.BoundMethod = CLASS( Value, {
 		} finally {
 			fiber.stack.pop();
 		}
+	},
+} );
+
+Value.TypeUnion = CLASS( Value, {
+	init: function( left, right ) {
+		this.left = left;
+		this.right = right;
+	},
+	get repr() {
+		return "<Union " + this.left.repr + " " + this.right.repr + ">";
+	},
+	typeTest: function( fiber, value ) {
+		return this.left.typeTest( fiber, value ) || this.right.typeTest( fiber, value );
+	},
+} );
+
+Value.TypeIntersection = CLASS( Value, {
+	init: function( left, right ) {
+		this.left = left;
+		this.right = right;
+	},
+	get repr() {
+		return "<Intersection " + this.left.repr + " " + this.right.repr + ">";
+	},
+	typeTest: function( fiber, value ) {
+		return this.left.typeTest( fiber, value ) && this.right.typeTest( fiber, value );
 	},
 } );

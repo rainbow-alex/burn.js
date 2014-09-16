@@ -1,0 +1,9 @@
+let $i = 3
+let $f = 1.2
+
+print $i is Integer // true
+print $i is Float // false
+print $f is Integer // false
+print $f is Float // true
+print $i is Integer|Float // true
+print $f is Integer|Float // true

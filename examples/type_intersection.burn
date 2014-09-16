@@ -1,0 +1,11 @@
+let $fn = function() {}
+
+print $fn is Function // true
+print $fn is Callable // true
+print $fn is Function+Callable // true
+
+let $method = [].push
+
+print $method is Function // false
+print $method is Callable // true
+print $method is Function+Callable // false
