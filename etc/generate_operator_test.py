@@ -12,12 +12,6 @@ import re
 
 class BurnEvalError (Exception): pass
 
-def create_test( expression, catch_type_error = True ):
-	if catch_type_error:
-		return "try { print %s } catch TypeError $e { print \"TypeError\" }\n" % expression
-	else:
-		return "print %s\n" % expression
-
 def eval_burn( source, imports = [] ):
 	source = "".join( "import %s\n" % i for i in imports ) + source
 	process = subprocess.Popen(
@@ -35,8 +29,13 @@ def eval_burn( source, imports = [] ):
 	stdout = process.stdout.read().decode( "utf-8" )
 	return stdout
 
-def eval_burn_expressions( expressions, imports ):
-	return eval_burn( "".join( map( create_test, expressions ) ), imports ).splitlines()
+def eval_burn_expressions( expressions, imports = [] ):
+	return eval_burn(
+		"".join(
+			"try { print %s } catch TypeError $e { print \"TypeError\" } catch ValueError $e { print \"ValueError\" }\n" % e
+		for e in expressions ),
+		imports
+	).splitlines()
 
 #
 # operator definitions
@@ -63,6 +62,8 @@ OPS = [
 	BinOp( "gteq", ">=" ),
 	BinOp( "add", "+" ),
 	BinOp( "sub", "-" ),
+	BinOp( "mul", "*" ),
+	BinOp( "div", "/" ),
 ]
 
 UNARY_OPS = list( filter( lambda op: isinstance( op, UnOp ), OPS ) )
@@ -99,6 +100,12 @@ def stderr_end_line():
 	if not stderr_newline:
 		print( file=sys.stderr )
 	stderr_newline = True
+
+def create_test( expression, catch_error = None ):
+	if catch_error:
+		return "try { print %s }\ncatch %s $e { print \"%s\" }\n" % ( expression, catch_error, catch_error )
+	else:
+		return "print %s\n" % expression
 
 def print_test( name, source, stdout=None ):
 	assert source
@@ -171,8 +178,8 @@ if sys.argv[1] == "result":
 			expression = value_expressions[i]
 			output = value_outputs[i]
 			source += "\n"
-			if output == "TypeError":
-				source += "assert.throws( function() { %s }, TypeError )\n" % expression
+			if output == "TypeError" or output == "ValueError":
+				source += "assert.throws( function() { %s }, %s )\n" % ( expression, output )
 			else:
 				var = "$" + chr( 97 + i )
 				type_ = types[ type_outputs[i*len(types):(i+1)*len(types)].index( "true" ) ]
@@ -220,19 +227,17 @@ elif sys.argv[1] == "precedence":
 	
 	for op2 in BINARY_OPS:
 		stderr_print( "%s VS %s " % ( op1.symbol, op2.symbol ) )
-		combinable = False
 		for e1, e2, e in generate_expressions( op1, op2 ):
 			stderr_tick()
 			try:
 				r1, r2, r = eval_burn_expressions( ( e1, e2, e ) )
 			except BurnEvalError:
-				pass
+				break
 			else:
-				combinable = True
 				if r1 != r2:
-					t1 = create_test( e1, catch_type_error = r1 == "TypeError" )
-					t2 = create_test( e2, catch_type_error = r2 == "TypeError" )
-					t = create_test( e, catch_type_error = r == "TypeError" )
+					t1 = create_test( e1, r1 if r1 in ( "TypeError", "ValueError" ) else None )
+					t2 = create_test( e2, r2 if r2 in ( "TypeError", "ValueError" ) else None )
+					t = create_test( e, r if r in ( "TypeError", "ValueError" ) else None )
 					print_test(
 						"%s_%s" % ( op1.name, op2.name ),
 						t1 + t2 + t,

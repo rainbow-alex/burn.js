@@ -12,7 +12,8 @@ $ $BURN --tolerant or_and.burn
 		true
 
 or_is.burn:
-	try { print ( true or true ) is true } catch TypeError $e { print "TypeError" }
+	try { print ( true or true ) is true }
+	catch TypeError $e { print "TypeError" }
 	print true or ( true is true )
 	print true or true is true
 
@@ -45,7 +46,8 @@ $ $BURN --tolerant or_neq.burn
 		true
 
 or_lt.burn:
-	try { print ( true or true ) < true } catch TypeError $e { print "TypeError" }
+	try { print ( true or true ) < true }
+	catch TypeError $e { print "TypeError" }
 	print true or ( true < true )
 	print true or true < true
 
@@ -56,7 +58,8 @@ $ $BURN --tolerant or_lt.burn
 		true
 
 or_gt.burn:
-	try { print ( true or true ) > true } catch TypeError $e { print "TypeError" }
+	try { print ( true or true ) > true }
+	catch TypeError $e { print "TypeError" }
 	print true or ( true > true )
 	print true or true > true
 
@@ -67,7 +70,8 @@ $ $BURN --tolerant or_gt.burn
 		true
 
 or_lteq.burn:
-	try { print ( true or true ) <= true } catch TypeError $e { print "TypeError" }
+	try { print ( true or true ) <= true }
+	catch TypeError $e { print "TypeError" }
 	print true or ( true <= true )
 	print true or true <= true
 
@@ -78,7 +82,8 @@ $ $BURN --tolerant or_lteq.burn
 		true
 
 or_gteq.burn:
-	try { print ( true or true ) >= true } catch TypeError $e { print "TypeError" }
+	try { print ( true or true ) >= true }
+	catch TypeError $e { print "TypeError" }
 	print true or ( true >= true )
 	print true or true >= true
 
@@ -89,7 +94,8 @@ $ $BURN --tolerant or_gteq.burn
 		true
 
 or_add.burn:
-	try { print ( true or true ) + true } catch TypeError $e { print "TypeError" }
+	try { print ( true or true ) + true }
+	catch TypeError $e { print "TypeError" }
 	print true or ( true + true )
 	print true or true + true
 
@@ -100,11 +106,36 @@ $ $BURN --tolerant or_add.burn
 		true
 
 or_sub.burn:
-	try { print ( true or true ) - true } catch TypeError $e { print "TypeError" }
+	try { print ( true or true ) - true }
+	catch TypeError $e { print "TypeError" }
 	print true or ( true - true )
 	print true or true - true
 
 $ $BURN --tolerant or_sub.burn
+	* stdout
+		TypeError
+		true
+		true
+
+or_mul.burn:
+	try { print ( true or true ) * true }
+	catch TypeError $e { print "TypeError" }
+	print true or ( true * true )
+	print true or true * true
+
+$ $BURN --tolerant or_mul.burn
+	* stdout
+		TypeError
+		true
+		true
+
+or_div.burn:
+	try { print ( true or true ) / true }
+	catch TypeError $e { print "TypeError" }
+	print true or ( true / true )
+	print true or true / true
+
+$ $BURN --tolerant or_div.burn
 	* stdout
 		TypeError
 		true

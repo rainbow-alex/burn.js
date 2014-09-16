@@ -2,7 +2,8 @@
 
 eq_or.burn:
 	print ( true == false ) or 0
-	try { print true == ( false or 0 ) } catch TypeError $e { print "TypeError" }
+	try { print true == ( false or 0 ) }
+	catch TypeError $e { print "TypeError" }
 	print true == false or 0
 
 $ $BURN --tolerant eq_or.burn
@@ -13,7 +14,8 @@ $ $BURN --tolerant eq_or.burn
 
 eq_and.burn:
 	print ( true == true ) and 0
-	try { print true == ( true and 0 ) } catch TypeError $e { print "TypeError" }
+	try { print true == ( true and 0 ) }
+	catch TypeError $e { print "TypeError" }
 	print true == true and 0
 
 $ $BURN --tolerant eq_and.burn
@@ -23,7 +25,8 @@ $ $BURN --tolerant eq_and.burn
 		0
 
 eq_add.burn:
-	try { print ( 0 == 0 ) + 0 } catch TypeError $e { print "TypeError" }
+	try { print ( 0 == 0 ) + 0 }
+	catch TypeError $e { print "TypeError" }
 	print 0 == ( 0 + 0 )
 	print 0 == 0 + 0
 
@@ -34,7 +37,8 @@ $ $BURN --tolerant eq_add.burn
 		true
 
 eq_sub.burn:
-	try { print ( 0 == 0 ) - 0 } catch TypeError $e { print "TypeError" }
+	try { print ( 0 == 0 ) - 0 }
+	catch TypeError $e { print "TypeError" }
 	print 0 == ( 0 - 0 )
 	print 0 == 0 - 0
 
@@ -43,3 +47,29 @@ $ $BURN --tolerant eq_sub.burn
 		TypeError
 		true
 		true
+
+eq_mul.burn:
+	try { print ( 0 == 0 ) * 0 }
+	catch TypeError $e { print "TypeError" }
+	print 0 == ( 0 * 0 )
+	print 0 == 0 * 0
+
+$ $BURN --tolerant eq_mul.burn
+	* stdout
+		TypeError
+		true
+		true
+
+eq_div.burn:
+	try { print ( true == 0 ) / 0 }
+	catch TypeError $e { print "TypeError" }
+	try { print true == ( 0 / 0 ) }
+	catch ValueError $e { print "ValueError" }
+	try { print true == 0 / 0 }
+	catch ValueError $e { print "ValueError" }
+
+$ $BURN --tolerant eq_div.burn
+	* stdout
+		TypeError
+		ValueError
+		ValueError

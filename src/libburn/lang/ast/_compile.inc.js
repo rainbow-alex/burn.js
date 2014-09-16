@@ -297,6 +297,22 @@ ast.SubtractionExpression.prototype.compile = function( output ) {
 	output.code += ',void _fiber.setLine(' + this.operator.line + '))';
 };
 
+ast.MultiplicationExpression.prototype.compile = function( output ) {
+	output.code += '_.mul(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ',void _fiber.setLine(' + this.operator.line + '))';
+};
+
+ast.DivisionExpression.prototype.compile = function( output ) {
+	output.code += '_.div(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ',void _fiber.setLine(' + this.operator.line + '))';
+};
+
 ast.CallExpression.prototype.compile = function( output ) {
 	output.code += '(';
 	this.callee.compile( output );

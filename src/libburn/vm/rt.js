@@ -116,7 +116,7 @@ rt.add = function( fiber, l, r ) {
 		}
 	}
 	throw new errors.TypeErrorInstance(
-		"TypeError: Can't add " + l.repr + " and " + r.repr + ".",
+		"TypeError: Can't apply `+` to " + l.repr + " and " + r.repr + ".",
 		fiber.stack
 	);
 };
@@ -134,7 +134,38 @@ rt.sub = function( fiber, l, r ) {
 		}
 	}
 	throw new errors.TypeErrorInstance(
-		"TypeError: Can't subtract " + l.repr + " and " + r.repr + ".",
+		"TypeError: Can't apply `-` to " + l.repr + " and " + r.repr + ".",
+		fiber.stack
+	);
+};
+
+rt.mul = function( fiber, l, r ) {
+	if( l instanceof Value.Integer ) {
+		if( r instanceof Value.Integer ) {
+			return new Value.Integer( l.value * r.value );
+		} else if( r instanceof Value.Float ) {
+			return new Value.Float( l.value * r.value );
+		}
+	} else if( l instanceof Value.Float ) {
+		if( r instanceof Value.Integer || r instanceof Value.Float ) {
+			return new Value.Float( l.value * r.value );
+		}
+	}
+	throw new errors.TypeErrorInstance(
+		"TypeError: Can't apply `*` to " + l.repr + " and " + r.repr + ".",
+		fiber.stack
+	);
+};
+
+rt.div = function( fiber, l, r ) {
+	if( ( l instanceof Value.Integer || l instanceof Value.Float ) && ( r instanceof Value.Integer || r instanceof Value.Float ) ) {
+		if( r.value === 0 ) {
+			throw new errors.ValueErrorInstance( "ValueError: Division by zero.", fiber.stack );
+		}
+		return new Value.Float( l.value / r.value );
+	}
+	throw new errors.TypeErrorInstance(
+		"TypeError: Can't apply `/` to " + l.repr + " and " + r.repr + ".",
 		fiber.stack
 	);
 };

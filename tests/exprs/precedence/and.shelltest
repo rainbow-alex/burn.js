@@ -12,7 +12,8 @@ $ $BURN --tolerant and_or.burn
 		true
 
 and_is.burn:
-	try { print ( false and true ) is true } catch TypeError $e { print "TypeError" }
+	try { print ( false and true ) is true }
+	catch TypeError $e { print "TypeError" }
 	print false and ( true is true )
 	print false and true is true
 
@@ -45,7 +46,8 @@ $ $BURN --tolerant and_neq.burn
 		false
 
 and_lt.burn:
-	try { print ( false and true ) < true } catch TypeError $e { print "TypeError" }
+	try { print ( false and true ) < true }
+	catch TypeError $e { print "TypeError" }
 	print false and ( true < true )
 	print false and true < true
 
@@ -56,7 +58,8 @@ $ $BURN --tolerant and_lt.burn
 		false
 
 and_gt.burn:
-	try { print ( false and true ) > true } catch TypeError $e { print "TypeError" }
+	try { print ( false and true ) > true }
+	catch TypeError $e { print "TypeError" }
 	print false and ( true > true )
 	print false and true > true
 
@@ -67,7 +70,8 @@ $ $BURN --tolerant and_gt.burn
 		false
 
 and_lteq.burn:
-	try { print ( false and true ) <= true } catch TypeError $e { print "TypeError" }
+	try { print ( false and true ) <= true }
+	catch TypeError $e { print "TypeError" }
 	print false and ( true <= true )
 	print false and true <= true
 
@@ -78,7 +82,8 @@ $ $BURN --tolerant and_lteq.burn
 		false
 
 and_gteq.burn:
-	try { print ( false and true ) >= true } catch TypeError $e { print "TypeError" }
+	try { print ( false and true ) >= true }
+	catch TypeError $e { print "TypeError" }
 	print false and ( true >= true )
 	print false and true >= true
 
@@ -89,7 +94,8 @@ $ $BURN --tolerant and_gteq.burn
 		false
 
 and_add.burn:
-	try { print ( false and true ) + true } catch TypeError $e { print "TypeError" }
+	try { print ( false and true ) + true }
+	catch TypeError $e { print "TypeError" }
 	print false and ( true + true )
 	print false and true + true
 
@@ -100,11 +106,36 @@ $ $BURN --tolerant and_add.burn
 		false
 
 and_sub.burn:
-	try { print ( false and true ) - true } catch TypeError $e { print "TypeError" }
+	try { print ( false and true ) - true }
+	catch TypeError $e { print "TypeError" }
 	print false and ( true - true )
 	print false and true - true
 
 $ $BURN --tolerant and_sub.burn
+	* stdout
+		TypeError
+		false
+		false
+
+and_mul.burn:
+	try { print ( false and true ) * true }
+	catch TypeError $e { print "TypeError" }
+	print false and ( true * true )
+	print false and true * true
+
+$ $BURN --tolerant and_mul.burn
+	* stdout
+		TypeError
+		false
+		false
+
+and_div.burn:
+	try { print ( false and true ) / true }
+	catch TypeError $e { print "TypeError" }
+	print false and ( true / true )
+	print false and true / true
+
+$ $BURN --tolerant and_div.burn
 	* stdout
 		TypeError
 		false

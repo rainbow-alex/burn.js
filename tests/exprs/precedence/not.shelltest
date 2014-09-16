@@ -35,8 +35,10 @@ $ $BURN --tolerant not_is.burn
 
 not_eq.burn:
 	print ( not 0 ) == true
-	try { print not ( 0 == true ) } catch TypeError $e { print "TypeError" }
-	try { print not 0 == true } catch TypeError $e { print "TypeError" }
+	try { print not ( 0 == true ) }
+	catch TypeError $e { print "TypeError" }
+	try { print not 0 == true }
+	catch TypeError $e { print "TypeError" }
 
 $ $BURN --tolerant not_eq.burn
 	* stdout
@@ -46,8 +48,10 @@ $ $BURN --tolerant not_eq.burn
 
 not_neq.burn:
 	print ( not 0 ) != true
-	try { print not ( 0 != true ) } catch TypeError $e { print "TypeError" }
-	try { print not 0 != true } catch TypeError $e { print "TypeError" }
+	try { print not ( 0 != true ) }
+	catch TypeError $e { print "TypeError" }
+	try { print not 0 != true }
+	catch TypeError $e { print "TypeError" }
 
 $ $BURN --tolerant not_neq.burn
 	* stdout
@@ -56,7 +60,8 @@ $ $BURN --tolerant not_neq.burn
 		TypeError
 
 not_lt.burn:
-	try { print ( not 0 ) < 0 } catch TypeError $e { print "TypeError" }
+	try { print ( not 0 ) < 0 }
+	catch TypeError $e { print "TypeError" }
 	print not ( 0 < 0 )
 	print not 0 < 0
 
@@ -67,7 +72,8 @@ $ $BURN --tolerant not_lt.burn
 		true
 
 not_gt.burn:
-	try { print ( not 0 ) > 0 } catch TypeError $e { print "TypeError" }
+	try { print ( not 0 ) > 0 }
+	catch TypeError $e { print "TypeError" }
 	print not ( 0 > 0 )
 	print not 0 > 0
 
@@ -78,7 +84,8 @@ $ $BURN --tolerant not_gt.burn
 		true
 
 not_lteq.burn:
-	try { print ( not 0 ) <= 0 } catch TypeError $e { print "TypeError" }
+	try { print ( not 0 ) <= 0 }
+	catch TypeError $e { print "TypeError" }
 	print not ( 0 <= 0 )
 	print not 0 <= 0
 
@@ -89,7 +96,8 @@ $ $BURN --tolerant not_lteq.burn
 		false
 
 not_gteq.burn:
-	try { print ( not 0 ) >= 0 } catch TypeError $e { print "TypeError" }
+	try { print ( not 0 ) >= 0 }
+	catch TypeError $e { print "TypeError" }
 	print not ( 0 >= 0 )
 	print not 0 >= 0
 
@@ -100,7 +108,8 @@ $ $BURN --tolerant not_gteq.burn
 		false
 
 not_add.burn:
-	try { print ( not 0 ) + 0 } catch TypeError $e { print "TypeError" }
+	try { print ( not 0 ) + 0 }
+	catch TypeError $e { print "TypeError" }
 	print not ( 0 + 0 )
 	print not 0 + 0
 
@@ -111,7 +120,8 @@ $ $BURN --tolerant not_add.burn
 		true
 
 not_sub.burn:
-	try { print ( not 0 ) - 0 } catch TypeError $e { print "TypeError" }
+	try { print ( not 0 ) - 0 }
+	catch TypeError $e { print "TypeError" }
 	print not ( 0 - 0 )
 	print not 0 - 0
 
@@ -120,3 +130,29 @@ $ $BURN --tolerant not_sub.burn
 		TypeError
 		true
 		true
+
+not_mul.burn:
+	try { print ( not 0 ) * 0 }
+	catch TypeError $e { print "TypeError" }
+	print not ( 0 * 0 )
+	print not 0 * 0
+
+$ $BURN --tolerant not_mul.burn
+	* stdout
+		TypeError
+		true
+		true
+
+not_div.burn:
+	try { print ( not 0 ) / 0 }
+	catch TypeError $e { print "TypeError" }
+	try { print not ( 0 / 0 ) }
+	catch ValueError $e { print "ValueError" }
+	try { print not 0 / 0 }
+	catch ValueError $e { print "ValueError" }
+
+$ $BURN --tolerant not_div.burn
+	* stdout
+		TypeError
+		ValueError
+		ValueError

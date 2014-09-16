@@ -10,7 +10,7 @@ $(patsubst %, %/, $(shell find tests tests_extra -type d)): .FORCE
 todo:
 	grep -HrnIi --color=always "todo" src tests | sed "s/^/    /"
 
-OPERATORS = or and not is eq neq lt gt lteq gteq add sub
+OPERATORS = or and not is eq neq lt gt lteq gteq add sub mul div
 
 .PHONY: generate_operator_tests
 generate_operator_tests: $(patsubst %, generate_operator_test_%, $(OPERATORS))

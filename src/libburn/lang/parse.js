@@ -477,17 +477,19 @@ module.exports = function( tokens ) {
 		let left = parseAccessExpression();
 		while( true ) {
 			if( peek().type === "*" ) {
-				read();
+				let operator = read();
 				let right = parseAccessExpression();
 				left = new ast.MultiplicationExpression( {
 					left: left,
+					operator: operator,
 					right: right,
 				} );
 			} else if( peek().type === "/" ) {
-				read();
+				let operator = read();
 				let right = parseAccessExpression();
 				left = new ast.DivisionExpression( {
 					left: left,
+					operator: operator,
 					right: right,
 				} );
 			} else {
