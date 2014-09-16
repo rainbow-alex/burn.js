@@ -11,7 +11,7 @@ module.exports = function( origin ) {
 	try {
 		source = utf8.decode( bytes );
 	} catch( e ) {
-		throw new Error( "Not valid utf-8.", origin );
+		throw new Error( "Not valid utf-8: " + e.message, origin );
 	}
 	
 	let tokens = [];

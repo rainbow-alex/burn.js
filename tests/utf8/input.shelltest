@@ -3,16 +3,22 @@ valid.burn:
 
 $ $BURN valid.burn
 
-// Malformed UTF-8 tests
+// Edge-case UTF-8 tests
+// based on http://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-test.txt
+// Any and only malformed UTF-8 should rejected.
 
+//
 // unexpected continuation bytes
+//
 
 $ echo -e "//\x80" | $BURN -
 	* exit status nonzero
 $ echo -e "//\xbf" | $BURN -
 	* exit status nonzero
 
+//
 // lonely start characters
+//
 
 // 2 bytes
 $ echo -e "//\xc0 " | $BURN -
@@ -44,7 +50,9 @@ $ echo -e "//\xfc " | $BURN -
 $ echo -e "//\xfd " | $BURN -
 	* exit status nonzero
 
+//
 // last continuation byte missing
+//
 
 // 2 bytes
 $ echo -e "//\xc0" | $BURN -
@@ -76,18 +84,117 @@ $ echo -e "//\xfc\x80\x80\x80\x80" | $BURN -
 $ echo -e "//\xfd\xbf\xbf\xbf\xbf" | $BURN -
 	* exit status nonzero
 
+//
 // impossible bytes
+//
 
 $ echo -e "//\xfe" | $BURN -
 	* exit status nonzero
-
 $ echo -e "//\xff" | $BURN -
 	* exit status nonzero
 
+//
 // overlong sequences
+//
 
+// examples
 $ echo -e "//\xc0\xaf" | $BURN -
 	* exit status nonzero
+$ echo -e "//\xe0\x80\xaf" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xf0\x80\x80\xaf" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xf8\x80\x80\x80\xaf" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xfc\x80\x80\x80\x80\xaf" | $BURN -
+	* exit status nonzero
 
-// TODO more tests from
-// http://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-test.txt
+// maximum overlong sequences
+$ echo -e "//\xc1\xbf" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xe0\x9f\xbf" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xf0\x8f\xbf\xbf" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xf8\x87\xbf\xbf\xbf" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xfc\x83\xbf\xbf\xbf\xbf" | $BURN -
+	* exit status nonzero
+
+// overlong NUL sequences
+$ echo -e "//\xc0\x80" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xe0\x80\x80" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xf0\x80\x80\x80" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xf8\x80\x80\x80\x80" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xfc\x80\x80\x80\x80\x80" | $BURN -
+	* exit status nonzero
+
+//
+// surrogates
+//
+
+// single surrogates
+$ echo -e "//\xed\xa0\x80" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xed\xad\xbf" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xed\xae\x80" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xed\xaf\xbf" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xed\xb0\x80" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xed\xbe\x80" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xed\xbf\xbf" | $BURN -
+	* exit status nonzero
+
+// paired surrogates
+$ echo -e "//\xed\xa0\x80\xed\xb0\x80" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xed\xa0\x80\xed\xbf\xbf" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xed\xad\xbf\xed\xb0\x80" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xed\xad\xbf\xed\xbf\xbf" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xed\xae\x80\xed\xb0\x80" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xed\xae\x80\xed\xbf\xbf" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xed\xaf\xbf\xed\xb0\x80" | $BURN -
+	* exit status nonzero
+$ echo -e "//\xed\xaf\xbf\xed\xbf\xbf" | $BURN -
+	* exit status nonzero
+
+//
+// noncharacters
+//
+
+// http://www.unicode.org/faq/private_use.html#nonchar8
+
+// a contiguous range of 32 noncharacters: U+FDD0..U+FDEF in the BMP
+$ echo -e "//\xef\xb7\x90" | $BURN -
+$ echo -e "//\xef\xb7\x91" | $BURN -
+// ...
+$ echo -e "//\xef\xb7\xae" | $BURN -
+$ echo -e "//\xef\xb7\xaf" | $BURN -
+
+// the last two code points of the BMP, U+FFFE and U+FFFF
+$ echo -e "//\xef\xbf\xbe" | $BURN -
+$ echo -e "//\xef\xbf\xbf" | $BURN -
+
+// the last two code points of each of the 16 supplementary planes: U+1FFFE, U+1FFFF, ...
+$ echo -e "//\xf0\x9f\xbf\xbe" | $BURN -
+$ echo -e "//\xf0\x9f\xbf\xbf" | $BURN -
+$ echo -e "//\xf0\xaf\xbf\xbe" | $BURN -
+$ echo -e "//\xf0\xaf\xbf\xbf" | $BURN -
+// ....
+$ echo -e "//\xf3\xbf\xbf\xbe" | $BURN -
+$ echo -e "//\xf3\xbf\xbf\xbf" | $BURN -
+$ echo -e "//\xf4\x8f\xbf\xbe" | $BURN -
+$ echo -e "//\xf4\x8f\xbf\xbf" | $BURN -

@@ -82,14 +82,31 @@ $ $BURN escapes_U.burn | hexdump -v -e '1/1 "%02X\n"'
 		86
 		0A
 
-surrogate1.burn:
-	print "\uD800"
+//
+// illegal codepoints
+//
 
+out_of_range.burn:
+	"\UFFFFFFFF"
+$ $BURN out_of_range.burn
+	* exit status nonzero
+
+surrogate1.burn:
+	"\uD800"
 $ $BURN surrogate1.burn
 	* exit status nonzero
 
 surrogate2.burn:
-	print "\uDFFF"
-
+	"\uDFFF"
 $ $BURN surrogate2.burn
 	* exit status nonzero
+
+noncharacters.burn:
+	"\uFDD0\uFDD1...\uFDEE\uFDEF"
+	"\uFFFE & \uFFFF"
+	"\U0001FFFE & \U0001FFFF"
+	"\U0002FFFE & \U0002FFFF"
+	// ...
+	"\U0009FFFE & \U0009FFFF"
+	"\U0010FFFE & \U0010FFFF"
+$ $BURN noncharacters.burn

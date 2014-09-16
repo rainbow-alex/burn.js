@@ -684,7 +684,7 @@ module.exports = function( tokens ) {
 						throwError( "Invalid unicode escape sequence." );
 					}
 					let codepoint = parseInt( hex, 16 );
-					if( 0xD800 <= codepoint && codepoint <= 0xFFFF ) {
+					if( 0xD800 <= codepoint && codepoint <= 0xDFFF ) {
 						throwError( "Invalid unicode codepoint. U+" + hex + " is a surrogate." );
 					}
 					value += String.fromCodePoint( codepoint );
@@ -697,7 +697,7 @@ module.exports = function( tokens ) {
 					let codepoint = parseInt( hex, 16 );
 					if( codepoint > 0x10FFFF ) {
 						throwError( "Invalid unicode codepoint. U+" + hex + " is out of the unicode range." );
-					} else if( 0xD800 <= codepoint && codepoint <= 0xFFFF ) {
+					} else if( 0xD800 <= codepoint && codepoint <= 0xDFFF ) {
 						throwError( "Invalid unicode codepoint. U+" + hex + " is a surrogate." );
 					}
 					value += String.fromCodePoint( codepoint );
