@@ -25,8 +25,17 @@ module.exports = CLASS( {
 		this._uncaughtThrowableHandlers.push( f );
 	},
 	
+	parse: function( origin ) {
+		let ast = libburn.lang.parse( libburn.lang.lex( origin ) );
+		ast.resolve();
+		if( this.enableLint ) {
+			ast.lint();
+		}
+		return ast;
+	},
+	
 	start: function( origin ) {
-		let js = this._compile( origin );
+		let js = this.parse( origin ).compile();
 		nodefibers( function() {
 			try {
 				let fiber = new Fiber( this );
@@ -126,7 +135,7 @@ module.exports = CLASS( {
 				try {
 					let code;
 					try {
-						code = this._compile( origin );
+						code = this.parse( origin ).compile();
 					} catch( e ) {
 						CATCH_IF( e, e instanceof libburn.lang.Error );
 						fiber.setLine( e.line );
@@ -165,7 +174,7 @@ module.exports = CLASS( {
 			
 			let code;
 			try {
-				code = this._compile( includeOrigin );
+				code = this.parse( includeOrigin ).compile();
 			} catch( e ) {
 				CATCH_IF( e, e instanceof libburn.lang.Error );
 				fiber.setLine( e.line );
@@ -190,15 +199,6 @@ module.exports = CLASS( {
 		} else {
 			throw e;
 		}
-	},
-	
-	_compile: function( origin ) {
-		let ast = libburn.lang.parse( libburn.lang.lex( origin ) );
-		ast.resolve();
-		if( this.enableLint ) {
-			ast.lint();
-		}
-		return ast.compile();
 	},
 	
 	_run: function( fiber, origin, js ) {

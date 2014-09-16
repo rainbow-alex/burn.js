@@ -7,7 +7,8 @@ let vm = new libburn.vm.VirtualMachine( [
 	process.cwd(),
 ] );
 
-let origin;
+let dump = false;
+let origin = null;
 let remaining_args;
 
 ( function() {
@@ -30,6 +31,8 @@ let remaining_args;
 			process.exit();
 		} else if( process.argv[i] === "--tolerant" ) {
 			vm.enableLint = false;
+		} else if( process.argv[i] === "--dump" ) {
+			dump = true;
 		} else if( process.argv[i] === "-" ) {
 			origin = new libburn.origin.Stdin();
 			break;
@@ -48,15 +51,27 @@ vm.onUncaughtThrowable( function( e ) {
 } );
 
 if( ! origin ) {
-	console.error( "REPL is not implemented in burn.js." );
+	console.error( "Error: no input specified." );
 	process.exit( 1 );
+	
+} else if( dump ) {
+	if( remaining_args.length ) {
+		console.error( "Error: too many arguments." );
+		process.exit( 1 );
+	}
+	try {
+		console.log( JSON.stringify( vm.parse( origin ), null, "\t" ) );
+	} catch( e ) {
+		CATCH_IF( e, e instanceof libburn.lang.Error );
+		printError( e );
+		process.exit( 1 );
+	}
+	
 } else {
 	try {
 		vm.start( origin );
 	} catch( e ) {
-		if( ! ( e instanceof libburn.lang.Error ) ) {
-			throw e;
-		}
+		CATCH_IF( e, e instanceof libburn.lang.Error );
 		printError( e );
 		process.exit( 1 );
 	}

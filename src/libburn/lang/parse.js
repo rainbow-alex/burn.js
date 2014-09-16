@@ -7,7 +7,7 @@ module.exports = function( tokens ) {
 	let offset = 0;
 	let suppressedNewlinePolicies = [];
 	let ignoreNewlines;
-	return parseScript();
+	return parseRoot();
 	
 	//
 	// helpers
@@ -92,7 +92,7 @@ module.exports = function( tokens ) {
 	// parsing logic
 	//
 	
-	function parseScript() {
+	function parseRoot() {
 		let statements = [];
 		skipNewlines();
 		while( peek().type !== "eof" ) {
@@ -102,7 +102,7 @@ module.exports = function( tokens ) {
 			}
 			skipNewlines();
 		}
-		return new ast.Script( {
+		return new ast.Root( {
 			statements: statements,
 		} );
 	}
@@ -250,8 +250,11 @@ module.exports = function( tokens ) {
 	}
 	
 	function parsePrintStatement() {
-		read( "print" );
-		return new ast.PrintStatement( { expression: parseExpression() } );
+		let keyword = read( "print" );
+		return new ast.PrintStatement( {
+			keyword: keyword,
+			expression: parseExpression(),
+		} );
 	}
 	
 	function parseReturnStatement() {

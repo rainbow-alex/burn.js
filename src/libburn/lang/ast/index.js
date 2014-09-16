@@ -10,7 +10,7 @@ exports.Node = CLASS( {
 	},
 } );
 
-exports.Script = CLASS( exports.Node );
+exports.Root = CLASS( exports.Node );
 
 exports.Statement = CLASS( exports.Node );
 exports.BreakStatement = CLASS( exports.Statement );
@@ -73,7 +73,7 @@ exports.IndexLvalue = CLASS( exports.Lvalue );
 for( let k in exports ) {
 	if( exports[k].prototype instanceof exports.Node ) {
 		exports[k].prototype.toString = function() {
-			return "<" + k + " node>";
+			return "<ast." + k + ">";
 		}
 	}
 }

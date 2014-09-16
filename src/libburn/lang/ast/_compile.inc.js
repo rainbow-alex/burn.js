@@ -18,7 +18,7 @@ function encodeBoolean( b ) {
 	return b ? 'true' : 'false';
 }
 
-ast.Script.prototype.compile = function() {
+ast.Root.prototype.compile = function() {
 	let output = { code: "", tmp: 0 };
 	output.code += 'let _=require("libburn/vm/rt");';
 	output.code += 'let _origin=_._origin;delete _._origin;';

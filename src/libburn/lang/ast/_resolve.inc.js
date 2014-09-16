@@ -67,7 +67,7 @@ ast.Node.prototype.resolve = function( scope ) {
 	}
 };
 
-ast.Script.prototype.resolve = function() {
+ast.Root.prototype.resolve = function() {
 	let scope = new Scope();
 	this.statements.forEach( function( s ) {
 		s.resolve( scope );
