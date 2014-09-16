@@ -32,7 +32,7 @@ is_not_result_1.burn:
 	
 	assert.throws( function() { nothing is not function(){} }, TypeError )
 	
-	let $v14 = nothing is not Something
+	let $v14 = nothing is not Integer
 	assert( $v14 is Boolean )
 	assert( $v14 == true )
 	
@@ -41,8 +41,6 @@ is_not_result_1.burn:
 	assert( $v15 == true )
 	
 	assert.throws( function() { nothing is not types }, TypeError )
-	
-	assert.throws( function() { nothing is not errors }, TypeError )
 
 $ $BURN --tolerant is_not_result_1.burn
 
@@ -78,17 +76,15 @@ is_not_result_2.burn:
 	
 	assert.throws( function() { true is not function(){} }, TypeError )
 	
-	let $v14 = true is not Something
+	let $v14 = true is not Integer
 	assert( $v14 is Boolean )
-	assert( $v14 == false )
+	assert( $v14 == true )
 	
 	let $v15 = true is not Type
 	assert( $v15 is Boolean )
 	assert( $v15 == true )
 	
 	assert.throws( function() { true is not types }, TypeError )
-	
-	assert.throws( function() { true is not errors }, TypeError )
 
 $ $BURN --tolerant is_not_result_2.burn
 
@@ -124,17 +120,15 @@ is_not_result_3.burn:
 	
 	assert.throws( function() { false is not function(){} }, TypeError )
 	
-	let $v14 = false is not Something
+	let $v14 = false is not Integer
 	assert( $v14 is Boolean )
-	assert( $v14 == false )
+	assert( $v14 == true )
 	
 	let $v15 = false is not Type
 	assert( $v15 is Boolean )
 	assert( $v15 == true )
 	
 	assert.throws( function() { false is not types }, TypeError )
-	
-	assert.throws( function() { false is not errors }, TypeError )
 
 $ $BURN --tolerant is_not_result_3.burn
 
@@ -170,7 +164,7 @@ is_not_result_4.burn:
 	
 	assert.throws( function() { 0 is not function(){} }, TypeError )
 	
-	let $v14 = 0 is not Something
+	let $v14 = 0 is not Integer
 	assert( $v14 is Boolean )
 	assert( $v14 == false )
 	
@@ -179,8 +173,6 @@ is_not_result_4.burn:
 	assert( $v15 == true )
 	
 	assert.throws( function() { 0 is not types }, TypeError )
-	
-	assert.throws( function() { 0 is not errors }, TypeError )
 
 $ $BURN --tolerant is_not_result_4.burn
 
@@ -216,7 +208,7 @@ is_not_result_5.burn:
 	
 	assert.throws( function() { 2 is not function(){} }, TypeError )
 	
-	let $v14 = 2 is not Something
+	let $v14 = 2 is not Integer
 	assert( $v14 is Boolean )
 	assert( $v14 == false )
 	
@@ -225,8 +217,6 @@ is_not_result_5.burn:
 	assert( $v15 == true )
 	
 	assert.throws( function() { 2 is not types }, TypeError )
-	
-	assert.throws( function() { 2 is not errors }, TypeError )
 
 $ $BURN --tolerant is_not_result_5.burn
 
@@ -262,7 +252,7 @@ is_not_result_6.burn:
 	
 	assert.throws( function() { -2 is not function(){} }, TypeError )
 	
-	let $v14 = -2 is not Something
+	let $v14 = -2 is not Integer
 	assert( $v14 is Boolean )
 	assert( $v14 == false )
 	
@@ -271,8 +261,6 @@ is_not_result_6.burn:
 	assert( $v15 == true )
 	
 	assert.throws( function() { -2 is not types }, TypeError )
-	
-	assert.throws( function() { -2 is not errors }, TypeError )
 
 $ $BURN --tolerant is_not_result_6.burn
 
@@ -308,17 +296,15 @@ is_not_result_7.burn:
 	
 	assert.throws( function() { 0.0 is not function(){} }, TypeError )
 	
-	let $v14 = 0.0 is not Something
+	let $v14 = 0.0 is not Integer
 	assert( $v14 is Boolean )
-	assert( $v14 == false )
+	assert( $v14 == true )
 	
 	let $v15 = 0.0 is not Type
 	assert( $v15 is Boolean )
 	assert( $v15 == true )
 	
 	assert.throws( function() { 0.0 is not types }, TypeError )
-	
-	assert.throws( function() { 0.0 is not errors }, TypeError )
 
 $ $BURN --tolerant is_not_result_7.burn
 
@@ -354,17 +340,15 @@ is_not_result_8.burn:
 	
 	assert.throws( function() { 2.0 is not function(){} }, TypeError )
 	
-	let $v14 = 2.0 is not Something
+	let $v14 = 2.0 is not Integer
 	assert( $v14 is Boolean )
-	assert( $v14 == false )
+	assert( $v14 == true )
 	
 	let $v15 = 2.0 is not Type
 	assert( $v15 is Boolean )
 	assert( $v15 == true )
 	
 	assert.throws( function() { 2.0 is not types }, TypeError )
-	
-	assert.throws( function() { 2.0 is not errors }, TypeError )
 
 $ $BURN --tolerant is_not_result_8.burn
 
@@ -400,17 +384,15 @@ is_not_result_9.burn:
 	
 	assert.throws( function() { -0.5 is not function(){} }, TypeError )
 	
-	let $v14 = -0.5 is not Something
+	let $v14 = -0.5 is not Integer
 	assert( $v14 is Boolean )
-	assert( $v14 == false )
+	assert( $v14 == true )
 	
 	let $v15 = -0.5 is not Type
 	assert( $v15 is Boolean )
 	assert( $v15 == true )
 	
 	assert.throws( function() { -0.5 is not types }, TypeError )
-	
-	assert.throws( function() { -0.5 is not errors }, TypeError )
 
 $ $BURN --tolerant is_not_result_9.burn
 
@@ -446,17 +428,15 @@ is_not_result_10.burn:
 	
 	assert.throws( function() { "" is not function(){} }, TypeError )
 	
-	let $v14 = "" is not Something
+	let $v14 = "" is not Integer
 	assert( $v14 is Boolean )
-	assert( $v14 == false )
+	assert( $v14 == true )
 	
 	let $v15 = "" is not Type
 	assert( $v15 is Boolean )
 	assert( $v15 == true )
 	
 	assert.throws( function() { "" is not types }, TypeError )
-	
-	assert.throws( function() { "" is not errors }, TypeError )
 
 $ $BURN --tolerant is_not_result_10.burn
 
@@ -492,17 +472,15 @@ is_not_result_11.burn:
 	
 	assert.throws( function() { "apple" is not function(){} }, TypeError )
 	
-	let $v14 = "apple" is not Something
+	let $v14 = "apple" is not Integer
 	assert( $v14 is Boolean )
-	assert( $v14 == false )
+	assert( $v14 == true )
 	
 	let $v15 = "apple" is not Type
 	assert( $v15 is Boolean )
 	assert( $v15 == true )
 	
 	assert.throws( function() { "apple" is not types }, TypeError )
-	
-	assert.throws( function() { "apple" is not errors }, TypeError )
 
 $ $BURN --tolerant is_not_result_11.burn
 
@@ -538,17 +516,15 @@ is_not_result_12.burn:
 	
 	assert.throws( function() { "banana" is not function(){} }, TypeError )
 	
-	let $v14 = "banana" is not Something
+	let $v14 = "banana" is not Integer
 	assert( $v14 is Boolean )
-	assert( $v14 == false )
+	assert( $v14 == true )
 	
 	let $v15 = "banana" is not Type
 	assert( $v15 is Boolean )
 	assert( $v15 == true )
 	
 	assert.throws( function() { "banana" is not types }, TypeError )
-	
-	assert.throws( function() { "banana" is not errors }, TypeError )
 
 $ $BURN --tolerant is_not_result_12.burn
 
@@ -584,17 +560,15 @@ is_not_result_13.burn:
 	
 	assert.throws( function() { repr is not function(){} }, TypeError )
 	
-	let $v14 = repr is not Something
+	let $v14 = repr is not Integer
 	assert( $v14 is Boolean )
-	assert( $v14 == false )
+	assert( $v14 == true )
 	
 	let $v15 = repr is not Type
 	assert( $v15 is Boolean )
 	assert( $v15 == true )
 	
 	assert.throws( function() { repr is not types }, TypeError )
-	
-	assert.throws( function() { repr is not errors }, TypeError )
 
 $ $BURN --tolerant is_not_result_13.burn
 
@@ -630,17 +604,15 @@ is_not_result_14.burn:
 	
 	assert.throws( function() { function(){} is not function(){} }, TypeError )
 	
-	let $v14 = function(){} is not Something
+	let $v14 = function(){} is not Integer
 	assert( $v14 is Boolean )
-	assert( $v14 == false )
+	assert( $v14 == true )
 	
 	let $v15 = function(){} is not Type
 	assert( $v15 is Boolean )
 	assert( $v15 == true )
 	
 	assert.throws( function() { function(){} is not types }, TypeError )
-	
-	assert.throws( function() { function(){} is not errors }, TypeError )
 
 $ $BURN --tolerant is_not_result_14.burn
 
@@ -648,45 +620,43 @@ is_not_result_15.burn:
 	import burn.types
 	import burn.errors
 	
-	assert.throws( function() { Something is not nothing }, TypeError )
+	assert.throws( function() { Integer is not nothing }, TypeError )
 	
-	assert.throws( function() { Something is not true }, TypeError )
+	assert.throws( function() { Integer is not true }, TypeError )
 	
-	assert.throws( function() { Something is not false }, TypeError )
+	assert.throws( function() { Integer is not false }, TypeError )
 	
-	assert.throws( function() { Something is not 0 }, TypeError )
+	assert.throws( function() { Integer is not 0 }, TypeError )
 	
-	assert.throws( function() { Something is not 2 }, TypeError )
+	assert.throws( function() { Integer is not 2 }, TypeError )
 	
-	assert.throws( function() { Something is not -2 }, TypeError )
+	assert.throws( function() { Integer is not -2 }, TypeError )
 	
-	assert.throws( function() { Something is not 0.0 }, TypeError )
+	assert.throws( function() { Integer is not 0.0 }, TypeError )
 	
-	assert.throws( function() { Something is not 2.0 }, TypeError )
+	assert.throws( function() { Integer is not 2.0 }, TypeError )
 	
-	assert.throws( function() { Something is not -0.5 }, TypeError )
+	assert.throws( function() { Integer is not -0.5 }, TypeError )
 	
-	assert.throws( function() { Something is not "" }, TypeError )
+	assert.throws( function() { Integer is not "" }, TypeError )
 	
-	assert.throws( function() { Something is not "apple" }, TypeError )
+	assert.throws( function() { Integer is not "apple" }, TypeError )
 	
-	assert.throws( function() { Something is not "banana" }, TypeError )
+	assert.throws( function() { Integer is not "banana" }, TypeError )
 	
-	assert.throws( function() { Something is not repr }, TypeError )
+	assert.throws( function() { Integer is not repr }, TypeError )
 	
-	assert.throws( function() { Something is not function(){} }, TypeError )
+	assert.throws( function() { Integer is not function(){} }, TypeError )
 	
-	let $v14 = Something is not Something
+	let $v14 = Integer is not Integer
 	assert( $v14 is Boolean )
-	assert( $v14 == false )
+	assert( $v14 == true )
 	
-	let $v15 = Something is not Type
+	let $v15 = Integer is not Type
 	assert( $v15 is Boolean )
 	assert( $v15 == false )
 	
-	assert.throws( function() { Something is not types }, TypeError )
-	
-	assert.throws( function() { Something is not errors }, TypeError )
+	assert.throws( function() { Integer is not types }, TypeError )
 
 $ $BURN --tolerant is_not_result_15.burn
 
@@ -722,17 +692,15 @@ is_not_result_16.burn:
 	
 	assert.throws( function() { Type is not function(){} }, TypeError )
 	
-	let $v14 = Type is not Something
+	let $v14 = Type is not Integer
 	assert( $v14 is Boolean )
-	assert( $v14 == false )
+	assert( $v14 == true )
 	
 	let $v15 = Type is not Type
 	assert( $v15 is Boolean )
 	assert( $v15 == false )
 	
 	assert.throws( function() { Type is not types }, TypeError )
-	
-	assert.throws( function() { Type is not errors }, TypeError )
 
 $ $BURN --tolerant is_not_result_16.burn
 
@@ -768,62 +736,14 @@ is_not_result_17.burn:
 	
 	assert.throws( function() { types is not function(){} }, TypeError )
 	
-	let $v14 = types is not Something
+	let $v14 = types is not Integer
 	assert( $v14 is Boolean )
-	assert( $v14 == false )
+	assert( $v14 == true )
 	
 	let $v15 = types is not Type
 	assert( $v15 is Boolean )
 	assert( $v15 == true )
 	
 	assert.throws( function() { types is not types }, TypeError )
-	
-	assert.throws( function() { types is not errors }, TypeError )
 
 $ $BURN --tolerant is_not_result_17.burn
-
-is_not_result_18.burn:
-	import burn.types
-	import burn.errors
-	
-	assert.throws( function() { errors is not nothing }, TypeError )
-	
-	assert.throws( function() { errors is not true }, TypeError )
-	
-	assert.throws( function() { errors is not false }, TypeError )
-	
-	assert.throws( function() { errors is not 0 }, TypeError )
-	
-	assert.throws( function() { errors is not 2 }, TypeError )
-	
-	assert.throws( function() { errors is not -2 }, TypeError )
-	
-	assert.throws( function() { errors is not 0.0 }, TypeError )
-	
-	assert.throws( function() { errors is not 2.0 }, TypeError )
-	
-	assert.throws( function() { errors is not -0.5 }, TypeError )
-	
-	assert.throws( function() { errors is not "" }, TypeError )
-	
-	assert.throws( function() { errors is not "apple" }, TypeError )
-	
-	assert.throws( function() { errors is not "banana" }, TypeError )
-	
-	assert.throws( function() { errors is not repr }, TypeError )
-	
-	assert.throws( function() { errors is not function(){} }, TypeError )
-	
-	let $v14 = errors is not Something
-	assert( $v14 is Boolean )
-	assert( $v14 == false )
-	
-	let $v15 = errors is not Type
-	assert( $v15 is Boolean )
-	assert( $v15 == true )
-	
-	assert.throws( function() { errors is not types }, TypeError )
-	
-	assert.throws( function() { errors is not errors }, TypeError )
-
-$ $BURN --tolerant is_not_result_18.burn

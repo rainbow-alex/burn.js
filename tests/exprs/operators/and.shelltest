@@ -46,7 +46,7 @@ and_result_1.burn:
 	let $v13 = nothing and function(){}
 	assert( $v13 is Nothing )
 	
-	let $v14 = nothing and Something
+	let $v14 = nothing and Integer
 	assert( $v14 is Nothing )
 	
 	let $v15 = nothing and Type
@@ -54,9 +54,6 @@ and_result_1.burn:
 	
 	let $v16 = nothing and types
 	assert( $v16 is Nothing )
-	
-	let $v17 = nothing and errors
-	assert( $v17 is Nothing )
 
 $ $BURN --tolerant and_result_1.burn
 
@@ -101,30 +98,35 @@ and_result_2.burn:
 	
 	let $v9 = true and ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
 	let $v10 = true and "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
 	let $v11 = true and "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	let $v12 = true and repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
 	let $v13 = true and function(){}
 	assert( $v13 is Function )
+	assert( $v13 is Function )
 	
-	let $v14 = true and Something
+	let $v14 = true and Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
 	let $v15 = true and Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
 	let $v16 = true and types
 	assert( $v16 is Module )
-	
-	let $v17 = true and errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant and_result_2.burn
 
@@ -188,7 +190,7 @@ and_result_3.burn:
 	assert( $v13 is Boolean )
 	assert( $v13 == false )
 	
-	let $v14 = false and Something
+	let $v14 = false and Integer
 	assert( $v14 is Boolean )
 	assert( $v14 == false )
 	
@@ -199,10 +201,6 @@ and_result_3.burn:
 	let $v16 = false and types
 	assert( $v16 is Boolean )
 	assert( $v16 == false )
-	
-	let $v17 = false and errors
-	assert( $v17 is Boolean )
-	assert( $v17 == false )
 
 $ $BURN --tolerant and_result_3.burn
 
@@ -266,7 +264,7 @@ and_result_4.burn:
 	assert( $v13 is Integer )
 	assert( $v13 == 0 )
 	
-	let $v14 = 0 and Something
+	let $v14 = 0 and Integer
 	assert( $v14 is Integer )
 	assert( $v14 == 0 )
 	
@@ -277,10 +275,6 @@ and_result_4.burn:
 	let $v16 = 0 and types
 	assert( $v16 is Integer )
 	assert( $v16 == 0 )
-	
-	let $v17 = 0 and errors
-	assert( $v17 is Integer )
-	assert( $v17 == 0 )
 
 $ $BURN --tolerant and_result_4.burn
 
@@ -325,30 +319,35 @@ and_result_5.burn:
 	
 	let $v9 = 2 and ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
 	let $v10 = 2 and "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
 	let $v11 = 2 and "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	let $v12 = 2 and repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
 	let $v13 = 2 and function(){}
 	assert( $v13 is Function )
+	assert( $v13 is Function )
 	
-	let $v14 = 2 and Something
+	let $v14 = 2 and Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
 	let $v15 = 2 and Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
 	let $v16 = 2 and types
 	assert( $v16 is Module )
-	
-	let $v17 = 2 and errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant and_result_5.burn
 
@@ -393,30 +392,35 @@ and_result_6.burn:
 	
 	let $v9 = -2 and ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
 	let $v10 = -2 and "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
 	let $v11 = -2 and "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	let $v12 = -2 and repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
 	let $v13 = -2 and function(){}
 	assert( $v13 is Function )
+	assert( $v13 is Function )
 	
-	let $v14 = -2 and Something
+	let $v14 = -2 and Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
 	let $v15 = -2 and Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
 	let $v16 = -2 and types
 	assert( $v16 is Module )
-	
-	let $v17 = -2 and errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant and_result_6.burn
 
@@ -480,7 +484,7 @@ and_result_7.burn:
 	assert( $v13 is Float )
 	assert( ( -0.0001 < $v13 ) and ( $v13 < 0.0001 ) )
 	
-	let $v14 = 0.0 and Something
+	let $v14 = 0.0 and Integer
 	assert( $v14 is Float )
 	assert( ( -0.0001 < $v14 ) and ( $v14 < 0.0001 ) )
 	
@@ -491,10 +495,6 @@ and_result_7.burn:
 	let $v16 = 0.0 and types
 	assert( $v16 is Float )
 	assert( ( -0.0001 < $v16 ) and ( $v16 < 0.0001 ) )
-	
-	let $v17 = 0.0 and errors
-	assert( $v17 is Float )
-	assert( ( -0.0001 < $v17 ) and ( $v17 < 0.0001 ) )
 
 $ $BURN --tolerant and_result_7.burn
 
@@ -539,30 +539,35 @@ and_result_8.burn:
 	
 	let $v9 = 2.0 and ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
 	let $v10 = 2.0 and "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
 	let $v11 = 2.0 and "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	let $v12 = 2.0 and repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
 	let $v13 = 2.0 and function(){}
 	assert( $v13 is Function )
+	assert( $v13 is Function )
 	
-	let $v14 = 2.0 and Something
+	let $v14 = 2.0 and Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
 	let $v15 = 2.0 and Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
 	let $v16 = 2.0 and types
 	assert( $v16 is Module )
-	
-	let $v17 = 2.0 and errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant and_result_8.burn
 
@@ -607,30 +612,35 @@ and_result_9.burn:
 	
 	let $v9 = -0.5 and ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
 	let $v10 = -0.5 and "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
 	let $v11 = -0.5 and "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	let $v12 = -0.5 and repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
 	let $v13 = -0.5 and function(){}
 	assert( $v13 is Function )
+	assert( $v13 is Function )
 	
-	let $v14 = -0.5 and Something
+	let $v14 = -0.5 and Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
 	let $v15 = -0.5 and Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
 	let $v16 = -0.5 and types
 	assert( $v16 is Module )
-	
-	let $v17 = -0.5 and errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant and_result_9.burn
 
@@ -640,57 +650,71 @@ and_result_10.burn:
 	
 	let $v0 = "" and nothing
 	assert( $v0 is String )
+	assert( $v0 == "" )
 	
 	let $v1 = "" and true
 	assert( $v1 is String )
+	assert( $v1 == "" )
 	
 	let $v2 = "" and false
 	assert( $v2 is String )
+	assert( $v2 == "" )
 	
 	let $v3 = "" and 0
 	assert( $v3 is String )
+	assert( $v3 == "" )
 	
 	let $v4 = "" and 2
 	assert( $v4 is String )
+	assert( $v4 == "" )
 	
 	let $v5 = "" and -2
 	assert( $v5 is String )
+	assert( $v5 == "" )
 	
 	let $v6 = "" and 0.0
 	assert( $v6 is String )
+	assert( $v6 == "" )
 	
 	let $v7 = "" and 2.0
 	assert( $v7 is String )
+	assert( $v7 == "" )
 	
 	let $v8 = "" and -0.5
 	assert( $v8 is String )
+	assert( $v8 == "" )
 	
 	let $v9 = "" and ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
 	let $v10 = "" and "apple"
 	assert( $v10 is String )
+	assert( $v10 == "" )
 	
 	let $v11 = "" and "banana"
 	assert( $v11 is String )
+	assert( $v11 == "" )
 	
 	let $v12 = "" and repr
 	assert( $v12 is String )
+	assert( $v12 == "" )
 	
 	let $v13 = "" and function(){}
 	assert( $v13 is String )
+	assert( $v13 == "" )
 	
-	let $v14 = "" and Something
+	let $v14 = "" and Integer
 	assert( $v14 is String )
+	assert( $v14 == "" )
 	
 	let $v15 = "" and Type
 	assert( $v15 is String )
+	assert( $v15 == "" )
 	
 	let $v16 = "" and types
 	assert( $v16 is String )
-	
-	let $v17 = "" and errors
-	assert( $v17 is String )
+	assert( $v16 == "" )
 
 $ $BURN --tolerant and_result_10.burn
 
@@ -735,30 +759,35 @@ and_result_11.burn:
 	
 	let $v9 = "apple" and ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
 	let $v10 = "apple" and "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
 	let $v11 = "apple" and "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	let $v12 = "apple" and repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
 	let $v13 = "apple" and function(){}
 	assert( $v13 is Function )
+	assert( $v13 is Function )
 	
-	let $v14 = "apple" and Something
+	let $v14 = "apple" and Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
 	let $v15 = "apple" and Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
 	let $v16 = "apple" and types
 	assert( $v16 is Module )
-	
-	let $v17 = "apple" and errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant and_result_11.burn
 
@@ -803,30 +832,35 @@ and_result_12.burn:
 	
 	let $v9 = "banana" and ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
 	let $v10 = "banana" and "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
 	let $v11 = "banana" and "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	let $v12 = "banana" and repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
 	let $v13 = "banana" and function(){}
 	assert( $v13 is Function )
+	assert( $v13 is Function )
 	
-	let $v14 = "banana" and Something
+	let $v14 = "banana" and Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
 	let $v15 = "banana" and Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
 	let $v16 = "banana" and types
 	assert( $v16 is Module )
-	
-	let $v17 = "banana" and errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant and_result_12.burn
 
@@ -871,30 +905,35 @@ and_result_13.burn:
 	
 	let $v9 = repr and ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
 	let $v10 = repr and "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
 	let $v11 = repr and "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	let $v12 = repr and repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
 	let $v13 = repr and function(){}
 	assert( $v13 is Function )
+	assert( $v13 is Function )
 	
-	let $v14 = repr and Something
+	let $v14 = repr and Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
 	let $v15 = repr and Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
 	let $v16 = repr and types
 	assert( $v16 is Module )
-	
-	let $v17 = repr and errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant and_result_13.burn
 
@@ -939,30 +978,35 @@ and_result_14.burn:
 	
 	let $v9 = function(){} and ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
 	let $v10 = function(){} and "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
 	let $v11 = function(){} and "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	let $v12 = function(){} and repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
 	let $v13 = function(){} and function(){}
 	assert( $v13 is Function )
+	assert( $v13 is Function )
 	
-	let $v14 = function(){} and Something
+	let $v14 = function(){} and Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
 	let $v15 = function(){} and Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
 	let $v16 = function(){} and types
 	assert( $v16 is Module )
-	
-	let $v17 = function(){} and errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant and_result_14.burn
 
@@ -970,67 +1014,72 @@ and_result_15.burn:
 	import burn.types
 	import burn.errors
 	
-	let $v0 = Something and nothing
+	let $v0 = Integer and nothing
 	assert( $v0 is Nothing )
 	
-	let $v1 = Something and true
+	let $v1 = Integer and true
 	assert( $v1 is Boolean )
 	assert( $v1 == true )
 	
-	let $v2 = Something and false
+	let $v2 = Integer and false
 	assert( $v2 is Boolean )
 	assert( $v2 == false )
 	
-	let $v3 = Something and 0
+	let $v3 = Integer and 0
 	assert( $v3 is Integer )
 	assert( $v3 == 0 )
 	
-	let $v4 = Something and 2
+	let $v4 = Integer and 2
 	assert( $v4 is Integer )
 	assert( $v4 == 2 )
 	
-	let $v5 = Something and -2
+	let $v5 = Integer and -2
 	assert( $v5 is Integer )
 	assert( $v5 == -2 )
 	
-	let $v6 = Something and 0.0
+	let $v6 = Integer and 0.0
 	assert( $v6 is Float )
 	assert( ( -0.0001 < $v6 ) and ( $v6 < 0.0001 ) )
 	
-	let $v7 = Something and 2.0
+	let $v7 = Integer and 2.0
 	assert( $v7 is Float )
 	assert( ( 1.9999 < $v7 ) and ( $v7 < 2.0001 ) )
 	
-	let $v8 = Something and -0.5
+	let $v8 = Integer and -0.5
 	assert( $v8 is Float )
 	assert( ( -0.5001 < $v8 ) and ( $v8 < -0.4999 ) )
 	
-	let $v9 = Something and ""
+	let $v9 = Integer and ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
-	let $v10 = Something and "apple"
+	let $v10 = Integer and "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
-	let $v11 = Something and "banana"
+	let $v11 = Integer and "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
-	let $v12 = Something and repr
+	let $v12 = Integer and repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
-	let $v13 = Something and function(){}
+	let $v13 = Integer and function(){}
+	assert( $v13 is Function )
 	assert( $v13 is Function )
 	
-	let $v14 = Something and Something
+	let $v14 = Integer and Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
-	let $v15 = Something and Type
+	let $v15 = Integer and Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
-	let $v16 = Something and types
+	let $v16 = Integer and types
 	assert( $v16 is Module )
-	
-	let $v17 = Something and errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant and_result_15.burn
 
@@ -1075,30 +1124,35 @@ and_result_16.burn:
 	
 	let $v9 = Type and ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
 	let $v10 = Type and "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
 	let $v11 = Type and "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	let $v12 = Type and repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
 	let $v13 = Type and function(){}
 	assert( $v13 is Function )
+	assert( $v13 is Function )
 	
-	let $v14 = Type and Something
+	let $v14 = Type and Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
 	let $v15 = Type and Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
 	let $v16 = Type and types
 	assert( $v16 is Module )
-	
-	let $v17 = Type and errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant and_result_16.burn
 
@@ -1143,97 +1197,34 @@ and_result_17.burn:
 	
 	let $v9 = types and ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
 	let $v10 = types and "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
 	let $v11 = types and "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	let $v12 = types and repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
 	let $v13 = types and function(){}
 	assert( $v13 is Function )
+	assert( $v13 is Function )
 	
-	let $v14 = types and Something
+	let $v14 = types and Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
 	let $v15 = types and Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
 	let $v16 = types and types
 	assert( $v16 is Module )
-	
-	let $v17 = types and errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant and_result_17.burn
-
-and_result_18.burn:
-	import burn.types
-	import burn.errors
-	
-	let $v0 = errors and nothing
-	assert( $v0 is Nothing )
-	
-	let $v1 = errors and true
-	assert( $v1 is Boolean )
-	assert( $v1 == true )
-	
-	let $v2 = errors and false
-	assert( $v2 is Boolean )
-	assert( $v2 == false )
-	
-	let $v3 = errors and 0
-	assert( $v3 is Integer )
-	assert( $v3 == 0 )
-	
-	let $v4 = errors and 2
-	assert( $v4 is Integer )
-	assert( $v4 == 2 )
-	
-	let $v5 = errors and -2
-	assert( $v5 is Integer )
-	assert( $v5 == -2 )
-	
-	let $v6 = errors and 0.0
-	assert( $v6 is Float )
-	assert( ( -0.0001 < $v6 ) and ( $v6 < 0.0001 ) )
-	
-	let $v7 = errors and 2.0
-	assert( $v7 is Float )
-	assert( ( 1.9999 < $v7 ) and ( $v7 < 2.0001 ) )
-	
-	let $v8 = errors and -0.5
-	assert( $v8 is Float )
-	assert( ( -0.5001 < $v8 ) and ( $v8 < -0.4999 ) )
-	
-	let $v9 = errors and ""
-	assert( $v9 is String )
-	
-	let $v10 = errors and "apple"
-	assert( $v10 is String )
-	
-	let $v11 = errors and "banana"
-	assert( $v11 is String )
-	
-	let $v12 = errors and repr
-	assert( $v12 is Function )
-	
-	let $v13 = errors and function(){}
-	assert( $v13 is Function )
-	
-	let $v14 = errors and Something
-	assert( $v14 is Type )
-	
-	let $v15 = errors and Type
-	assert( $v15 is Type )
-	
-	let $v16 = errors and types
-	assert( $v16 is Module )
-	
-	let $v17 = errors and errors
-	assert( $v17 is Module )
-
-$ $BURN --tolerant and_result_18.burn

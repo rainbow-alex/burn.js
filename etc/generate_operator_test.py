@@ -93,8 +93,8 @@ values = [
 	"0.0", "2.0",  "-0.5",
 	"\"\"", "\"apple\"", "\"banana\"",
 	"repr", "function(){}",
-	"Something", "Type",
-	"types", "errors",
+	"Integer", "Type",
+	"types",
 ]
 
 # extra numbers to expose arithmetic operator edge cases
@@ -102,6 +102,17 @@ if op.name in [ "add", "sub", "mul", "div" ]:
 	values += [ "3", "8", "0.3", "0.33333333333", "0.7" ]
 
 types = [ "Nothing", "Boolean", "Integer", "Float", "String", "Function", "Module", "Type" ]
+
+special_tests = {
+	"Integer | Integer": ( "nothing is not $v", "5 is $v", "Integer is not $v" ),
+	"Integer | Type": ( "nothing is not $v", "5 is $v", "Integer is $v" ),
+	"Type | Integer": ( "nothing is not $v", "5 is $v", "Integer is $v" ),
+	"Type | Type": ( "nothing is not $v", "5 is not $v", "Integer is $v" ),
+	"Integer + Integer": ( "nothing is not $v", "5 is $v", "Integer is not $v" ),
+	"Integer + Type": ( "nothing is not $v", "5 is not $v", "Integer is not $v" ),
+	"Type + Integer": ( "nothing is not $v", "5 is not $v", "Integer is not $v" ),
+	"Type + Type": ( "nothing is not $v", "5 is not $v", "Integer is $v" ),
+}
 
 if isinstance( op, BinOp ):
 	def generate_tests():
@@ -160,6 +171,18 @@ for name, expressions in generate_tests():
 				print( "	assert( ( %s < %s ) and ( %s < %s ) )" % ( lower_bound, var, var, upper_bound ) )
 			elif type_ == "String":
 				print( "	assert( %s == \"%s\" )" % ( var, output ) )
+			else:
+				if output == "<Function 'repr'>":
+					print( "	assert( %s == repr )" % var )
+				elif output == "<Function>":
+					print( "	assert( %s is Function )" % var )
+				elif output in ( "Integer", "Type" ):
+					print( "	assert( %s == %s )" % ( var, output ) )
+				elif output == "<Module 'types'>":
+					print( "	assert( %s == types )" % var )
+				else:
+					for t in special_tests[ expression ]:
+						print( "	assert( %s )" % t.replace( "$v", var ) )
 	
 	print()
 	print( "$ $BURN --tolerant %s.burn" % name )

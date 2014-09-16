@@ -41,30 +41,35 @@ or_result_1.burn:
 	
 	let $v9 = nothing or ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
 	let $v10 = nothing or "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
 	let $v11 = nothing or "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	let $v12 = nothing or repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
 	let $v13 = nothing or function(){}
 	assert( $v13 is Function )
+	assert( $v13 is Function )
 	
-	let $v14 = nothing or Something
+	let $v14 = nothing or Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
 	let $v15 = nothing or Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
 	let $v16 = nothing or types
 	assert( $v16 is Module )
-	
-	let $v17 = nothing or errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant or_result_1.burn
 
@@ -128,7 +133,7 @@ or_result_2.burn:
 	assert( $v13 is Boolean )
 	assert( $v13 == true )
 	
-	let $v14 = true or Something
+	let $v14 = true or Integer
 	assert( $v14 is Boolean )
 	assert( $v14 == true )
 	
@@ -139,10 +144,6 @@ or_result_2.burn:
 	let $v16 = true or types
 	assert( $v16 is Boolean )
 	assert( $v16 == true )
-	
-	let $v17 = true or errors
-	assert( $v17 is Boolean )
-	assert( $v17 == true )
 
 $ $BURN --tolerant or_result_2.burn
 
@@ -187,30 +188,35 @@ or_result_3.burn:
 	
 	let $v9 = false or ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
 	let $v10 = false or "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
 	let $v11 = false or "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	let $v12 = false or repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
 	let $v13 = false or function(){}
 	assert( $v13 is Function )
+	assert( $v13 is Function )
 	
-	let $v14 = false or Something
+	let $v14 = false or Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
 	let $v15 = false or Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
 	let $v16 = false or types
 	assert( $v16 is Module )
-	
-	let $v17 = false or errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant or_result_3.burn
 
@@ -255,30 +261,35 @@ or_result_4.burn:
 	
 	let $v9 = 0 or ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
 	let $v10 = 0 or "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
 	let $v11 = 0 or "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	let $v12 = 0 or repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
 	let $v13 = 0 or function(){}
 	assert( $v13 is Function )
+	assert( $v13 is Function )
 	
-	let $v14 = 0 or Something
+	let $v14 = 0 or Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
 	let $v15 = 0 or Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
 	let $v16 = 0 or types
 	assert( $v16 is Module )
-	
-	let $v17 = 0 or errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant or_result_4.burn
 
@@ -342,7 +353,7 @@ or_result_5.burn:
 	assert( $v13 is Integer )
 	assert( $v13 == 2 )
 	
-	let $v14 = 2 or Something
+	let $v14 = 2 or Integer
 	assert( $v14 is Integer )
 	assert( $v14 == 2 )
 	
@@ -353,10 +364,6 @@ or_result_5.burn:
 	let $v16 = 2 or types
 	assert( $v16 is Integer )
 	assert( $v16 == 2 )
-	
-	let $v17 = 2 or errors
-	assert( $v17 is Integer )
-	assert( $v17 == 2 )
 
 $ $BURN --tolerant or_result_5.burn
 
@@ -420,7 +427,7 @@ or_result_6.burn:
 	assert( $v13 is Integer )
 	assert( $v13 == -2 )
 	
-	let $v14 = -2 or Something
+	let $v14 = -2 or Integer
 	assert( $v14 is Integer )
 	assert( $v14 == -2 )
 	
@@ -431,10 +438,6 @@ or_result_6.burn:
 	let $v16 = -2 or types
 	assert( $v16 is Integer )
 	assert( $v16 == -2 )
-	
-	let $v17 = -2 or errors
-	assert( $v17 is Integer )
-	assert( $v17 == -2 )
 
 $ $BURN --tolerant or_result_6.burn
 
@@ -479,30 +482,35 @@ or_result_7.burn:
 	
 	let $v9 = 0.0 or ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
 	let $v10 = 0.0 or "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
 	let $v11 = 0.0 or "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	let $v12 = 0.0 or repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
 	let $v13 = 0.0 or function(){}
 	assert( $v13 is Function )
+	assert( $v13 is Function )
 	
-	let $v14 = 0.0 or Something
+	let $v14 = 0.0 or Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
 	let $v15 = 0.0 or Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
 	let $v16 = 0.0 or types
 	assert( $v16 is Module )
-	
-	let $v17 = 0.0 or errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant or_result_7.burn
 
@@ -566,7 +574,7 @@ or_result_8.burn:
 	assert( $v13 is Float )
 	assert( ( 1.9999 < $v13 ) and ( $v13 < 2.0001 ) )
 	
-	let $v14 = 2.0 or Something
+	let $v14 = 2.0 or Integer
 	assert( $v14 is Float )
 	assert( ( 1.9999 < $v14 ) and ( $v14 < 2.0001 ) )
 	
@@ -577,10 +585,6 @@ or_result_8.burn:
 	let $v16 = 2.0 or types
 	assert( $v16 is Float )
 	assert( ( 1.9999 < $v16 ) and ( $v16 < 2.0001 ) )
-	
-	let $v17 = 2.0 or errors
-	assert( $v17 is Float )
-	assert( ( 1.9999 < $v17 ) and ( $v17 < 2.0001 ) )
 
 $ $BURN --tolerant or_result_8.burn
 
@@ -644,7 +648,7 @@ or_result_9.burn:
 	assert( $v13 is Float )
 	assert( ( -0.5001 < $v13 ) and ( $v13 < -0.4999 ) )
 	
-	let $v14 = -0.5 or Something
+	let $v14 = -0.5 or Integer
 	assert( $v14 is Float )
 	assert( ( -0.5001 < $v14 ) and ( $v14 < -0.4999 ) )
 	
@@ -655,10 +659,6 @@ or_result_9.burn:
 	let $v16 = -0.5 or types
 	assert( $v16 is Float )
 	assert( ( -0.5001 < $v16 ) and ( $v16 < -0.4999 ) )
-	
-	let $v17 = -0.5 or errors
-	assert( $v17 is Float )
-	assert( ( -0.5001 < $v17 ) and ( $v17 < -0.4999 ) )
 
 $ $BURN --tolerant or_result_9.burn
 
@@ -703,30 +703,35 @@ or_result_10.burn:
 	
 	let $v9 = "" or ""
 	assert( $v9 is String )
+	assert( $v9 == "" )
 	
 	let $v10 = "" or "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
 	let $v11 = "" or "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	let $v12 = "" or repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
 	let $v13 = "" or function(){}
 	assert( $v13 is Function )
+	assert( $v13 is Function )
 	
-	let $v14 = "" or Something
+	let $v14 = "" or Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
 	let $v15 = "" or Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
 	let $v16 = "" or types
 	assert( $v16 is Module )
-	
-	let $v17 = "" or errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant or_result_10.burn
 
@@ -736,57 +741,71 @@ or_result_11.burn:
 	
 	let $v0 = "apple" or nothing
 	assert( $v0 is String )
+	assert( $v0 == "apple" )
 	
 	let $v1 = "apple" or true
 	assert( $v1 is String )
+	assert( $v1 == "apple" )
 	
 	let $v2 = "apple" or false
 	assert( $v2 is String )
+	assert( $v2 == "apple" )
 	
 	let $v3 = "apple" or 0
 	assert( $v3 is String )
+	assert( $v3 == "apple" )
 	
 	let $v4 = "apple" or 2
 	assert( $v4 is String )
+	assert( $v4 == "apple" )
 	
 	let $v5 = "apple" or -2
 	assert( $v5 is String )
+	assert( $v5 == "apple" )
 	
 	let $v6 = "apple" or 0.0
 	assert( $v6 is String )
+	assert( $v6 == "apple" )
 	
 	let $v7 = "apple" or 2.0
 	assert( $v7 is String )
+	assert( $v7 == "apple" )
 	
 	let $v8 = "apple" or -0.5
 	assert( $v8 is String )
+	assert( $v8 == "apple" )
 	
 	let $v9 = "apple" or ""
 	assert( $v9 is String )
+	assert( $v9 == "apple" )
 	
 	let $v10 = "apple" or "apple"
 	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
 	let $v11 = "apple" or "banana"
 	assert( $v11 is String )
+	assert( $v11 == "apple" )
 	
 	let $v12 = "apple" or repr
 	assert( $v12 is String )
+	assert( $v12 == "apple" )
 	
 	let $v13 = "apple" or function(){}
 	assert( $v13 is String )
+	assert( $v13 == "apple" )
 	
-	let $v14 = "apple" or Something
+	let $v14 = "apple" or Integer
 	assert( $v14 is String )
+	assert( $v14 == "apple" )
 	
 	let $v15 = "apple" or Type
 	assert( $v15 is String )
+	assert( $v15 == "apple" )
 	
 	let $v16 = "apple" or types
 	assert( $v16 is String )
-	
-	let $v17 = "apple" or errors
-	assert( $v17 is String )
+	assert( $v16 == "apple" )
 
 $ $BURN --tolerant or_result_11.burn
 
@@ -796,57 +815,71 @@ or_result_12.burn:
 	
 	let $v0 = "banana" or nothing
 	assert( $v0 is String )
+	assert( $v0 == "banana" )
 	
 	let $v1 = "banana" or true
 	assert( $v1 is String )
+	assert( $v1 == "banana" )
 	
 	let $v2 = "banana" or false
 	assert( $v2 is String )
+	assert( $v2 == "banana" )
 	
 	let $v3 = "banana" or 0
 	assert( $v3 is String )
+	assert( $v3 == "banana" )
 	
 	let $v4 = "banana" or 2
 	assert( $v4 is String )
+	assert( $v4 == "banana" )
 	
 	let $v5 = "banana" or -2
 	assert( $v5 is String )
+	assert( $v5 == "banana" )
 	
 	let $v6 = "banana" or 0.0
 	assert( $v6 is String )
+	assert( $v6 == "banana" )
 	
 	let $v7 = "banana" or 2.0
 	assert( $v7 is String )
+	assert( $v7 == "banana" )
 	
 	let $v8 = "banana" or -0.5
 	assert( $v8 is String )
+	assert( $v8 == "banana" )
 	
 	let $v9 = "banana" or ""
 	assert( $v9 is String )
+	assert( $v9 == "banana" )
 	
 	let $v10 = "banana" or "apple"
 	assert( $v10 is String )
+	assert( $v10 == "banana" )
 	
 	let $v11 = "banana" or "banana"
 	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	let $v12 = "banana" or repr
 	assert( $v12 is String )
+	assert( $v12 == "banana" )
 	
 	let $v13 = "banana" or function(){}
 	assert( $v13 is String )
+	assert( $v13 == "banana" )
 	
-	let $v14 = "banana" or Something
+	let $v14 = "banana" or Integer
 	assert( $v14 is String )
+	assert( $v14 == "banana" )
 	
 	let $v15 = "banana" or Type
 	assert( $v15 is String )
+	assert( $v15 == "banana" )
 	
 	let $v16 = "banana" or types
 	assert( $v16 is String )
-	
-	let $v17 = "banana" or errors
-	assert( $v17 is String )
+	assert( $v16 == "banana" )
 
 $ $BURN --tolerant or_result_12.burn
 
@@ -856,57 +889,71 @@ or_result_13.burn:
 	
 	let $v0 = repr or nothing
 	assert( $v0 is Function )
+	assert( $v0 == repr )
 	
 	let $v1 = repr or true
 	assert( $v1 is Function )
+	assert( $v1 == repr )
 	
 	let $v2 = repr or false
 	assert( $v2 is Function )
+	assert( $v2 == repr )
 	
 	let $v3 = repr or 0
 	assert( $v3 is Function )
+	assert( $v3 == repr )
 	
 	let $v4 = repr or 2
 	assert( $v4 is Function )
+	assert( $v4 == repr )
 	
 	let $v5 = repr or -2
 	assert( $v5 is Function )
+	assert( $v5 == repr )
 	
 	let $v6 = repr or 0.0
 	assert( $v6 is Function )
+	assert( $v6 == repr )
 	
 	let $v7 = repr or 2.0
 	assert( $v7 is Function )
+	assert( $v7 == repr )
 	
 	let $v8 = repr or -0.5
 	assert( $v8 is Function )
+	assert( $v8 == repr )
 	
 	let $v9 = repr or ""
 	assert( $v9 is Function )
+	assert( $v9 == repr )
 	
 	let $v10 = repr or "apple"
 	assert( $v10 is Function )
+	assert( $v10 == repr )
 	
 	let $v11 = repr or "banana"
 	assert( $v11 is Function )
+	assert( $v11 == repr )
 	
 	let $v12 = repr or repr
 	assert( $v12 is Function )
+	assert( $v12 == repr )
 	
 	let $v13 = repr or function(){}
 	assert( $v13 is Function )
+	assert( $v13 == repr )
 	
-	let $v14 = repr or Something
+	let $v14 = repr or Integer
 	assert( $v14 is Function )
+	assert( $v14 == repr )
 	
 	let $v15 = repr or Type
 	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
 	let $v16 = repr or types
 	assert( $v16 is Function )
-	
-	let $v17 = repr or errors
-	assert( $v17 is Function )
+	assert( $v16 == repr )
 
 $ $BURN --tolerant or_result_13.burn
 
@@ -916,57 +963,71 @@ or_result_14.burn:
 	
 	let $v0 = function(){} or nothing
 	assert( $v0 is Function )
+	assert( $v0 is Function )
 	
 	let $v1 = function(){} or true
+	assert( $v1 is Function )
 	assert( $v1 is Function )
 	
 	let $v2 = function(){} or false
 	assert( $v2 is Function )
+	assert( $v2 is Function )
 	
 	let $v3 = function(){} or 0
+	assert( $v3 is Function )
 	assert( $v3 is Function )
 	
 	let $v4 = function(){} or 2
 	assert( $v4 is Function )
+	assert( $v4 is Function )
 	
 	let $v5 = function(){} or -2
+	assert( $v5 is Function )
 	assert( $v5 is Function )
 	
 	let $v6 = function(){} or 0.0
 	assert( $v6 is Function )
+	assert( $v6 is Function )
 	
 	let $v7 = function(){} or 2.0
+	assert( $v7 is Function )
 	assert( $v7 is Function )
 	
 	let $v8 = function(){} or -0.5
 	assert( $v8 is Function )
+	assert( $v8 is Function )
 	
 	let $v9 = function(){} or ""
+	assert( $v9 is Function )
 	assert( $v9 is Function )
 	
 	let $v10 = function(){} or "apple"
 	assert( $v10 is Function )
+	assert( $v10 is Function )
 	
 	let $v11 = function(){} or "banana"
+	assert( $v11 is Function )
 	assert( $v11 is Function )
 	
 	let $v12 = function(){} or repr
 	assert( $v12 is Function )
+	assert( $v12 is Function )
 	
 	let $v13 = function(){} or function(){}
 	assert( $v13 is Function )
+	assert( $v13 is Function )
 	
-	let $v14 = function(){} or Something
+	let $v14 = function(){} or Integer
+	assert( $v14 is Function )
 	assert( $v14 is Function )
 	
 	let $v15 = function(){} or Type
 	assert( $v15 is Function )
+	assert( $v15 is Function )
 	
 	let $v16 = function(){} or types
 	assert( $v16 is Function )
-	
-	let $v17 = function(){} or errors
-	assert( $v17 is Function )
+	assert( $v16 is Function )
 
 $ $BURN --tolerant or_result_14.burn
 
@@ -974,59 +1035,73 @@ or_result_15.burn:
 	import burn.types
 	import burn.errors
 	
-	let $v0 = Something or nothing
+	let $v0 = Integer or nothing
 	assert( $v0 is Type )
+	assert( $v0 == Integer )
 	
-	let $v1 = Something or true
+	let $v1 = Integer or true
 	assert( $v1 is Type )
+	assert( $v1 == Integer )
 	
-	let $v2 = Something or false
+	let $v2 = Integer or false
 	assert( $v2 is Type )
+	assert( $v2 == Integer )
 	
-	let $v3 = Something or 0
+	let $v3 = Integer or 0
 	assert( $v3 is Type )
+	assert( $v3 == Integer )
 	
-	let $v4 = Something or 2
+	let $v4 = Integer or 2
 	assert( $v4 is Type )
+	assert( $v4 == Integer )
 	
-	let $v5 = Something or -2
+	let $v5 = Integer or -2
 	assert( $v5 is Type )
+	assert( $v5 == Integer )
 	
-	let $v6 = Something or 0.0
+	let $v6 = Integer or 0.0
 	assert( $v6 is Type )
+	assert( $v6 == Integer )
 	
-	let $v7 = Something or 2.0
+	let $v7 = Integer or 2.0
 	assert( $v7 is Type )
+	assert( $v7 == Integer )
 	
-	let $v8 = Something or -0.5
+	let $v8 = Integer or -0.5
 	assert( $v8 is Type )
+	assert( $v8 == Integer )
 	
-	let $v9 = Something or ""
+	let $v9 = Integer or ""
 	assert( $v9 is Type )
+	assert( $v9 == Integer )
 	
-	let $v10 = Something or "apple"
+	let $v10 = Integer or "apple"
 	assert( $v10 is Type )
+	assert( $v10 == Integer )
 	
-	let $v11 = Something or "banana"
+	let $v11 = Integer or "banana"
 	assert( $v11 is Type )
+	assert( $v11 == Integer )
 	
-	let $v12 = Something or repr
+	let $v12 = Integer or repr
 	assert( $v12 is Type )
+	assert( $v12 == Integer )
 	
-	let $v13 = Something or function(){}
+	let $v13 = Integer or function(){}
 	assert( $v13 is Type )
+	assert( $v13 == Integer )
 	
-	let $v14 = Something or Something
+	let $v14 = Integer or Integer
 	assert( $v14 is Type )
+	assert( $v14 == Integer )
 	
-	let $v15 = Something or Type
+	let $v15 = Integer or Type
 	assert( $v15 is Type )
+	assert( $v15 == Integer )
 	
-	let $v16 = Something or types
+	let $v16 = Integer or types
 	assert( $v16 is Type )
-	
-	let $v17 = Something or errors
-	assert( $v17 is Type )
+	assert( $v16 == Integer )
 
 $ $BURN --tolerant or_result_15.burn
 
@@ -1036,57 +1111,71 @@ or_result_16.burn:
 	
 	let $v0 = Type or nothing
 	assert( $v0 is Type )
+	assert( $v0 == Type )
 	
 	let $v1 = Type or true
 	assert( $v1 is Type )
+	assert( $v1 == Type )
 	
 	let $v2 = Type or false
 	assert( $v2 is Type )
+	assert( $v2 == Type )
 	
 	let $v3 = Type or 0
 	assert( $v3 is Type )
+	assert( $v3 == Type )
 	
 	let $v4 = Type or 2
 	assert( $v4 is Type )
+	assert( $v4 == Type )
 	
 	let $v5 = Type or -2
 	assert( $v5 is Type )
+	assert( $v5 == Type )
 	
 	let $v6 = Type or 0.0
 	assert( $v6 is Type )
+	assert( $v6 == Type )
 	
 	let $v7 = Type or 2.0
 	assert( $v7 is Type )
+	assert( $v7 == Type )
 	
 	let $v8 = Type or -0.5
 	assert( $v8 is Type )
+	assert( $v8 == Type )
 	
 	let $v9 = Type or ""
 	assert( $v9 is Type )
+	assert( $v9 == Type )
 	
 	let $v10 = Type or "apple"
 	assert( $v10 is Type )
+	assert( $v10 == Type )
 	
 	let $v11 = Type or "banana"
 	assert( $v11 is Type )
+	assert( $v11 == Type )
 	
 	let $v12 = Type or repr
 	assert( $v12 is Type )
+	assert( $v12 == Type )
 	
 	let $v13 = Type or function(){}
 	assert( $v13 is Type )
+	assert( $v13 == Type )
 	
-	let $v14 = Type or Something
+	let $v14 = Type or Integer
 	assert( $v14 is Type )
+	assert( $v14 == Type )
 	
 	let $v15 = Type or Type
 	assert( $v15 is Type )
+	assert( $v15 == Type )
 	
 	let $v16 = Type or types
 	assert( $v16 is Type )
-	
-	let $v17 = Type or errors
-	assert( $v17 is Type )
+	assert( $v16 == Type )
 
 $ $BURN --tolerant or_result_16.burn
 
@@ -1096,116 +1185,70 @@ or_result_17.burn:
 	
 	let $v0 = types or nothing
 	assert( $v0 is Module )
+	assert( $v0 == types )
 	
 	let $v1 = types or true
 	assert( $v1 is Module )
+	assert( $v1 == types )
 	
 	let $v2 = types or false
 	assert( $v2 is Module )
+	assert( $v2 == types )
 	
 	let $v3 = types or 0
 	assert( $v3 is Module )
+	assert( $v3 == types )
 	
 	let $v4 = types or 2
 	assert( $v4 is Module )
+	assert( $v4 == types )
 	
 	let $v5 = types or -2
 	assert( $v5 is Module )
+	assert( $v5 == types )
 	
 	let $v6 = types or 0.0
 	assert( $v6 is Module )
+	assert( $v6 == types )
 	
 	let $v7 = types or 2.0
 	assert( $v7 is Module )
+	assert( $v7 == types )
 	
 	let $v8 = types or -0.5
 	assert( $v8 is Module )
+	assert( $v8 == types )
 	
 	let $v9 = types or ""
 	assert( $v9 is Module )
+	assert( $v9 == types )
 	
 	let $v10 = types or "apple"
 	assert( $v10 is Module )
+	assert( $v10 == types )
 	
 	let $v11 = types or "banana"
 	assert( $v11 is Module )
+	assert( $v11 == types )
 	
 	let $v12 = types or repr
 	assert( $v12 is Module )
+	assert( $v12 == types )
 	
 	let $v13 = types or function(){}
 	assert( $v13 is Module )
+	assert( $v13 == types )
 	
-	let $v14 = types or Something
+	let $v14 = types or Integer
 	assert( $v14 is Module )
+	assert( $v14 == types )
 	
 	let $v15 = types or Type
 	assert( $v15 is Module )
+	assert( $v15 == types )
 	
 	let $v16 = types or types
 	assert( $v16 is Module )
-	
-	let $v17 = types or errors
-	assert( $v17 is Module )
+	assert( $v16 == types )
 
 $ $BURN --tolerant or_result_17.burn
-
-or_result_18.burn:
-	import burn.types
-	import burn.errors
-	
-	let $v0 = errors or nothing
-	assert( $v0 is Module )
-	
-	let $v1 = errors or true
-	assert( $v1 is Module )
-	
-	let $v2 = errors or false
-	assert( $v2 is Module )
-	
-	let $v3 = errors or 0
-	assert( $v3 is Module )
-	
-	let $v4 = errors or 2
-	assert( $v4 is Module )
-	
-	let $v5 = errors or -2
-	assert( $v5 is Module )
-	
-	let $v6 = errors or 0.0
-	assert( $v6 is Module )
-	
-	let $v7 = errors or 2.0
-	assert( $v7 is Module )
-	
-	let $v8 = errors or -0.5
-	assert( $v8 is Module )
-	
-	let $v9 = errors or ""
-	assert( $v9 is Module )
-	
-	let $v10 = errors or "apple"
-	assert( $v10 is Module )
-	
-	let $v11 = errors or "banana"
-	assert( $v11 is Module )
-	
-	let $v12 = errors or repr
-	assert( $v12 is Module )
-	
-	let $v13 = errors or function(){}
-	assert( $v13 is Module )
-	
-	let $v14 = errors or Something
-	assert( $v14 is Module )
-	
-	let $v15 = errors or Type
-	assert( $v15 is Module )
-	
-	let $v16 = errors or types
-	assert( $v16 is Module )
-	
-	let $v17 = errors or errors
-	assert( $v17 is Module )
-
-$ $BURN --tolerant or_result_18.burn

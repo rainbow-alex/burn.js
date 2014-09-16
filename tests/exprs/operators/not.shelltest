@@ -60,7 +60,7 @@ not_result.burn:
 	assert( $v13 is Boolean )
 	assert( $v13 == false )
 	
-	let $v14 = not Something
+	let $v14 = not Integer
 	assert( $v14 is Boolean )
 	assert( $v14 == false )
 	
@@ -71,9 +71,5 @@ not_result.burn:
 	let $v16 = not types
 	assert( $v16 is Boolean )
 	assert( $v16 == false )
-	
-	let $v17 = not errors
-	assert( $v17 is Boolean )
-	assert( $v17 == false )
 
 $ $BURN --tolerant not_result.burn

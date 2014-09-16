@@ -34,13 +34,11 @@ eq_result_1.burn:
 	
 	assert.throws( function() { nothing == function(){} }, TypeError )
 	
-	assert.throws( function() { nothing == Something }, TypeError )
+	assert.throws( function() { nothing == Integer }, TypeError )
 	
 	assert.throws( function() { nothing == Type }, TypeError )
 	
 	assert.throws( function() { nothing == types }, TypeError )
-	
-	assert.throws( function() { nothing == errors }, TypeError )
 
 $ $BURN --tolerant eq_result_1.burn
 
@@ -80,13 +78,11 @@ eq_result_2.burn:
 	
 	assert.throws( function() { true == function(){} }, TypeError )
 	
-	assert.throws( function() { true == Something }, TypeError )
+	assert.throws( function() { true == Integer }, TypeError )
 	
 	assert.throws( function() { true == Type }, TypeError )
 	
 	assert.throws( function() { true == types }, TypeError )
-	
-	assert.throws( function() { true == errors }, TypeError )
 
 $ $BURN --tolerant eq_result_2.burn
 
@@ -126,13 +122,11 @@ eq_result_3.burn:
 	
 	assert.throws( function() { false == function(){} }, TypeError )
 	
-	assert.throws( function() { false == Something }, TypeError )
+	assert.throws( function() { false == Integer }, TypeError )
 	
 	assert.throws( function() { false == Type }, TypeError )
 	
 	assert.throws( function() { false == types }, TypeError )
-	
-	assert.throws( function() { false == errors }, TypeError )
 
 $ $BURN --tolerant eq_result_3.burn
 
@@ -174,13 +168,11 @@ eq_result_4.burn:
 	
 	assert.throws( function() { 0 == function(){} }, TypeError )
 	
-	assert.throws( function() { 0 == Something }, TypeError )
+	assert.throws( function() { 0 == Integer }, TypeError )
 	
 	assert.throws( function() { 0 == Type }, TypeError )
 	
 	assert.throws( function() { 0 == types }, TypeError )
-	
-	assert.throws( function() { 0 == errors }, TypeError )
 
 $ $BURN --tolerant eq_result_4.burn
 
@@ -222,13 +214,11 @@ eq_result_5.burn:
 	
 	assert.throws( function() { 2 == function(){} }, TypeError )
 	
-	assert.throws( function() { 2 == Something }, TypeError )
+	assert.throws( function() { 2 == Integer }, TypeError )
 	
 	assert.throws( function() { 2 == Type }, TypeError )
 	
 	assert.throws( function() { 2 == types }, TypeError )
-	
-	assert.throws( function() { 2 == errors }, TypeError )
 
 $ $BURN --tolerant eq_result_5.burn
 
@@ -270,13 +260,11 @@ eq_result_6.burn:
 	
 	assert.throws( function() { -2 == function(){} }, TypeError )
 	
-	assert.throws( function() { -2 == Something }, TypeError )
+	assert.throws( function() { -2 == Integer }, TypeError )
 	
 	assert.throws( function() { -2 == Type }, TypeError )
 	
 	assert.throws( function() { -2 == types }, TypeError )
-	
-	assert.throws( function() { -2 == errors }, TypeError )
 
 $ $BURN --tolerant eq_result_6.burn
 
@@ -318,13 +306,11 @@ eq_result_7.burn:
 	
 	assert.throws( function() { 0.0 == function(){} }, TypeError )
 	
-	assert.throws( function() { 0.0 == Something }, TypeError )
+	assert.throws( function() { 0.0 == Integer }, TypeError )
 	
 	assert.throws( function() { 0.0 == Type }, TypeError )
 	
 	assert.throws( function() { 0.0 == types }, TypeError )
-	
-	assert.throws( function() { 0.0 == errors }, TypeError )
 
 $ $BURN --tolerant eq_result_7.burn
 
@@ -366,13 +352,11 @@ eq_result_8.burn:
 	
 	assert.throws( function() { 2.0 == function(){} }, TypeError )
 	
-	assert.throws( function() { 2.0 == Something }, TypeError )
+	assert.throws( function() { 2.0 == Integer }, TypeError )
 	
 	assert.throws( function() { 2.0 == Type }, TypeError )
 	
 	assert.throws( function() { 2.0 == types }, TypeError )
-	
-	assert.throws( function() { 2.0 == errors }, TypeError )
 
 $ $BURN --tolerant eq_result_8.burn
 
@@ -414,13 +398,11 @@ eq_result_9.burn:
 	
 	assert.throws( function() { -0.5 == function(){} }, TypeError )
 	
-	assert.throws( function() { -0.5 == Something }, TypeError )
+	assert.throws( function() { -0.5 == Integer }, TypeError )
 	
 	assert.throws( function() { -0.5 == Type }, TypeError )
 	
 	assert.throws( function() { -0.5 == types }, TypeError )
-	
-	assert.throws( function() { -0.5 == errors }, TypeError )
 
 $ $BURN --tolerant eq_result_9.burn
 
@@ -462,13 +444,11 @@ eq_result_10.burn:
 	
 	assert.throws( function() { "" == function(){} }, TypeError )
 	
-	assert.throws( function() { "" == Something }, TypeError )
+	assert.throws( function() { "" == Integer }, TypeError )
 	
 	assert.throws( function() { "" == Type }, TypeError )
 	
 	assert.throws( function() { "" == types }, TypeError )
-	
-	assert.throws( function() { "" == errors }, TypeError )
 
 $ $BURN --tolerant eq_result_10.burn
 
@@ -510,13 +490,11 @@ eq_result_11.burn:
 	
 	assert.throws( function() { "apple" == function(){} }, TypeError )
 	
-	assert.throws( function() { "apple" == Something }, TypeError )
+	assert.throws( function() { "apple" == Integer }, TypeError )
 	
 	assert.throws( function() { "apple" == Type }, TypeError )
 	
 	assert.throws( function() { "apple" == types }, TypeError )
-	
-	assert.throws( function() { "apple" == errors }, TypeError )
 
 $ $BURN --tolerant eq_result_11.burn
 
@@ -558,13 +536,11 @@ eq_result_12.burn:
 	
 	assert.throws( function() { "banana" == function(){} }, TypeError )
 	
-	assert.throws( function() { "banana" == Something }, TypeError )
+	assert.throws( function() { "banana" == Integer }, TypeError )
 	
 	assert.throws( function() { "banana" == Type }, TypeError )
 	
 	assert.throws( function() { "banana" == types }, TypeError )
-	
-	assert.throws( function() { "banana" == errors }, TypeError )
 
 $ $BURN --tolerant eq_result_12.burn
 
@@ -604,13 +580,11 @@ eq_result_13.burn:
 	assert( $v13 is Boolean )
 	assert( $v13 == false )
 	
-	assert.throws( function() { repr == Something }, TypeError )
+	assert.throws( function() { repr == Integer }, TypeError )
 	
 	assert.throws( function() { repr == Type }, TypeError )
 	
 	assert.throws( function() { repr == types }, TypeError )
-	
-	assert.throws( function() { repr == errors }, TypeError )
 
 $ $BURN --tolerant eq_result_13.burn
 
@@ -650,13 +624,11 @@ eq_result_14.burn:
 	assert( $v13 is Boolean )
 	assert( $v13 == false )
 	
-	assert.throws( function() { function(){} == Something }, TypeError )
+	assert.throws( function() { function(){} == Integer }, TypeError )
 	
 	assert.throws( function() { function(){} == Type }, TypeError )
 	
 	assert.throws( function() { function(){} == types }, TypeError )
-	
-	assert.throws( function() { function(){} == errors }, TypeError )
 
 $ $BURN --tolerant eq_result_14.burn
 
@@ -664,45 +636,41 @@ eq_result_15.burn:
 	import burn.types
 	import burn.errors
 	
-	assert.throws( function() { Something == nothing }, TypeError )
+	assert.throws( function() { Integer == nothing }, TypeError )
 	
-	assert.throws( function() { Something == true }, TypeError )
+	assert.throws( function() { Integer == true }, TypeError )
 	
-	assert.throws( function() { Something == false }, TypeError )
+	assert.throws( function() { Integer == false }, TypeError )
 	
-	assert.throws( function() { Something == 0 }, TypeError )
+	assert.throws( function() { Integer == 0 }, TypeError )
 	
-	assert.throws( function() { Something == 2 }, TypeError )
+	assert.throws( function() { Integer == 2 }, TypeError )
 	
-	assert.throws( function() { Something == -2 }, TypeError )
+	assert.throws( function() { Integer == -2 }, TypeError )
 	
-	assert.throws( function() { Something == 0.0 }, TypeError )
+	assert.throws( function() { Integer == 0.0 }, TypeError )
 	
-	assert.throws( function() { Something == 2.0 }, TypeError )
+	assert.throws( function() { Integer == 2.0 }, TypeError )
 	
-	assert.throws( function() { Something == -0.5 }, TypeError )
+	assert.throws( function() { Integer == -0.5 }, TypeError )
 	
-	assert.throws( function() { Something == "" }, TypeError )
+	assert.throws( function() { Integer == "" }, TypeError )
 	
-	assert.throws( function() { Something == "apple" }, TypeError )
+	assert.throws( function() { Integer == "apple" }, TypeError )
 	
-	assert.throws( function() { Something == "banana" }, TypeError )
+	assert.throws( function() { Integer == "banana" }, TypeError )
 	
-	assert.throws( function() { Something == repr }, TypeError )
+	assert.throws( function() { Integer == repr }, TypeError )
 	
-	assert.throws( function() { Something == function(){} }, TypeError )
+	assert.throws( function() { Integer == function(){} }, TypeError )
 	
-	let $v14 = Something == Something
+	let $v14 = Integer == Integer
 	assert( $v14 is Boolean )
 	assert( $v14 == true )
 	
-	let $v15 = Something == Type
-	assert( $v15 is Boolean )
-	assert( $v15 == false )
+	assert.throws( function() { Integer == Type }, TypeError )
 	
-	assert.throws( function() { Something == types }, TypeError )
-	
-	assert.throws( function() { Something == errors }, TypeError )
+	assert.throws( function() { Integer == types }, TypeError )
 
 $ $BURN --tolerant eq_result_15.burn
 
@@ -738,17 +706,13 @@ eq_result_16.burn:
 	
 	assert.throws( function() { Type == function(){} }, TypeError )
 	
-	let $v14 = Type == Something
-	assert( $v14 is Boolean )
-	assert( $v14 == false )
+	assert.throws( function() { Type == Integer }, TypeError )
 	
 	let $v15 = Type == Type
 	assert( $v15 is Boolean )
 	assert( $v15 == true )
 	
 	assert.throws( function() { Type == types }, TypeError )
-	
-	assert.throws( function() { Type == errors }, TypeError )
 
 $ $BURN --tolerant eq_result_16.burn
 
@@ -784,62 +748,12 @@ eq_result_17.burn:
 	
 	assert.throws( function() { types == function(){} }, TypeError )
 	
-	assert.throws( function() { types == Something }, TypeError )
+	assert.throws( function() { types == Integer }, TypeError )
 	
 	assert.throws( function() { types == Type }, TypeError )
 	
 	let $v16 = types == types
 	assert( $v16 is Boolean )
 	assert( $v16 == true )
-	
-	let $v17 = types == errors
-	assert( $v17 is Boolean )
-	assert( $v17 == false )
 
 $ $BURN --tolerant eq_result_17.burn
-
-eq_result_18.burn:
-	import burn.types
-	import burn.errors
-	
-	assert.throws( function() { errors == nothing }, TypeError )
-	
-	assert.throws( function() { errors == true }, TypeError )
-	
-	assert.throws( function() { errors == false }, TypeError )
-	
-	assert.throws( function() { errors == 0 }, TypeError )
-	
-	assert.throws( function() { errors == 2 }, TypeError )
-	
-	assert.throws( function() { errors == -2 }, TypeError )
-	
-	assert.throws( function() { errors == 0.0 }, TypeError )
-	
-	assert.throws( function() { errors == 2.0 }, TypeError )
-	
-	assert.throws( function() { errors == -0.5 }, TypeError )
-	
-	assert.throws( function() { errors == "" }, TypeError )
-	
-	assert.throws( function() { errors == "apple" }, TypeError )
-	
-	assert.throws( function() { errors == "banana" }, TypeError )
-	
-	assert.throws( function() { errors == repr }, TypeError )
-	
-	assert.throws( function() { errors == function(){} }, TypeError )
-	
-	assert.throws( function() { errors == Something }, TypeError )
-	
-	assert.throws( function() { errors == Type }, TypeError )
-	
-	let $v16 = errors == types
-	assert( $v16 is Boolean )
-	assert( $v16 == false )
-	
-	let $v17 = errors == errors
-	assert( $v17 is Boolean )
-	assert( $v17 == true )
-
-$ $BURN --tolerant eq_result_18.burn
