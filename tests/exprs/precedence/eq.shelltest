@@ -12,7 +12,11 @@ eq_and.burn:
 
 $ $BURN --tolerant eq_and.burn
 
-// TODO: eq-not
+eq_not.burn:
+	1 == not 1
+
+$ $BURN --tolerant eq_not.burn
+	* exit status nonzero
 
 eq_is.burn:
 	nothing == nothing is nothing

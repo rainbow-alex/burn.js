@@ -1,8 +1,22 @@
-// TODO: is-or
+is_or.burn:
+	assert( ( ( 1 is Nothing ) or Integer ) == Integer )
+	assert( ( 1 is ( Nothing or Integer ) ) == false )
+	assert( ( 1 is Nothing or Integer ) == Integer )
 
-// TODO: is-and
+$ $BURN --tolerant is_or.burn
 
-// TODO: is-not
+is_and.burn:
+	assert( ( ( 1 is Something ) and Integer ) == Integer )
+	assert( ( 1 is ( Something and Integer ) ) == true )
+	assert( ( 1 is Something and Integer ) == Integer )
+
+$ $BURN --tolerant is_and.burn
+
+is_not.burn:
+	assert( ( 1 is not Float ) == true )
+	assert.throws( function() { 1 is ( not Float ) }, TypeError )
+
+$ $BURN --tolerant is_not.burn
 
 is_is.burn:
 	nothing is nothing is nothing
@@ -52,9 +66,19 @@ is_gteq.burn:
 $ $BURN --tolerant is_gteq.burn
 	* exit status nonzero
 
-// TODO: is-union
+is_union.burn:
+	assert.throws( function() { ( 1 is Float ) | Integer }, TypeError )
+	assert( ( 1 is ( Float | Integer ) ) == true )
+	assert( ( 1 is Float | Integer ) == true )
 
-// TODO: is-add
+$ $BURN --tolerant is_union.burn
+
+is_add.burn:
+	assert.throws( function() { ( 1 is Something ) + Nothing }, TypeError )
+	assert( ( 1 is ( Something + Nothing ) ) == false )
+	assert( ( 1 is Something + Nothing ) == false )
+
+$ $BURN --tolerant is_add.burn
 
 // TODO: is-sub
 

@@ -12,7 +12,11 @@ lt_and.burn:
 
 $ $BURN --tolerant lt_and.burn
 
-// TODO: lt-not
+lt_not.burn:
+	1 < not 1
+
+$ $BURN --tolerant lt_not.burn
+	* exit status nonzero
 
 lt_is.burn:
 	nothing < nothing is nothing

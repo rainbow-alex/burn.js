@@ -12,7 +12,11 @@ lteq_and.burn:
 
 $ $BURN --tolerant lteq_and.burn
 
-// TODO: lteq-not
+lteq_not.burn:
+	1 <= not 1
+
+$ $BURN --tolerant lteq_not.burn
+	* exit status nonzero
 
 lteq_is.burn:
 	nothing <= nothing is nothing

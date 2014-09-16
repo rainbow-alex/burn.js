@@ -12,7 +12,11 @@ gt_and.burn:
 
 $ $BURN --tolerant gt_and.burn
 
-// TODO: gt-not
+gt_not.burn:
+	1 > not 1
+
+$ $BURN --tolerant gt_not.burn
+	* exit status nonzero
 
 gt_is.burn:
 	nothing > nothing is nothing

@@ -12,7 +12,11 @@ neq_and.burn:
 
 $ $BURN --tolerant neq_and.burn
 
-// TODO: neq-not
+neq_not.burn:
+	1 != not 1
+
+$ $BURN --tolerant neq_not.burn
+	* exit status nonzero
 
 neq_is.burn:
 	nothing != nothing is nothing

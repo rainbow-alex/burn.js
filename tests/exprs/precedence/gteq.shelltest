@@ -12,7 +12,11 @@ gteq_and.burn:
 
 $ $BURN --tolerant gteq_and.burn
 
-// TODO: gteq-not
+gteq_not.burn:
+	1 >= not 1
+
+$ $BURN --tolerant gteq_not.burn
+	* exit status nonzero
 
 gteq_is.burn:
 	nothing >= nothing is nothing

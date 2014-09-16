@@ -12,7 +12,11 @@ mul_and.burn:
 
 $ $BURN --tolerant mul_and.burn
 
-// TODO: mul-not
+mul_not.burn:
+	1 * not 1
+
+$ $BURN --tolerant mul_not.burn
+	* exit status nonzero
 
 // TODO: mul-is
 
