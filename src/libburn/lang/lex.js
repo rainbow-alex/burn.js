@@ -15,9 +15,34 @@ module.exports = function( origin ) {
 	}
 	
 	let tokens = [];
+	
 	let i = 0;
 	let line = 1;
 	let offset = 0;
+	
+	let ignoreNewlinesStack = [];
+	let ignoreNewlines = false;
+	
+	let previousToken = "";
+	let whitespace = "";
+	
+	function pushToken( type, value ) {
+		
+		if( previousToken ) {
+			previousToken.succeedingWhitespace = whitespace;
+		}
+		
+		let token = new Token( type, value );
+		token.origin = origin;
+		token.line = line;
+		token.offset = offset;
+		
+		token.precedingWhitespace = whitespace;
+		previousToken = token;
+		whitespace = "";
+		
+		tokens.push( token );
+	}
 	
 	while( i < source.length ) {
 		
@@ -25,59 +50,77 @@ module.exports = function( origin ) {
 		
 		// whitespace
 		if( m = source.substr(i).match( /^[ \t]+/  ) ) {
-			// pass
+			whitespace += m[0];
 		
 		// comments
 		} else if( m = source.substr(i).match( /^\/(\*+)(.|\n)*?([^*]\1\/|$)/ ) ) {
-			// pass
+			whitespace += m[0];
 		} else if( m = source.substr(i).match( /^\/\/.*?(?=\n|$)/ ) ) {
-			// pass
+			whitespace += m[0];
 		
 		// newline
 		} else if( m = source.substr(i).match( /^\n/ ) ) {
-			tokens.push( new Token( "newline", null, origin, line, offset ) );
+			if( ignoreNewlines || ! previousToken || [ "newline", "{" ].indexOf( previousToken.type ) !== -1 ) {
+				whitespace += m[0];
+			} else {
+				pushToken( "newline", m[0] );
+			}
+		
+		// braces, parentheses and brackets
+		} else if( m = source.substr(i).match( /^{/ ) ) {
+			pushToken( m[0], m[0] );
+			ignoreNewlinesStack.push( ignoreNewlines );
+			ignoreNewlines = false;
+		} else if( m = source.substr(i).match( /^(\(|\[)/ ) ) {
+			pushToken( m[0], m[0] );
+			ignoreNewlinesStack.push( ignoreNewlines );
+			ignoreNewlines = true;
+		} else if( m = source.substr(i).match( /^(}|\)|])/ ) ) {
+			pushToken( m[0], m[0] );
+			ignoreNewlines = ignoreNewlinesStack.pop();
 		
 		// symbols
 		} else if( m = source.substr(i).match( /^(==|!=|<=|>=|->)/ ) ) {
-			tokens.push( new Token( m[0], null, origin, line, offset ) );
-		} else if( m = source.substr(i).match( /^({|}|\(|\)|,|<|>|\||=|\+|\*|\/|\.|\[|\])/ ) ) {
-			tokens.push( new Token( m[0], null, origin, line, offset ) );
+			pushToken( m[0], m[0] );
+		} else if( m = source.substr(i).match( /^(,|<|>|\||=|\+|\*|\/|\.)/ ) ) {
+			pushToken( m[0], m[0] );
+		// - matched below, after number literals
 		
 		// keywords
 		} else if( m = source.substr(i).match(
 			/^(and|break|catch|class|continue|else|false|finally|for|function|if|import|in|include|is|let|not|nothing|or|print|return|this|throw|true|try|while)\b/
 		) ) {
-			tokens.push( new Token( m[0], null, origin, line, offset ) );
+			pushToken( m[0], m[0] );
 		
 		// identifiers
 		} else if( m = source.substr(i).match( /^[A-Za-z_][A-Za-z0-9_:]*/ ) ) {
 			if( m[0].match( /^:|::|:$/ ) ) {
 				throw new Error( "Invalid identifier.", origin, line, offset );
 			}
-			tokens.push( new Token( "identifier", m[0], origin, line, offset ) );
+			pushToken( "identifier", m[0] );
 		
 		// variables
 		} else if( m = source.substr(i).match( /^\$[A-Za-z_][A-Za-z0-9_:]*/ ) ) {
 			if( m[0].match( /::|:$/ ) ) {
 				throw new Error( "Invalid variable.", origin, line, offset );
 			}
-			tokens.push( new Token( "variable", m[0], origin, line, offset ) );
+			pushToken( "variable", m[0] );
 		} else if( m = source.substr(i).match( /^\$/ ) ) {
 			throw new Error( "Invalid variable.", origin, line, offset );
 		
 		// number literals
 		} else if( m = source.substr(i).match( /^-?(0|[1-9][0-9]*)\.[0-9]+/ ) ) {
-			tokens.push( new Token( "float_literal", m[0], origin, line, offset ) );
+			pushToken( "float_literal", m[0] );
 		} else if( m = source.substr(i).match( /^-?(0|[1-9][0-9]*)/ ) ) {
-			tokens.push( new Token( "integer_literal", m[0], origin, line, offset ) );
+			pushToken( "integer_literal", m[0] );
 		
 		// symbols (2)
 		} else if( m = source.substr(i).match( /^(-)/ ) ) {
-			tokens.push( new Token( m[0], null, origin, line, offset ) );
+			pushToken( m[0], m[0] );
 		
 		// string literals
 		} else if( m = source.substr(i).match( /^"([^\\"]|\\.)*"/ ) ) {
-			tokens.push( new Token( "string_literal", m[0], origin, line, offset ) );
+			pushToken( "string_literal", m[0] );
 		
 		} else {
 			throw new Error( "Unexpected input.", origin, line, offset );
@@ -91,6 +134,10 @@ module.exports = function( origin ) {
 		}
 		
 		i += m[0].length;
+	}
+	
+	if( previousToken ) {
+		previousToken.succeedingWhitespace = whitespace;
 	}
 	
 	return tokens;

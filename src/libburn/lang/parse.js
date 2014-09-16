@@ -6,7 +6,6 @@ module.exports = function( tokens ) {
 	
 	let offset = 0;
 	let suppressedNewlinePolicies = [];
-	let ignoreNewlines;
 	return parseRoot();
 	
 	//
@@ -18,53 +17,17 @@ module.exports = function( tokens ) {
 		throw new Error( message, token );
 	}
 	
-	function startIgnoringNewlines() {
-		suppressedNewlinePolicies.push( ignoreNewlines );
-		ignoreNewlines = true;
-	}
-	function stopIgnoringNewlines() {
-		console.assert( ignoreNewlines === true );
-		ignoreNewlines = suppressedNewlinePolicies.pop();
-	}
-	function startHeedingNewlines() {
-		suppressedNewlinePolicies.push( ignoreNewlines );
-		ignoreNewlines = false;
-	}
-	function stopHeedingNewlines() {
-		console.assert( ignoreNewlines === false );
-		ignoreNewlines = suppressedNewlinePolicies.pop();
-	}
-	
 	function peek( peekOffset ) {
 		peekOffset = peekOffset || 0;
-		if( ignoreNewlines ) {
-			let i = offset;
-			let peeked = 0;
-			while( tokens[i] ) {
-				if( tokens[i].type === "newline" ) {
-					i++;
-				} else if( peeked === peekOffset ) {
-					return tokens[i];
-				} else {
-					i++;
-					peeked++;
-				}
-			}
-			return { type: "eof" };
-		} else {
-			return tokens[ offset + peekOffset ] || { type: "eof" };
-		}
+		return tokens[ offset + peekOffset ] || { type: "eof" };
 	}
 	
 	function read( type ) {
-		if( ignoreNewlines ) {
-			skipNewlines();
-		}
 		if( ! tokens[ offset ] ) {
 			if( type ) {
 				throwError( "Expected " + humanizedType() + "." );
 			} else {
-				throwError( "unexpected eof" );
+				throwError( "Unexpected eof." );
 			}
 		}
 		if( type && tokens[ offset ].type !== type ) {
@@ -82,46 +45,31 @@ module.exports = function( tokens ) {
 		}
 	}
 	
-	function skipNewlines() {
-		while( tokens[offset] && tokens[offset].type === "newline" ) {
-			offset++;
-		}
-	}
-	
 	//
 	// parsing logic
 	//
 	
 	function parseRoot() {
 		let statements = [];
-		skipNewlines();
 		while( peek().type !== "eof" ) {
 			statements.push( parseStatement() );
-			if( peek().type !== "newline" ) {
-				throwError( "Expected newline." );
-			}
-			skipNewlines();
 		}
 		return new ast.Root( {
 			statements: statements,
 		} );
 	}
 	
-	function parseBlock() {
+	function parseBlock( readTrailingNewline ) {
+		readTrailingNewline = readTrailingNewline === undefined ? true : readTrailingNewline;
 		let statements = [];
 		read( "{" );
-		skipNewlines();
-		startHeedingNewlines();
 		while( peek().type !== "}" ) {
 			statements.push( parseStatement() );
-			if( peek().type === "newline" ) {
-				skipNewlines();
-			} else {
-				break;
-			}
 		}
-		stopHeedingNewlines();
 		read( "}" );
+		if( readTrailingNewline && peek().type === "newline" ) {
+			read();
+		}
 		return statements;
 	}
 	
@@ -154,47 +102,77 @@ module.exports = function( tokens ) {
 				let lvalue = toLvalue( expression );
 				read();
 				let rvalue = parseExpression();
-				return new ast.AssignmentStatement( { lvalue: lvalue, rvalue: rvalue } );
+				let newline = readEndOfStatement();
+				return new ast.AssignmentStatement( {
+					lvalue: lvalue,
+					rvalue: rvalue,
+					newline: newline,
+				} );
 			} else {
-				return new ast.ExpressionStatement( { expression: expression } );
+				let newline = readEndOfStatement();
+				return new ast.ExpressionStatement( {
+					expression: expression,
+					newline: newline,
+				} );
 			}
 		}
 	}
 	
+	function readEndOfStatement() {
+		if( peek().type === "eof" || peek().type === "}" ) {
+			return undefined;
+		} else {
+			read( "newline" );
+		}
+	}
+	
 	function parseBreakStatement() {
-		read( "break" );
-		return new ast.BreakStatement();
+		let keyword = read( "break" );
+		let newline = readEndOfStatement();
+		return new ast.BreakStatement( {
+			keyword: keyword,
+			newline: newline,
+		} );
 	}
 	
 	function parseContinueStatement() {
-		read( "continue" );
-		return new ast.ContinueStatement();
+		let keyword = read( "continue" );
+		let newline = readEndOfStatement();
+		return new ast.ContinueStatement( {
+			keyword: keyword,
+			newline: newline,
+		} );
 	}
 	
 	function parseIfStatement() {
-		read( "if" );
-		startIgnoringNewlines();
+		let keyword = read( "if" );
 		let test = parseExpression();
 		let block = parseBlock();
 		let elseIfClauses = [];
 		let elseClause;
 		while( peek().type === "else" ) {
-			read();
+			let keyword = read();
 			if( peek().type === "if" ) {
-				read();
+				let keyword2 = read();
 				let elseIfTest = parseExpression();
 				let elseIfBlock = parseBlock();
 				elseIfClauses.push( new ast.ElseIfClause( {
+					keyword1: keyword,
+					keyword2: keyword2,
 					test: elseIfTest,
 					block: elseIfBlock,
 				} ) );
 			} else {
-				elseClause = new ast.ElseClause( { block: parseBlock() } );
+				let elseBlock = parseBlock();
+				elseClause = new ast.ElseClause( {
+					keyword: keyword,
+					elseBlock: elseBlock,
+				} );
 				break;
 			}
 		}
-		stopIgnoringNewlines();
 		return new ast.IfStatement( {
+			keyword: keyword,
 			test: test,
 			block: block,
 			elseIfClauses: elseIfClauses,
@@ -206,19 +184,23 @@ module.exports = function( tokens ) {
 		let keyword = read( "import" );
 		let fqn = parsePath();
 		let alias = fqn[ fqn.length - 1 ];
+		let newline = readEndOfStatement();
 		return new ast.ImportStatement( {
 			keyword: keyword,
 			fqn: fqn,
 			alias: alias,
+			newline: newline,
 		} );
 	}
 	
 	function parseIncludeStatement() {
 		let keyword = read( "include" );
 		let expression = parseExpression();
+		let newline = readEndOfStatement();
 		return new ast.IncludeStatement( {
 			keyword: keyword,
 			expression: expression,
+			newline: newline,
 		} );
 	}
 	
@@ -236,44 +218,60 @@ module.exports = function( tokens ) {
 	}
 	
 	function parseLetStatement() {
-		read( "let" );
+		let keyword = read( "let" );
 		let variable = read( "variable" );
 		let initialValue;
 		if( peek().type !== "newline" && peek().type !== "}" ) {
 			read( "=" );
 			initialValue = parseExpression();
 		}
+		let newline = readEndOfStatement();
 		return new ast.LetStatement( {
+			keyword: keyword,
 			variable: variable,
 			initialValue: initialValue,
+			newline: newline,
 		} );
 	}
 	
 	function parsePrintStatement() {
 		let keyword = read( "print" );
+		let expression = parseExpression();
+		let newline = readEndOfStatement();
 		return new ast.PrintStatement( {
 			keyword: keyword,
-			expression: parseExpression(),
+			expression: expression,
+			newline: newline,
 		} );
 	}
 	
 	function parseReturnStatement() {
-		read( "return" );
-		if( peek().type === "newline" || peek().type === "}" ) {
-			return new ast.ReturnStatement();
-		} else {
-			return new ast.ReturnStatement( { expression: parseExpression() } );
+		let keyword = read( "return" );
+		let expression;
+		if( peek().type !== "newline" && peek().type !== "}" ) {
+			expression = parseExpression();
 		}
+		let newline = readEndOfStatement();
+		return new ast.ReturnStatement( {
+			keyword: keyword,
+			expression: expression,
+			newline: newline,
+		} );
 	}
 	
 	function parseThrowStatement() {
-		read( "throw" );
-		return new ast.ThrowStatement( { expression: parseExpression() } );
+		let keyword = read( "throw" );
+		let expression = parseExpression();
+		let newline = readEndOfStatement();
+		return new ast.ThrowStatement( {
+			keyword: keyword,
+			expression: expression,
+			newline: newline,
+		} );
 	}
 	
 	function parseTryStatement() {
-		read( "try" );
-		startIgnoringNewlines();
+		let keyword = read( "try" );
 		let block = parseBlock();
 		let catchClauses = [];
 		while( peek().type === "catch" ) {
@@ -293,18 +291,24 @@ module.exports = function( tokens ) {
 		}
 		let elseClause;
 		if( peek().type === "else" ) {
-			read();
+			let keyword = read();
 			let block = parseBlock();
-			elseClause = new ast.ElseClause( { block: block } );
+			elseClause = new ast.ElseClause( {
+				keyword: keyword,
+				block: block,
+			} );
 		}
 		let finallyClause;
 		if( peek().type === "finally" ) {
-			read();
+			let keyword = read();
 			let block = parseBlock();
-			finallyClause = new ast.FinallyClause( { block: block } );
+			finallyClause = new ast.FinallyClause( {
+				keyword: keyword,
+				block: block,
+			} );
 		}
-		stopIgnoringNewlines();
 		return new ast.TryStatement( {
+			keyword: keyword,
 			block: block,
 			catchClauses: catchClauses,
 			elseClause: elseClause,
@@ -313,17 +317,20 @@ module.exports = function( tokens ) {
 	}
 	
 	function parseWhileStatement() {
-		read( "while" );
-		startIgnoringNewlines();
+		let keyword = read( "while" );
 		let test = parseExpression();
 		let block = parseBlock();
 		let elseClause;
 		if( peek().type === "else" ) {
-			read();
-			elseClause = new ast.ElseClause( { block: parseBlock() } );
+			let keyword = read();
+			let block = parseBlock();
+			elseClause = new ast.ElseClause( {
+				keyword: keyword,
+				block: block,
+			} );
 		}
-		stopIgnoringNewlines();
 		return new ast.WhileStatement( {
+			keyword: keyword,
 			test: test,
 			block: block,
 			elseClause: elseClause,
@@ -507,7 +514,6 @@ module.exports = function( tokens ) {
 		while( true ) {
 			if( peek().type === "(" ) {
 				let lparen = read();
-				startIgnoringNewlines();
 				let args = [];
 				if( peek().type !== ")" ) {
 					while( true ) {
@@ -520,7 +526,6 @@ module.exports = function( tokens ) {
 					}
 				}
 				read( ")" );
-				stopIgnoringNewlines();
 				expression = new ast.CallExpression( {
 					callee: expression,
 					lparen: lparen,
@@ -536,10 +541,8 @@ module.exports = function( tokens ) {
 				} );
 			} else if( peek().type === "[" ) {
 				let lbracket = read();
-				startIgnoringNewlines();
 				let index = parseExpression();
 				read( "]" );
-				stopIgnoringNewlines();
 				expression = new ast.IndexExpression( {
 					expression: expression,
 					lbracket: lbracket,
@@ -581,7 +584,6 @@ module.exports = function( tokens ) {
 	
 	function parseFunction() {
 		let keyword = read( "function" );
-		startIgnoringNewlines();
 		read( "(" );
 		let parameters = [];
 		if( peek().type !== ")" ) {
@@ -614,8 +616,7 @@ module.exports = function( tokens ) {
 			read();
 			returnType = parseExpression();
 		}
-		let block = parseBlock();
-		stopIgnoringNewlines();
+		let block = parseBlock( false );
 		return new ast.FunctionExpression( {
 			keyword: keyword,
 			parameters: parameters,
@@ -626,7 +627,6 @@ module.exports = function( tokens ) {
 	
 	function parseListLiteral() {
 		read( "[" );
-		startIgnoringNewlines();
 		let items = [];
 		while( peek().type !== "]" ) {
 			items.push( parseExpression() );
@@ -638,7 +638,6 @@ module.exports = function( tokens ) {
 			}
 		}
 		read( "]" );
-		stopIgnoringNewlines();
 		return new ast.ListLiteral( {
 			items: items,
 		} );
@@ -646,10 +645,8 @@ module.exports = function( tokens ) {
 	
 	function parseParenthesizedExpression() {
 		read( "(" );
-		startIgnoringNewlines();
 		let expression = parseExpression();
 		read( ")" );
-		stopIgnoringNewlines();
 		return new ast.ParenthesizedExpression( {
 			expression: expression,
 		} );
