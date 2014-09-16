@@ -12,29 +12,83 @@ add_and.burn:
 
 $ $BURN --tolerant add_and.burn
 
-// TODO: add-not
+add_not.burn:
+	1 + not 1
 
-// TODO: add-is
+$ $BURN --tolerant add_not.burn
+	* exit status nonzero
 
-// TODO: add-is_not
+add_is.burn:
+	assert( ( ( 1 + 1 ) is Integer ) == true )
+	assert.throws( function() { 1 + ( 1 is Integer ) }, TypeError )
+	assert( ( 1 + 1 is Integer ) == true )
 
-// TODO: add-eq
+$ $BURN --tolerant add_is.burn
 
-// TODO: add-neq
+add_is_not.burn:
+	assert( ( ( 1 + 1 ) is not Integer ) == false )
+	assert.throws( function() { 1 + ( 1 is not Integer ) }, TypeError )
+	assert( ( 1 + 1 is not Integer ) == false )
 
-// TODO: add-lt
+$ $BURN --tolerant add_is_not.burn
 
-// TODO: add-gt
+add_eq.burn:
+	assert( ( ( 1 + 1 ) == 1 ) == false )
+	assert.throws( function() { 1 + ( 1 == 1 ) }, TypeError )
+	assert( ( 1 + 1 == 1 ) == false )
 
-// TODO: add-lteq
+$ $BURN --tolerant add_eq.burn
 
-// TODO: add-gteq
+add_neq.burn:
+	assert( ( ( 1 + 1 ) != 1 ) == true )
+	assert.throws( function() { 1 + ( 1 != 1 ) }, TypeError )
+	assert( ( 1 + 1 != 1 ) == true )
+
+$ $BURN --tolerant add_neq.burn
+
+add_lt.burn:
+	assert( ( ( 1 + 1 ) < 1 ) == false )
+	assert.throws( function() { 1 + ( 1 < 1 ) }, TypeError )
+	assert( ( 1 + 1 < 1 ) == false )
+
+$ $BURN --tolerant add_lt.burn
+
+add_gt.burn:
+	assert( ( ( 1 + 1 ) > 1 ) == true )
+	assert.throws( function() { 1 + ( 1 > 1 ) }, TypeError )
+	assert( ( 1 + 1 > 1 ) == true )
+
+$ $BURN --tolerant add_gt.burn
+
+add_lteq.burn:
+	assert( ( ( 1 + 1 ) <= 1 ) == false )
+	assert.throws( function() { 1 + ( 1 <= 1 ) }, TypeError )
+	assert( ( 1 + 1 <= 1 ) == false )
+
+$ $BURN --tolerant add_lteq.burn
+
+add_gteq.burn:
+	assert( ( ( 1 + 1 ) >= 1 ) == true )
+	assert.throws( function() { 1 + ( 1 <= 1 ) }, TypeError )
+	assert( ( 1 + 1 >= 1 ) == true )
+
+$ $BURN --tolerant add_gteq.burn
 
 // TODO: add-union
 
-// TODO: add-add
+add_add.burn:
+	assert( ( ( 1 + 2 ) + 3 ) == 6 )
+	assert( ( 1 + ( 2 + 3 ) ) == 6 )
+	assert( ( 1 + 2 + 3 ) == 6 )
 
-// TODO: add-sub
+$ $BURN --tolerant add_add.burn
+
+add_sub.burn:
+	assert( ( ( 3 + 2 ) - 1 ) == 4 )
+	assert( ( 3 + ( 2 - 1 ) ) == 4 )
+	assert( ( 3 + 2 - 1 ) == 4 )
+
+$ $BURN --tolerant add_sub.burn
 
 add_mul.burn:
 	assert( ( ( 1 + 1 ) * 2 ) == 4 )

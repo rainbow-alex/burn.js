@@ -5,7 +5,12 @@ and_or.burn:
 
 $ $BURN --tolerant and_or.burn
 
-// and-and is non-associative
+and_and.burn:
+	assert( ( ( 1 and 2 ) and 3 ) == 3 )
+	assert( ( 1 and ( 2 and 3 ) ) == 3 )
+	assert( ( 1 and 2 and 3 ) == 3 )
+
+$ $BURN --tolerant and_and.burn
 
 // and-not is not ambiguous
 
