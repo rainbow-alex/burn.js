@@ -7,7 +7,6 @@ let util = require( "./util" );
 let msg = require( "../messages" );
 let types = require( "libburn/builtin/burn/types" );
 let errors = require( "libburn/builtin/burn/errors" );
-let list = require( "libburn/builtin/burn/list" );
 let implicit = require( "libburn/builtin/burn/implicit" );
 
 let rt = exports;
@@ -56,7 +55,7 @@ rt.validateFunctionCallReturnType = function( fiber, fn, type, value ) {
 };
 
 rt.createList = function( items ) {
-	return new list.JsListInstance( items );
+	return new Value.List( items );
 };
 
 rt.get = function( fiber, value, property ) {

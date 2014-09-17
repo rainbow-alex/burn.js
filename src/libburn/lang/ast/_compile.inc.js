@@ -72,7 +72,7 @@ ast.ForInStatement.prototype.compile = function( output ) {
 	if( this.label ) {
 		output.code += this.label.value.substr(1) + ':';
 	}
-	output.code += 'while(' + loopVar + '=' + iteratorVar + '.next()){';
+	output.code += 'while(' + loopVar + '=' + iteratorVar + '()){';
 	output.code += 'let ' + encodeVariable( this.variable.value ) + '=' + loopVar + ';';
 	this.block.statements.forEach( function( s ) {
 		s.compile( output );

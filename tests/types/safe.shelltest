@@ -1,0 +1,33 @@
+primitives.burn:
+	import burn.types.Safe
+	assert( 1 is Safe )
+	assert( "" is Safe )
+
+$ $BURN primitives.burn
+
+module.burn:
+	import burn.types.Safe
+	import burn
+	assert( burn is Safe )
+
+$ $BURN module.burn
+
+functions.burn:
+	import burn.types.Safe
+	
+	assert( function() {} is Safe )
+	
+	let $foo
+	assert( function() {
+		( $foo )
+	} is not Safe )
+	assert( function() {
+		$foo = 3
+	} is not Safe )
+	assert( function() {
+		function() {
+			( $foo )
+		}
+	} is not Safe )
+
+$ $BURN functions.burn

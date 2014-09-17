@@ -5,9 +5,9 @@ let Value = require( "./Value" );
 let msg = require( "../messages" );
 let errors;
 
-let help = module.exports;
+let util = module.exports;
 
-help.async = function( f ) {
+util.async = function( f ) {
 	let current = nodefibers.current;
 	f( function( err, res ) {
 		if( err ) {
@@ -19,7 +19,7 @@ help.async = function( f ) {
 	return nodefibers.yield();
 };
 
-help.validateIndex = function( fiber, context, type, index ) {
+util.validateIndex = function( fiber, context, type, index ) {
 	errors = errors || require( "libburn/builtin/burn/errors" );
 	
 	if( ! type.typeTest( fiber, index ) ) {
@@ -30,7 +30,7 @@ help.validateIndex = function( fiber, context, type, index ) {
 	}
 };
 
-help.validateFunctionCallArguments = function( fiber, function_, parameters, args ) {
+util.validateFunctionCallArguments = function( fiber, function_, parameters, args ) {
 	errors = errors || require( "libburn/builtin/burn/errors" );
 	
 	let min = parameters.length;
@@ -69,7 +69,7 @@ help.validateFunctionCallArguments = function( fiber, function_, parameters, arg
 	} );
 };
 
-help.validateMethodCallArguments = function( fiber, context, method, parameters, args ) {
+util.validateMethodCallArguments = function( fiber, context, method, parameters, args ) {
 	errors = errors || require( "libburn/builtin/burn/errors" );
 	
 	let min = parameters.length;
@@ -108,8 +108,9 @@ help.validateMethodCallArguments = function( fiber, context, method, parameters,
 	} );
 };
 
-help.JsInstanceofType = CLASS( Value.Special, {
+util.JsInstanceofType = CLASS( Value.Special, {
 	init: function( constructor ) {
+		console.assert( typeof constructor === "function" );
 		this.constructor = constructor;
 	},
 	suggestName: function( name ) {
@@ -130,7 +131,7 @@ help.JsInstanceofType = CLASS( Value.Special, {
 	},
 } );
 
-help.JsFunctionType = CLASS( Value.Special, {
+util.JsFunctionType = CLASS( Value.Special, {
 	init: function( test, options ) {
 		this.test = test;
 		console.assert( options && options.permanent !== undefined, "JsFunctionTypes should specify wether they are Permanent." );

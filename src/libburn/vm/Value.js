@@ -18,8 +18,15 @@ let Value = module.exports = CLASS( {
 	canOrd: function( value ) {
 		return false;
 	},
-	canGet: function( property ) {
-		return false;
+	canGet: function( name ) {
+		return Boolean( this[ "get_" + name ] || this[ "call_" + name ] );
+	},
+	get: function( fiber, name ) {
+		if( this[ "call_" + name ] ) {
+			return new Value.Special.BoundMethod( this, name );
+		} else {
+			return this[ "get_" + name ]( fiber );
+		}
 	},
 	canSet: function( property ) {
 		return false;
@@ -142,15 +149,8 @@ Value.String = CLASS( Value, {
 		// TODO typecheck
 		return new Value.String( this.value.at( index.value ) );
 	},
-	canGet: function( property ) {
-		return [ "length" ].indexOf( property ) !== -1;
-	},
-	get: function( fiber, property ) {
-		if( property === "length" ) {
-			return new Value.Integer( utf8.length( this.value ) );
-		} else {
-			console.assert( false );
-		}
+	get_length: function( fiber ) {
+		return new Value.Integer( utf8.length( this.value ) );
 	},
 	isSafe: function() {
 		return true;
@@ -250,16 +250,6 @@ Value.Special = CLASS( Value, {
 	toBurnString: function( fiber ) {
 		return new Value.String( this.toString() );
 	},
-	canGet: function( name ) {
-		return Boolean( this[ "get_" + name ] || this[ "call_" + name ] );
-	},
-	get: function( fiber, name ) {
-		if( this[ "call_" + name ] ) {
-			return new Value.Special.BoundMethod( this, name );
-		} else {
-			return this[ "get_" + name ]( fiber );
-		}
-	},
 	toString: function() {
 		return this.repr;
 	},
@@ -311,3 +301,39 @@ Value.TypeIntersection = CLASS( Value, {
 		return this.left.typeTest( fiber, value ) && this.right.typeTest( fiber, value );
 	},
 } );
+
+Value.List = CLASS( Value, {
+	init: function( items ) {
+		this.items = items || [];
+	},
+	repr: "<List>",
+	isTruthy: function() {
+		return this.items.length !== 0;
+	},
+	getIndex: function( fiber, index ) {
+		util.validateIndex( fiber, this, types.Integer, index );
+		return this.items[ index.value ];
+	},
+	setIndex: function( fiber, index, value ) {
+		util.validateIndex( fiber, this, types.Integer, index );
+		this.items[ index.value ] = value;
+	},
+	iter: function() {
+		let list = this;
+		let i = 0;
+		return function() {
+			return list.items[ i++ ];
+		};
+	},
+	get_length: function( fiber ) {
+		return new Value.Integer( this.items.length );
+	},
+	call_push: function( fiber, args ) {
+		util.validateMethodCallArguments( fiber, this, "push", [ { type: types.Integer } ], args );
+		this.items.push( args[0] );
+	},
+} );
+
+// these modules depend on Value.*
+let util = require( "./util" );
+let types = require( "libburn/builtin/burn/types" );

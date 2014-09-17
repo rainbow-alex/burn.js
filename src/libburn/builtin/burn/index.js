@@ -11,5 +11,4 @@ burn.exposes = new Value.Module( {
 	fiber: require( "./fiber" ).exposes,
 	security: require( "./security" ).exposes,
 	Process: require( "./Process" ).exposes,
-	list: require( "./list" ).exposes,
 } );

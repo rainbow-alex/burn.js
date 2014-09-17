@@ -11,6 +11,7 @@ types.Float = new util.JsInstanceofType( Value.Float );
 types.String = new util.JsInstanceofType( Value.String );
 types.Function = new util.JsInstanceofType( Value.Function );
 types.Module = new util.JsInstanceofType( Value.Module );
+types.List = new util.JsInstanceofType( Value.List );
 
 types.Type = new util.JsFunctionType( function( fiber, v ) {
 	return Boolean( v.typeTest );
