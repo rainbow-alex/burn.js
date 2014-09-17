@@ -1,0 +1,10 @@
+shebang.burn:
+	#!/usr/bin/env burn
+	print magic:line
+
+$ $BURN shebang.burn
+	* stdout
+		2
+
+// the purpose of this test is not to verify that the shebang works,
+// but that it is treated by the lexer as whitespace

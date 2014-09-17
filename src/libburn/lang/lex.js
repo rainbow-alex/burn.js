@@ -45,6 +45,13 @@ module.exports = function( origin ) {
 		tokens.push( token );
 	}
 	
+	let m;
+	if( m = source.match( /^#!.*?(\n|$)/ ) ) {
+		whitespace = m[0];
+		i += m[0].length;
+		line = 2;
+	}
+	
 	while( i < source.length ) {
 		
 		let m;
