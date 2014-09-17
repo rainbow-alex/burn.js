@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="burn" _name="Burn" version="2.0" _section="Scripts">
+	
+	<metadata>
+		<property name="globs">*.burn</property>
+		<property name="line-comment-start">//</property>
+	</metadata>
+	
+	<styles>
+		<style id="comment" _name="Comment" map-to="def:comment" />
+		<style id="annotation" _name="Annotation" map-to="def:preprocessor" />
+		<style id="annotation-key" _name="Annotation key" map-to="def:preprocessor" />
+		<style id="simple-statement-keyword" _name="Keyword" map-to="def:keyword" />
+		<style id="compound-statement-keyword" _name="Keyword" map-to="def:keyword" />
+		<style id="operator" _name="Operator" map-to="def:operator" />
+		<style id="operator-keyword" _name="Operator" map-to="def:operator" />
+		<style id="function-keyword" _name="Keyword" map-to="def:keyword" />
+		<style id="variable" _name="Variable" map-to="def:identifier" />
+		<style id="string" _name="String" map-to="def:string" />
+		<style id="string-escape" _name="Escaped Character" map-to="def:special-char" />
+		<style id="integer" _name="Decimal number" map-to="def:decimal" />
+		<style id="float" _name="Floating point number" map-to="def:floating-point" />
+		<style id="boolean" _name="Boolean" map-to="def:boolean" />
+		<style id="nothing" _name="Builtin Constant" map-to="def:special-constant" />
+	</styles>
+	
+	<definitions>
+		
+		<context id="comment" class="comment" style-ref="comment">
+			<start>\/\/</start>
+			<end>$</end>
+			<include>
+				<context ref="def:in-comment" />
+			</include>
+		</context>
+		
+		<context id="multiline-comment" class="comment" style-ref="comment">
+			<start>\/(\*+)</start>
+			<end>\%{1@start}\/</end>
+			<include>
+				<context ref="def:in-comment" />
+			</include>
+		</context>
+		
+		<context id="annotation" style-ref="annotation">
+			<start>@[A-Za-z_](:?[A-Za-z0-9_])*</start>
+			<end>$</end>
+			<include>
+				<context where="start" sub-pattern="0" style-ref="annotation-key" />
+				<context ref="double-quoted-string" ignore-style="true" />
+			</include>
+		</context>
+		
+		<context id="simple-statement-keyword" style-ref="simple-statement-keyword">
+			<keyword>break</keyword>
+			<keyword>continue</keyword>
+			<keyword>import</keyword>
+			<keyword>include</keyword>
+			<keyword>let</keyword>
+			<keyword>print</keyword>
+			<keyword>return</keyword>
+			<keyword>throw</keyword>
+		</context>
+		
+		<context id="compound-statement-keyword" style-ref="compound-statement-keyword">
+			<keyword>catch</keyword>
+			<keyword>else</keyword>
+			<keyword>finally</keyword>
+			<keyword>for</keyword>
+			<keyword>if</keyword>
+			<keyword>try</keyword>
+			<keyword>while</keyword>
+		</context>
+		
+		<context id="operator" style-ref="operator">
+			<match extended="true">
+				= |
+				\+ | - | \* | \/
+			</match>
+		</context>
+		
+		<context id="operator-keyword" style-ref="operator-keyword">
+			<keyword>and</keyword>
+			<keyword>in</keyword>
+			<keyword>is</keyword>
+			<keyword>not</keyword>
+			<keyword>or</keyword>
+		</context>
+		
+		<context id="function-keyword" style-ref="function-keyword">
+			<keyword>function</keyword>
+		</context>
+		
+		<context id="variable" style-ref="variable">
+			<match>\$[A-Za-z_](:?[A-Za-z0-9_])*</match>
+		</context>
+		
+		<context id="string-escape" style-ref="string-escape" extend-parent="true">
+			<match extended="true">
+				\\(
+					"
+					| [nt]
+					| x[0-9A-Fa-f]{2}
+					| u[0-9A-Fa-f]{4}
+					| U[0-9A-Fa-f]{4}
+				)
+			</match>
+		</context>
+		
+		<context id="double-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+			<start>"</start>
+			<end>"</end>
+			<include>
+				<context ref="string-escape" />
+			</include>
+		</context>
+		
+		<context id="float" style-ref="integer">
+			<match>-?(0|[1-9][0-9]*)\.[0-9]+</match>
+		</context>
+		
+		<context id="integer" style-ref="integer">
+			<match>-?(0|[1-9][0-9]*)</match>
+		</context>
+		
+		<context id="boolean" style-ref="boolean">
+			<keyword>true</keyword>
+			<keyword>false</keyword>
+		</context>
+		
+		<context id="nothing" style-ref="nothing">
+			<keyword>nothing</keyword>
+		</context>
+		
+		<context id="burn" class="no-spell-check">
+			<include>
+				<context ref="def:shebang" />
+				<context ref="comment" />
+				<context ref="multiline-comment" />
+				<context ref="annotation" />
+				<context ref="simple-statement-keyword" />
+				<context ref="compound-statement-keyword" />
+				<context ref="operator" />
+				<context ref="operator-keyword" />
+				<context ref="function-keyword" />
+				<context ref="variable" />
+				<context ref="double-quoted-string" />
+				<context ref="float" />
+				<context ref="integer" />
+				<context ref="boolean" />
+				<context ref="nothing" />
+			</include>
+		</context>
+		
+	</definitions>
+	
+</language>
