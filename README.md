@@ -16,7 +16,6 @@ which will (hopefully) reach production quality some day.
 You will need node.js (>=0.10) to run `burn.js`, with the following modules:
 
 * [fibers](https://github.com/laverdet/node-fibers)
-* [UTF8.js](https://github.com/nfroidure/UTF8.js)
 * [String.fromCodePoint](https://github.com/mathiasbynens/String.fromCodePoint)
 * [String.prototype.at](https://github.com/mathiasbynens/String.prototype.at)
 
