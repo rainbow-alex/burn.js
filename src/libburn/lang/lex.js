@@ -94,20 +94,20 @@ module.exports = function( origin ) {
 			pushToken( m[0], m[0] );
 		
 		// identifiers
-		} else if( m = source.substr(i).match( /^[A-Za-z_][A-Za-z0-9_:]*/ ) ) {
-			if( m[0].match( /^:|::|:$/ ) ) {
-				throw new Error( "Invalid identifier.", origin, line, offset );
-			}
+		} else if( m = source.substr(i).match( /^[A-Za-z_](:?[A-Za-z0-9_])*/ ) ) {
 			pushToken( "identifier", m[0] );
 		
 		// variables
-		} else if( m = source.substr(i).match( /^\$[A-Za-z_][A-Za-z0-9_:]*/ ) ) {
-			if( m[0].match( /::|:$/ ) ) {
-				throw new Error( "Invalid variable.", origin, line, offset );
-			}
+		} else if( m = source.substr(i).match( /^\$[A-Za-z_](:?[A-Za-z0-9_])*/ ) ) {
 			pushToken( "variable", m[0] );
 		} else if( m = source.substr(i).match( /^\$/ ) ) {
 			throw new Error( "Invalid variable.", origin, line, offset );
+		
+		// annotations
+		} else if( m = source.substr(i).match( /^@[A-Za-z_](:?[A-Za-z0-9_])*/ ) ) {
+			pushToken( "annotation_key", m[0] );
+		} else if( m = source.substr(i).match( /^@/ ) ) {
+			throw new Error( "Invalid annotation key.", origin, line, offset );
 		
 		// number literals
 		} else if( m = source.substr(i).match( /^-?(0|[1-9][0-9]*)\.[0-9]+/ ) ) {

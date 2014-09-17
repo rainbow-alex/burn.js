@@ -51,9 +51,20 @@ module.exports = function( tokens ) {
 	//
 	
 	function parseRoot() {
+		let annotations = [];
 		let statements = [];
 		while( peek().type !== "eof" ) {
-			statements.push( parseStatement() );
+			if( peek().type === "annotation_key" ) {
+				annotations.push( parseAnnotation() );
+			} else {
+				let statement = parseStatement();
+				statement.annotations = annotations;
+				annotations = [];
+				statements.push( statement );
+			}
+		}
+		if( annotations.length ) {
+			throwError( "Expected statement." );
 		}
 		return new ast.Root( {
 			statements: statements,
@@ -62,10 +73,21 @@ module.exports = function( tokens ) {
 	
 	function parseBlock( readTrailingNewline ) {
 		readTrailingNewline = readTrailingNewline === undefined ? true : readTrailingNewline;
+		let annotations = [];
 		let statements = [];
 		let lbrace = read( "{" );
 		while( peek().type !== "}" ) {
-			statements.push( parseStatement() );
+			if( peek().type === "annotation_key" ) {
+				annotations.push( parseAnnotation() );
+			} else {
+				let statement = parseStatement();
+				statement.annotations = annotations;
+				annotations = [];
+				statements.push( statement );
+			}
+		}
+		if( annotations.length ) {
+			throwError( "Expected statement." );
 		}
 		let rbrace = read( "}" );
 		let newline;
@@ -76,6 +98,20 @@ module.exports = function( tokens ) {
 			lbrace: lbrace,
 			statements: statements,
 			rbrace: rbrace,
+			newline: newline,
+		} );
+	}
+	
+	function parseAnnotation() {
+		let key = read( "annotation_key" );
+		let tokens = [];
+		while( peek().type !== "newline" && peek().type !== "eof" ) {
+			tokens.push( read() );
+		}
+		let newline = readEndOfStatement();
+		return new ast.Annotation( {
+			key: key,
+			tokens: tokens,
 			newline: newline,
 		} );
 	}

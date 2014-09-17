@@ -11,8 +11,9 @@ exports.Node = CLASS( {
 } );
 
 exports.Root = CLASS( exports.Node );
-
 exports.Block = CLASS( exports.Node );
+
+exports.Annotation = CLASS( exports.Node );
 
 exports.Statement = CLASS( exports.Node );
 exports.BreakStatement = CLASS( exports.Statement );

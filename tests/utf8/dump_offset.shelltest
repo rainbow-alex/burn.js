@@ -3,7 +3,7 @@ print_offset.py:
 	import sys, json
 	ast = json.loads( sys.stdin.read() )
 	statement = ast[ "children" ][0][1][0]
-	expression = statement[ "children" ][0][1]
+	expression = statement[ "children" ][1][1]
 	token = expression[ "children" ][0][1]
 	print( token[ "offset" ] )
 

@@ -26,10 +26,22 @@ ast.Block.prototype.toJSON = function() {
 	};
 };
 
+ast.Annotation.prototype.toJSON = function() {
+	return {
+		type: "node/annotation",
+		children: [
+			[ "key", this.key ],
+			[ "tokens", this.tokens ],
+			[ "newline", this.newline ],
+		],
+	};
+};
+
 ast.BreakStatement.prototype.toJSON = function() {
 	return {
 		type: "node/statement/break",
 		children: [
+			[ "annotations", this.annotations ],
 			[ "keyword", this.keyword ],
 			[ "newline", this.newline ],
 		],
@@ -40,6 +52,7 @@ ast.ContinueStatement.prototype.toJSON = function() {
 	return {
 		type: "node/statement/continue",
 		children: [
+			[ "annotations", this.annotations ],
 			[ "keyword", this.keyword ],
 			[ "newline", this.newline ],
 		],
@@ -50,6 +63,7 @@ ast.IfStatement.prototype.toJSON = function() {
 	return {
 		type: "node/statement/if",
 		children: [
+			[ "annotations", this.annotations ],
 			[ "if", {
 				type: "node/clause/if",
 				children: [
@@ -69,6 +83,7 @@ ast.ImportStatement.prototype.toJSON = function() {
 	return {
 		type: "node/statement/import",
 		children: [
+			[ "annotations", this.annotations ],
 			[ "keyword", this.keyword ],
 			[ "fqn", this.fqn ],
 			[ "newline", this.newline ],
@@ -80,6 +95,7 @@ ast.IncludeStatement.prototype.toJSON = function() {
 	return {
 		type: "node/statement/include",
 		children: [
+			[ "annotations", this.annotations ],
 			[ "keyword", this.keyword ],
 			[ "expression", this.expression ],
 			[ "newline", this.newline ],
@@ -91,6 +107,7 @@ ast.LetStatement.prototype.toJSON = function() {
 	return {
 		type: "node/statement/let",
 		children: [
+			[ "annotations", this.annotations ],
 			[ "keyword", this.keyword ],
 			[ "variable", this.variable ],
 			[ "initial_value", this.initialValue && {
@@ -109,6 +126,7 @@ ast.PrintStatement.prototype.toJSON = function() {
 	return {
 		type: "node/statement/print",
 		children: [
+			[ "annotations", this.annotations ],
 			[ "keyword", this.keyword ],
 			[ "expression", this.expression ],
 			[ "newline", this.newline ],
@@ -120,6 +138,7 @@ ast.ReturnStatement.prototype.toJSON = function() {
 	return {
 		type: "node/statement/return",
 		children: [
+			[ "annotations", this.annotations ],
 			[ "keyword", this.keyword ],
 			[ "expression", this.expression ],
 			[ "newline", this.newline ],
@@ -131,6 +150,7 @@ ast.TryStatement.prototype.toJSON = function() {
 	return {
 		type: "node/statement/try",
 		children: [
+			[ "annotations", this.annotations ],
 			[ "try", {
 				type: "node/clause/try",
 				children: [
@@ -150,6 +170,7 @@ ast.ThrowStatement.prototype.toJSON = function() {
 	return {
 		type: "node/statement/throw",
 		children: [
+			[ "annotations", this.annotations ],
 			[ "keyword", this.keyword ],
 			[ "expression", this.expression ],
 			[ "newline", this.newline ],
@@ -161,6 +182,7 @@ ast.WhileStatement.prototype.toJSON = function() {
 	return {
 		type: "node/statement/while",
 		children: [
+			[ "annotations", this.annotations ],
 			[ "while", {
 				type: "node/clause/while",
 				children: [
@@ -179,6 +201,7 @@ ast.ExpressionStatement.prototype.toJSON = function() {
 	return {
 		type: "node/statement/expression",
 		children: [
+			[ "annotations", this.annotations ],
 			[ "expression", this.expression ],
 			[ "newline", this.newline ],
 		],
@@ -189,6 +212,7 @@ ast.AssignmentStatement.prototype.toJSON = function() {
 	return {
 		type: "node/statement/assignment",
 		children: [
+			[ "annotations", this.annotations ],
 			[ "expression", this.expression ],
 			[ "lvalue", this.lvalue ],
 			[ "operator", this.operator ],
