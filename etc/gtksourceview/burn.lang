@@ -10,6 +10,7 @@
 		<style id="comment" _name="Comment" map-to="def:comment" />
 		<style id="annotation" _name="Annotation" map-to="def:preprocessor" />
 		<style id="annotation-key" _name="Annotation key" map-to="def:preprocessor" />
+		<style id="label" _name="Label" />
 		<style id="simple-statement-keyword" _name="Keyword" map-to="def:keyword" />
 		<style id="compound-statement-keyword" _name="Keyword" map-to="def:keyword" />
 		<style id="operator" _name="Operator" map-to="def:operator" />
@@ -49,6 +50,10 @@
 				<context where="start" sub-pattern="0" style-ref="annotation-key" />
 				<context ref="double-quoted-string" ignore-style="true" />
 			</include>
+		</context>
+		
+		<context id="label" style-ref="label">
+			<match>#[A-Za-z_](:?[A-Za-z0-9_])*</match>
 		</context>
 		
 		<context id="simple-statement-keyword" style-ref="simple-statement-keyword">
@@ -138,6 +143,7 @@
 				<context ref="comment" />
 				<context ref="multiline-comment" />
 				<context ref="annotation" />
+				<context ref="label" />
 				<context ref="simple-statement-keyword" />
 				<context ref="compound-statement-keyword" />
 				<context ref="operator" />
