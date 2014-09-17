@@ -43,6 +43,7 @@ ast.BreakStatement.prototype.toJSON = function() {
 		children: [
 			[ "annotations", this.annotations ],
 			[ "keyword", this.keyword ],
+			[ "label", this.label ],
 			[ "newline", this.newline ],
 		],
 	};
@@ -54,7 +55,30 @@ ast.ContinueStatement.prototype.toJSON = function() {
 		children: [
 			[ "annotations", this.annotations ],
 			[ "keyword", this.keyword ],
+			[ "label", this.label ],
 			[ "newline", this.newline ],
+		],
+	};
+};
+
+ast.ForInStatement.prototype.toJSON = function() {
+	return {
+		type: "node/statement/for_in",
+		children: [
+			[ "annotations", this.annotations ],
+			[ "label", {
+				type: "node/label",
+				children: [
+					[ "token", this.label ],
+					[ "newline", this.labelNewline ],
+				],
+			} ],
+			[ "keyword_for", this.keyword1 ],
+			[ "variable", this.variable ],
+			[ "keyword_in", this.keyword2 ],
+			[ "block", this.block ],
+			[ "newline", this.newline ],
+			[ "else", this.elseClause ],
 		],
 	};
 };
@@ -183,6 +207,13 @@ ast.WhileStatement.prototype.toJSON = function() {
 		type: "node/statement/while",
 		children: [
 			[ "annotations", this.annotations ],
+			[ "label", {
+				type: "node/label",
+				children: [
+					[ "token", this.label ],
+					[ "newline", this.labelNewline ],
+				],
+			} ],
 			[ "while", {
 				type: "node/clause/while",
 				children: [
@@ -226,8 +257,8 @@ ast.ElseIfClause.prototype.toJSON = function() {
 	return {
 		type: "node/clause/else_if",
 		children: [
-			[ "keyword1", this.keyword1 ],
-			[ "keyword2", this.keyword2 ],
+			[ "keyword_else", this.keyword1 ],
+			[ "keyword_if", this.keyword2 ],
 			[ "test", this.test ],
 			[ "block", this.block ],
 			[ "newline", this.newline ],
@@ -309,8 +340,8 @@ ast.IsExpression.prototype.toJSON = function() {
 			type: "node/expression/is_not",
 			children: [
 				[ "expression", this.expression ],
-				[ "operator1", this.operator ],
-				[ "operator2", this.not ],
+				[ "operator_is", this.operator ],
+				[ "operator_not", this.not ],
 				[ "type", this.type ],
 			],
 		};

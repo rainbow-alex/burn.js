@@ -264,6 +264,11 @@ rt.not = function( fiber, e ) {
 	return new Value.Boolean( ! e.isTruthy( fiber ) );
 };
 
+rt.forInIter = function( fiber, iterable ) {
+	console.assert( iterable.iter ); // TODO error handling
+	return iterable.iter();
+};
+
 rt.import = function( fiber, fqn ) {
 	let x = fiber.vm.importRootModule( fiber, fqn[0] );
 	fqn.slice(1).forEach( function( p, i ) {

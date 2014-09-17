@@ -3,67 +3,67 @@ gteq_or.burn:
 	assert( ( 1 >= ( 2 or nothing ) ) == false )
 	assert( ( 1 >= 2 or nothing ) == nothing )
 
-$ $BURN --tolerant gteq_or.burn
+$ $BURN gteq_or.burn
 
 gteq_and.burn:
 	assert( ( ( 1 >= 1 ) and 1 ) == 1 )
 	assert( ( 1 >= ( 1 and 1 ) ) == true )
 	assert( ( 1 >= 1 and 1 ) == 1 )
 
-$ $BURN --tolerant gteq_and.burn
+$ $BURN gteq_and.burn
 
 gteq_not.burn:
 	1 >= not 1
 
-$ $BURN --tolerant gteq_not.burn
+$ $BURN gteq_not.burn
 	* exit status nonzero
 
 gteq_is.burn:
 	nothing >= nothing is nothing
 
-$ $BURN --tolerant gteq_is.burn
+$ $BURN gteq_is.burn
 	* exit status nonzero
 
 gteq_is_not.burn:
 	nothing >= nothing is not nothing
 
-$ $BURN --tolerant gteq_is_not.burn
+$ $BURN gteq_is_not.burn
 	* exit status nonzero
 
 gteq_eq.burn:
 	nothing >= nothing == nothing
 
-$ $BURN --tolerant gteq_eq.burn
+$ $BURN gteq_eq.burn
 	* exit status nonzero
 
 gteq_neq.burn:
 	nothing >= nothing != nothing
 
-$ $BURN --tolerant gteq_neq.burn
+$ $BURN gteq_neq.burn
 	* exit status nonzero
 
 gteq_lt.burn:
 	nothing >= nothing < nothing
 
-$ $BURN --tolerant gteq_lt.burn
+$ $BURN gteq_lt.burn
 	* exit status nonzero
 
 gteq_gt.burn:
 	nothing >= nothing > nothing
 
-$ $BURN --tolerant gteq_gt.burn
+$ $BURN gteq_gt.burn
 	* exit status nonzero
 
 gteq_lteq.burn:
 	nothing >= nothing <= nothing
 
-$ $BURN --tolerant gteq_lteq.burn
+$ $BURN gteq_lteq.burn
 	* exit status nonzero
 
 gteq_gteq.burn:
 	nothing >= nothing >= nothing
 
-$ $BURN --tolerant gteq_gteq.burn
+$ $BURN gteq_gteq.burn
 	* exit status nonzero
 
 // TODO: gteq-union

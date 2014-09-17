@@ -116,6 +116,12 @@ module.exports = function( origin ) {
 		} else if( m = source.substr(i).match( /^@/ ) ) {
 			throw new Error( "Invalid annotation key.", origin, line, offset );
 		
+		// labels
+		} else if( m = source.substr(i).match( /^#[A-Za-z_](:?[A-Za-z0-9_])*/ ) ) {
+			pushToken( "label", m[0] );
+		} else if( m = source.substr(i).match( /^#/ ) ) {
+			throw new Error( "Invalid label.", origin, line, offset );
+		
 		// number literals
 		} else if( m = source.substr(i).match( /^-?(0|[1-9][0-9]*)\.[0-9]+/ ) ) {
 			pushToken( "float_literal", m[0] );

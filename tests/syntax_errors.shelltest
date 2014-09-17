@@ -25,6 +25,28 @@ var6.burn:
 include1.burn:
 	include
 
+break1.burn:
+	break
+break2.burn:
+	break #loop
+break3.burn:
+	while true {
+		break #loop
+	}
+
+while1.burn:
+	while
+while2.burn:
+	while {
+	}
+while3.burn:
+	#loop
+	while true {
+		#loop
+		while true {
+		}
+	}
+
 catch1.burn:
 	try {
 	} catch {

@@ -13,7 +13,6 @@ module.exports = CLASS( {
 	init: function( path ) {
 		let burn = require( "libburn/builtin/burn" );
 		this.path = path;
-		this.enableLint = true;
 		this._root = {
 			burn: burn.exposes,
 		};
@@ -28,9 +27,6 @@ module.exports = CLASS( {
 	parse: function( origin ) {
 		let ast = libburn.lang.parse( libburn.lang.lex( origin ) );
 		ast.resolve();
-		if( this.enableLint ) {
-			ast.lint();
-		}
 		return ast;
 	},
 	

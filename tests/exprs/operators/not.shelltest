@@ -72,4 +72,4 @@ not_result.burn:
 	assert( $v16 is Boolean )
 	assert( $v16 == false )
 
-$ $BURN --tolerant not_result.burn
+$ $BURN not_result.burn

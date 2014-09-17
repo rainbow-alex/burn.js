@@ -3,14 +3,14 @@ sub_or.burn:
 	assert( ( 1 - ( 1 or nothing ) ) == 0 )
 	assert( ( 1 - 1 or nothing ) == nothing )
 
-$ $BURN --tolerant sub_or.burn
+$ $BURN sub_or.burn
 
 sub_and.burn:
 	assert( ( ( 1 - 1 ) and 2 ) == 0 )
 	assert( ( 1 - ( 1 and 2 ) ) == -1 )
 	assert( ( 1 - 1 and 2 ) == 0 )
 
-$ $BURN --tolerant sub_and.burn
+$ $BURN sub_and.burn
 
 // TODO: sub-not
 
@@ -37,20 +37,20 @@ sub_add.burn:
 	assert( ( 1 - ( 1 + 1 ) ) == -1 )
 	assert( ( 1 - 1 + 1 ) == 1 )
 
-$ $BURN --tolerant sub_add.burn
+$ $BURN sub_add.burn
 
 sub_sub.burn:
 	assert( ( ( 1 - 1 ) - 1 ) == -1 )
 	assert( ( 1 - ( 1 - 1 ) ) == 1 )
 	assert( ( 1 - 1 - 1 ) == -1 )
 
-$ $BURN --tolerant sub_sub.burn
+$ $BURN sub_sub.burn
 
 sub_mul.burn:
 	assert( ( ( 1 - 1 ) * 2 ) == 0 )
 	assert( ( 1 - ( 1 * 2 ) ) == -1 )
 	assert( ( 1 - 1 * 2 ) == -1 )
 
-$ $BURN --tolerant sub_mul.burn
+$ $BURN sub_mul.burn
 
 // TODO: sub-div

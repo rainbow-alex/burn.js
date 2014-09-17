@@ -18,6 +18,7 @@ exports.Annotation = CLASS( exports.Node );
 exports.Statement = CLASS( exports.Node );
 exports.BreakStatement = CLASS( exports.Statement );
 exports.ContinueStatement = CLASS( exports.Statement );
+exports.ForInStatement = CLASS( exports.Statement );
 exports.IfStatement = CLASS( exports.Statement );
 exports.ImportStatement = CLASS( exports.Statement );
 exports.IncludeStatement = CLASS( exports.Statement );
@@ -82,6 +83,5 @@ for( let k in exports ) {
 }
 
 require( "./_resolve.inc.js" );
-require( "./_lint.inc.js" );
 require( "./_compile.inc.js" );
 require( "./_toJSON.inc.js" );

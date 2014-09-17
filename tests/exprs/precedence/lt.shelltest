@@ -3,67 +3,67 @@ lt_or.burn:
 	assert( ( 1 < ( 1 or nothing ) ) == false )
 	assert( ( 1 < 1 or nothing ) == nothing )
 
-$ $BURN --tolerant lt_or.burn
+$ $BURN lt_or.burn
 
 lt_and.burn:
 	assert( ( ( 1 < 1 ) and 2 ) == false )
 	assert( ( 1 < ( 1 and 2 ) ) == true )
 	assert( ( 1 < 1 and 2 ) == false )
 
-$ $BURN --tolerant lt_and.burn
+$ $BURN lt_and.burn
 
 lt_not.burn:
 	1 < not 1
 
-$ $BURN --tolerant lt_not.burn
+$ $BURN lt_not.burn
 	* exit status nonzero
 
 lt_is.burn:
 	nothing < nothing is nothing
 
-$ $BURN --tolerant lt_is.burn
+$ $BURN lt_is.burn
 	* exit status nonzero
 
 lt_is_not.burn:
 	nothing < nothing is not nothing
 
-$ $BURN --tolerant lt_is_not.burn
+$ $BURN lt_is_not.burn
 	* exit status nonzero
 
 lt_eq.burn:
 	nothing < nothing == nothing
 
-$ $BURN --tolerant lt_eq.burn
+$ $BURN lt_eq.burn
 	* exit status nonzero
 
 lt_neq.burn:
 	nothing < nothing != nothing
 
-$ $BURN --tolerant lt_neq.burn
+$ $BURN lt_neq.burn
 	* exit status nonzero
 
 lt_lt.burn:
 	nothing < nothing < nothing
 
-$ $BURN --tolerant lt_lt.burn
+$ $BURN lt_lt.burn
 	* exit status nonzero
 
 lt_gt.burn:
 	nothing < nothing > nothing
 
-$ $BURN --tolerant lt_gt.burn
+$ $BURN lt_gt.burn
 	* exit status nonzero
 
 lt_lteq.burn:
 	nothing < nothing <= nothing
 
-$ $BURN --tolerant lt_lteq.burn
+$ $BURN lt_lteq.burn
 	* exit status nonzero
 
 lt_gteq.burn:
 	nothing < nothing >= nothing
 
-$ $BURN --tolerant lt_gteq.burn
+$ $BURN lt_gteq.burn
 	* exit status nonzero
 
 // TODO: lt-union

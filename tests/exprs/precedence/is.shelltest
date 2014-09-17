@@ -3,67 +3,67 @@ is_or.burn:
 	assert( ( 1 is ( Nothing or Integer ) ) == false )
 	assert( ( 1 is Nothing or Integer ) == Integer )
 
-$ $BURN --tolerant is_or.burn
+$ $BURN is_or.burn
 
 is_and.burn:
 	assert( ( ( 1 is Something ) and Integer ) == Integer )
 	assert( ( 1 is ( Something and Integer ) ) == true )
 	assert( ( 1 is Something and Integer ) == Integer )
 
-$ $BURN --tolerant is_and.burn
+$ $BURN is_and.burn
 
 is_not.burn:
 	assert( ( 1 is not Float ) == true )
 	assert.throws( function() { 1 is ( not Float ) }, TypeError )
 
-$ $BURN --tolerant is_not.burn
+$ $BURN is_not.burn
 
 is_is.burn:
 	nothing is nothing is nothing
 
-$ $BURN --tolerant is_is.burn
+$ $BURN is_is.burn
 	* exit status nonzero
 
 is_is_not.burn:
 	nothing is nothing is not nothing
 
-$ $BURN --tolerant is_is_not.burn
+$ $BURN is_is_not.burn
 	* exit status nonzero
 
 is_eq.burn:
 	nothing is nothing == nothing
 
-$ $BURN --tolerant is_eq.burn
+$ $BURN is_eq.burn
 	* exit status nonzero
 
 is_neq.burn:
 	nothing is nothing != nothing
 
-$ $BURN --tolerant is_neq.burn
+$ $BURN is_neq.burn
 	* exit status nonzero
 
 is_lt.burn:
 	nothing is nothing < nothing
 
-$ $BURN --tolerant is_lt.burn
+$ $BURN is_lt.burn
 	* exit status nonzero
 
 is_gt.burn:
 	nothing is nothing > nothing
 
-$ $BURN --tolerant is_gt.burn
+$ $BURN is_gt.burn
 	* exit status nonzero
 
 is_lteq.burn:
 	nothing is nothing <= nothing
 
-$ $BURN --tolerant is_lteq.burn
+$ $BURN is_lteq.burn
 	* exit status nonzero
 
 is_gteq.burn:
 	nothing is nothing >= nothing
 
-$ $BURN --tolerant is_gteq.burn
+$ $BURN is_gteq.burn
 	* exit status nonzero
 
 is_union.burn:
@@ -71,14 +71,14 @@ is_union.burn:
 	assert( ( 1 is ( Float | Integer ) ) == true )
 	assert( ( 1 is Float | Integer ) == true )
 
-$ $BURN --tolerant is_union.burn
+$ $BURN is_union.burn
 
 is_add.burn:
 	assert.throws( function() { ( 1 is Something ) + Nothing }, TypeError )
 	assert( ( 1 is ( Something + Nothing ) ) == false )
 	assert( ( 1 is Something + Nothing ) == false )
 
-$ $BURN --tolerant is_add.burn
+$ $BURN is_add.burn
 
 // TODO: is-sub
 

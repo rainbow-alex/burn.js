@@ -23,14 +23,10 @@ let remaining_args;
 			console.log( "options:" );
 			console.log( "-h | --help     Print this help message and exit." );
 			console.log( "-v | --version  Print version and exit." );
-			console.log( "--tolerant      By default, the compiler may refuse to compile code if" );
-			console.log( "                it detects code quality issues. Enable to override." );
 			process.exit();
 		} else if( process.argv[i] === "-v" || process.argv[i] === "--version" ) {
 			console.log( "Burn 0.1" );
 			process.exit();
-		} else if( process.argv[i] === "--tolerant" ) {
-			vm.enableLint = false;
 		} else if( process.argv[i] === "--dump" ) {
 			dump = true;
 		} else if( process.argv[i] === "-" ) {

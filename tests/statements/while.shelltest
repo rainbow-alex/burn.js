@@ -1,0 +1,112 @@
+while.burn:
+	let $i = 0
+	while $i < 3 {
+		$i = $i + 1
+		print $i
+	}
+
+$ $BURN while.burn
+	* stdout
+		1
+		2
+		3
+
+while_else_pass.burn:
+	let $i = 0
+	while $i < 2 {
+		$i = $i + 1
+		print $i
+	} else {
+		print "else"
+	}
+
+$ $BURN while_else_pass.burn
+	* stdout
+		1
+		2
+
+while_else_continue.burn:
+	let $i = 0
+	while $i < 2 {
+		$i = $i + 1
+		print $i
+		continue
+	} else {
+		print "else"
+	}
+
+$ $BURN while_else_continue.burn
+	* stdout
+		1
+		2
+
+while_else_break.burn:
+	let $i = 0
+	while $i < 2 {
+		$i = $i + 1
+		print $i
+		break
+	} else {
+		print "else"
+	}
+
+$ $BURN while_else_break.burn
+	* stdout
+		1
+		else
+
+labelled_break.burn:
+	#outer
+	while true {
+		print "outer 1"
+		while true {
+			print "inner 1"
+			break #outer
+			print "inner 2"
+		}
+		print "outer 2"
+	}
+	print "end"
+
+$ $BURN labelled_break.burn
+	* stdout
+		outer 1
+		inner 1
+		end
+
+labelled_continue.burn:
+	let $i = 0
+	#outer
+	while $i < 2 {
+		$i = $i + 1
+		print "outer 1"
+		while true {
+			print "inner 1"
+			continue #outer
+			print "inner 2"
+		}
+		print "outer 2"
+	}
+	print "end"
+
+$ $BURN labelled_continue.burn
+	* stdout
+		outer 1
+		inner 1
+		outer 1
+		inner 1
+		end
+
+labelled_break_else.burn:
+	#outer
+	while true {
+		while true {
+			break #outer
+		}
+	} else {
+		print "else"
+	}
+
+$ $BURN labelled_break_else.burn
+	* stdout
+		else

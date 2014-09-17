@@ -121,6 +121,8 @@ module.exports = function( tokens ) {
 			return parseBreakStatement();
 		} else if( peek().type === "continue" ) {
 			return parseContinueStatement();
+		} else if( peek().type === "for" || ( peek().type === "label" && peek(2).type === "for" ) ) {
+			return parseForInStatement();
 		} else if( peek().type === "if" ) {
 			return parseIfStatement();
 		} else if( peek().type === "import" ) {
@@ -137,7 +139,7 @@ module.exports = function( tokens ) {
 			return parseThrowStatement();
 		} else if( peek().type === "try" ) {
 			return parseTryStatement();
-		} else if( peek().type === "while" ) {
+		} else if( peek().type === "while" || ( peek().type === "label" && peek(2).type === "while" ) ) {
 			return parseWhileStatement();
 		} else {
 			let expression = parseExpression();
@@ -172,19 +174,62 @@ module.exports = function( tokens ) {
 	
 	function parseBreakStatement() {
 		let keyword = read( "break" );
+		let label;
+		if( peek().type === "label" ) {
+			label = read();
+		}
 		let newline = readEndOfStatement();
 		return new ast.BreakStatement( {
 			keyword: keyword,
+			label: label,
 			newline: newline,
 		} );
 	}
 	
 	function parseContinueStatement() {
 		let keyword = read( "continue" );
+		let label;
+		if( peek().type === "label" ) {
+			label = read();
+		}
 		let newline = readEndOfStatement();
 		return new ast.ContinueStatement( {
 			keyword: keyword,
+			label: label,
 			newline: newline,
+		} );
+	}
+	
+	function parseForInStatement() {
+		let label;
+		let labelNewline;
+		if( peek().type === "label" ) {
+			label = read();
+			labelNewline = read( "newline" );
+		}
+		let keyword1 = read( "for" );
+		let variable = read( "variable" );
+		let keyword2 = read( "in" );
+		let iterator = parseExpression();
+		let block = parseBlock();
+		let elseClause;
+		if( peek().type === "else" ) {
+			let keyword = read();
+			let block = parseBlock();
+			elseClause = new ast.ElseClause( {
+				keyword: keyword,
+				block: block,
+			} );
+		}
+		return new ast.ForInStatement( {
+			label: label,
+			labelNewline: labelNewline,
+			keyword1: keyword1,
+			variable: variable,
+			keyword2: keyword2,
+			iterator: iterator,
+			block: block,
+			elseClause: elseClause,
 		} );
 	}
 	
@@ -361,6 +406,12 @@ module.exports = function( tokens ) {
 	}
 	
 	function parseWhileStatement() {
+		let label;
+		let labelNewline;
+		if( peek().type === "label" ) {
+			label = read();
+			labelNewline = read( "newline" );
+		}
 		let keyword = read( "while" );
 		let test = parseExpression();
 		let block = parseBlock();
@@ -374,6 +425,8 @@ module.exports = function( tokens ) {
 			} );
 		}
 		return new ast.WhileStatement( {
+			label: label,
+			labelNewline: labelNewline,
 			keyword: keyword,
 			test: test,
 			block: block,

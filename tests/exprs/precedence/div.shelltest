@@ -5,7 +5,7 @@
 div_not.burn:
 	1 / not 1
 
-$ $BURN --tolerant div_not.burn
+$ $BURN div_not.burn
 	* exit status nonzero
 
 // TODO: div-is

@@ -3,14 +3,14 @@ not_or.burn:
 	assert( ( not ( nothing or true ) ) == false )
 	assert( ( not nothing or true ) == true )
 
-$ $BURN --tolerant not_or.burn
+$ $BURN not_or.burn
 
 not_and.burn:
 	assert( ( ( not nothing ) and nothing ) == nothing )
 	assert( ( not ( nothing and nothing ) ) == true )
 	assert( ( not nothing and nothing ) == nothing )
 
-$ $BURN --tolerant not_and.burn
+$ $BURN not_and.burn
 
 not_not.burn:
 	not not true
@@ -22,56 +22,56 @@ not_is.burn:
 	assert( ( not ( true is Something ) ) == false )
 	assert( ( not true is Something ) == false )
 
-$ $BURN --tolerant not_is.burn
+$ $BURN not_is.burn
 
 not_is_not.burn:
 	assert( ( ( not true ) is not Nothing ) == true )
 	assert( ( not ( true is not Nothing ) ) == false )
 	assert( ( not true is not Nothing ) == false )
 
-$ $BURN --tolerant not_is_not.burn
+$ $BURN not_is_not.burn
 
 not_eq.burn:
 	assert.throws( function() { ( not 1 ) == 1 }, TypeError )
 	assert( ( not ( 1 == 1 ) ) == false )
 	assert( ( not 1 == 1 ) == false )
 
-$ $BURN --tolerant not_eq.burn
+$ $BURN not_eq.burn
 
 not_neq.burn:
 	assert.throws( function() { ( not 1 ) != 1 }, TypeError )
 	assert( ( not ( 1 != 1 ) ) != false )
 	assert( ( not 1 != 1 ) != false )
 
-$ $BURN --tolerant not_neq.burn
+$ $BURN not_neq.burn
 
 not_lt.burn:
 	assert.throws( function() { ( not 1 ) < 1 }, TypeError )
 	assert( ( not ( 1 < 1 ) ) != false )
 	assert( ( not 1 < 1 ) != false )
 
-$ $BURN --tolerant not_lt.burn
+$ $BURN not_lt.burn
 
 not_gt.burn:
 	assert.throws( function() { ( not 1 ) > 1 }, TypeError )
 	assert( ( not ( 1 > 1 ) ) != false )
 	assert( ( not 1 > 1 ) != false )
 
-$ $BURN --tolerant not_gt.burn
+$ $BURN not_gt.burn
 
 not_lteq.burn:
 	assert.throws( function() { ( not 1 ) <= 1 }, TypeError )
 	assert( ( not ( 1 <= 1 ) ) == false )
 	assert( ( not 1 <= 1 ) == false )
 
-$ $BURN --tolerant not_lteq.burn
+$ $BURN not_lteq.burn
 
 not_eq.burn:
 	assert.throws( function() { ( not 1 ) >= 1 }, TypeError )
 	assert( ( not ( 1 >= 1 ) ) == false )
 	assert( ( not 1 >= 1 ) == false )
 
-$ $BURN --tolerant not_eq.burn
+$ $BURN not_eq.burn
 
 // TODO: not-neq
 

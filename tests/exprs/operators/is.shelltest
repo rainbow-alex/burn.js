@@ -42,7 +42,7 @@ is_result_1.burn:
 	
 	assert.throws( function() { nothing is types }, TypeError )
 
-$ $BURN --tolerant is_result_1.burn
+$ $BURN is_result_1.burn
 
 is_result_2.burn:
 	import burn.types
@@ -86,7 +86,7 @@ is_result_2.burn:
 	
 	assert.throws( function() { true is types }, TypeError )
 
-$ $BURN --tolerant is_result_2.burn
+$ $BURN is_result_2.burn
 
 is_result_3.burn:
 	import burn.types
@@ -130,7 +130,7 @@ is_result_3.burn:
 	
 	assert.throws( function() { false is types }, TypeError )
 
-$ $BURN --tolerant is_result_3.burn
+$ $BURN is_result_3.burn
 
 is_result_4.burn:
 	import burn.types
@@ -174,7 +174,7 @@ is_result_4.burn:
 	
 	assert.throws( function() { 0 is types }, TypeError )
 
-$ $BURN --tolerant is_result_4.burn
+$ $BURN is_result_4.burn
 
 is_result_5.burn:
 	import burn.types
@@ -218,7 +218,7 @@ is_result_5.burn:
 	
 	assert.throws( function() { 2 is types }, TypeError )
 
-$ $BURN --tolerant is_result_5.burn
+$ $BURN is_result_5.burn
 
 is_result_6.burn:
 	import burn.types
@@ -262,7 +262,7 @@ is_result_6.burn:
 	
 	assert.throws( function() { -2 is types }, TypeError )
 
-$ $BURN --tolerant is_result_6.burn
+$ $BURN is_result_6.burn
 
 is_result_7.burn:
 	import burn.types
@@ -306,7 +306,7 @@ is_result_7.burn:
 	
 	assert.throws( function() { 0.0 is types }, TypeError )
 
-$ $BURN --tolerant is_result_7.burn
+$ $BURN is_result_7.burn
 
 is_result_8.burn:
 	import burn.types
@@ -350,7 +350,7 @@ is_result_8.burn:
 	
 	assert.throws( function() { 2.0 is types }, TypeError )
 
-$ $BURN --tolerant is_result_8.burn
+$ $BURN is_result_8.burn
 
 is_result_9.burn:
 	import burn.types
@@ -394,7 +394,7 @@ is_result_9.burn:
 	
 	assert.throws( function() { -0.5 is types }, TypeError )
 
-$ $BURN --tolerant is_result_9.burn
+$ $BURN is_result_9.burn
 
 is_result_10.burn:
 	import burn.types
@@ -438,7 +438,7 @@ is_result_10.burn:
 	
 	assert.throws( function() { "" is types }, TypeError )
 
-$ $BURN --tolerant is_result_10.burn
+$ $BURN is_result_10.burn
 
 is_result_11.burn:
 	import burn.types
@@ -482,7 +482,7 @@ is_result_11.burn:
 	
 	assert.throws( function() { "apple" is types }, TypeError )
 
-$ $BURN --tolerant is_result_11.burn
+$ $BURN is_result_11.burn
 
 is_result_12.burn:
 	import burn.types
@@ -526,7 +526,7 @@ is_result_12.burn:
 	
 	assert.throws( function() { "banana" is types }, TypeError )
 
-$ $BURN --tolerant is_result_12.burn
+$ $BURN is_result_12.burn
 
 is_result_13.burn:
 	import burn.types
@@ -570,7 +570,7 @@ is_result_13.burn:
 	
 	assert.throws( function() { repr is types }, TypeError )
 
-$ $BURN --tolerant is_result_13.burn
+$ $BURN is_result_13.burn
 
 is_result_14.burn:
 	import burn.types
@@ -614,7 +614,7 @@ is_result_14.burn:
 	
 	assert.throws( function() { function(){} is types }, TypeError )
 
-$ $BURN --tolerant is_result_14.burn
+$ $BURN is_result_14.burn
 
 is_result_15.burn:
 	import burn.types
@@ -658,7 +658,7 @@ is_result_15.burn:
 	
 	assert.throws( function() { Integer is types }, TypeError )
 
-$ $BURN --tolerant is_result_15.burn
+$ $BURN is_result_15.burn
 
 is_result_16.burn:
 	import burn.types
@@ -702,7 +702,7 @@ is_result_16.burn:
 	
 	assert.throws( function() { Type is types }, TypeError )
 
-$ $BURN --tolerant is_result_16.burn
+$ $BURN is_result_16.burn
 
 is_result_17.burn:
 	import burn.types
@@ -746,4 +746,4 @@ is_result_17.burn:
 	
 	assert.throws( function() { types is types }, TypeError )
 
-$ $BURN --tolerant is_result_17.burn
+$ $BURN is_result_17.burn

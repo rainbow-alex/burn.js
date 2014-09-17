@@ -18,8 +18,18 @@ function encodeBoolean( b ) {
 	return b ? 'true' : 'false';
 }
 
+let OutputHelper = CLASS( {
+	init: function() {
+		this.code = "";
+		this.tmp = 0;
+	},
+	createTemporaryVariable: function() {
+		return "_" + ++this.tmp;
+	},
+} );
+
 ast.Root.prototype.compile = function() {
-	let output = { code: "", tmp: 0 };
+	let output = new OutputHelper();
 	output.code += 'let _=require("libburn/vm/rt");';
 	output.code += 'let _origin=_._origin;delete _._origin;';
 	output.code += 'let _fiber=_._fiber;delete _._fiber;';
@@ -30,11 +40,51 @@ ast.Root.prototype.compile = function() {
 };
 
 ast.BreakStatement.prototype.compile = function( output ) {
-	output.code += 'break;';
+	if( this.loop.elseClause ) {
+		output.code += this.loop._breakFlag + '=true;';
+	}
+	if( this.label ) {
+		output.code += 'break ' + this.label.value.substr(1) + ';';
+	} else {
+		output.code += 'break;';
+	}
 };
 
 ast.ContinueStatement.prototype.compile = function( output ) {
-	output.code += 'continue;';
+	if( this.label ) {
+		output.code += 'continue ' + this.label.value.substr(1) + ';';
+	} else {
+		output.code += 'continue;';
+	}
+};
+
+ast.ForInStatement.prototype.compile = function( output ) {
+	if( this.elseClause ) {
+		this._breakFlag = output.createTemporaryVariable();
+		output.code += 'let ' + this._breakFlag + '=false;';
+	}
+	let iteratorVar = output.createTemporaryVariable();
+	let loopVar = output.createTemporaryVariable();
+	output.code += 'let ' + iteratorVar + '=_.forInIter(_fiber,';
+	this.iterator.compile( output );
+	output.code += ');';
+	output.code += 'let ' + loopVar + ';';
+	if( this.label ) {
+		output.code += this.label.value.substr(1) + ':';
+	}
+	output.code += 'while(' + loopVar + '=' + iteratorVar + '.next()){';
+	output.code += 'let ' + encodeVariable( this.variable.value ) + '=' + loopVar + ';';
+	this.block.statements.forEach( function( s ) {
+		s.compile( output );
+	} );
+	output.code += '}';
+	if( this.elseClause ) {
+		output.code += 'if(' + this._breakFlag + '){';
+		this.elseClause.block.statements.forEach( function( s ) {
+			s.compile( output );
+		} );
+		output.code += '}';
+	}
 };
 
 ast.IfStatement.prototype.compile = function( output ) {
@@ -109,9 +159,9 @@ ast.ThrowStatement.prototype.compile = function( output ) {
 };
 
 ast.TryStatement.prototype.compile = function( output ) {
-	let tmp = output.tmp++;
+	let tmp = output.createTemporaryVariable();
 	if( this.elseClause ) {
-		output.code += 'let _' + tmp + '=false;';
+		output.code += 'let ' + tmp + '=false;';
 	}
 	output.code += 'try{if(true){';
 	this.block.statements.forEach( function( s ) {
@@ -119,7 +169,7 @@ ast.TryStatement.prototype.compile = function( output ) {
 	} );
 	output.code += '}';
 	if( this.elseClause ) {
-		output.code += 'if(true){_' + tmp + '=true;';
+		output.code += 'if(true){' + tmp + '=true;';
 		this.elseClause.block.statements.forEach( function( s ) {
 			s.compile( output );
 		} );
@@ -129,7 +179,7 @@ ast.TryStatement.prototype.compile = function( output ) {
 	if( this.catchClauses.length ) {
 		output.code += 'catch(_e){';
 		if( this.elseClause ) {
-			output.code += 'if(_' + tmp + ')throw _e;';
+			output.code += 'if(' + tmp + ')throw _e;';
 		}
 		this.catchClauses.forEach( function( c, i ) {
 			if( i > 0 ) {
@@ -164,6 +214,13 @@ ast.TryStatement.prototype.compile = function( output ) {
 };
 
 ast.WhileStatement.prototype.compile = function( output ) {
+	if( this.elseClause ) {
+		this._breakFlag = output.createTemporaryVariable();
+		output.code += 'let ' + this._breakFlag + '=false;';
+	}
+	if( this.label ) {
+		output.code += this.label.value.substr(1) + ':';
+	}
 	output.code += 'while((';
 	this.test.compile( output );
 	output.code += ').isTruthy()){';
@@ -171,6 +228,13 @@ ast.WhileStatement.prototype.compile = function( output ) {
 		s.compile( output );
 	} );
 	output.code += '}';
+	if( this.elseClause ) {
+		output.code += 'if(' + this._breakFlag + '){';
+		this.elseClause.block.statements.forEach( function( s ) {
+			s.compile( output );
+		} );
+		output.code += '}';
+	}
 };
 
 ast.AssignmentStatement.prototype.compile = function( output ) {

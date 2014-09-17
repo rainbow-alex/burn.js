@@ -48,7 +48,7 @@ mul_result_1.burn:
 	
 	assert.throws( function() { nothing * 0.7 }, TypeError )
 
-$ $BURN --tolerant mul_result_1.burn
+$ $BURN mul_result_1.burn
 
 mul_result_2.burn:
 	import burn.types
@@ -98,7 +98,7 @@ mul_result_2.burn:
 	
 	assert.throws( function() { true * 0.7 }, TypeError )
 
-$ $BURN --tolerant mul_result_2.burn
+$ $BURN mul_result_2.burn
 
 mul_result_3.burn:
 	import burn.types
@@ -148,7 +148,7 @@ mul_result_3.burn:
 	
 	assert.throws( function() { false * 0.7 }, TypeError )
 
-$ $BURN --tolerant mul_result_3.burn
+$ $BURN mul_result_3.burn
 
 mul_result_4.burn:
 	import burn.types
@@ -226,7 +226,7 @@ mul_result_4.burn:
 	assert( $v21 is Float )
 	assert( ( -0.0001 < $v21 ) and ( $v21 < 0.0001 ) )
 
-$ $BURN --tolerant mul_result_4.burn
+$ $BURN mul_result_4.burn
 
 mul_result_5.burn:
 	import burn.types
@@ -304,7 +304,7 @@ mul_result_5.burn:
 	assert( $v21 is Float )
 	assert( ( 1.3999 < $v21 ) and ( $v21 < 1.4001 ) )
 
-$ $BURN --tolerant mul_result_5.burn
+$ $BURN mul_result_5.burn
 
 mul_result_6.burn:
 	import burn.types
@@ -376,7 +376,7 @@ mul_result_6.burn:
 	assert( $v21 is Float )
 	assert( ( -1.4001 < $v21 ) and ( $v21 < -1.3999 ) )
 
-$ $BURN --tolerant mul_result_6.burn
+$ $BURN mul_result_6.burn
 
 mul_result_7.burn:
 	import burn.types
@@ -448,7 +448,7 @@ mul_result_7.burn:
 	assert( $v21 is Float )
 	assert( ( -0.0001 < $v21 ) and ( $v21 < 0.0001 ) )
 
-$ $BURN --tolerant mul_result_7.burn
+$ $BURN mul_result_7.burn
 
 mul_result_8.burn:
 	import burn.types
@@ -520,7 +520,7 @@ mul_result_8.burn:
 	assert( $v21 is Float )
 	assert( ( 1.3999 < $v21 ) and ( $v21 < 1.4001 ) )
 
-$ $BURN --tolerant mul_result_8.burn
+$ $BURN mul_result_8.burn
 
 mul_result_9.burn:
 	import burn.types
@@ -592,7 +592,7 @@ mul_result_9.burn:
 	assert( $v21 is Float )
 	assert( ( -0.3501 < $v21 ) and ( $v21 < -0.3499 ) )
 
-$ $BURN --tolerant mul_result_9.burn
+$ $BURN mul_result_9.burn
 
 mul_result_10.burn:
 	import burn.types
@@ -650,7 +650,7 @@ mul_result_10.burn:
 	
 	assert.throws( function() { "" * 0.7 }, TypeError )
 
-$ $BURN --tolerant mul_result_10.burn
+$ $BURN mul_result_10.burn
 
 mul_result_11.burn:
 	import burn.types
@@ -708,7 +708,7 @@ mul_result_11.burn:
 	
 	assert.throws( function() { "apple" * 0.7 }, TypeError )
 
-$ $BURN --tolerant mul_result_11.burn
+$ $BURN mul_result_11.burn
 
 mul_result_12.burn:
 	import burn.types
@@ -766,7 +766,7 @@ mul_result_12.burn:
 	
 	assert.throws( function() { "banana" * 0.7 }, TypeError )
 
-$ $BURN --tolerant mul_result_12.burn
+$ $BURN mul_result_12.burn
 
 mul_result_13.burn:
 	import burn.types
@@ -816,7 +816,7 @@ mul_result_13.burn:
 	
 	assert.throws( function() { repr * 0.7 }, TypeError )
 
-$ $BURN --tolerant mul_result_13.burn
+$ $BURN mul_result_13.burn
 
 mul_result_14.burn:
 	import burn.types
@@ -866,7 +866,7 @@ mul_result_14.burn:
 	
 	assert.throws( function() { function(){} * 0.7 }, TypeError )
 
-$ $BURN --tolerant mul_result_14.burn
+$ $BURN mul_result_14.burn
 
 mul_result_15.burn:
 	import burn.types
@@ -916,7 +916,7 @@ mul_result_15.burn:
 	
 	assert.throws( function() { Integer * 0.7 }, TypeError )
 
-$ $BURN --tolerant mul_result_15.burn
+$ $BURN mul_result_15.burn
 
 mul_result_16.burn:
 	import burn.types
@@ -966,7 +966,7 @@ mul_result_16.burn:
 	
 	assert.throws( function() { Type * 0.7 }, TypeError )
 
-$ $BURN --tolerant mul_result_16.burn
+$ $BURN mul_result_16.burn
 
 mul_result_17.burn:
 	import burn.types
@@ -1016,7 +1016,7 @@ mul_result_17.burn:
 	
 	assert.throws( function() { types * 0.7 }, TypeError )
 
-$ $BURN --tolerant mul_result_17.burn
+$ $BURN mul_result_17.burn
 
 mul_result_18.burn:
 	import burn.types
@@ -1094,7 +1094,7 @@ mul_result_18.burn:
 	assert( $v21 is Float )
 	assert( ( 2.0999 < $v21 ) and ( $v21 < 2.1001 ) )
 
-$ $BURN --tolerant mul_result_18.burn
+$ $BURN mul_result_18.burn
 
 mul_result_19.burn:
 	import burn.types
@@ -1172,7 +1172,7 @@ mul_result_19.burn:
 	assert( $v21 is Float )
 	assert( ( 5.5999 < $v21 ) and ( $v21 < 5.6001 ) )
 
-$ $BURN --tolerant mul_result_19.burn
+$ $BURN mul_result_19.burn
 
 mul_result_20.burn:
 	import burn.types
@@ -1244,7 +1244,7 @@ mul_result_20.burn:
 	assert( $v21 is Float )
 	assert( ( 0.2099 < $v21 ) and ( $v21 < 0.2101 ) )
 
-$ $BURN --tolerant mul_result_20.burn
+$ $BURN mul_result_20.burn
 
 mul_result_21.burn:
 	import burn.types
@@ -1316,7 +1316,7 @@ mul_result_21.burn:
 	assert( $v21 is Float )
 	assert( ( 0.2332 < $v21 ) and ( $v21 < 0.2334 ) )
 
-$ $BURN --tolerant mul_result_21.burn
+$ $BURN mul_result_21.burn
 
 mul_result_22.burn:
 	import burn.types
@@ -1388,4 +1388,4 @@ mul_result_22.burn:
 	assert( $v21 is Float )
 	assert( ( 0.4899 < $v21 ) and ( $v21 < 0.4901 ) )
 
-$ $BURN --tolerant mul_result_22.burn
+$ $BURN mul_result_22.burn

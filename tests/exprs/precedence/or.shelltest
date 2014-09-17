@@ -3,14 +3,14 @@ or_or.burn:
 	assert( ( 1 or ( 2 or 3 ) ) == 1 )
 	assert( ( 1 or 2 or 3 ) == 1 )
 
-$ $BURN --tolerant or_or.burn
+$ $BURN or_or.burn
 
 or_and.burn:
 	assert( ( ( true or nothing ) and nothing ) == nothing )
 	assert( ( true or ( nothing and nothing ) ) == true )
 	assert( ( true or nothing and nothing ) == true )
 
-$ $BURN --tolerant or_and.burn
+$ $BURN or_and.burn
 
 // or-not is not ambiguous
 
@@ -19,88 +19,88 @@ or_is.burn:
 	assert( ( true or ( true is Nothing ) ) == true )
 	assert( ( true or true is Nothing ) == true )
 
-$ $BURN --tolerant or_is.burn
+$ $BURN or_is.burn
 
 or_is_not.burn:
 	assert( ( ( true or true ) is not Something ) == false )
 	assert( ( true or ( true is not Something ) ) == true )
 	assert( ( true or true is not Something ) == true )
 
-$ $BURN --tolerant or_is_not.burn
+$ $BURN or_is_not.burn
 
 or_eq.burn:
 	assert( ( ( true or nothing ) == false ) == false )
 	assert( ( true or ( nothing == false ) ) == true )
 	assert( ( true or nothing == false ) == true )
 
-$ $BURN --tolerant or_eq.burn
+$ $BURN or_eq.burn
 
 or_neq.burn:
 	assert( ( ( true or nothing ) != true ) == false )
 	assert( ( true or ( nothing != true ) ) == true )
 	assert( ( true or nothing != true ) == true )
 
-$ $BURN --tolerant or_neq.burn
+$ $BURN or_neq.burn
 
 or_lt.burn:
 	assert( ( ( 1 or nothing ) < 1 ) == false )
 	assert( ( 1 or ( nothing < 1 ) ) == 1 )
 	assert( ( 1 or nothing < 1 ) == 1 )
 
-$ $BURN --tolerant or_lt.burn
+$ $BURN or_lt.burn
 
 or_gt.burn:
 	assert( ( ( 1 or nothing ) > 1 ) == false )
 	assert( ( 1 or ( nothing > 1 ) ) == 1 )
 	assert( ( 1 or nothing > 1 ) == 1 )
 
-$ $BURN --tolerant or_gt.burn
+$ $BURN or_gt.burn
 
 or_lteq.burn:
 	assert( ( ( 1 or nothing ) <= 1 ) == true )
 	assert( ( 1 or ( nothing <= 1 ) ) == 1 )
 	assert( ( 1 or nothing <= 1 ) == 1 )
 
-$ $BURN --tolerant or_lteq.burn
+$ $BURN or_lteq.burn
 
 or_gteq.burn:
 	assert( ( ( 1 or nothing ) >= 1 ) == true )
 	assert( ( 1 or ( nothing >= 1 ) ) == 1 )
 	assert( ( 1 or nothing >= 1 ) == 1 )
 
-$ $BURN --tolerant or_gteq.burn
+$ $BURN or_gteq.burn
 
 or_union.burn:
 	assert.throws( function() { ( 1 or Something ) | Something }, TypeError )
 	assert( ( 1 or ( Something | Something ) ) == 1 )
 	assert( ( 1 or Something | Something ) == 1 )
 
-$ $BURN --tolerant or_union.burn
+$ $BURN or_union.burn
 
 or_add.burn:
 	assert( ( ( 1 or nothing ) + 1 ) == 2 )
 	assert( ( 1 or ( nothing + 1 ) ) == 1 )
 	assert( ( 1 or nothing + 1 ) == 1 )
 
-$ $BURN --tolerant or_add.burn
+$ $BURN or_add.burn
 
 or_sub.burn:
 	assert( ( ( 1 or nothing ) - 1 ) == 0 )
 	assert( ( 1 or ( nothing - 1 ) ) == 1 )
 	assert( ( 1 or nothing - 1 ) == 1 )
 
-$ $BURN --tolerant or_sub.burn
+$ $BURN or_sub.burn
 
 or_mul.burn:
 	assert( ( ( 1 or nothing ) * 2 ) == 2 )
 	assert( ( 1 or ( nothing * 2 ) ) == 1 )
 	assert( ( 1 or nothing * 2 ) == 1 )
 
-$ $BURN --tolerant or_mul.burn
+$ $BURN or_mul.burn
 
 or_div.burn:
 	assert( ( ( 2 or 2 ) / 2 ) is not Integer )
 	assert( ( 2 or ( 2 / 2 ) ) is Integer )
 	assert( ( 2 or 2 / 2 ) is Integer )
 
-$ $BURN --tolerant or_div.burn
+$ $BURN or_div.burn

@@ -1,0 +1,102 @@
+for_in.burn:
+	for $i in [ 1, 2, 3 ] {
+		print $i
+	}
+
+$ $BURN for_in.burn
+	* stdout
+		1
+		2
+		3
+
+for_in_else_pass.burn:
+	for $i in [ 1, 2 ] {
+		print $i
+	} else {
+		print "else"
+	}
+
+$ $BURN for_in_else_pass.burn
+	* stdout
+		1
+		2
+
+for_in_else_continue.burn:
+	for $i in [ 1, 2 ] {
+		print $i
+		continue
+	} else {
+		print "else"
+	}
+
+$ $BURN for_in_else_continue.burn
+	* stdout
+		1
+		2
+
+for_in_else_break.burn:
+	for $i in [ 1, 2 ] {
+		print $i
+		break
+	} else {
+		print "else"
+	}
+
+$ $BURN for_in_else_break.burn
+	* stdout
+		1
+		else
+
+labelled_break.burn:
+	#outer
+	for $i in [ 1, 2 ] {
+		print "outer 1"
+		for $j in [ 1, 2 ] {
+			print "inner 1"
+			break #outer
+			print "inner 2"
+		}
+		print "outer 2"
+	}
+	print "end"
+
+$ $BURN labelled_break.burn
+	* stdout
+		outer 1
+		inner 1
+		end
+
+labelled_continue.burn:
+	#outer
+	for $i in [ 1, 2 ] {
+		print "outer 1"
+		for $j in [ 1, 2 ] {
+			print "inner 1"
+			continue #outer
+			print "inner 2"
+		}
+		print "outer 2"
+	}
+	print "end"
+
+$ $BURN labelled_continue.burn
+	* stdout
+		outer 1
+		inner 1
+		outer 1
+		inner 1
+		end
+
+labelled_break_else.burn:
+	#outer
+	for $i in [ 1, 2 ] {
+		for $j in [ 1, 2 ] {
+			break #outer
+		}
+	} else {
+		print "else"
+	}
+
+$ $BURN labelled_break_else.burn
+	* stdout
+		else

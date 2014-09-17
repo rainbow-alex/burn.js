@@ -71,7 +71,7 @@ or_result_1.burn:
 	assert( $v16 is Module )
 	assert( $v16 == types )
 
-$ $BURN --tolerant or_result_1.burn
+$ $BURN or_result_1.burn
 
 or_result_2.burn:
 	import burn.types
@@ -145,7 +145,7 @@ or_result_2.burn:
 	assert( $v16 is Boolean )
 	assert( $v16 == true )
 
-$ $BURN --tolerant or_result_2.burn
+$ $BURN or_result_2.burn
 
 or_result_3.burn:
 	import burn.types
@@ -218,7 +218,7 @@ or_result_3.burn:
 	assert( $v16 is Module )
 	assert( $v16 == types )
 
-$ $BURN --tolerant or_result_3.burn
+$ $BURN or_result_3.burn
 
 or_result_4.burn:
 	import burn.types
@@ -291,7 +291,7 @@ or_result_4.burn:
 	assert( $v16 is Module )
 	assert( $v16 == types )
 
-$ $BURN --tolerant or_result_4.burn
+$ $BURN or_result_4.burn
 
 or_result_5.burn:
 	import burn.types
@@ -365,7 +365,7 @@ or_result_5.burn:
 	assert( $v16 is Integer )
 	assert( $v16 == 2 )
 
-$ $BURN --tolerant or_result_5.burn
+$ $BURN or_result_5.burn
 
 or_result_6.burn:
 	import burn.types
@@ -439,7 +439,7 @@ or_result_6.burn:
 	assert( $v16 is Integer )
 	assert( $v16 == -2 )
 
-$ $BURN --tolerant or_result_6.burn
+$ $BURN or_result_6.burn
 
 or_result_7.burn:
 	import burn.types
@@ -512,7 +512,7 @@ or_result_7.burn:
 	assert( $v16 is Module )
 	assert( $v16 == types )
 
-$ $BURN --tolerant or_result_7.burn
+$ $BURN or_result_7.burn
 
 or_result_8.burn:
 	import burn.types
@@ -586,7 +586,7 @@ or_result_8.burn:
 	assert( $v16 is Float )
 	assert( ( 1.9999 < $v16 ) and ( $v16 < 2.0001 ) )
 
-$ $BURN --tolerant or_result_8.burn
+$ $BURN or_result_8.burn
 
 or_result_9.burn:
 	import burn.types
@@ -660,7 +660,7 @@ or_result_9.burn:
 	assert( $v16 is Float )
 	assert( ( -0.5001 < $v16 ) and ( $v16 < -0.4999 ) )
 
-$ $BURN --tolerant or_result_9.burn
+$ $BURN or_result_9.burn
 
 or_result_10.burn:
 	import burn.types
@@ -733,7 +733,7 @@ or_result_10.burn:
 	assert( $v16 is Module )
 	assert( $v16 == types )
 
-$ $BURN --tolerant or_result_10.burn
+$ $BURN or_result_10.burn
 
 or_result_11.burn:
 	import burn.types
@@ -807,7 +807,7 @@ or_result_11.burn:
 	assert( $v16 is String )
 	assert( $v16 == "apple" )
 
-$ $BURN --tolerant or_result_11.burn
+$ $BURN or_result_11.burn
 
 or_result_12.burn:
 	import burn.types
@@ -881,7 +881,7 @@ or_result_12.burn:
 	assert( $v16 is String )
 	assert( $v16 == "banana" )
 
-$ $BURN --tolerant or_result_12.burn
+$ $BURN or_result_12.burn
 
 or_result_13.burn:
 	import burn.types
@@ -955,7 +955,7 @@ or_result_13.burn:
 	assert( $v16 is Function )
 	assert( $v16 == repr )
 
-$ $BURN --tolerant or_result_13.burn
+$ $BURN or_result_13.burn
 
 or_result_14.burn:
 	import burn.types
@@ -1029,7 +1029,7 @@ or_result_14.burn:
 	assert( $v16 is Function )
 	assert( $v16 is Function )
 
-$ $BURN --tolerant or_result_14.burn
+$ $BURN or_result_14.burn
 
 or_result_15.burn:
 	import burn.types
@@ -1103,7 +1103,7 @@ or_result_15.burn:
 	assert( $v16 is Type )
 	assert( $v16 == Integer )
 
-$ $BURN --tolerant or_result_15.burn
+$ $BURN or_result_15.burn
 
 or_result_16.burn:
 	import burn.types
@@ -1177,7 +1177,7 @@ or_result_16.burn:
 	assert( $v16 is Type )
 	assert( $v16 == Type )
 
-$ $BURN --tolerant or_result_16.burn
+$ $BURN or_result_16.burn
 
 or_result_17.burn:
 	import burn.types
@@ -1251,4 +1251,4 @@ or_result_17.burn:
 	assert( $v16 is Module )
 	assert( $v16 == types )
 
-$ $BURN --tolerant or_result_17.burn
+$ $BURN or_result_17.burn

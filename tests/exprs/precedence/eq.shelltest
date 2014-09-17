@@ -3,67 +3,67 @@ eq_or.burn:
 	assert( ( false == ( true or nothing ) ) == false )
 	assert( ( false == true or nothing ) == nothing )
 
-$ $BURN --tolerant eq_or.burn
+$ $BURN eq_or.burn
 
 eq_and.burn:
 	assert( ( ( nothing == nothing ) and nothing ) == nothing )
 	assert( ( nothing == ( nothing and nothing ) ) == true )
 	assert( ( nothing == nothing and nothing ) == nothing )
 
-$ $BURN --tolerant eq_and.burn
+$ $BURN eq_and.burn
 
 eq_not.burn:
 	1 == not 1
 
-$ $BURN --tolerant eq_not.burn
+$ $BURN eq_not.burn
 	* exit status nonzero
 
 eq_is.burn:
 	nothing == nothing is nothing
 
-$ $BURN --tolerant eq_is.burn
+$ $BURN eq_is.burn
 	* exit status nonzero
 
 eq_is_not.burn:
 	nothing == nothing is not nothing
 
-$ $BURN --tolerant eq_is_not.burn
+$ $BURN eq_is_not.burn
 	* exit status nonzero
 
 eq_eq.burn:
 	nothing == nothing == nothing
 
-$ $BURN --tolerant eq_eq.burn
+$ $BURN eq_eq.burn
 	* exit status nonzero
 
 eq_neq.burn:
 	nothing == nothing != nothing
 
-$ $BURN --tolerant eq_neq.burn
+$ $BURN eq_neq.burn
 	* exit status nonzero
 
 eq_lt.burn:
 	nothing == nothing < nothing
 
-$ $BURN --tolerant eq_lt.burn
+$ $BURN eq_lt.burn
 	* exit status nonzero
 
 eq_gt.burn:
 	nothing == nothing > nothing
 
-$ $BURN --tolerant eq_gt.burn
+$ $BURN eq_gt.burn
 	* exit status nonzero
 
 eq_lteq.burn:
 	nothing == nothing <= nothing
 
-$ $BURN --tolerant eq_lteq.burn
+$ $BURN eq_lteq.burn
 	* exit status nonzero
 
 eq_gteq.burn:
 	nothing == nothing >= nothing
 
-$ $BURN --tolerant eq_gteq.burn
+$ $BURN eq_gteq.burn
 	* exit status nonzero
 
 // TODO: eq-union

@@ -3,67 +3,67 @@ neq_or.burn:
 	assert( ( nothing != ( nothing or nothing ) ) == false )
 	assert( ( nothing != nothing or nothing ) == nothing )
 
-$ $BURN --tolerant neq_or.burn
+$ $BURN neq_or.burn
 
 neq_and.burn:
 	assert( ( ( true != true ) and false ) == false )
 	assert( ( true != ( true and false ) ) == true )
 	assert( ( true != true and false ) == false )
 
-$ $BURN --tolerant neq_and.burn
+$ $BURN neq_and.burn
 
 neq_not.burn:
 	1 != not 1
 
-$ $BURN --tolerant neq_not.burn
+$ $BURN neq_not.burn
 	* exit status nonzero
 
 neq_is.burn:
 	nothing != nothing is nothing
 
-$ $BURN --tolerant neq_is.burn
+$ $BURN neq_is.burn
 	* exit status nonzero
 
 neq_is_not.burn:
 	nothing != nothing is not nothing
 
-$ $BURN --tolerant neq_is_not.burn
+$ $BURN neq_is_not.burn
 	* exit status nonzero
 
 neq_eq.burn:
 	nothing != nothing == nothing
 
-$ $BURN --tolerant neq_eq.burn
+$ $BURN neq_eq.burn
 	* exit status nonzero
 
 neq_neq.burn:
 	nothing != nothing != nothing
 
-$ $BURN --tolerant neq_neq.burn
+$ $BURN neq_neq.burn
 	* exit status nonzero
 
 neq_lt.burn:
 	nothing != nothing < nothing
 
-$ $BURN --tolerant neq_lt.burn
+$ $BURN neq_lt.burn
 	* exit status nonzero
 
 neq_gt.burn:
 	nothing != nothing > nothing
 
-$ $BURN --tolerant neq_gt.burn
+$ $BURN neq_gt.burn
 	* exit status nonzero
 
 neq_lteq.burn:
 	nothing != nothing <= nothing
 
-$ $BURN --tolerant neq_lteq.burn
+$ $BURN neq_lteq.burn
 	* exit status nonzero
 
 neq_gteq.burn:
 	nothing != nothing >= nothing
 
-$ $BURN --tolerant neq_gteq.burn
+$ $BURN neq_gteq.burn
 	* exit status nonzero
 
 // TODO: neq-union

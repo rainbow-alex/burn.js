@@ -3,14 +3,14 @@ and_or.burn:
 	assert( ( nothing and ( nothing or true ) ) == nothing )
 	assert( ( nothing and nothing or true ) == true )
 
-$ $BURN --tolerant and_or.burn
+$ $BURN and_or.burn
 
 and_and.burn:
 	assert( ( ( 1 and 2 ) and 3 ) == 3 )
 	assert( ( 1 and ( 2 and 3 ) ) == 3 )
 	assert( ( 1 and 2 and 3 ) == 3 )
 
-$ $BURN --tolerant and_and.burn
+$ $BURN and_and.burn
 
 // and-not is not ambiguous
 
@@ -19,88 +19,88 @@ and_is.burn:
 	assert( ( false and ( true is Something ) ) == false )
 	assert( ( false and true is Something ) == false )
 
-$ $BURN --tolerant and_is.burn
+$ $BURN and_is.burn
 
 and_is_not.burn:
 	assert( ( ( false and true ) is not Nothing ) == true )
 	assert( ( false and ( true is not Nothing ) ) == false )
 	assert( ( false and true is not Nothing ) == false )
 
-$ $BURN --tolerant and_is_not.burn
+$ $BURN and_is_not.burn
 
 and_eq.burn:
 	assert( ( ( nothing and nothing ) == nothing ) == true )
 	assert( ( nothing and ( nothing == nothing ) ) == nothing )
 	assert( ( nothing and nothing == nothing ) == nothing )
 
-$ $BURN --tolerant and_eq.burn
+$ $BURN and_eq.burn
 
 and_neq.burn:
 	assert( ( ( nothing and nothing ) != nothing ) == false )
 	assert( ( nothing and ( nothing != nothing ) ) == nothing )
 	assert( ( nothing and nothing != nothing ) == nothing )
 
-$ $BURN --tolerant and_neq.burn
+$ $BURN and_neq.burn
 
 and_lt.burn:
 	assert( ( ( 0 and nothing ) < 1 ) == true )
 	assert( ( 0 and ( nothing < 1 ) ) == 0 )
 	assert( ( 0 and nothing < 1 ) == 0 )
 
-$ $BURN --tolerant and_lt.burn
+$ $BURN and_lt.burn
 
 and_gt.burn:
 	assert( ( ( 0 and nothing ) > 1 ) == false )
 	assert( ( 0 and ( nothing > 1 ) ) == 0 )
 	assert( ( 0 and nothing > 1 ) == 0 )
 
-$ $BURN --tolerant and_gt.burn
+$ $BURN and_gt.burn
 
 and_lteq.burn:
 	assert( ( ( 0 and nothing ) <= 1 ) == true )
 	assert( ( 0 and ( nothing <= 1 ) ) == 0 )
 	assert( ( 0 and nothing <= 1 ) == 0 )
 
-$ $BURN --tolerant and_lteq.burn
+$ $BURN and_lteq.burn
 
 and_gteq.burn:
 	assert( ( ( 0 and nothing ) >= 1 ) == false )
 	assert( ( 0 and ( nothing >= 1 ) ) == 0 )
 	assert( ( 0 and nothing >= 1 ) == 0 )
 
-$ $BURN --tolerant and_gteq.burn
+$ $BURN and_gteq.burn
 
 and_union.burn:
 	assert.throws( function() { ( 0 and Something ) | Something }, TypeError )
 	assert( ( 0 and ( Something | Something ) ) == 0 )
 	assert( ( 0 and Something | Something ) == 0 )
 
-$ $BURN --tolerant and_union.burn
+$ $BURN and_union.burn
 
 and_add.burn:
 	assert( ( ( 0 and nothing ) + 1 ) == 1 )
 	assert( ( 0 and ( nothing + 1 ) ) == 0 )
 	assert( ( 0 and nothing + 1 ) == 0 )
 
-$ $BURN --tolerant and_add.burn
+$ $BURN and_add.burn
 
 and_sub.burn:
 	assert( ( ( 0 and nothing ) - 1 ) == -1 )
 	assert( ( 0 and ( nothing - 1 ) ) == 0 )
 	assert( ( 0 and nothing - 1 ) == 0 )
 
-$ $BURN --tolerant and_sub.burn
+$ $BURN and_sub.burn
 
 and_mul.burn:
 	assert.throws( function() { ( ( false and 1 ) * 1 ) }, TypeError )
 	assert( ( false and ( 1 * 1 ) ) == false )
 	assert( ( false and 1 * 1 ) == false )
 
-$ $BURN --tolerant and_mul.burn
+$ $BURN and_mul.burn
 
 and_div.burn:
 	assert.throws( function() { ( ( false and 1 ) / 1 ) }, TypeError )
 	assert( ( false and ( 1 / 1 ) ) == false )
 	assert( ( false and 1 / 1 ) == false )
 
-$ $BURN --tolerant and_div.burn
+$ $BURN and_div.burn

@@ -38,7 +38,7 @@ gt_result_1.burn:
 	
 	assert.throws( function() { nothing > types }, TypeError )
 
-$ $BURN --tolerant gt_result_1.burn
+$ $BURN gt_result_1.burn
 
 gt_result_2.burn:
 	import burn.types
@@ -78,7 +78,7 @@ gt_result_2.burn:
 	
 	assert.throws( function() { true > types }, TypeError )
 
-$ $BURN --tolerant gt_result_2.burn
+$ $BURN gt_result_2.burn
 
 gt_result_3.burn:
 	import burn.types
@@ -118,7 +118,7 @@ gt_result_3.burn:
 	
 	assert.throws( function() { false > types }, TypeError )
 
-$ $BURN --tolerant gt_result_3.burn
+$ $BURN gt_result_3.burn
 
 gt_result_4.burn:
 	import burn.types
@@ -170,7 +170,7 @@ gt_result_4.burn:
 	
 	assert.throws( function() { 0 > types }, TypeError )
 
-$ $BURN --tolerant gt_result_4.burn
+$ $BURN gt_result_4.burn
 
 gt_result_5.burn:
 	import burn.types
@@ -222,7 +222,7 @@ gt_result_5.burn:
 	
 	assert.throws( function() { 2 > types }, TypeError )
 
-$ $BURN --tolerant gt_result_5.burn
+$ $BURN gt_result_5.burn
 
 gt_result_6.burn:
 	import burn.types
@@ -274,7 +274,7 @@ gt_result_6.burn:
 	
 	assert.throws( function() { -2 > types }, TypeError )
 
-$ $BURN --tolerant gt_result_6.burn
+$ $BURN gt_result_6.burn
 
 gt_result_7.burn:
 	import burn.types
@@ -326,7 +326,7 @@ gt_result_7.burn:
 	
 	assert.throws( function() { 0.0 > types }, TypeError )
 
-$ $BURN --tolerant gt_result_7.burn
+$ $BURN gt_result_7.burn
 
 gt_result_8.burn:
 	import burn.types
@@ -378,7 +378,7 @@ gt_result_8.burn:
 	
 	assert.throws( function() { 2.0 > types }, TypeError )
 
-$ $BURN --tolerant gt_result_8.burn
+$ $BURN gt_result_8.burn
 
 gt_result_9.burn:
 	import burn.types
@@ -430,7 +430,7 @@ gt_result_9.burn:
 	
 	assert.throws( function() { -0.5 > types }, TypeError )
 
-$ $BURN --tolerant gt_result_9.burn
+$ $BURN gt_result_9.burn
 
 gt_result_10.burn:
 	import burn.types
@@ -476,7 +476,7 @@ gt_result_10.burn:
 	
 	assert.throws( function() { "" > types }, TypeError )
 
-$ $BURN --tolerant gt_result_10.burn
+$ $BURN gt_result_10.burn
 
 gt_result_11.burn:
 	import burn.types
@@ -522,7 +522,7 @@ gt_result_11.burn:
 	
 	assert.throws( function() { "apple" > types }, TypeError )
 
-$ $BURN --tolerant gt_result_11.burn
+$ $BURN gt_result_11.burn
 
 gt_result_12.burn:
 	import burn.types
@@ -568,7 +568,7 @@ gt_result_12.burn:
 	
 	assert.throws( function() { "banana" > types }, TypeError )
 
-$ $BURN --tolerant gt_result_12.burn
+$ $BURN gt_result_12.burn
 
 gt_result_13.burn:
 	import burn.types
@@ -608,7 +608,7 @@ gt_result_13.burn:
 	
 	assert.throws( function() { repr > types }, TypeError )
 
-$ $BURN --tolerant gt_result_13.burn
+$ $BURN gt_result_13.burn
 
 gt_result_14.burn:
 	import burn.types
@@ -648,7 +648,7 @@ gt_result_14.burn:
 	
 	assert.throws( function() { function(){} > types }, TypeError )
 
-$ $BURN --tolerant gt_result_14.burn
+$ $BURN gt_result_14.burn
 
 gt_result_15.burn:
 	import burn.types
@@ -688,7 +688,7 @@ gt_result_15.burn:
 	
 	assert.throws( function() { Integer > types }, TypeError )
 
-$ $BURN --tolerant gt_result_15.burn
+$ $BURN gt_result_15.burn
 
 gt_result_16.burn:
 	import burn.types
@@ -728,7 +728,7 @@ gt_result_16.burn:
 	
 	assert.throws( function() { Type > types }, TypeError )
 
-$ $BURN --tolerant gt_result_16.burn
+$ $BURN gt_result_16.burn
 
 gt_result_17.burn:
 	import burn.types
@@ -768,4 +768,4 @@ gt_result_17.burn:
 	
 	assert.throws( function() { types > types }, TypeError )
 
-$ $BURN --tolerant gt_result_17.burn
+$ $BURN gt_result_17.burn

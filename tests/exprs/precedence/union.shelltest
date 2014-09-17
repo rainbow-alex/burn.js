@@ -5,7 +5,7 @@
 union_not.burn:
 	Something | not Something
 
-$ $BURN --tolerant union_not.burn
+$ $BURN union_not.burn
 	* exit status nonzero
 
 // TODO: union-is

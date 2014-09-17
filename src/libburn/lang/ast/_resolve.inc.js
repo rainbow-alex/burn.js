@@ -44,6 +44,20 @@ let Scope = CLASS( {
 	isClosure: function() {
 		return this.fn.closes;
 	},
+	addLoop: function( loop ) {
+		console.assert( ! this.loop );
+		this.loop = loop;
+	},
+	findLoop: function( label ) {
+		if( this.loop && this.loop.label && this.loop.label.value === label ) {
+			return this.loop;
+		} else if( this.parent ) {
+			return this.parent.findLoop( label );
+		}
+	},
+	getCurrentLoop: function() {
+		return this.loop || ( this.parent && this.parent.getCurrentLoop() );
+	},
 	spawnNestedBlockScope: function() {
 		return new Scope( this, this.fn );
 	},
@@ -81,6 +95,50 @@ ast.Root.prototype.resolve = function() {
 	} );
 };
 
+ast.BreakStatement.prototype.resolve = function( scope ) {
+	if( this.label ) {
+		this.loop = scope.findLoop( this.label.value );
+		if( ! this.loop ) {
+			throw new Error( "Labelled loop not found: " + this.label.value, this.keyword );
+		}
+	} else {
+		this.loop = scope.getCurrentLoop();
+		if( ! this.loop ) {
+			throw new Error( "Break outside of loop.", this.keyword );
+		}
+	}
+};
+
+ast.ContinueStatement.prototype.resolve = function( scope ) {
+	if( this.label ) {
+		this.loop = scope.findLoop( this.label.value );
+		if( ! this.loop ) {
+			throw new Error( "Labelled loop not found: " + this.label.value, this.keyword );
+		}
+	} else {
+		this.loop = scope.getCurrentLoop();
+		if( ! this.loop ) {
+			throw new Error( "Continue outside of loop.", this.keyword );
+		}
+	}
+};
+
+ast.ForInStatement.prototype.resolve = function( scope ) {
+	if( this.label && scope.findLoop( this.label.value ) ) {
+		throw new Error( "Duplicate loop label: " + this.label.value, this.label );
+	}
+	this.iterator.resolve( scope );
+	let blockScope = scope.spawnNestedBlockScope();
+	blockScope.addLoop( this );
+	blockScope.declareVariable( this.variable.value );
+	this.block.statements.forEach( function( s ) {
+		s.resolve( blockScope );
+	} );
+	if( this.elseClause ) {
+		this.elseClause.resolve( scope );
+	}
+};
+
 ast.IfStatement.prototype.resolve = function( scope ) {
 	this.test.resolve( scope );
 	let blockScope = scope.spawnNestedBlockScope();
@@ -112,8 +170,12 @@ ast.TryStatement.prototype.resolve = function( scope ) {
 };
 
 ast.WhileStatement.prototype.resolve = function( scope ) {
+	if( this.label && scope.findLoop( this.label.value ) ) {
+		throw new Error( "Duplicate loop label: " + this.label.value, this.label );
+	}
 	this.test.resolve( scope );
 	let blockScope = scope.spawnNestedBlockScope();
+	blockScope.addLoop( this );
 	this.block.statements.forEach( function( s ) {
 		s.resolve( blockScope );
 	} );

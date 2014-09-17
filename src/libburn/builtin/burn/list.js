@@ -21,6 +21,9 @@ list.JsListInstance = CLASS( Value.Special, {
 		util.validateIndex( fiber, this, types.Integer, index );
 		this.items[ index.value ] = value;
 	},
+	iter: function() {
+		return new ListIterator( this );
+	},
 	get_length: function( fiber ) {
 		return new Value.Integer( this.items.length );
 	},
@@ -31,6 +34,16 @@ list.JsListInstance = CLASS( Value.Special, {
 } );
 
 list.List = new util.JsInstanceofType( list.JsListInstance );
+
+let ListIterator = CLASS( {
+	init: function( list ) {
+		this.list = list;
+		this.i = 0;
+	},
+	next: function() {
+		return this.list.items[ this.i++ ];
+	},
+} );
 
 list.exposes = new Value.Module( {
 	List: list.List,
