@@ -1,4 +1,5 @@
 "use strict";
+let punycode = require( "punycode" );
 
 let utf8 = module.exports;
 
@@ -135,4 +136,9 @@ utf8.decode = function( bytes ) {
 	}
 	
 	return decoded;
+};
+
+// https://mathiasbynens.be/notes/javascript-unicode#accounting-for-astral-symbols
+utf8.length = function( s ) {
+	return punycode.ucs2.decode( s ).length;
 };

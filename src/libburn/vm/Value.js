@@ -1,6 +1,6 @@
 "use strict";
 let Fiber = require( "./Fiber" );
-let punycode = require( "punycode" );
+let utf8 = require( "../utf8" );
 
 let Value = module.exports = CLASS( {
 	toBurnString: function( fiber ) {
@@ -147,7 +147,7 @@ Value.String = CLASS( Value, {
 	},
 	get: function( fiber, property ) {
 		if( property === "length" ) {
-			return new Value.Integer( punycode.ucs2.decode( this.value ).length );
+			return new Value.Integer( utf8.length( this.value ) );
 		} else {
 			console.assert( false );
 		}

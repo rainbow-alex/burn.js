@@ -1,0 +1,23 @@
+// prints the offset of the first token of the first expression of the first statement
+print_offset.py:
+	import sys, json
+	ast = json.loads( sys.stdin.read() )
+	statement = ast[ "children" ][0][1][0]
+	expression = statement[ "children" ][0][1]
+	token = expression[ "children" ][0][1]
+	print( token[ "offset" ] )
+
+a.burn:
+	/* 𝌆 */ nothing
+
+$ $BURN --dump a.burn | python3 print_offset.py
+	* stdout
+		8
+
+b.burn:
+	/*
+	𝌆 */ nothing
+
+$ $BURN --dump b.burn | python3 print_offset.py
+	* stdout
+		5

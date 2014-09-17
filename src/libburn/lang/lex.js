@@ -129,9 +129,9 @@ module.exports = function( origin ) {
 		
 		if( m[0].indexOf( "\n" ) !== -1 ) {
 			line += m[0].match( /\n/g ).length;
-			offset = m[0].match( /\n([^\n]*)$/ )[1].length;
+			offset = utf8.length( m[0].match( /\n([^\n]*)$/ )[1] );
 		} else {
-			offset += m[0].length;
+			offset += utf8.length( m[0] );
 		}
 		
 		i += m[0].length;
