@@ -1,6 +1,7 @@
 "use strict";
 let Error = require( "./Error" );
 let ast = require( "./ast" );
+let SeparatedList = require( "./SeparatedList" );
 
 module.exports = function( tokens ) {
 	
@@ -62,15 +63,21 @@ module.exports = function( tokens ) {
 	function parseBlock( readTrailingNewline ) {
 		readTrailingNewline = readTrailingNewline === undefined ? true : readTrailingNewline;
 		let statements = [];
-		read( "{" );
+		let lbrace = read( "{" );
 		while( peek().type !== "}" ) {
 			statements.push( parseStatement() );
 		}
-		read( "}" );
+		let rbrace = read( "}" );
+		let newline;
 		if( readTrailingNewline && peek().type === "newline" ) {
-			read();
+			newline = read();
 		}
-		return statements;
+		return new ast.Block( {
+			lbrace: lbrace,
+			statements: statements,
+			rbrace: rbrace,
+			newline: newline,
+		} );
 	}
 	
 	function parseStatement() {
@@ -100,11 +107,12 @@ module.exports = function( tokens ) {
 			let expression = parseExpression();
 			if( peek().type === "=" ) {
 				let lvalue = toLvalue( expression );
-				read();
+				let operator = read();
 				let rvalue = parseExpression();
 				let newline = readEndOfStatement();
 				return new ast.AssignmentStatement( {
 					lvalue: lvalue,
+					operator: operator,
 					rvalue: rvalue,
 					newline: newline,
 				} );
@@ -122,7 +130,7 @@ module.exports = function( tokens ) {
 		if( peek().type === "eof" || peek().type === "}" ) {
 			return undefined;
 		} else {
-			read( "newline" );
+			return read( "newline" );
 		}
 	}
 	
@@ -166,7 +174,7 @@ module.exports = function( tokens ) {
 				let elseBlock = parseBlock();
 				elseClause = new ast.ElseClause( {
 					keyword: keyword,
-					elseBlock: elseBlock,
+					block: elseBlock,
 				} );
 				break;
 			}
@@ -183,14 +191,25 @@ module.exports = function( tokens ) {
 	function parseImportStatement() {
 		let keyword = read( "import" );
 		let fqn = parsePath();
-		let alias = fqn[ fqn.length - 1 ];
 		let newline = readEndOfStatement();
 		return new ast.ImportStatement( {
 			keyword: keyword,
 			fqn: fqn,
-			alias: alias,
 			newline: newline,
 		} );
+	}
+	
+	function parsePath() {
+		let path = new SeparatedList();
+		while( true ) {
+			path.pushValue( read( "identifier" ) );
+			if( peek().type === "." ) {
+				path.pushSeparator( read() );
+			} else {
+				break;
+			}
+		}
+		return path;
 	}
 	
 	function parseIncludeStatement() {
@@ -204,31 +223,20 @@ module.exports = function( tokens ) {
 		} );
 	}
 	
-	function parsePath() {
-		let path = [];
-		while( true ) {
-			path.push( read( "identifier" ) );
-			if( peek().type === "." ) {
-				read();
-			} else {
-				break;
-			}
-		}
-		return path;
-	}
-	
 	function parseLetStatement() {
 		let keyword = read( "let" );
 		let variable = read( "variable" );
+		let equalitySign;
 		let initialValue;
 		if( peek().type !== "newline" && peek().type !== "}" ) {
-			read( "=" );
+			equalitySign = read( "=" );
 			initialValue = parseExpression();
 		}
 		let newline = readEndOfStatement();
 		return new ast.LetStatement( {
 			keyword: keyword,
 			variable: variable,
+			equalitySign: equalitySign,
 			initialValue: initialValue,
 			newline: newline,
 		} );
@@ -385,58 +393,64 @@ module.exports = function( tokens ) {
 	function parseComparisonExpression() {
 		let left = parseUnionExpression();
 		if( peek().type === "is" ) {
-			read();
-			let not = false;
+			let operator = read();
+			let not;
 			if( peek().type === "not" ) {
-				read();
-				not = true;
+				not = read();
 			}
 			let type = parseUnionExpression();
 			return new ast.IsExpression( {
-				not: not,
 				expression: left,
+				operator: operator,
+				not: not,
 				type: type,
 			} );
 		} else if( peek().type === "==" ) {
-			read();
+			let operator = read();
 			let right = parseUnionExpression();
 			return new ast.EqExpression( {
 				left: left,
+				operator: operator,
 				right: right,
 			} );
 		} else if( peek().type === "!=" ) {
-			read();
+			let operator = read();
 			let right = parseUnionExpression();
 			return new ast.NeqExpression( {
 				left: left,
+				operator: operator,
 				right: right,
 			} );
 		} else if( peek().type === "<" ) {
-			read();
+			let operator = read();
 			let right = parseUnionExpression();
 			return new ast.LtExpression( {
 				left: left,
+				operator: operator,
 				right: right,
 			} );
 		} else if( peek().type === ">" ) {
-			read();
+			let operator = read();
 			let right = parseUnionExpression();
 			return new ast.GtExpression( {
 				left: left,
+				operator: operator,
 				right: right,
 			} );
 		} else if( peek().type === "<=" ) {
-			read();
+			let operator = read();
 			let right = parseUnionExpression();
-			return new ast.LtEqExpression( {
+			return new ast.LteqExpression( {
 				left: left,
+				operator: operator,
 				right: right,
 			} );
 		} else if( peek().type === ">=" ) {
-			read();
+			let operator = read();
 			let right = parseUnionExpression();
-			return new ast.GtEqExpression( {
+			return new ast.GteqExpression( {
 				left: left,
+				operator: operator,
 				right: right,
 			} );
 		} else {
@@ -447,10 +461,11 @@ module.exports = function( tokens ) {
 	function parseUnionExpression() {
 		let left = parseAdditiveExpression();
 		while( peek().type === "|" ) {
-			read();
+			let operator = read();
 			let right = parseAdditiveExpression();
 			left = new ast.UnionExpression( {
 				left: left,
+				operator: operator,
 				right: right,
 			} );
 		}
@@ -463,7 +478,7 @@ module.exports = function( tokens ) {
 			if( peek().type === "+" ) {
 				let operator = read();
 				let right = parseMultiplicativeExpression();
-				left = new ast.AdditionExpression( {
+				left = new ast.AddExpression( {
 					left: left,
 					operator: operator,
 					right: right,
@@ -471,7 +486,7 @@ module.exports = function( tokens ) {
 			} else if( peek().type === "-" ) {
 				let operator = read();
 				let right = parseMultiplicativeExpression();
-				left = new ast.SubtractionExpression( {
+				left = new ast.SubExpression( {
 					left: left,
 					operator: operator,
 					right: right,
@@ -489,7 +504,7 @@ module.exports = function( tokens ) {
 			if( peek().type === "*" ) {
 				let operator = read();
 				let right = parseAccessExpression();
-				left = new ast.MultiplicationExpression( {
+				left = new ast.MulExpression( {
 					left: left,
 					operator: operator,
 					right: right,
@@ -497,7 +512,7 @@ module.exports = function( tokens ) {
 			} else if( peek().type === "/" ) {
 				let operator = read();
 				let right = parseAccessExpression();
-				left = new ast.DivisionExpression( {
+				left = new ast.DivExpression( {
 					left: left,
 					operator: operator,
 					right: right,
@@ -514,22 +529,23 @@ module.exports = function( tokens ) {
 		while( true ) {
 			if( peek().type === "(" ) {
 				let lparen = read();
-				let args = [];
+				let args = new SeparatedList();
 				if( peek().type !== ")" ) {
 					while( true ) {
-						args.push( parseExpression() );
+						args.pushValue( parseExpression() );
 						if( peek().type === "," ) {
-							read();
+							args.pushSeparator( read() );
 						} else {
 							break;
 						}
 					}
 				}
-				read( ")" );
+				let rparen = read( ")" );
 				expression = new ast.CallExpression( {
 					callee: expression,
 					lparen: lparen,
 					arguments: args,
+					rparen: rparen,
 				} );
 			} else if( peek().type === "." ) {
 				let dot = read();
@@ -542,11 +558,12 @@ module.exports = function( tokens ) {
 			} else if( peek().type === "[" ) {
 				let lbracket = read();
 				let index = parseExpression();
-				read( "]" );
+				let rbracket = read( "]" );
 				expression = new ast.IndexExpression( {
 					expression: expression,
 					lbracket: lbracket,
 					index: index,
+					rbracket: rbracket,
 				} );
 			} else {
 				break;
@@ -569,14 +586,21 @@ module.exports = function( tokens ) {
 		} else if( peek().type === "string_literal" ) {
 			return parseStringLiteral();
 		} else if( peek().type === "integer_literal" ) {
-			return new ast.IntegerLiteral( { token: read() } );
+			let token = read();
+			return new ast.IntegerLiteral( {
+				token: token,
+				value: parseInt( token.value, 10 ),
+			} );
 		} else if( peek().type === "float_literal" ) {
-			return new ast.FloatLiteral( { token: read() } );
+			let token = read();
+			return new ast.FloatLiteral( {
+				token: token,
+				value: parseFloat( token.value ),
+			} );
 		} else if( peek().type === "true" || peek().type === "false" ) {
 			return new ast.BooleanLiteral( { token: read() } );
 		} else if( peek().type === "nothing" ) {
-			read();
-			return new ast.NothingLiteral();
+			return new ast.NothingLiteral( { token: read() } );
 		} else {
 			throwError( "Expected expression." );
 		}
@@ -584,8 +608,8 @@ module.exports = function( tokens ) {
 	
 	function parseFunction() {
 		let keyword = read( "function" );
-		read( "(" );
-		let parameters = [];
+		let left_parenthesis = read( "(" );
+		let parameters = new SeparatedList();
 		if( peek().type !== ")" ) {
 			while( true ) {
 				let type;
@@ -593,33 +617,39 @@ module.exports = function( tokens ) {
 					type = parseExpression();
 				}
 				let variable = read( "variable" );
+				let equalitySign;
 				let defaultValue;
 				if( peek().type === "=" ) {
-					read();
+					equalitySign = read();
 					defaultValue = parseExpression();
 				}
-				parameters.push( new ast.FunctionParameter( {
+				parameters.pushValue( new ast.FunctionParameter( {
 					type: type,
 					variable: variable,
+					equalitySign: equalitySign,
 					defaultValue: defaultValue,
 				} ) );
 				if( peek().type === "," ) {
-					read();
+					parameters.pushSeparator( read() );
 				} else {
 					break;
 				}
 			}
 		}
-		read( ")" );
+		let right_parenthesis = read( ")" );
+		let arrow;
 		let returnType;
 		if( peek().type === "->" ) {
-			read();
+			arrow = read();
 			returnType = parseExpression();
 		}
 		let block = parseBlock( false );
 		return new ast.FunctionExpression( {
 			keyword: keyword,
+			lparen: left_parenthesis,
 			parameters: parameters,
+			rparen: right_parenthesis,
+			arrow: arrow,
 			returnType: returnType,
 			block: block,
 		} );
@@ -627,11 +657,11 @@ module.exports = function( tokens ) {
 	
 	function parseListLiteral() {
 		read( "[" );
-		let items = [];
+		let items = new SeparatedList();
 		while( peek().type !== "]" ) {
-			items.push( parseExpression() );
+			items.pushValue( parseExpression() );
 			if( peek().type === "," ) {
-				read();
+				items.pushSeparator( read() );
 				continue;
 			} else {
 				break;
@@ -735,6 +765,7 @@ module.exports = function( tokens ) {
 				expression: node.expression,
 				lbracket: node.lbracket,
 				index: node.index,
+				rbracket: node.rbracket,
 			} );
 		} else {
 			console.assert( false );

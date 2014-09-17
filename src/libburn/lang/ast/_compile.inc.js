@@ -41,7 +41,7 @@ ast.IfStatement.prototype.compile = function( output ) {
 	output.code += 'if((';
 	this.test.compile( output );
 	output.code += ').isTruthy()){';
-	this.block.forEach( function( s ) {
+	this.block.statements.forEach( function( s ) {
 		s.compile( output );
 	} );
 	output.code += '}';
@@ -49,14 +49,14 @@ ast.IfStatement.prototype.compile = function( output ) {
 		output.code += 'else if((';
 		c.test.compile( output );
 		output.code += ').isTruthy()){';
-		c.block.forEach( function( s ) {
+		c.block.statements.forEach( function( s ) {
 			s.compile( output );
 		} );
 		output.code += '}';
 	} );
 	if( this.elseClause ) {
 		output.code += 'else{';
-		this.elseClause.block.forEach( function( s ) {
+		this.elseClause.block.statements.forEach( function( s ) {
 			s.compile( output );
 		} );
 		output.code += '}';
@@ -64,8 +64,9 @@ ast.IfStatement.prototype.compile = function( output ) {
 };
 
 ast.ImportStatement.prototype.compile = function( output ) {
-	output.code += 'let ' + encodeName( this.alias.value ) + '=' + '_.import(_fiber,[';
-	this.fqn.forEach( function( p ) {
+	let alias = this.fqn.getLastValue();
+	output.code += 'let ' + encodeName( alias.value ) + '=' + '_.import(_fiber,[';
+	this.fqn.forEachValue( function( p ) {
 		output.code += '"' + p.value + '",';
 	} );
 	output.code += '],void _fiber.setLine(' + this.keyword.line + '));';
@@ -101,19 +102,25 @@ ast.ReturnStatement.prototype.compile = function( output ) {
 	output.code += ';';
 };
 
+ast.ThrowStatement.prototype.compile = function( output ) {
+	output.code += 'throw ';
+	this.expression.compile( output );
+	output.code += ';';
+};
+
 ast.TryStatement.prototype.compile = function( output ) {
 	let tmp = output.tmp++;
 	if( this.elseClause ) {
 		output.code += 'let _' + tmp + '=false;';
 	}
 	output.code += 'try{if(true){';
-	this.block.forEach( function( s ) {
+	this.block.statements.forEach( function( s ) {
 		s.compile( output );
 	} );
 	output.code += '}';
 	if( this.elseClause ) {
 		output.code += 'if(true){_' + tmp + '=true;';
-		this.elseClause.block.forEach( function( s ) {
+		this.elseClause.block.statements.forEach( function( s ) {
 			s.compile( output );
 		} );
 		output.code += '}';
@@ -137,7 +144,7 @@ ast.TryStatement.prototype.compile = function( output ) {
 			}
 			output.code += '{';
 			output.code += 'let ' + encodeVariable( c.variable.value ) + '=_e;';
-			c.block.forEach( function( s ) {
+			c.block.statements.forEach( function( s ) {
 				s.compile( output );
 			} );
 			output.code += '}';
@@ -146,7 +153,7 @@ ast.TryStatement.prototype.compile = function( output ) {
 	}
 	if( this.finallyClause ) {
 		output.code += 'finally{';
-		this.finallyClause.block.forEach( function( s ) {
+		this.finallyClause.block.statements.forEach( function( s ) {
 			s.compile( output );
 		} );
 		output.code += '}';
@@ -160,7 +167,7 @@ ast.WhileStatement.prototype.compile = function( output ) {
 	output.code += 'while((';
 	this.test.compile( output );
 	output.code += ').isTruthy()){';
-	this.block.forEach( function( s ) {
+	this.block.statements.forEach( function( s ) {
 		s.compile( output );
 	} );
 	output.code += '}';
@@ -257,7 +264,7 @@ ast.GtExpression.prototype.compile = function( output ) {
 	output.code += ')';
 };
 
-ast.LtEqExpression.prototype.compile = function( output ) {
+ast.LteqExpression.prototype.compile = function( output ) {
 	output.code += '_.lteq(_fiber,';
 	this.left.compile( output );
 	output.code += ',';
@@ -265,7 +272,7 @@ ast.LtEqExpression.prototype.compile = function( output ) {
 	output.code += ')';
 };
 
-ast.GtEqExpression.prototype.compile = function( output ) {
+ast.GteqExpression.prototype.compile = function( output ) {
 	output.code += '_.gteq(_fiber,';
 	this.left.compile( output );
 	output.code += ',';
@@ -281,7 +288,7 @@ ast.UnionExpression.prototype.compile = function( output ) {
 	output.code += ')';
 };
 
-ast.AdditionExpression.prototype.compile = function( output ) {
+ast.AddExpression.prototype.compile = function( output ) {
 	output.code += '_.add(_fiber,';
 	this.left.compile( output );
 	output.code += ',';
@@ -289,7 +296,7 @@ ast.AdditionExpression.prototype.compile = function( output ) {
 	output.code += ',void _fiber.setLine(' + this.operator.line + '))';
 };
 
-ast.SubtractionExpression.prototype.compile = function( output ) {
+ast.SubExpression.prototype.compile = function( output ) {
 	output.code += '_.sub(_fiber,';
 	this.left.compile( output );
 	output.code += ',';
@@ -297,7 +304,7 @@ ast.SubtractionExpression.prototype.compile = function( output ) {
 	output.code += ',void _fiber.setLine(' + this.operator.line + '))';
 };
 
-ast.MultiplicationExpression.prototype.compile = function( output ) {
+ast.MulExpression.prototype.compile = function( output ) {
 	output.code += '_.mul(_fiber,';
 	this.left.compile( output );
 	output.code += ',';
@@ -305,7 +312,7 @@ ast.MultiplicationExpression.prototype.compile = function( output ) {
 	output.code += ',void _fiber.setLine(' + this.operator.line + '))';
 };
 
-ast.DivisionExpression.prototype.compile = function( output ) {
+ast.DivExpression.prototype.compile = function( output ) {
 	output.code += '_.div(_fiber,';
 	this.left.compile( output );
 	output.code += ',';
@@ -317,7 +324,7 @@ ast.CallExpression.prototype.compile = function( output ) {
 	output.code += '(';
 	this.callee.compile( output );
 	output.code += ').call(_fiber,[';
-	this.arguments.forEach( function( a ) {
+	this.arguments.forEachValue( function( a ) {
 		a.compile( output );
 		output.code += ',';
 	} );
@@ -341,7 +348,7 @@ ast.IndexExpression.prototype.compile = function( output ) {
 ast.FunctionExpression.prototype.compile = function( output ) {
 	output.code += '_.createFunction(function(_fiber,args){args=args||[];';
 	output.code += '_.validateFunctionCallArguments(_fiber,this,[';
-	this.parameters.forEach( function( parameter ) {
+	this.parameters.forEachValue( function( parameter ) {
 		output.code += '{';
 		if( parameter.type ) {
 			output.code += 'type:';
@@ -357,10 +364,10 @@ ast.FunctionExpression.prototype.compile = function( output ) {
 	} );
 	output.code += '],args);';
 	output.code += 'let r=function(){';
-	this.parameters.forEach( function( parameter, i ) {
+	this.parameters.forEachValue( function( parameter, i ) {
 		output.code += 'let ' + encodeVariable( parameter.variable.value ) + '=args[' + i + '];';
 	} );
-	this.block.forEach( function( s ) {
+	this.block.statements.forEach( function( s ) {
 		s.compile( output );
 	} );
 	output.code += '}();';
@@ -381,8 +388,8 @@ ast.FunctionExpression.prototype.compile = function( output ) {
 
 ast.ListLiteral.prototype.compile = function( output ) {
 	output.code += '_.createList([';
-	this.items.forEach( function( i ) {
-		i.compile( output );
+	this.items.forEachValue( function( item, i ) {
+		item.compile( output );
 		output.code += ',';
 	} );
 	output.code += '])';

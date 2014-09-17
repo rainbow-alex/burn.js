@@ -33,6 +33,7 @@ module.exports = function( origin ) {
 		}
 		
 		let token = new Token( type, value );
+		token.index = tokens.length;
 		token.origin = origin;
 		token.line = line;
 		token.offset = offset;

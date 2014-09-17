@@ -2,6 +2,7 @@
 let path = require( "path" );
 let Error = require( "../Error" );
 let ast = require( "./" );
+let SeparatedList = require( "../SeparatedList" );
 
 let Scope = CLASS( {
 	init: function( parent, fn ) {
@@ -60,6 +61,12 @@ ast.Node.prototype.resolve = function( scope ) {
 						i.resolve( scope );
 					}
 				} );
+			} else if( this[k] instanceof SeparatedList ) {
+				this[k].forEachValue( function( v ) {
+					if( v instanceof ast.Node ) {
+						v.resolve( scope );
+					}
+				} );
 			} else if( this[k] instanceof ast.Node ) {
 				this[k].resolve( scope );
 			}
@@ -77,7 +84,7 @@ ast.Root.prototype.resolve = function() {
 ast.IfStatement.prototype.resolve = function( scope ) {
 	this.test.resolve( scope );
 	let blockScope = scope.spawnNestedBlockScope();
-	this.block.forEach( function( s ) {
+	this.block.statements.forEach( function( s ) {
 		s.resolve( blockScope );
 	} );
 	this.elseIfClauses.forEach( function( c ) {
@@ -90,7 +97,7 @@ ast.IfStatement.prototype.resolve = function( scope ) {
 
 ast.TryStatement.prototype.resolve = function( scope ) {
 	let tryScope = scope.spawnNestedBlockScope();
-	this.block.forEach( function( s ) {
+	this.block.statements.forEach( function( s ) {
 		s.resolve( tryScope );
 	} );
 	this.catchClauses.forEach( function( c, i ) {
@@ -107,7 +114,7 @@ ast.TryStatement.prototype.resolve = function( scope ) {
 ast.WhileStatement.prototype.resolve = function( scope ) {
 	this.test.resolve( scope );
 	let blockScope = scope.spawnNestedBlockScope();
-	this.block.forEach( function( s ) {
+	this.block.statements.forEach( function( s ) {
 		s.resolve( blockScope );
 	} );
 };
@@ -124,7 +131,7 @@ ast.LetStatement.prototype.resolve = function( scope ) {
 };
 
 ast.ImportStatement.prototype.resolve = function( scope ) {
-	scope.declareName( this.alias.value );
+	scope.declareName( this.fqn.getLastValue().value );
 };
 
 ast.AssignmentStatement.prototype.resolve = function( scope ) {
@@ -137,14 +144,14 @@ ast.AssignmentStatement.prototype.resolve = function( scope ) {
 ast.ElseIfClause.prototype.resolve = function( scope ) {
 	this.test.resolve( scope );
 	let blockScope = scope.spawnNestedBlockScope();
-	this.block.forEach( function( s ) {
+	this.block.statements.forEach( function( s ) {
 		s.resolve( blockScope );
 	} );
 };
 
 ast.ElseClause.prototype.resolve = function( scope ) {
 	let blockScope = scope.spawnNestedBlockScope();
-	this.block.forEach( function( s ) {
+	this.block.statements.forEach( function( s ) {
 		s.resolve( blockScope );
 	} );
 };
@@ -155,28 +162,28 @@ ast.CatchClause.prototype.resolve = function( scope ) {
 	}
 	let blockScope = scope.spawnNestedBlockScope();
 	blockScope.declareVariable( this.variable.value );
-	this.block.forEach( function( s ) {
+	this.block.statements.forEach( function( s ) {
 		s.resolve( blockScope );
 	} );
 };
 
 ast.FinallyClause.prototype.resolve = function( scope ) {
 	let blockScope = scope.spawnNestedBlockScope();
-	this.block.forEach( function( s ) {
+	this.block.statements.forEach( function( s ) {
 		s.resolve( blockScope );
 	} );
 };
 
 ast.FunctionExpression.prototype.resolve = function( scope ) {
 	let functionScope = scope.spawnNestedFunctionScope( this );
-	this.parameters.forEach( function( p ) {
+	this.parameters.forEachValue( function( p ) {
 		p.resolveType( scope );
 		p.resolve( functionScope );
 	} );
 	if( this.returnType ) {
 		this.returnType.resolve( scope );
 	}
-	this.block.forEach( function( s ) {
+	this.block.statements.forEach( function( s ) {
 		s.resolve( functionScope );
 	} );
 	this.safe = ! functionScope.isClosure();

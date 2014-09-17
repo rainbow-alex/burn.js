@@ -1,0 +1,25 @@
+body {
+	font-size: 14px;
+}
+
+.burn-root {
+	white-space: pre;
+	tab-size: 4;
+	font-family: Hasklig, monospace;
+}
+
+.burn-whitespace {
+	color: #999;
+}
+
+.burn-keyword {
+	font-weight: bold;
+}
+
+.burn-variable {
+	color: #33A;
+}
+
+.burn-literal {
+	color: #FA5A00;
+}

@@ -12,6 +12,8 @@ exports.Node = CLASS( {
 
 exports.Root = CLASS( exports.Node );
 
+exports.Block = CLASS( exports.Node );
+
 exports.Statement = CLASS( exports.Node );
 exports.BreakStatement = CLASS( exports.Statement );
 exports.ContinueStatement = CLASS( exports.Statement );
@@ -41,21 +43,21 @@ exports.EqExpression = CLASS( exports.Expression );
 exports.NeqExpression = CLASS( exports.Expression );
 exports.LtExpression = CLASS( exports.Expression );
 exports.GtExpression = CLASS( exports.Expression );
-exports.LtEqExpression = CLASS( exports.Expression );
-exports.GtEqExpression = CLASS( exports.Expression );
+exports.LteqExpression = CLASS( exports.Expression );
+exports.GteqExpression = CLASS( exports.Expression );
 exports.UnionExpression = CLASS( exports.Expression );
-exports.AdditionExpression = CLASS( exports.Expression );
-exports.SubtractionExpression = CLASS( exports.Expression );
-exports.MultiplicationExpression = CLASS( exports.Expression );
-exports.DivisionExpression = CLASS( exports.Expression );
+exports.AddExpression = CLASS( exports.Expression );
+exports.SubExpression = CLASS( exports.Expression );
+exports.MulExpression = CLASS( exports.Expression );
+exports.DivExpression = CLASS( exports.Expression );
 exports.CallExpression = CLASS( exports.Expression );
 exports.PropertyExpression = CLASS( exports.Expression );
 exports.IndexExpression = CLASS( exports.Expression );
 exports.FunctionExpression = CLASS( exports.Expression );
-exports.ListLiteral = CLASS( exports.Expression );
 exports.ParenthesizedExpression = CLASS( exports.Expression );
 exports.IdentifierExpression = CLASS( exports.Expression );
 exports.VariableExpression = CLASS( exports.Expression );
+exports.ListLiteral = CLASS( exports.Expression );
 exports.StringLiteral = CLASS( exports.Expression );
 exports.IntegerLiteral = CLASS( exports.Expression );
 exports.FloatLiteral = CLASS( exports.Expression );
@@ -81,3 +83,4 @@ for( let k in exports ) {
 require( "./_resolve.inc.js" );
 require( "./_lint.inc.js" );
 require( "./_compile.inc.js" );
+require( "./_toJSON.inc.js" );
