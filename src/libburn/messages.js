@@ -23,6 +23,16 @@ function toString( fiber, value ) {
 	}
 }
 
+function calleeToString( callee ) {
+	if( callee instanceof Value.Function ) {
+		return callee.name || callee.repr;
+	} else if( callee instanceof Value.BoundMethod ) {
+		return callee.value.repr + "." + callee.method;
+	} else {
+		return callee.repr;
+	}
+}
+
 messages.implicit_name_error = function( name ) {
 	return format(
 		"NameError: implicit name $name is not defined.",
@@ -51,111 +61,67 @@ messages.index_wrong_type = function( context, type, index ) {
 	);
 };
 
-messages.function_call_not_enough_args = function( function_, parameters, args ) {
+messages.call_not_enough_args = function( fiber, callee, args, parameters ) {
 	let min = parameters.length;
 	while( parameters[ min - 1 ].default ) { min--; }
 	return format(
-		parameters.length === 1 ? "ArgumentError: $fn takes one parameter, $n given."
-		: min === 1 ? "ArgumentError: $fn takes at least one parameter, $n given."
-		: min < parameters.length ? "ArgumentError: $fn takes at least $m parameters, $n given."
-		: "ArgumentError: $fn takes at $m parameters, $n given.",
+		parameters.length === 1 ? "ArgumentError: $callee takes one parameter, $n given."
+		: min === 1 ? "ArgumentError: $callee takes at least one parameter, $n given."
+		: min < parameters.length ? "ArgumentError: $callee takes at least $min parameters, $n given."
+		: "ArgumentError: $callee takes $min parameters, $n given.",
 		{
-			fn: function_.repr,
-			m: min,
-			n: args.length || "none",
-		}
-	);
-};
-
-messages.function_call_too_many_args = function( function_, parameters, args ) {
-	return format(
-		parameters.length === 0 ? "ArgumentError: $fn takes no parameters, $n given."
-		: parameters.length === 1 ? "ArgumentError: $fn takes at most one parameter, $n given."
-		: "ArgumentError: $fn takes at most $p parameters, $n given.",
-		{
-			fn: function_.repr,
-			p: parameters.length,
-			n: args.length || "none",
-		}
-	);
-};
-
-messages.function_call_wrong_arg_type = function( function_, parameters, args, i ) {
-	return format(
-		"ArgumentError: $fn parameter $param should be $type, got $arg.",
-		{
-			fn: function_.repr,
-			param: format(
-				parameters[i].name ? "$$$name (#$i)" : "#$i",
-				{ name: parameters[i].name, i: i+1 }
-			),
-			type: parameters[i].type.repr,
-			arg: args[i].repr,
-		}
-	);
-};
-
-messages.function_call_return_type_is_not_a_type = function( function_, type ) {
-	return format(
-		"TypeError: return type for $fn is not Type, but $actual.",
-		{
-			fn: function_.repr,
-			actual: type.repr,
-		}
-	);
-};
-
-messages.function_call_wrong_return_type = function( fiber, function_, type, value ) {
-	return format(
-		"TypeError: $fn returned $value, which is not $type.",
-		{
-			fn: function_.repr,
-			type: toString( fiber, type ),
-			value: value.repr,
-		}
-	);
-};
-
-messages.method_call_not_enough_args = function( context, method, parameters, args ) {
-	let min = parameters.length;
-	while( parameters[ min - 1 ].default ) { min--; }
-	return format(
-		parameters.length === 1 ? "ArgumentError: $method takes one parameter, $n given."
-		: min === 1 ? "ArgumentError: $method takes at least one parameter, $n given."
-		: min < parameters.length ? "ArgumentError: $method takes at least $min parameters, $n given."
-		: "ArgumentError: $method takes at $min parameters, $n given.",
-		{
-			method: context.repr + "." + method,
+			callee: calleeToString( callee ),
 			min: min,
 			n: args.length || "none",
 		}
 	);
 };
 
-messages.method_call_too_many_args = function( context, method, parameters, args ) {
+messages.call_too_many_args = function( fiber, callee, args, parameters ) {
 	return format(
-		parameters.length === 0 ? "ArgumentError: $method takes no parameters, $n given."
-		: parameters.length === 1 ? "ArgumentError: $method takes at most one parameter, $n given."
-		: "ArgumentError: $method takes at most $p parameters, $n given.",
+		parameters.length === 0 ? "ArgumentError: $callee takes no parameters, $n given."
+		: parameters.length === 1 ? "ArgumentError: $callee takes at most one parameter, $n given."
+		: "ArgumentError: $callee takes at most $p parameters, $n given.",
 		{
-			method: context.repr + "." + method,
+			callee: calleeToString( callee ),
 			p: parameters.length,
 			n: args.length || "none",
 		}
 	);
 };
 
-messages.method_call_wrong_arg_type = function( context, method, parameters, args, i ) {
+messages.call_wrong_arg_type = function( fiber, callee, args, parameters, i ) {
 	return format(
-		"ArgumentError: $method parameter $param should be $type, got $arg.",
+		"ArgumentError: $callee parameter $param should be $type, got $arg.",
 		{
-			method: context.repr + "." + method,
+			callee: calleeToString( callee ),
 			param: format(
 				parameters[i].name ? "$$$name (#$i)" : "#$i",
 				{ name: parameters[i].name, i: i+1 }
 			),
-			type: parameters[i].type.repr,
+			type: toString( fiber, parameters[i].type ),
 			arg: args[i].repr,
+		}
+	);
+};
+
+messages.call_return_type_is_not_a_type = function( fiber, callee, type ) {
+	return format(
+		"TypeError: return type for $callee is not Type, but $actual.",
+		{
+			callee: calleeToString( callee ),
+			actual: type.repr,
+		}
+	);
+};
+
+messages.call_wrong_return_type = function( fiber, callee, value, type ) {
+	return format(
+		"TypeError: $fn returned $value, which is not $type.",
+		{
+			fn: calleeToString( callee ),
+			type: type.repr,
+			value: value.repr,
 		}
 	);
 };

@@ -24,9 +24,9 @@ Fiber.FunctionFrame = CLASS( Fiber.Frame, {
 	},
 } );
 
-Fiber.MethodFrame = CLASS( Fiber.Frame, {
-	init: function( method ) {
-		this.method = method;
+Fiber.BoundMethodFrame = CLASS( Fiber.Frame, {
+	init: function( boundMethod ) {
+		this.boundMethod = boundMethod;
 	},
 } );
 

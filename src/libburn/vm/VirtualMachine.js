@@ -30,7 +30,7 @@ module.exports = CLASS( {
 		return ast;
 	},
 	
-	start: function( origin ) {
+	start: function( origin, argv ) {
 		let js = this.parse( origin ).compile();
 		nodefibers( function() {
 			try {
@@ -40,7 +40,7 @@ module.exports = CLASS( {
 				if( this.main ) {
 					let Process = require( "libburn/builtin/burn/Process" );
 					this.main.call( fiber, [
-						new Process.ProcessInstance(),
+						new Process.ProcessInstance( argv ),
 					] );
 				}
 			} catch( e ) {

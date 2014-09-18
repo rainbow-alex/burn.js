@@ -9,7 +9,7 @@ let vm = new libburn.vm.VirtualMachine( [
 
 let dump = false;
 let origin = null;
-let remaining_args;
+let script_argv;
 
 ( function() {
 	
@@ -38,7 +38,7 @@ let remaining_args;
 		}
 	}
 	
-	remaining_args = process.argv.slice( i + 1 );
+	script_argv = process.argv.slice( i );
 }() );
 
 vm.onUncaughtThrowable( function( e ) {
@@ -51,7 +51,7 @@ if( ! origin ) {
 	process.exit( 1 );
 	
 } else if( dump ) {
-	if( remaining_args.length ) {
+	if( script_argv.length > 1 ) {
 		console.error( "Error: too many arguments." );
 		process.exit( 1 );
 	}
@@ -65,7 +65,7 @@ if( ! origin ) {
 	
 } else {
 	try {
-		vm.start( origin );
+		vm.start( origin, script_argv );
 	} catch( e ) {
 		CATCH_IF( e, e instanceof libburn.lang.Error );
 		printError( e );
@@ -88,17 +88,20 @@ function printError( e ) {
 }
 
 function printRuntimeError( e ) {
+	let Fiber = libburn.vm.Fiber;
+	
 	console.error( e.toBurnString().value );
+	
 	if( e.stack ) {
 		for( let i = e.stack.length - 1 ; i >= 0 ; i-- ) {
 			let next = e.stack[i+1];
 			if( ! next ) {
 				process.stderr.write( "in " );
-			} else if( next instanceof libburn.vm.Fiber.FunctionFrame ) {
+			} else if( next instanceof Fiber.FunctionFrame || next instanceof Fiber.BoundMethodFrame ) {
 				process.stderr.write( "called from " );
-			} else if( next instanceof libburn.vm.Fiber.ImportFrame ) {
+			} else if( next instanceof Fiber.ImportFrame ) {
 				process.stderr.write( "imported from " );
-			} else if( next instanceof libburn.vm.Fiber.IncludeFrame ) {
+			} else if( next instanceof Fiber.IncludeFrame ) {
 				process.stderr.write( "included from " );
 			} else {
 				console.assert( false );
@@ -117,6 +120,8 @@ function printRuntimeError( e ) {
 				} else {
 					process.stderr.write( " (builtin)" );
 				}
+			} else if( frame instanceof Fiber.BoundMethodFrame ) {
+				process.stderr.write( "method " + frame.boundMethod.value.repr + "." + frame.boundMethod.method );
 			} else if( frame instanceof libburn.vm.Fiber.ImportFrame ) {
 				process.stderr.write( frame.origin.toString() );
 			} else if( frame instanceof libburn.vm.Fiber.IncludeFrame ) {

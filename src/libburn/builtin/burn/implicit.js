@@ -32,14 +32,18 @@ implicit.exposes = new Value.Module( {
 	
 	assert: assert.exposes,
 	
-	main: new Value.Function( function( fiber, args ) {
-		util.validateFunctionCallArguments( fiber, this, [ { type: types.Callable } ], args );
+	main: new Value.Function( function( fiber, callee, args ) {
+		util.validateCallArguments( fiber, callee, args, [
+			{ type: types.Callable },
+		] );
 		fiber.vm.main = args[0];
 	}, { safe: true } ),
 	
-	repr: new Value.Function( function( fiber, args ) {
+	repr: new Value.Function( function( fiber, callee, args ) {
+		util.validateCallArguments( fiber, callee, args, [
+			{},
+		] );
 		return new Value.String( args[0].repr );
 	}, { safe: true } ),
-	
 	
 } );

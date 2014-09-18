@@ -35,20 +35,20 @@ rt.createFunction = function( implementation, options ) {
 	return new Value.Function( implementation, options );
 };
 
-rt.validateFunctionCallArguments = function( fiber, fn, parameters, args ) {
-	util.validateFunctionCallArguments( fiber, fn, parameters, args );
+rt.validateFunctionCallArguments = function( fiber, fn, args, parameters ) {
+	util.validateCallArguments( fiber, fn, args, parameters );
 };
 
-rt.validateFunctionCallReturnType = function( fiber, fn, type, value ) {
+rt.validateFunctionCallReturnType = function( fiber, fn, value, type ) {
 	if( ! types.Type.typeTest( fiber, type ) ) {
 		throw new errors.TypeErrorInstance(
-			msg.function_call_return_type_is_not_a_type( fn, type ),
+			msg.call_return_type_is_not_a_type( fiber, fn, type ),
 			fiber.stack
 		);
 	}
 	if( ! type.typeTest( fiber, value ) ) {
 		throw new errors.TypeErrorInstance(
-			msg.function_call_wrong_return_type( fiber, fn, type, value ),
+			msg.call_wrong_return_type( fiber, fn, value, type ),
 			fiber.stack
 		);
 	}

@@ -23,7 +23,7 @@ let Value = module.exports = CLASS( {
 	},
 	get: function( fiber, name ) {
 		if( this[ "call_" + name ] ) {
-			return new Value.Special.BoundMethod( this, name );
+			return new Value.BoundMethod( this, name );
 		} else {
 			return this[ "get_" + name ]( fiber );
 		}
@@ -179,7 +179,7 @@ Value.Function = CLASS( Value, {
 	call: function( fiber, args ) {
 		fiber.stack.push( new Fiber.FunctionFrame( this ) );
 		try {
-			return this.implementation( fiber, args ) || new Value.Nothing();
+			return this.implementation( fiber, this, args ) || new Value.Nothing();
 		} finally {
 			fiber.stack.pop();
 		}
@@ -194,7 +194,7 @@ Value.AsyncFunction = CLASS( Value.Function, {
 		fiber.stack.push( new Fiber.FunctionFrame( this ) );
 		try {
 			return require( "./util" ).async(
-				this.implementation.bind( this, fiber, args )
+				this.implementation.bind( this, fiber, this, args )
 			) || new Value.Nothing();
 		} finally {
 			fiber.stack.pop();
@@ -258,7 +258,7 @@ Value.Special = CLASS( Value, {
 	},
 } );
 
-Value.Special.BoundMethod = CLASS( Value, {
+Value.BoundMethod = CLASS( Value, {
 	init: function( value, method ) {
 		this.value = value;
 		this.method = method;
@@ -267,9 +267,9 @@ Value.Special.BoundMethod = CLASS( Value, {
 		return "<BoundMethod '" + this.method + "' of " + this.value.repr + ">";
 	},
 	call: function( fiber, args ) {
-		fiber.stack.push( new Fiber.MethodFrame( this ) );
+		fiber.stack.push( new Fiber.BoundMethodFrame( this ) );
 		try {
-			return this.value[ "call_" + this.method ]( fiber, args ) || new Value.Nothing();
+			return this.value[ "call_" + this.method ]( fiber, this, args ) || new Value.Nothing();
 		} finally {
 			fiber.stack.pop();
 		}
@@ -328,8 +328,10 @@ Value.List = CLASS( Value, {
 	get_length: function( fiber ) {
 		return new Value.Integer( this.items.length );
 	},
-	call_push: function( fiber, args ) {
-		util.validateMethodCallArguments( fiber, this, "push", [ { type: types.Integer } ], args );
+	call_push: function( fiber, callee, args ) {
+		util.validateCallArguments( fiber, callee, args, [
+			{ type: types.Integer },
+		] );
 		this.items.push( args[0] );
 	},
 } );

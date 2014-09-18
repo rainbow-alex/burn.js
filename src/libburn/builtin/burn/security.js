@@ -14,5 +14,3 @@ security.Key = new util.JsInstanceofType( security.KeyInstance );
 security.exposes = new Value.Module( {
 	Key: security.Key,
 } );
-
-

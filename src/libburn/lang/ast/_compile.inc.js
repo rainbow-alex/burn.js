@@ -410,8 +410,8 @@ ast.IndexExpression.prototype.compile = function( output ) {
 };
 
 ast.FunctionExpression.prototype.compile = function( output ) {
-	output.code += '_.createFunction(function(_fiber,args){args=args||[];';
-	output.code += '_.validateFunctionCallArguments(_fiber,this,[';
+	output.code += '_.createFunction(function(_fiber,fn,args){args=args||[];';
+	output.code += '_.validateFunctionCallArguments(_fiber,fn,args,[';
 	this.parameters.forEachValue( function( parameter ) {
 		output.code += '{';
 		if( parameter.type ) {
@@ -426,7 +426,7 @@ ast.FunctionExpression.prototype.compile = function( output ) {
 		}
 		output.code += '},';
 	} );
-	output.code += '],args);';
+	output.code += ']);';
 	output.code += 'let r=function(){';
 	this.parameters.forEachValue( function( parameter, i ) {
 		output.code += 'let ' + encodeVariable( parameter.variable.value ) + '=args[' + i + '];';
@@ -436,9 +436,9 @@ ast.FunctionExpression.prototype.compile = function( output ) {
 	} );
 	output.code += '}();';
 	if( this.returnType ) {
-		output.code += '_.validateFunctionCallReturnType(_fiber,this,';
+		output.code += '_.validateFunctionCallReturnType(_fiber,this,r,';
 		this.returnType.compile( output );
-		output.code += ',r);';
+		output.code += ');';
 	}
 	output.code += 'return r;},{';
 	if( this.name ) {
