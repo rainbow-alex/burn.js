@@ -12,9 +12,11 @@ fiber.exposes = new Value.Module( {
 		} );
 	}, { safe: true } ),
 	
-	yield: new Value.AsyncFunction( function( fiber, callee, args, cb ) {
+	yield: new Value.Function( function( fiber, callee, args ) {
 		// TODO validate args
-		setImmediate( cb );
+		fiber.async( function( cb ) {
+			setImmediate( cb );
+		} );
 	}, { safe: true } ),
 	
 } );

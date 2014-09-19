@@ -32,42 +32,48 @@ not_is_not.burn:
 $ $BURN not_is_not.burn
 
 not_eq.burn:
-	assert.throws( function() { ( not 1 ) == 1 }, TypeError )
+	import test
+	test.assert_throws( function() { ( not 1 ) == 1 }, TypeError )
 	assert( ( not ( 1 == 1 ) ) == false )
 	assert( ( not 1 == 1 ) == false )
 
 $ $BURN not_eq.burn
 
 not_neq.burn:
-	assert.throws( function() { ( not 1 ) != 1 }, TypeError )
+	import test
+	test.assert_throws( function() { ( not 1 ) != 1 }, TypeError )
 	assert( ( not ( 1 != 1 ) ) != false )
 	assert( ( not 1 != 1 ) != false )
 
 $ $BURN not_neq.burn
 
 not_lt.burn:
-	assert.throws( function() { ( not 1 ) < 1 }, TypeError )
+	import test
+	test.assert_throws( function() { ( not 1 ) < 1 }, TypeError )
 	assert( ( not ( 1 < 1 ) ) != false )
 	assert( ( not 1 < 1 ) != false )
 
 $ $BURN not_lt.burn
 
 not_gt.burn:
-	assert.throws( function() { ( not 1 ) > 1 }, TypeError )
+	import test
+	test.assert_throws( function() { ( not 1 ) > 1 }, TypeError )
 	assert( ( not ( 1 > 1 ) ) != false )
 	assert( ( not 1 > 1 ) != false )
 
 $ $BURN not_gt.burn
 
 not_lteq.burn:
-	assert.throws( function() { ( not 1 ) <= 1 }, TypeError )
+	import test
+	test.assert_throws( function() { ( not 1 ) <= 1 }, TypeError )
 	assert( ( not ( 1 <= 1 ) ) == false )
 	assert( ( not 1 <= 1 ) == false )
 
 $ $BURN not_lteq.burn
 
 not_eq.burn:
-	assert.throws( function() { ( not 1 ) >= 1 }, TypeError )
+	import test
+	test.assert_throws( function() { ( not 1 ) >= 1 }, TypeError )
 	assert( ( not ( 1 >= 1 ) ) == false )
 	assert( ( not 1 >= 1 ) == false )
 

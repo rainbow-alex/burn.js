@@ -1,25 +1,25 @@
 truthy.burn:
-	assert.isTruthy( true )
-	assert.isTruthy( 1 )
-	assert.isTruthy( [ 1, 2, 3 ] )
+	assert( true )
+	assert( 1 )
+	assert( [ 1, 2, 3 ] )
 
 $ $BURN truthy.burn
 
 falsy1.burn:
-	assert.isTruthy( false )
+	assert( false )
 
 $ $BURN falsy1.burn
 	* exit status nonzero
 
 falsy2.burn:
-	assert.isTruthy( 0 )
+	assert( 0 )
 
 $ $BURN falsy2.burn
 	* exit status nonzero
 
 fail.burn:
 	try {
-		assert.isTruthy( false )
+		assert( false )
 	} catch AssertionError $e {
 		print "AssertionError"
 	}

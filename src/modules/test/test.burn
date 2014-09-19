@@ -1,0 +1,9 @@
+import test
+
+test.assert = assert
+
+test.assert_throws = function( Callable $fn, Type $type ) {
+	try { $fn() }
+	catch ($type) $e {}
+	else { assert( false ) }
+}

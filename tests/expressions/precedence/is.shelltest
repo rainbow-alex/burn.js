@@ -13,8 +13,9 @@ is_and.burn:
 $ $BURN is_and.burn
 
 is_not.burn:
+	import test
 	assert( ( 1 is not Float ) == true )
-	assert.throws( function() { 1 is ( not Float ) }, TypeError )
+	test.assert_throws( function() { 1 is ( not Float ) }, TypeError )
 
 $ $BURN is_not.burn
 
@@ -67,14 +68,16 @@ $ $BURN is_gteq.burn
 	* exit status nonzero
 
 is_union.burn:
-	assert.throws( function() { ( 1 is Float ) | Integer }, TypeError )
+	import test
+	test.assert_throws( function() { ( 1 is Float ) | Integer }, TypeError )
 	assert( ( 1 is ( Float | Integer ) ) == true )
 	assert( ( 1 is Float | Integer ) == true )
 
 $ $BURN is_union.burn
 
 is_add.burn:
-	assert.throws( function() { ( 1 is Something ) + Nothing }, TypeError )
+	import test
+	test.assert_throws( function() { ( 1 is Something ) + Nothing }, TypeError )
 	assert( ( 1 is ( Something + Nothing ) ) == false )
 	assert( ( 1 is Something + Nothing ) == false )
 

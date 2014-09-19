@@ -2,7 +2,6 @@
 let Value = require( "libburn/vm/Value" );
 let types = require( "./types" );
 let errors = require( "./errors" );
-let assert = require( "./assert" );
 let util = require( "libburn/vm/util" );
 let msg = require( "libburn/messages" );
 
@@ -30,8 +29,6 @@ implicit.exposes = new Value.Module( {
 	IncludeError: errors.IncludeError,
 	AssertionError: errors.AssertionError,
 	
-	assert: assert.exposes,
-	
 	main: new Value.Function( function( fiber, callee, args ) {
 		util.validateCallArguments( fiber, callee, args, [
 			{ type: types.Callable },
@@ -44,6 +41,23 @@ implicit.exposes = new Value.Module( {
 			{},
 		] );
 		return new Value.String( args[0].repr );
+	}, { safe: true } ),
+	
+	assert: new Value.Function( function( fiber, callee, args ) {
+		util.validateCallArguments( fiber, callee, args, [
+			{},
+			{ type: types.String, default: null }
+		] );
+		if( ! args[0].isTruthy( fiber ) ) {
+			if( args[1] instanceof Value.String ) {
+				throw new errors.AssertionErrorInstance(
+					"AssertionError: " + args[1].value,
+					fiber.stack
+				);
+			} else {
+				throw new errors.AssertionErrorInstance( "AssertionError", fiber.stack );
+			}
+		}
 	}, { safe: true } ),
 	
 } );

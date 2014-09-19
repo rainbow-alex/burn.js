@@ -19,57 +19,65 @@ $ $BURN add_not.burn
 	* exit status nonzero
 
 add_is.burn:
+	import test
 	assert( ( ( 1 + 1 ) is Integer ) == true )
-	assert.throws( function() { 1 + ( 1 is Integer ) }, TypeError )
+	test.assert_throws( function() { 1 + ( 1 is Integer ) }, TypeError )
 	assert( ( 1 + 1 is Integer ) == true )
 
 $ $BURN add_is.burn
 
 add_is_not.burn:
+	import test
 	assert( ( ( 1 + 1 ) is not Integer ) == false )
-	assert.throws( function() { 1 + ( 1 is not Integer ) }, TypeError )
+	test.assert_throws( function() { 1 + ( 1 is not Integer ) }, TypeError )
 	assert( ( 1 + 1 is not Integer ) == false )
 
 $ $BURN add_is_not.burn
 
 add_eq.burn:
+	import test
 	assert( ( ( 1 + 1 ) == 1 ) == false )
-	assert.throws( function() { 1 + ( 1 == 1 ) }, TypeError )
+	test.assert_throws( function() { 1 + ( 1 == 1 ) }, TypeError )
 	assert( ( 1 + 1 == 1 ) == false )
 
 $ $BURN add_eq.burn
 
 add_neq.burn:
+	import test
 	assert( ( ( 1 + 1 ) != 1 ) == true )
-	assert.throws( function() { 1 + ( 1 != 1 ) }, TypeError )
+	test.assert_throws( function() { 1 + ( 1 != 1 ) }, TypeError )
 	assert( ( 1 + 1 != 1 ) == true )
 
 $ $BURN add_neq.burn
 
 add_lt.burn:
+	import test
 	assert( ( ( 1 + 1 ) < 1 ) == false )
-	assert.throws( function() { 1 + ( 1 < 1 ) }, TypeError )
+	test.assert_throws( function() { 1 + ( 1 < 1 ) }, TypeError )
 	assert( ( 1 + 1 < 1 ) == false )
 
 $ $BURN add_lt.burn
 
 add_gt.burn:
+	import test
 	assert( ( ( 1 + 1 ) > 1 ) == true )
-	assert.throws( function() { 1 + ( 1 > 1 ) }, TypeError )
+	test.assert_throws( function() { 1 + ( 1 > 1 ) }, TypeError )
 	assert( ( 1 + 1 > 1 ) == true )
 
 $ $BURN add_gt.burn
 
 add_lteq.burn:
+	import test
 	assert( ( ( 1 + 1 ) <= 1 ) == false )
-	assert.throws( function() { 1 + ( 1 <= 1 ) }, TypeError )
+	test.assert_throws( function() { 1 + ( 1 <= 1 ) }, TypeError )
 	assert( ( 1 + 1 <= 1 ) == false )
 
 $ $BURN add_lteq.burn
 
 add_gteq.burn:
+	import test
 	assert( ( ( 1 + 1 ) >= 1 ) == true )
-	assert.throws( function() { 1 + ( 1 <= 1 ) }, TypeError )
+	test.assert_throws( function() { 1 + ( 1 <= 1 ) }, TypeError )
 	assert( ( 1 + 1 >= 1 ) == true )
 
 $ $BURN add_gteq.burn

@@ -1,23 +1,10 @@
 "use strict";
-let nodefibers = require( "fibers" );
 let Fiber = require( "./Fiber" );
 let Value = require( "./Value" );
 let msg = require( "../messages" );
 let errors;
 
 let util = module.exports;
-
-util.async = function( f ) {
-	let current = nodefibers.current;
-	f( function( err, res ) {
-		if( err ) {
-			current.throwInto( err );
-		} else {
-			current.run( res );
-		}
-	} );
-	return nodefibers.yield();
-};
 
 util.toValue = function( x ) {
 	if( x instanceof Value ) {

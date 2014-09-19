@@ -189,19 +189,6 @@ Value.Function = CLASS( Value, {
 	},
 } );
 
-Value.AsyncFunction = CLASS( Value.Function, {
-	call: function( fiber, args ) {
-		fiber.stack.push( new Fiber.FunctionFrame( this ) );
-		try {
-			return require( "./util" ).async(
-				this.implementation.bind( this, fiber, this, args )
-			) || new Value.Nothing();
-		} finally {
-			fiber.stack.pop();
-		}
-	},
-} );
-
 Value.Module = CLASS( Value, {
 	init: function( contents ) {
 		if( contents ) {

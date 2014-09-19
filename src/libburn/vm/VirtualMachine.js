@@ -38,10 +38,9 @@ module.exports = CLASS( {
 				fiber.stack.push( new Fiber.RootFrame( origin ) );
 				this._run( fiber, origin, js );
 				if( this.main ) {
-					let Process = require( "libburn/builtin/burn/Process" );
-					this.main.call( fiber, [
-						new Process.ProcessInstance( argv ),
-					] );
+					let sys = require( "libburn/builtin/burn/sys" );
+					let process = new sys.ProcessInstance( argv );
+					this.main.call( fiber, [ process ] );
 				}
 			} catch( e ) {
 				CATCH_IF( e, e instanceof Value );
@@ -83,14 +82,15 @@ module.exports = CLASS( {
 				break;
 			}
 		}
-		module.suggestName( name );
-		this._root[ name ] = module;
-		return module;
 		
-		throw new errors.ImportErrorInstance(
-			msg.import_root_not_found( name ),
-			fiber.stack
-		);
+		if( ! module ) {
+			throw new errors.ImportErrorInstance(
+				msg.import_root_not_found( name ),
+				fiber.stack
+			);
+		}
+		
+		return module;
 		
 		function loadNativeModule( descriptionFilename ) {
 			
@@ -123,6 +123,8 @@ module.exports = CLASS( {
 			} );
 			
 			let module = new Value.Module();
+			module.suggestName( name );
+			this._root[ name ] = module;
 			module.set( fiber, "meta:path", new Value.String( base ) );
 			
 			sources.forEach( function( filename ) {
@@ -150,7 +152,10 @@ module.exports = CLASS( {
 		}
 		
 		function loadJavascriptModule( js ) {
-			return require( js ).exposes;
+			let module = require( js ).exposes;
+			module.suggestName( name );
+			this._root[ name ] = module;
+			return module;
 		}
 	},
 	

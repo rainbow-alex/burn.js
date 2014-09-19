@@ -8,7 +8,8 @@ $ $BURN main_hello.burn
 		hello
 
 main_type.burn:
-	assert.throws( function() {
+	import test
+	test.assert_throws( function() {
 		main( 3 )
 	}, ArgumentError )
 

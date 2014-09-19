@@ -7,8 +7,7 @@ burn.exposes = new Value.Module( {
 	implicit: require( "./implicit" ).exposes,
 	types: require( "./types" ).exposes,
 	errors: require( "./errors" ).exposes,
-	assert: require( "./assert" ).exposes,
 	fiber: require( "./fiber" ).exposes,
+	sys: require( "./sys" ).exposes,
 	security: require( "./security" ).exposes,
-	Process: require( "./Process" ).exposes,
 } );

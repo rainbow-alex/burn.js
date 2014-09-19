@@ -3,9 +3,9 @@ let Value = require( "libburn/vm/Value" );
 let util = require( "libburn/vm/util" );
 let types = require( "libburn/builtin/burn/types" );
 
-let Process = module.exports;
+let sys = module.exports;
 
-Process.ProcessInstance = CLASS( Value.Special, {
+sys.ProcessInstance = CLASS( Value.Special, {
 	init: function( argv ) {
 		this.argv = argv;
 	},
@@ -26,6 +26,9 @@ Process.ProcessInstance = CLASS( Value.Special, {
 		process.exit( args[0].value );
 	},
 } );
-Process.Process = new util.JsInstanceofType( Process.ProcessInstance )
 
-Process.exposes = Process.Process;
+sys.Process = new util.JsInstanceofType( sys.ProcessInstance )
+
+sys.exposes = new Value.Module( {
+	Process: sys.Process,
+} );

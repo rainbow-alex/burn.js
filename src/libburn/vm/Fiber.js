@@ -1,4 +1,5 @@
 "use strict";
+let nodefibers = require( "fibers" );
 
 let Fiber = module.exports = CLASS( {
 	init: function( vm ) {
@@ -7,6 +8,17 @@ let Fiber = module.exports = CLASS( {
 	},
 	setLine: function( line ) {
 		this.stack[ this.stack.length - 1 ].line = line;
+	},
+	async: function( f ) {
+		let current = nodefibers.current;
+		f( function( err, res ) {
+			if( err ) {
+				current.throwInto( err );
+			} else {
+				current.run( res );
+			}
+		} );
+		return nodefibers.yield();
 	},
 } );
 

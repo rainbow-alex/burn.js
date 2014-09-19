@@ -71,7 +71,8 @@ or_gteq.burn:
 $ $BURN or_gteq.burn
 
 or_union.burn:
-	assert.throws( function() { ( 1 or Something ) | Something }, TypeError )
+	import test
+	test.assert_throws( function() { ( 1 or Something ) | Something }, TypeError )
 	assert( ( 1 or ( Something | Something ) ) == 1 )
 	assert( ( 1 or Something | Something ) == 1 )
 

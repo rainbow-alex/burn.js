@@ -4,7 +4,8 @@ get_property.burn:
 $ $BURN get_property.burn
 
 get_missing_property.burn:
-	assert.throws( function() {
+	import test
+	test.assert_throws( function() {
 		[].banana
 	}, PropertyError )
 

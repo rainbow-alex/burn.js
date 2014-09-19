@@ -5,6 +5,7 @@ let path = require( "path" );
 
 let vm = new libburn.vm.VirtualMachine( [
 	process.cwd(),
+	path.resolve( __dirname, "../modules" ),
 ] );
 
 let dump = false;

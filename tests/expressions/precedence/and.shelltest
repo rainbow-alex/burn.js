@@ -71,7 +71,8 @@ and_gteq.burn:
 $ $BURN and_gteq.burn
 
 and_union.burn:
-	assert.throws( function() { ( 0 and Something ) | Something }, TypeError )
+	import test
+	test.assert_throws( function() { ( 0 and Something ) | Something }, TypeError )
 	assert( ( 0 and ( Something | Something ) ) == 0 )
 	assert( ( 0 and Something | Something ) == 0 )
 
@@ -92,14 +93,16 @@ and_sub.burn:
 $ $BURN and_sub.burn
 
 and_mul.burn:
-	assert.throws( function() { ( ( false and 1 ) * 1 ) }, TypeError )
+	import test
+	test.assert_throws( function() { ( ( false and 1 ) * 1 ) }, TypeError )
 	assert( ( false and ( 1 * 1 ) ) == false )
 	assert( ( false and 1 * 1 ) == false )
 
 $ $BURN and_mul.burn
 
 and_div.burn:
-	assert.throws( function() { ( ( false and 1 ) / 1 ) }, TypeError )
+	import test
+	test.assert_throws( function() { ( ( false and 1 ) / 1 ) }, TypeError )
 	assert( ( false and ( 1 / 1 ) ) == false )
 	assert( ( false and 1 / 1 ) == false )
 

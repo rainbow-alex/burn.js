@@ -31,7 +31,8 @@ return_type.burn:
 $ $BURN return_type.burn
 
 wrong_return_value_type.burn:
-	assert.throws( function() {
+	import test
+	test.assert_throws( function() {
 		function() -> Integer {
 			return "3"
 		}()
@@ -40,7 +41,8 @@ wrong_return_value_type.burn:
 $ $BURN wrong_return_value_type.burn
 
 invalid_return_type.burn:
-	assert.throws( function() {
+	import test
+	test.assert_throws( function() {
 		function() -> 3 {
 			return
 		}()
