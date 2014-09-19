@@ -405,7 +405,7 @@ Value.List = CLASS( Value, {
 	},
 	call_push: function( fiber, callee, args ) {
 		util.validateCallArguments( fiber, callee, args, [
-			{ type: types.Integer },
+			{},
 		] );
 		this.items.push( args[0] );
 	},

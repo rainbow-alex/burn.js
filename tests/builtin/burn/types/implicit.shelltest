@@ -63,8 +63,6 @@ Float.burn:
 	assert( -54.321 is Float )
 	assert( 0 is not Float )
 	assert( "0.0" is not Float )
-	
-	// TODO
 
 $ $BURN Float.burn
 
@@ -99,6 +97,18 @@ Type.burn:
 
 $ $BURN Type.burn
 
-// TODO List
+List.burn:
+	assert( List is Type.Permanent )
+	
+	assert( [] is List )
+	assert( [ 1, 2, 3 ] is List )
 
-// TODO Callable
+$ $BURN List.burn
+
+Callable.burn:
+	assert( Callable is Type.Permanent )
+	
+	assert( function() {} is Callable )
+	assert( [].push is Callable )
+
+$ $BURN Callable.burn

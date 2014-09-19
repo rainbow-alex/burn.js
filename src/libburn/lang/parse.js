@@ -483,17 +483,23 @@ module.exports = function( tokens ) {
 		let left = parseAdditiveExpression();
 		if( peek().type === "is" ) {
 			let operator = read();
-			let not;
 			if( peek().type === "not" ) {
-				not = read();
+				let not = read();
+				let type = parseAdditiveExpression();
+				return new ast.IsNotExpression( {
+					expression: left,
+					operator1: operator,
+					operator2: not,
+					type: type,
+				} );
+			} else {
+				let type = parseAdditiveExpression();
+				return new ast.IsExpression( {
+					expression: left,
+					operator: operator,
+					type: type,
+				} );
 			}
-			let type = parseAdditiveExpression();
-			return new ast.IsExpression( {
-				expression: left,
-				operator: operator,
-				not: not,
-				type: type,
-			} );
 		} else if( peek().type === "==" ) {
 			let operator = read();
 			let right = parseAdditiveExpression();
@@ -758,24 +764,6 @@ module.exports = function( tokens ) {
 		} );
 	}
 	
-	function parseListLiteral() {
-		read( "[" );
-		let items = new SeparatedList();
-		while( peek().type !== "]" ) {
-			items.pushValue( parseExpression() );
-			if( peek().type === "," ) {
-				items.pushSeparator( read() );
-				continue;
-			} else {
-				break;
-			}
-		}
-		read( "]" );
-		return new ast.ListLiteral( {
-			items: items,
-		} );
-	}
-	
 	function parseParenthesizedOrTupleExpression() {
 		let lparen = read( "(" );
 		if( peek().type === ")" ) {
@@ -813,7 +801,26 @@ module.exports = function( tokens ) {
 				rparen: rparen,
 			} );
 		}
-		// TODO parenthesized toJSON is off
+	}
+	
+	function parseListLiteral() {
+		let lbracket = read( "[" );
+		let items = new SeparatedList();
+		while( peek().type !== "]" ) {
+			items.pushValue( parseExpression() );
+			if( peek().type === "," ) {
+				items.pushSeparator( read() );
+				continue;
+			} else {
+				break;
+			}
+		}
+		let rbracket = read( "]" );
+		return new ast.ListLiteral( {
+			lbracket: lbracket,
+			items: items,
+			rbracket: rbracket,
+		} );
 	}
 	
 	function parseStringLiteral() {

@@ -1,0 +1,6 @@
+of.burn:
+	assert( [ 1, 2, 3 ] is List.of(Integer) )
+	assert( [ "a", true ] is not List.of(Integer) )
+	assert( "bar" is not List.of(Integer) )
+
+$ $BURN of.burn

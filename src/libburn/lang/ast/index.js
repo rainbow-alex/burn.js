@@ -41,6 +41,7 @@ exports.AndExpression = CLASS( exports.Expression );
 exports.OrExpression = CLASS( exports.Expression );
 exports.NotExpression = CLASS( exports.Expression );
 exports.IsExpression = CLASS( exports.Expression );
+exports.IsNotExpression = CLASS( exports.Expression );
 exports.EqExpression = CLASS( exports.Expression );
 exports.NeqExpression = CLASS( exports.Expression );
 exports.LtExpression = CLASS( exports.Expression );

@@ -1,29 +1,89 @@
 order.burn:
+	let $operands
 	let $p = function( $v ) {
-		print $v
+		$operands.push( $v )
 		return $v
 	}
+	
+	$operands = []
 	$p( true ) and $p( false )
+	assert( $operands[0] == true and $operands[1] == false )
+	
+	$operands = []
 	$p( false ) or $p( true )
-	// TODO ...
+	assert( $operands[0] == false and $operands[1] == true )
+	
+	$operands = []
+	$p( 1 ) is $p( Integer )
+	assert( $operands[0] == 1 and $operands[1] is Type )
+	
+	$operands = []
+	$p( 1 ) is not $p( Float )
+	assert( $operands[0] == 1 and $operands[1] is Type )
+	
+	$operands = []
+	$p( 1 ) == $p( 2 )
+	assert( $operands[0] == 1 and $operands[1] == 2 )
+	
+	$operands = []
+	$p( 1 ) != $p( 2 )
+	assert( $operands[0] == 1 and $operands[1] == 2 )
+	
+	$operands = []
+	$p( 1 ) < $p( 2 )
+	assert( $operands[0] == 1 and $operands[1] == 2 )
+	
+	$operands = []
+	$p( 1 ) > $p( 2 )
+	assert( $operands[0] == 1 and $operands[1] == 2 )
+	
+	$operands = []
+	$p( 1 ) <= $p( 2 )
+	assert( $operands[0] == 1 and $operands[1] == 2 )
+	
+	$operands = []
+	$p( 1 ) >= $p( 2 )
+	assert( $operands[0] == 1 and $operands[1] == 2 )
+	
+	$operands = []
+	$p( 1 ) + $p( 2 )
+	assert( $operands[0] == 1 and $operands[1] == 2 )
+	
+	$operands = []
+	$p( 1 ) - $p( 2 )
+	assert( $operands[0] == 1 and $operands[1] == 2 )
+	
+	$operands = []
+	$p( 1 ) * $p( 2 )
+	assert( $operands[0] == 1 and $operands[1] == 2 )
+	
+	$operands = []
+	$p( 1 ) / $p( 2 )
+	assert( $operands[0] == 1 and $operands[1] == 2 )
+	
+	$operands = []
+	$p( Integer ) | $p( Float )
+	assert( 1 is $operands[0] and 1.0 is $operands[1] )
+	
+	$operands = []
+	$p( Integer ) & $p( Float )
+	assert( 1 is $operands[0] and 1.0 is $operands[1] )
 
 $ $BURN order.burn
-	* stdout
-		true
-		false
-		false
-		true
 
 short_circuit.burn:
+	let $operands
 	let $p = function( $v ) {
-		print $v
+		$operands.push( $v )
 		return $v
 	}
+	
+	$operands = []
 	$p( false ) and $p( true )
+	assert( $operands.length == 1 )
+	
+	$operands = []
 	$p( true ) or $p( false )
+	assert( $operands.length == 1 )
 
 $ $BURN short_circuit.burn
-	* stdout
-		false
-		true
-

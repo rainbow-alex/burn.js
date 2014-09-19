@@ -74,34 +74,7 @@ types.Float = new Value.Type( {
 	permanent: true,
 } );
 
-types.Tuple = new Value.Type( {
-	typeTest: function( fiber, value ) {
-		return value instanceof Value.Tuple;
-	},
-	safe: true,
-	permanent: true,
-	call_of: function( fiber, callee, args ) {
-		util.validateCallArguments( fiber, callee, args, [
-			{ type: types.Type },
-		] );
-		return new types.TupleOf( args[0] );
-	},
-} );
-
-let TupleOf = new CLASS( Value.Type, {
-	init: function( types ) {
-		this.types = types;
-	},
-	typeTest: function( fiber, value ) {
-		// TODO
-	},
-	get safe() {
-		return this.types.every( function( t ) { return t.safe; } );
-	},
-	get permanent() {
-		return this.types.every( function( t ) { return t.permanent; } );
-	},
-} );
+types.Tuple = new util.JsInstanceofType( Value.Tuple );
 
 types.Character = new util.JsInstanceofType( Value.Character );
 types.String = new util.JsInstanceofType( Value.String );
@@ -125,7 +98,37 @@ types.Type = new Value.Type( {
 	} ),
 } );
 
-types.List = new util.JsInstanceofType( Value.List );
+types.List = new Value.Type( {
+	typeTest: function( fiber, value ) {
+		return value instanceof Value.List;
+	},
+	safe: true,
+	permanent: true,
+	call_of: function( fiber, callee, args ) {
+		util.validateCallArguments( fiber, callee, args, [
+			{ type: types.Type },
+		] );
+		return new types.ListOf( args[0] );
+	},
+} );
+
+types.ListOf = CLASS( Value.Type, {
+	init: function( type ) {
+		this.type = type;
+	},
+	typeTest: function( fiber, value ) {
+		if( ! ( value instanceof Value.List ) ) {
+			return false;
+		}
+		return value.items.every( this.type.typeTest.bind( this.type, fiber ) );
+	},
+	get safe() {
+		return this.types.every( function( t ) { return t.safe; } );
+	},
+	get permanent() {
+		return this.types.every( function( t ) { return t.permanent; } );
+	},
+} );
 
 types.Callable = new Value.Type( {
 	typeTest: function( fiber, v ) {

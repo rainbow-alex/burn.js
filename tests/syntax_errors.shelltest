@@ -1,13 +1,40 @@
 lex1.burn:
 	?
+lex2.burn:
+	^
 
 string1.burn:
 	"
-x1.burn:
+string_x1.burn:
 	"\x"
-x2.burn:
-	"\x?"
-// TODO more \x, also \u, \U, ...
+string_x2.burn:
+	"\x..."
+string_x3.burn:
+	"\xA"
+string_x4.burn:
+	"\xA..."
+string_x5.burn:
+	"\xGG"
+string_u1.burn:
+	"\u"
+string_u2.burn:
+	"\u..."
+string_u3.burn:
+	"\uAB"
+string_u4.burn:
+	"\uAB.."
+string_u5.burn:
+	"\uGAGA"
+string_U1.burn:
+	"\U"
+string_U2.burn:
+	"\U..."
+string_U3.burn:
+	"\UABCDE"
+string_U4.burn:
+	"\UAB.."
+string_U5.burn:
+	"\UGAGABABA"
 
 var1.burn:
 	let $
@@ -34,6 +61,24 @@ break3.burn:
 		break #loop
 	}
 
+continue1.burn:
+	continue
+continue2.burn:
+	continue #loop
+continue3.burn:
+	continue true {
+		break #loop
+	}
+
+catch1.burn:
+	try {
+	} catch {
+	}
+catch2.burn:
+	try {
+	} catch TypeError {
+	}
+
 while1.burn:
 	while
 while2.burn:
@@ -45,15 +90,6 @@ while3.burn:
 		#loop
 		while true {
 		}
-	}
-
-catch1.burn:
-	try {
-	} catch {
-	}
-catch2.burn:
-	try {
-	} catch TypeError {
 	}
 
 // all scripts must fail to pass

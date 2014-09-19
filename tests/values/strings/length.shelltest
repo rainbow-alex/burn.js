@@ -1,12 +1,14 @@
 length.burn:
+	assert( "".length == 0 )
+	assert( "foo".length == 3 )
+	assert( "\n".length == 1 )
+
+$ $BURN length.burn
+
+unicode.burn:
 	assert( "\u0041".length == 1 )
 	assert( "\U0001D306".length == 1 )
 	assert( "ma\xF1ana".length == 6 )
 	assert( "man\u0303ana".length == 7 )
 
-$ $BURN length.burn
-
-index.burn:
-	assert( "\U0001D306"[0] == "𝌆"[0] )
-
-$ $BURN index.burn
+$ $BURN unicode.burn

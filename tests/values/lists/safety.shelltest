@@ -1,0 +1,6 @@
+safe.burn:
+	import burn.types.Safe
+	assert( [] is not Safe )
+	assert( [ 1, 2, 3 ] is not Safe )
+
+$ $BURN safe.burn

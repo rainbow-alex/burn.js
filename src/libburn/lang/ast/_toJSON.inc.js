@@ -334,27 +334,26 @@ ast.NotExpression.prototype.toJSON = function() {
 };
 
 ast.IsExpression.prototype.toJSON = function() {
-	// TODO refactor into two separate node types
-	if( this.not ) {
-		return {
-			type: "node/expression/is_not",
-			children: [
-				[ "expression", this.expression ],
-				[ "operator_is", this.operator ],
-				[ "operator_not", this.not ],
-				[ "type", this.type ],
-			],
-		};
-	} else {
-		return {
-			type: "node/expression/is",
-			children: [
-				[ "expression", this.expression ],
-				[ "operator", this.operator ],
-				[ "type", this.type ],
-			],
-		};
-	}
+	return {
+		type: "node/expression/is",
+		children: [
+			[ "expression", this.expression ],
+			[ "operator", this.operator ],
+			[ "type", this.type ],
+		],
+	};
+};
+
+ast.IsNotExpression.prototype.toJSON = function() {
+	return {
+		type: "node/expression/is_not",
+		children: [
+			[ "expression", this.expression ],
+			[ "operator_is", this.operator ],
+			[ "operator_not", this.not ],
+			[ "type", this.type ],
+		],
+	};
 };
 
 ast.EqExpression.prototype.toJSON = function() {
@@ -594,8 +593,9 @@ ast.TupleLiteral.prototype.toJSON = function() {
 	return {
 		type: "node/expression/literal/tuple",
 		children: [
-			// TODO parens
+			[ "left_parenthesis", this.lparen ],
 			[ "items", this.items ],
+			[ "right_parenthesis", this.rparen ],
 		],
 	};
 };
@@ -604,8 +604,9 @@ ast.ListLiteral.prototype.toJSON = function() {
 	return {
 		type: "node/expression/literal/list",
 		children: [
-			// TODO brackets
+			[ "left_bracket", this.lbracket ],
 			[ "items", this.items ],
+			[ "right_bracket", this.rbracket ],
 		],
 	};
 };

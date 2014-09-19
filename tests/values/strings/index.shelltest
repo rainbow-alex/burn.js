@@ -3,4 +3,7 @@ index.burn:
 
 $ $BURN index.burn
 
-// TODO
+unicode.burn:
+	assert( "\U0001D306"[0] == "𝌆"[0] )
+
+$ $BURN unicode.burn

@@ -289,7 +289,15 @@ ast.NotExpression.prototype.compile = function( output ) {
 };
 
 ast.IsExpression.prototype.compile = function( output ) {
-	output.code += '_.' + ( this.not ? 'is_not' : 'is' ) + '(_fiber,';
+	output.code += '_.is(_fiber,';
+	this.expression.compile( output );
+	output.code += ',';
+	this.type.compile( output );
+	output.code += ')';
+};
+
+ast.IsNotExpression.prototype.compile = function( output ) {
+	output.code += '_.is_not(_fiber,';
 	this.expression.compile( output );
 	output.code += ',';
 	this.type.compile( output );
