@@ -1,0 +1,6 @@
+index.burn:
+	assert( "foo"[2] is Character )
+
+$ $BURN index.burn
+
+// TODO

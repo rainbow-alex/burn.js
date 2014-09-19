@@ -23,6 +23,8 @@ add_result_1.burn:
 	
 	test.assert_throws( function() { nothing + -0.5 }, TypeError )
 	
+	test.assert_throws( function() { nothing + "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { nothing + "" }, TypeError )
 	
 	test.assert_throws( function() { nothing + "apple" }, TypeError )
@@ -74,6 +76,8 @@ add_result_2.burn:
 	
 	test.assert_throws( function() { true + -0.5 }, TypeError )
 	
+	test.assert_throws( function() { true + "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { true + "" }, TypeError )
 	
 	test.assert_throws( function() { true + "apple" }, TypeError )
@@ -124,6 +128,8 @@ add_result_3.burn:
 	test.assert_throws( function() { false + 2.0 }, TypeError )
 	
 	test.assert_throws( function() { false + -0.5 }, TypeError )
+	
+	test.assert_throws( function() { false + "c"[0] }, TypeError )
 	
 	test.assert_throws( function() { false + "" }, TypeError )
 	
@@ -188,6 +194,8 @@ add_result_4.burn:
 	assert( $v8 is Float )
 	assert( ( -0.5001 < $v8 ) and ( $v8 < -0.4999 ) )
 	
+	test.assert_throws( function() { 0 + "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { 0 + "" }, TypeError )
 	
 	test.assert_throws( function() { 0 + "apple" }, TypeError )
@@ -204,25 +212,25 @@ add_result_4.burn:
 	
 	test.assert_throws( function() { 0 + types }, TypeError )
 	
-	let $v17 = 0 + 3
-	assert( $v17 is Integer )
-	assert( $v17 == 3 )
-	
-	let $v18 = 0 + 8
+	let $v18 = 0 + 3
 	assert( $v18 is Integer )
-	assert( $v18 == 8 )
+	assert( $v18 == 3 )
 	
-	let $v19 = 0 + 0.3
-	assert( $v19 is Float )
-	assert( ( 0.2999 < $v19 ) and ( $v19 < 0.3001 ) )
+	let $v19 = 0 + 8
+	assert( $v19 is Integer )
+	assert( $v19 == 8 )
 	
-	let $v20 = 0 + 0.33333333333
+	let $v20 = 0 + 0.3
 	assert( $v20 is Float )
-	assert( ( 0.3332 < $v20 ) and ( $v20 < 0.3334 ) )
+	assert( ( 0.2999 < $v20 ) and ( $v20 < 0.3001 ) )
 	
-	let $v21 = 0 + 0.7
+	let $v21 = 0 + 0.33333333333
 	assert( $v21 is Float )
-	assert( ( 0.6999 < $v21 ) and ( $v21 < 0.7001 ) )
+	assert( ( 0.3332 < $v21 ) and ( $v21 < 0.3334 ) )
+	
+	let $v22 = 0 + 0.7
+	assert( $v22 is Float )
+	assert( ( 0.6999 < $v22 ) and ( $v22 < 0.7001 ) )
 
 $ $BURN add_result_4.burn
 
@@ -261,6 +269,8 @@ add_result_5.burn:
 	assert( $v8 is Float )
 	assert( ( 1.4999 < $v8 ) and ( $v8 < 1.5001 ) )
 	
+	test.assert_throws( function() { 2 + "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { 2 + "" }, TypeError )
 	
 	test.assert_throws( function() { 2 + "apple" }, TypeError )
@@ -277,25 +287,25 @@ add_result_5.burn:
 	
 	test.assert_throws( function() { 2 + types }, TypeError )
 	
-	let $v17 = 2 + 3
-	assert( $v17 is Integer )
-	assert( $v17 == 5 )
-	
-	let $v18 = 2 + 8
+	let $v18 = 2 + 3
 	assert( $v18 is Integer )
-	assert( $v18 == 10 )
+	assert( $v18 == 5 )
 	
-	let $v19 = 2 + 0.3
-	assert( $v19 is Float )
-	assert( ( 2.2999 < $v19 ) and ( $v19 < 2.3001 ) )
+	let $v19 = 2 + 8
+	assert( $v19 is Integer )
+	assert( $v19 == 10 )
 	
-	let $v20 = 2 + 0.33333333333
+	let $v20 = 2 + 0.3
 	assert( $v20 is Float )
-	assert( ( 2.3332 < $v20 ) and ( $v20 < 2.3334 ) )
+	assert( ( 2.2999 < $v20 ) and ( $v20 < 2.3001 ) )
 	
-	let $v21 = 2 + 0.7
+	let $v21 = 2 + 0.33333333333
 	assert( $v21 is Float )
-	assert( ( 2.6999 < $v21 ) and ( $v21 < 2.7001 ) )
+	assert( ( 2.3332 < $v21 ) and ( $v21 < 2.3334 ) )
+	
+	let $v22 = 2 + 0.7
+	assert( $v22 is Float )
+	assert( ( 2.6999 < $v22 ) and ( $v22 < 2.7001 ) )
 
 $ $BURN add_result_5.burn
 
@@ -334,6 +344,8 @@ add_result_6.burn:
 	assert( $v8 is Float )
 	assert( ( -2.5001 < $v8 ) and ( $v8 < -2.4999 ) )
 	
+	test.assert_throws( function() { -2 + "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { -2 + "" }, TypeError )
 	
 	test.assert_throws( function() { -2 + "apple" }, TypeError )
@@ -350,25 +362,25 @@ add_result_6.burn:
 	
 	test.assert_throws( function() { -2 + types }, TypeError )
 	
-	let $v17 = -2 + 3
-	assert( $v17 is Integer )
-	assert( $v17 == 1 )
-	
-	let $v18 = -2 + 8
+	let $v18 = -2 + 3
 	assert( $v18 is Integer )
-	assert( $v18 == 6 )
+	assert( $v18 == 1 )
 	
-	let $v19 = -2 + 0.3
-	assert( $v19 is Float )
-	assert( ( -1.7001 < $v19 ) and ( $v19 < -1.6999 ) )
+	let $v19 = -2 + 8
+	assert( $v19 is Integer )
+	assert( $v19 == 6 )
 	
-	let $v20 = -2 + 0.33333333333
+	let $v20 = -2 + 0.3
 	assert( $v20 is Float )
-	assert( ( -1.6668 < $v20 ) and ( $v20 < -1.6666 ) )
+	assert( ( -1.7001 < $v20 ) and ( $v20 < -1.6999 ) )
 	
-	let $v21 = -2 + 0.7
+	let $v21 = -2 + 0.33333333333
 	assert( $v21 is Float )
-	assert( ( -1.3001 < $v21 ) and ( $v21 < -1.2999 ) )
+	assert( ( -1.6668 < $v21 ) and ( $v21 < -1.6666 ) )
+	
+	let $v22 = -2 + 0.7
+	assert( $v22 is Float )
+	assert( ( -1.3001 < $v22 ) and ( $v22 < -1.2999 ) )
 
 $ $BURN add_result_6.burn
 
@@ -407,6 +419,8 @@ add_result_7.burn:
 	assert( $v8 is Float )
 	assert( ( -0.5001 < $v8 ) and ( $v8 < -0.4999 ) )
 	
+	test.assert_throws( function() { 0.0 + "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { 0.0 + "" }, TypeError )
 	
 	test.assert_throws( function() { 0.0 + "apple" }, TypeError )
@@ -423,25 +437,25 @@ add_result_7.burn:
 	
 	test.assert_throws( function() { 0.0 + types }, TypeError )
 	
-	let $v17 = 0.0 + 3
-	assert( $v17 is Float )
-	assert( ( 2.9999 < $v17 ) and ( $v17 < 3.0001 ) )
-	
-	let $v18 = 0.0 + 8
+	let $v18 = 0.0 + 3
 	assert( $v18 is Float )
-	assert( ( 7.9999 < $v18 ) and ( $v18 < 8.0001 ) )
+	assert( ( 2.9999 < $v18 ) and ( $v18 < 3.0001 ) )
 	
-	let $v19 = 0.0 + 0.3
+	let $v19 = 0.0 + 8
 	assert( $v19 is Float )
-	assert( ( 0.2999 < $v19 ) and ( $v19 < 0.3001 ) )
+	assert( ( 7.9999 < $v19 ) and ( $v19 < 8.0001 ) )
 	
-	let $v20 = 0.0 + 0.33333333333
+	let $v20 = 0.0 + 0.3
 	assert( $v20 is Float )
-	assert( ( 0.3332 < $v20 ) and ( $v20 < 0.3334 ) )
+	assert( ( 0.2999 < $v20 ) and ( $v20 < 0.3001 ) )
 	
-	let $v21 = 0.0 + 0.7
+	let $v21 = 0.0 + 0.33333333333
 	assert( $v21 is Float )
-	assert( ( 0.6999 < $v21 ) and ( $v21 < 0.7001 ) )
+	assert( ( 0.3332 < $v21 ) and ( $v21 < 0.3334 ) )
+	
+	let $v22 = 0.0 + 0.7
+	assert( $v22 is Float )
+	assert( ( 0.6999 < $v22 ) and ( $v22 < 0.7001 ) )
 
 $ $BURN add_result_7.burn
 
@@ -480,6 +494,8 @@ add_result_8.burn:
 	assert( $v8 is Float )
 	assert( ( 1.4999 < $v8 ) and ( $v8 < 1.5001 ) )
 	
+	test.assert_throws( function() { 2.0 + "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { 2.0 + "" }, TypeError )
 	
 	test.assert_throws( function() { 2.0 + "apple" }, TypeError )
@@ -496,25 +512,25 @@ add_result_8.burn:
 	
 	test.assert_throws( function() { 2.0 + types }, TypeError )
 	
-	let $v17 = 2.0 + 3
-	assert( $v17 is Float )
-	assert( ( 4.9999 < $v17 ) and ( $v17 < 5.0001 ) )
-	
-	let $v18 = 2.0 + 8
+	let $v18 = 2.0 + 3
 	assert( $v18 is Float )
-	assert( ( 9.9999 < $v18 ) and ( $v18 < 10.0001 ) )
+	assert( ( 4.9999 < $v18 ) and ( $v18 < 5.0001 ) )
 	
-	let $v19 = 2.0 + 0.3
+	let $v19 = 2.0 + 8
 	assert( $v19 is Float )
-	assert( ( 2.2999 < $v19 ) and ( $v19 < 2.3001 ) )
+	assert( ( 9.9999 < $v19 ) and ( $v19 < 10.0001 ) )
 	
-	let $v20 = 2.0 + 0.33333333333
+	let $v20 = 2.0 + 0.3
 	assert( $v20 is Float )
-	assert( ( 2.3332 < $v20 ) and ( $v20 < 2.3334 ) )
+	assert( ( 2.2999 < $v20 ) and ( $v20 < 2.3001 ) )
 	
-	let $v21 = 2.0 + 0.7
+	let $v21 = 2.0 + 0.33333333333
 	assert( $v21 is Float )
-	assert( ( 2.6999 < $v21 ) and ( $v21 < 2.7001 ) )
+	assert( ( 2.3332 < $v21 ) and ( $v21 < 2.3334 ) )
+	
+	let $v22 = 2.0 + 0.7
+	assert( $v22 is Float )
+	assert( ( 2.6999 < $v22 ) and ( $v22 < 2.7001 ) )
 
 $ $BURN add_result_8.burn
 
@@ -553,6 +569,8 @@ add_result_9.burn:
 	assert( $v8 is Float )
 	assert( ( -1.0001 < $v8 ) and ( $v8 < -0.9999 ) )
 	
+	test.assert_throws( function() { -0.5 + "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { -0.5 + "" }, TypeError )
 	
 	test.assert_throws( function() { -0.5 + "apple" }, TypeError )
@@ -569,29 +587,82 @@ add_result_9.burn:
 	
 	test.assert_throws( function() { -0.5 + types }, TypeError )
 	
-	let $v17 = -0.5 + 3
-	assert( $v17 is Float )
-	assert( ( 2.4999 < $v17 ) and ( $v17 < 2.5001 ) )
-	
-	let $v18 = -0.5 + 8
+	let $v18 = -0.5 + 3
 	assert( $v18 is Float )
-	assert( ( 7.4999 < $v18 ) and ( $v18 < 7.5001 ) )
+	assert( ( 2.4999 < $v18 ) and ( $v18 < 2.5001 ) )
 	
-	let $v19 = -0.5 + 0.3
+	let $v19 = -0.5 + 8
 	assert( $v19 is Float )
-	assert( ( -0.2001 < $v19 ) and ( $v19 < -0.1999 ) )
+	assert( ( 7.4999 < $v19 ) and ( $v19 < 7.5001 ) )
 	
-	let $v20 = -0.5 + 0.33333333333
+	let $v20 = -0.5 + 0.3
 	assert( $v20 is Float )
-	assert( ( -0.1668 < $v20 ) and ( $v20 < -0.1666 ) )
+	assert( ( -0.2001 < $v20 ) and ( $v20 < -0.1999 ) )
 	
-	let $v21 = -0.5 + 0.7
+	let $v21 = -0.5 + 0.33333333333
 	assert( $v21 is Float )
-	assert( ( 0.1999 < $v21 ) and ( $v21 < 0.2001 ) )
+	assert( ( -0.1668 < $v21 ) and ( $v21 < -0.1666 ) )
+	
+	let $v22 = -0.5 + 0.7
+	assert( $v22 is Float )
+	assert( ( 0.1999 < $v22 ) and ( $v22 < 0.2001 ) )
 
 $ $BURN add_result_9.burn
 
 add_result_10.burn:
+	import test
+	import burn.types
+	import burn.errors
+	
+	test.assert_throws( function() { "c"[0] + nothing }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + true }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + false }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + 0 }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + 2 }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + -2 }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + 0.0 }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + 2.0 }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + -0.5 }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + "c"[0] }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + "" }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + "apple" }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + "banana" }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + repr }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + function(){} }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + Integer }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + Type }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + types }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + 3 }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + 8 }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + 0.3 }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + 0.33333333333 }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] + 0.7 }, TypeError )
+
+$ $BURN add_result_10.burn
+
+add_result_11.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -614,17 +685,19 @@ add_result_10.burn:
 	
 	test.assert_throws( function() { "" + -0.5 }, TypeError )
 	
-	let $v9 = "" + ""
-	assert( $v9 is String )
-	assert( $v9 == "" )
+	test.assert_throws( function() { "" + "c"[0] }, TypeError )
 	
-	let $v10 = "" + "apple"
+	let $v10 = "" + ""
 	assert( $v10 is String )
-	assert( $v10 == "apple" )
+	assert( $v10 == "" )
 	
-	let $v11 = "" + "banana"
+	let $v11 = "" + "apple"
 	assert( $v11 is String )
-	assert( $v11 == "banana" )
+	assert( $v11 == "apple" )
+	
+	let $v12 = "" + "banana"
+	assert( $v12 is String )
+	assert( $v12 == "banana" )
 	
 	test.assert_throws( function() { "" + repr }, TypeError )
 	
@@ -646,9 +719,9 @@ add_result_10.burn:
 	
 	test.assert_throws( function() { "" + 0.7 }, TypeError )
 
-$ $BURN add_result_10.burn
+$ $BURN add_result_11.burn
 
-add_result_11.burn:
+add_result_12.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -671,17 +744,19 @@ add_result_11.burn:
 	
 	test.assert_throws( function() { "apple" + -0.5 }, TypeError )
 	
-	let $v9 = "apple" + ""
-	assert( $v9 is String )
-	assert( $v9 == "apple" )
+	test.assert_throws( function() { "apple" + "c"[0] }, TypeError )
 	
-	let $v10 = "apple" + "apple"
+	let $v10 = "apple" + ""
 	assert( $v10 is String )
-	assert( $v10 == "appleapple" )
+	assert( $v10 == "apple" )
 	
-	let $v11 = "apple" + "banana"
+	let $v11 = "apple" + "apple"
 	assert( $v11 is String )
-	assert( $v11 == "applebanana" )
+	assert( $v11 == "appleapple" )
+	
+	let $v12 = "apple" + "banana"
+	assert( $v12 is String )
+	assert( $v12 == "applebanana" )
 	
 	test.assert_throws( function() { "apple" + repr }, TypeError )
 	
@@ -703,9 +778,9 @@ add_result_11.burn:
 	
 	test.assert_throws( function() { "apple" + 0.7 }, TypeError )
 
-$ $BURN add_result_11.burn
+$ $BURN add_result_12.burn
 
-add_result_12.burn:
+add_result_13.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -728,17 +803,19 @@ add_result_12.burn:
 	
 	test.assert_throws( function() { "banana" + -0.5 }, TypeError )
 	
-	let $v9 = "banana" + ""
-	assert( $v9 is String )
-	assert( $v9 == "banana" )
+	test.assert_throws( function() { "banana" + "c"[0] }, TypeError )
 	
-	let $v10 = "banana" + "apple"
+	let $v10 = "banana" + ""
 	assert( $v10 is String )
-	assert( $v10 == "bananaapple" )
+	assert( $v10 == "banana" )
 	
-	let $v11 = "banana" + "banana"
+	let $v11 = "banana" + "apple"
 	assert( $v11 is String )
-	assert( $v11 == "bananabanana" )
+	assert( $v11 == "bananaapple" )
+	
+	let $v12 = "banana" + "banana"
+	assert( $v12 is String )
+	assert( $v12 == "bananabanana" )
 	
 	test.assert_throws( function() { "banana" + repr }, TypeError )
 	
@@ -760,9 +837,9 @@ add_result_12.burn:
 	
 	test.assert_throws( function() { "banana" + 0.7 }, TypeError )
 
-$ $BURN add_result_12.burn
+$ $BURN add_result_13.burn
 
-add_result_13.burn:
+add_result_14.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -784,6 +861,8 @@ add_result_13.burn:
 	test.assert_throws( function() { repr + 2.0 }, TypeError )
 	
 	test.assert_throws( function() { repr + -0.5 }, TypeError )
+	
+	test.assert_throws( function() { repr + "c"[0] }, TypeError )
 	
 	test.assert_throws( function() { repr + "" }, TypeError )
 	
@@ -811,9 +890,9 @@ add_result_13.burn:
 	
 	test.assert_throws( function() { repr + 0.7 }, TypeError )
 
-$ $BURN add_result_13.burn
+$ $BURN add_result_14.burn
 
-add_result_14.burn:
+add_result_15.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -835,6 +914,8 @@ add_result_14.burn:
 	test.assert_throws( function() { function(){} + 2.0 }, TypeError )
 	
 	test.assert_throws( function() { function(){} + -0.5 }, TypeError )
+	
+	test.assert_throws( function() { function(){} + "c"[0] }, TypeError )
 	
 	test.assert_throws( function() { function(){} + "" }, TypeError )
 	
@@ -862,9 +943,9 @@ add_result_14.burn:
 	
 	test.assert_throws( function() { function(){} + 0.7 }, TypeError )
 
-$ $BURN add_result_14.burn
+$ $BURN add_result_15.burn
 
-add_result_15.burn:
+add_result_16.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -886,6 +967,8 @@ add_result_15.burn:
 	test.assert_throws( function() { Integer + 2.0 }, TypeError )
 	
 	test.assert_throws( function() { Integer + -0.5 }, TypeError )
+	
+	test.assert_throws( function() { Integer + "c"[0] }, TypeError )
 	
 	test.assert_throws( function() { Integer + "" }, TypeError )
 	
@@ -913,9 +996,9 @@ add_result_15.burn:
 	
 	test.assert_throws( function() { Integer + 0.7 }, TypeError )
 
-$ $BURN add_result_15.burn
+$ $BURN add_result_16.burn
 
-add_result_16.burn:
+add_result_17.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -937,6 +1020,8 @@ add_result_16.burn:
 	test.assert_throws( function() { Type + 2.0 }, TypeError )
 	
 	test.assert_throws( function() { Type + -0.5 }, TypeError )
+	
+	test.assert_throws( function() { Type + "c"[0] }, TypeError )
 	
 	test.assert_throws( function() { Type + "" }, TypeError )
 	
@@ -964,9 +1049,9 @@ add_result_16.burn:
 	
 	test.assert_throws( function() { Type + 0.7 }, TypeError )
 
-$ $BURN add_result_16.burn
+$ $BURN add_result_17.burn
 
-add_result_17.burn:
+add_result_18.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -988,6 +1073,8 @@ add_result_17.burn:
 	test.assert_throws( function() { types + 2.0 }, TypeError )
 	
 	test.assert_throws( function() { types + -0.5 }, TypeError )
+	
+	test.assert_throws( function() { types + "c"[0] }, TypeError )
 	
 	test.assert_throws( function() { types + "" }, TypeError )
 	
@@ -1015,9 +1102,9 @@ add_result_17.burn:
 	
 	test.assert_throws( function() { types + 0.7 }, TypeError )
 
-$ $BURN add_result_17.burn
+$ $BURN add_result_18.burn
 
-add_result_18.burn:
+add_result_19.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -1052,6 +1139,8 @@ add_result_18.burn:
 	assert( $v8 is Float )
 	assert( ( 2.4999 < $v8 ) and ( $v8 < 2.5001 ) )
 	
+	test.assert_throws( function() { 3 + "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { 3 + "" }, TypeError )
 	
 	test.assert_throws( function() { 3 + "apple" }, TypeError )
@@ -1068,29 +1157,29 @@ add_result_18.burn:
 	
 	test.assert_throws( function() { 3 + types }, TypeError )
 	
-	let $v17 = 3 + 3
-	assert( $v17 is Integer )
-	assert( $v17 == 6 )
-	
-	let $v18 = 3 + 8
+	let $v18 = 3 + 3
 	assert( $v18 is Integer )
-	assert( $v18 == 11 )
+	assert( $v18 == 6 )
 	
-	let $v19 = 3 + 0.3
-	assert( $v19 is Float )
-	assert( ( 3.2999 < $v19 ) and ( $v19 < 3.3001 ) )
+	let $v19 = 3 + 8
+	assert( $v19 is Integer )
+	assert( $v19 == 11 )
 	
-	let $v20 = 3 + 0.33333333333
+	let $v20 = 3 + 0.3
 	assert( $v20 is Float )
-	assert( ( 3.3332 < $v20 ) and ( $v20 < 3.3334 ) )
+	assert( ( 3.2999 < $v20 ) and ( $v20 < 3.3001 ) )
 	
-	let $v21 = 3 + 0.7
+	let $v21 = 3 + 0.33333333333
 	assert( $v21 is Float )
-	assert( ( 3.6999 < $v21 ) and ( $v21 < 3.7001 ) )
+	assert( ( 3.3332 < $v21 ) and ( $v21 < 3.3334 ) )
+	
+	let $v22 = 3 + 0.7
+	assert( $v22 is Float )
+	assert( ( 3.6999 < $v22 ) and ( $v22 < 3.7001 ) )
 
-$ $BURN add_result_18.burn
+$ $BURN add_result_19.burn
 
-add_result_19.burn:
+add_result_20.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -1125,6 +1214,8 @@ add_result_19.burn:
 	assert( $v8 is Float )
 	assert( ( 7.4999 < $v8 ) and ( $v8 < 7.5001 ) )
 	
+	test.assert_throws( function() { 8 + "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { 8 + "" }, TypeError )
 	
 	test.assert_throws( function() { 8 + "apple" }, TypeError )
@@ -1141,29 +1232,29 @@ add_result_19.burn:
 	
 	test.assert_throws( function() { 8 + types }, TypeError )
 	
-	let $v17 = 8 + 3
-	assert( $v17 is Integer )
-	assert( $v17 == 11 )
-	
-	let $v18 = 8 + 8
+	let $v18 = 8 + 3
 	assert( $v18 is Integer )
-	assert( $v18 == 16 )
+	assert( $v18 == 11 )
 	
-	let $v19 = 8 + 0.3
-	assert( $v19 is Float )
-	assert( ( 8.2999 < $v19 ) and ( $v19 < 8.3001 ) )
+	let $v19 = 8 + 8
+	assert( $v19 is Integer )
+	assert( $v19 == 16 )
 	
-	let $v20 = 8 + 0.33333333333
+	let $v20 = 8 + 0.3
 	assert( $v20 is Float )
-	assert( ( 8.3332 < $v20 ) and ( $v20 < 8.3334 ) )
+	assert( ( 8.2999 < $v20 ) and ( $v20 < 8.3001 ) )
 	
-	let $v21 = 8 + 0.7
+	let $v21 = 8 + 0.33333333333
 	assert( $v21 is Float )
-	assert( ( 8.6999 < $v21 ) and ( $v21 < 8.7001 ) )
+	assert( ( 8.3332 < $v21 ) and ( $v21 < 8.3334 ) )
+	
+	let $v22 = 8 + 0.7
+	assert( $v22 is Float )
+	assert( ( 8.6999 < $v22 ) and ( $v22 < 8.7001 ) )
 
-$ $BURN add_result_19.burn
+$ $BURN add_result_20.burn
 
-add_result_20.burn:
+add_result_21.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -1198,6 +1289,8 @@ add_result_20.burn:
 	assert( $v8 is Float )
 	assert( ( -0.2001 < $v8 ) and ( $v8 < -0.1999 ) )
 	
+	test.assert_throws( function() { 0.3 + "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { 0.3 + "" }, TypeError )
 	
 	test.assert_throws( function() { 0.3 + "apple" }, TypeError )
@@ -1214,29 +1307,29 @@ add_result_20.burn:
 	
 	test.assert_throws( function() { 0.3 + types }, TypeError )
 	
-	let $v17 = 0.3 + 3
-	assert( $v17 is Float )
-	assert( ( 3.2999 < $v17 ) and ( $v17 < 3.3001 ) )
-	
-	let $v18 = 0.3 + 8
+	let $v18 = 0.3 + 3
 	assert( $v18 is Float )
-	assert( ( 8.2999 < $v18 ) and ( $v18 < 8.3001 ) )
+	assert( ( 3.2999 < $v18 ) and ( $v18 < 3.3001 ) )
 	
-	let $v19 = 0.3 + 0.3
+	let $v19 = 0.3 + 8
 	assert( $v19 is Float )
-	assert( ( 0.5999 < $v19 ) and ( $v19 < 0.6001 ) )
+	assert( ( 8.2999 < $v19 ) and ( $v19 < 8.3001 ) )
 	
-	let $v20 = 0.3 + 0.33333333333
+	let $v20 = 0.3 + 0.3
 	assert( $v20 is Float )
-	assert( ( 0.6332 < $v20 ) and ( $v20 < 0.6334 ) )
+	assert( ( 0.5999 < $v20 ) and ( $v20 < 0.6001 ) )
 	
-	let $v21 = 0.3 + 0.7
+	let $v21 = 0.3 + 0.33333333333
 	assert( $v21 is Float )
-	assert( ( 0.9999 < $v21 ) and ( $v21 < 1.0001 ) )
+	assert( ( 0.6332 < $v21 ) and ( $v21 < 0.6334 ) )
+	
+	let $v22 = 0.3 + 0.7
+	assert( $v22 is Float )
+	assert( ( 0.9999 < $v22 ) and ( $v22 < 1.0001 ) )
 
-$ $BURN add_result_20.burn
+$ $BURN add_result_21.burn
 
-add_result_21.burn:
+add_result_22.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -1271,6 +1364,8 @@ add_result_21.burn:
 	assert( $v8 is Float )
 	assert( ( -0.1668 < $v8 ) and ( $v8 < -0.1666 ) )
 	
+	test.assert_throws( function() { 0.33333333333 + "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { 0.33333333333 + "" }, TypeError )
 	
 	test.assert_throws( function() { 0.33333333333 + "apple" }, TypeError )
@@ -1287,29 +1382,29 @@ add_result_21.burn:
 	
 	test.assert_throws( function() { 0.33333333333 + types }, TypeError )
 	
-	let $v17 = 0.33333333333 + 3
-	assert( $v17 is Float )
-	assert( ( 3.3332 < $v17 ) and ( $v17 < 3.3334 ) )
-	
-	let $v18 = 0.33333333333 + 8
+	let $v18 = 0.33333333333 + 3
 	assert( $v18 is Float )
-	assert( ( 8.3332 < $v18 ) and ( $v18 < 8.3334 ) )
+	assert( ( 3.3332 < $v18 ) and ( $v18 < 3.3334 ) )
 	
-	let $v19 = 0.33333333333 + 0.3
+	let $v19 = 0.33333333333 + 8
 	assert( $v19 is Float )
-	assert( ( 0.6332 < $v19 ) and ( $v19 < 0.6334 ) )
+	assert( ( 8.3332 < $v19 ) and ( $v19 < 8.3334 ) )
 	
-	let $v20 = 0.33333333333 + 0.33333333333
+	let $v20 = 0.33333333333 + 0.3
 	assert( $v20 is Float )
-	assert( ( 0.6666 < $v20 ) and ( $v20 < 0.6668 ) )
+	assert( ( 0.6332 < $v20 ) and ( $v20 < 0.6334 ) )
 	
-	let $v21 = 0.33333333333 + 0.7
+	let $v21 = 0.33333333333 + 0.33333333333
 	assert( $v21 is Float )
-	assert( ( 1.0332 < $v21 ) and ( $v21 < 1.0334 ) )
+	assert( ( 0.6666 < $v21 ) and ( $v21 < 0.6668 ) )
+	
+	let $v22 = 0.33333333333 + 0.7
+	assert( $v22 is Float )
+	assert( ( 1.0332 < $v22 ) and ( $v22 < 1.0334 ) )
 
-$ $BURN add_result_21.burn
+$ $BURN add_result_22.burn
 
-add_result_22.burn:
+add_result_23.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -1344,6 +1439,8 @@ add_result_22.burn:
 	assert( $v8 is Float )
 	assert( ( 0.1999 < $v8 ) and ( $v8 < 0.2001 ) )
 	
+	test.assert_throws( function() { 0.7 + "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { 0.7 + "" }, TypeError )
 	
 	test.assert_throws( function() { 0.7 + "apple" }, TypeError )
@@ -1360,24 +1457,24 @@ add_result_22.burn:
 	
 	test.assert_throws( function() { 0.7 + types }, TypeError )
 	
-	let $v17 = 0.7 + 3
-	assert( $v17 is Float )
-	assert( ( 3.6999 < $v17 ) and ( $v17 < 3.7001 ) )
-	
-	let $v18 = 0.7 + 8
+	let $v18 = 0.7 + 3
 	assert( $v18 is Float )
-	assert( ( 8.6999 < $v18 ) and ( $v18 < 8.7001 ) )
+	assert( ( 3.6999 < $v18 ) and ( $v18 < 3.7001 ) )
 	
-	let $v19 = 0.7 + 0.3
+	let $v19 = 0.7 + 8
 	assert( $v19 is Float )
-	assert( ( 0.9999 < $v19 ) and ( $v19 < 1.0001 ) )
+	assert( ( 8.6999 < $v19 ) and ( $v19 < 8.7001 ) )
 	
-	let $v20 = 0.7 + 0.33333333333
+	let $v20 = 0.7 + 0.3
 	assert( $v20 is Float )
-	assert( ( 1.0332 < $v20 ) and ( $v20 < 1.0334 ) )
+	assert( ( 0.9999 < $v20 ) and ( $v20 < 1.0001 ) )
 	
-	let $v21 = 0.7 + 0.7
+	let $v21 = 0.7 + 0.33333333333
 	assert( $v21 is Float )
-	assert( ( 1.3999 < $v21 ) and ( $v21 < 1.4001 ) )
+	assert( ( 1.0332 < $v21 ) and ( $v21 < 1.0334 ) )
+	
+	let $v22 = 0.7 + 0.7
+	assert( $v22 is Float )
+	assert( ( 1.3999 < $v22 ) and ( $v22 < 1.4001 ) )
 
-$ $BURN add_result_22.burn
+$ $BURN add_result_23.burn

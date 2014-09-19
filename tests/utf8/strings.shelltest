@@ -7,6 +7,6 @@ length.burn:
 $ $BURN length.burn
 
 index.burn:
-	assert( "\U0001D306"[0] == "𝌆" )
+	assert( "\U0001D306"[0] == "𝌆"[0] )
 
 $ $BURN index.burn

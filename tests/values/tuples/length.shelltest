@@ -1,0 +1,6 @@
+length.burn:
+	assert( ().length == 0 )
+	assert( ( "abc", ).length == 1 )
+	assert( ( "a", "b", "c" ).length == 3 )
+
+$ $BURN length.burn

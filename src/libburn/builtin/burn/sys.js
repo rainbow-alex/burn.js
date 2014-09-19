@@ -5,7 +5,7 @@ let types = require( "libburn/builtin/burn/types" );
 
 let sys = module.exports;
 
-sys.ProcessInstance = CLASS( Value.Special, {
+sys.ProcessInstance = CLASS( Value, {
 	init: function( argv ) {
 		this.argv = argv;
 	},

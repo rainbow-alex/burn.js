@@ -75,49 +75,14 @@ util.validateCallArguments = function( fiber, callee, args, parameters ) {
 	} );
 };
 
-util.JsInstanceofType = CLASS( Value.Special, {
+util.JsInstanceofType = CLASS( Value.Type, {
 	init: function( constructor ) {
 		console.assert( typeof constructor === "function" );
 		this.constructor = constructor;
 	},
-	suggestName: function( name ) {
-		this.name = this.name || name;
-	},
-	repr: "<Type>",
 	typeTest: function( fiber, v ) {
 		return v instanceof this.constructor;
 	},
-	isSafe: function() {
-		return true;
-	},
-	isPermanent: function() {
-		return true;
-	},
-	toString: function() {
-		return this.name || this.repr;
-	},
-} );
-
-util.JsFunctionType = CLASS( Value.Special, {
-	init: function( test, options ) {
-		this.test = test;
-		console.assert( options && options.permanent !== undefined, "JsFunctionTypes should specify wether they are Permanent." );
-		this.permanent = options.permanent;
-	},
-	suggestName: function( name ) {
-		this.name = this.name || name;
-	},
-	repr: "<Type>",
-	typeTest: function( fiber, v ) {
-		return ( this.test )( fiber, v );
-	},
-	isSafe: function() {
-		return true;
-	},
-	isPermanent: function() {
-		return this.permanent;
-	},
-	toString: function() {
-		return this.name || this.repr;
-	},
+	safe: true,
+	permanent: true,
 } );

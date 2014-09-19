@@ -4,7 +4,7 @@ let util = require( "libburn/vm/util" );
 
 let errors = module.exports;
 
-let ErrorInstance = CLASS( Value.Special, {
+let ErrorInstance = CLASS( Value, {
 	init: function( message, stack ) {
 		this.message = message;
 		this.stack = stack.map( function( f ) {
@@ -14,8 +14,8 @@ let ErrorInstance = CLASS( Value.Special, {
 		} );
 	},
 	repr: "<Error>",
-	toString: function() {
-		return this.message;
+	toBurnString: function() {
+		return new Value.String( this.message );
 	},
 } );
 

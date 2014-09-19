@@ -54,6 +54,10 @@ rt.validateFunctionCallReturnType = function( fiber, fn, value, type ) {
 	}
 };
 
+rt.createTuple = function( items ) {
+	return new Value.Tuple( items );
+};
+
 rt.createList = function( items ) {
 	return new Value.List( items );
 };

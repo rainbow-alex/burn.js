@@ -1,5 +1,13 @@
+Permanent.burn:
+	import burn.types.Safe
+	
+	assert( Safe is Type.Permanent )
+
+$ $BURN Permanent.burn
+
 primitives.burn:
 	import burn.types.Safe
+	
 	assert( 1 is Safe )
 	assert( "" is Safe )
 
@@ -7,6 +15,7 @@ $ $BURN primitives.burn
 
 module.burn:
 	import burn.types.Safe
+	
 	import burn
 	assert( burn is Safe )
 

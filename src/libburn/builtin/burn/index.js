@@ -9,5 +9,4 @@ burn.exposes = new Value.Module( {
 	errors: require( "./errors" ).exposes,
 	fiber: require( "./fiber" ).exposes,
 	sys: require( "./sys" ).exposes,
-	security: require( "./security" ).exposes,
 } );

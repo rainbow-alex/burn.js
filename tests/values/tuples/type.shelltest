@@ -1,0 +1,23 @@
+permanent.burn:
+	print Tuple is Type.Permanent
+
+$ $BURN permanent.burn
+
+type.burn:
+	assert( () is Tuple )
+	assert( ( 1, 2, 3 ) is Tuple )
+
+$ $BURN type.burn
+
+safe.burn:
+	import burn.types.Safe
+	
+	assert( () is Safe )
+	assert( ( 1, 2, 3 ) is Safe )
+	
+	let $foo = function() { ($foo) }
+	assert( $foo is not Safe )
+	assert( ( $foo, ) is not Safe )
+	assert( ( 1, 2, $foo ) is not Safe )
+
+$ $BURN safe.burn

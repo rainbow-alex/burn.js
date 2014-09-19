@@ -1,0 +1,7 @@
+index.burn:
+	let $tuple = ( 1, 2, "foo" )
+	assert( $tuple[0] == 1 )
+	assert( $tuple[1] == 2 )
+	assert( $tuple[2] == "foo" )
+
+$ $BURN index.burn

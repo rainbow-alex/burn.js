@@ -92,6 +92,7 @@ values = [
 	"true", "false",
 	"0", "2", "-2",
 	"0.0", "2.0",  "-0.5",
+	"\"c\"[0]",
 	"\"\"", "\"apple\"", "\"banana\"",
 	"repr", "function(){}",
 	"Integer", "Type",
@@ -102,7 +103,7 @@ values = [
 if op.name in [ "add", "sub", "mul", "div" ]:
 	values += [ "3", "8", "0.3", "0.33333333333", "0.7" ]
 
-types = [ "Nothing", "Boolean", "Integer", "Float", "String", "Function", "Module", "Type" ]
+types = [ "Nothing", "Boolean", "Integer", "Float", "Character", "String", "Function", "Module", "Type" ]
 
 special_tests = {
 	"Integer | Integer": ( "nothing is not $v", "5 is $v", "Integer is not $v" ),
@@ -175,15 +176,17 @@ for name, expressions in generate_tests():
 				lower_bound = "%.4f" % ( round( float( output ), 4 ) - 0.0001 )
 				upper_bound = "%.4f" % ( round( float( output ), 4 ) + 0.0001 )
 				print( "	assert( ( %s < %s ) and ( %s < %s ) )" % ( lower_bound, var, var, upper_bound ) )
+			elif type_ == "Character":
+				print( "	assert( %s == \"%s\"[0] )" % ( var, output ) )
 			elif type_ == "String":
 				print( "	assert( %s == \"%s\" )" % ( var, output ) )
+			elif type_ == "Type":
+				pass # TODO
 			else:
 				if output == "<Function 'repr'>":
 					print( "	assert( %s == repr )" % var )
 				elif output == "<Function>":
 					print( "	assert( %s is Function )" % var )
-				elif output in ( "Integer", "Type" ):
-					print( "	assert( %s == %s )" % ( var, output ) )
 				elif output == "<Module 'types'>":
 					print( "	assert( %s == types )" % var )
 				else:

@@ -10,15 +10,17 @@ let implicit = module.exports;
 implicit.exposes = new Value.Module( {
 	
 	Nothing: types.Nothing,
+	Something: types.Something,
 	Boolean: types.Boolean,
 	Integer: types.Integer,
 	Float: types.Float,
+	Tuple: types.Tuple,
+	Character: types.Character,
 	String: types.String,
 	Function: types.Function,
 	Module: types.Module,
-	List: types.List,
 	Type: types.Type,
-	Something: types.Something,
+	List: types.List,
 	Callable: types.Callable,
 	
 	NameError: errors.NameError,

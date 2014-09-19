@@ -1,3 +1,9 @@
+Permanent.burn:
+	import burn.types.Truthy
+	import burn.types.Falsy
+	assert( Truthy is not Type.Permanent )
+	assert( Falsy is not Type.Permanent )
+
 nothing.burn:
 	import burn.types.Falsy
 	print nothing is Falsy

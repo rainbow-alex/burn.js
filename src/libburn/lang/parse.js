@@ -681,7 +681,7 @@ module.exports = function( tokens ) {
 		} else if( peek().type === "[" ) {
 			return parseListLiteral();
 		} else if( peek().type === "(" ) {
-			return parseParenthesizedExpression();
+			return parseParenthesizedOrTupleExpression();
 		} else if( peek().type === "identifier" ) {
 			return new ast.IdentifierExpression( { token: read() } );
 		} else if( peek().type === "variable" ) {
@@ -776,13 +776,44 @@ module.exports = function( tokens ) {
 		} );
 	}
 	
-	function parseParenthesizedExpression() {
-		read( "(" );
+	function parseParenthesizedOrTupleExpression() {
+		let lparen = read( "(" );
+		if( peek().type === ")" ) {
+			let rparen = read( ")" );
+			return new ast.TupleLiteral( {
+				lparen: lparen,
+				items: new SeparatedList(),
+				rparen: rparen,
+			} );
+		}
 		let expression = parseExpression();
-		read( ")" );
-		return new ast.ParenthesizedExpression( {
-			expression: expression,
-		} );
+		if( peek().type === "," ) {
+			let items = new SeparatedList();
+			items.pushValue( expression );
+			items.pushSeparator( read( "," ) );
+			while( peek().type !== ")" ) {
+				items.pushValue( parseExpression() );
+				if( peek().type === "," ) {
+					items.pushSeparator( read() );
+				} else {
+					break;
+				}
+			}
+			let rparen = read( ")" );
+			return new ast.TupleLiteral( {
+				lparen: lparen,
+				items: items,
+				rparen: rparen,
+			} );
+		} else {
+			let rparen = read( ")" );
+			return new ast.ParenthesizedExpression( {
+				lparen: lparen,
+				expression: expression,
+				rparen: rparen,
+			} );
+		}
+		// TODO parenthesized toJSON is off
 	}
 	
 	function parseStringLiteral() {

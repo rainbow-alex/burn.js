@@ -23,6 +23,8 @@ union_result_1.burn:
 	
 	test.assert_throws( function() { nothing | -0.5 }, TypeError )
 	
+	test.assert_throws( function() { nothing | "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { nothing | "" }, TypeError )
 	
 	test.assert_throws( function() { nothing | "apple" }, TypeError )
@@ -63,6 +65,8 @@ union_result_2.burn:
 	test.assert_throws( function() { true | 2.0 }, TypeError )
 	
 	test.assert_throws( function() { true | -0.5 }, TypeError )
+	
+	test.assert_throws( function() { true | "c"[0] }, TypeError )
 	
 	test.assert_throws( function() { true | "" }, TypeError )
 	
@@ -105,6 +109,8 @@ union_result_3.burn:
 	
 	test.assert_throws( function() { false | -0.5 }, TypeError )
 	
+	test.assert_throws( function() { false | "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { false | "" }, TypeError )
 	
 	test.assert_throws( function() { false | "apple" }, TypeError )
@@ -145,6 +151,8 @@ union_result_4.burn:
 	test.assert_throws( function() { 0 | 2.0 }, TypeError )
 	
 	test.assert_throws( function() { 0 | -0.5 }, TypeError )
+	
+	test.assert_throws( function() { 0 | "c"[0] }, TypeError )
 	
 	test.assert_throws( function() { 0 | "" }, TypeError )
 	
@@ -187,6 +195,8 @@ union_result_5.burn:
 	
 	test.assert_throws( function() { 2 | -0.5 }, TypeError )
 	
+	test.assert_throws( function() { 2 | "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { 2 | "" }, TypeError )
 	
 	test.assert_throws( function() { 2 | "apple" }, TypeError )
@@ -227,6 +237,8 @@ union_result_6.burn:
 	test.assert_throws( function() { -2 | 2.0 }, TypeError )
 	
 	test.assert_throws( function() { -2 | -0.5 }, TypeError )
+	
+	test.assert_throws( function() { -2 | "c"[0] }, TypeError )
 	
 	test.assert_throws( function() { -2 | "" }, TypeError )
 	
@@ -269,6 +281,8 @@ union_result_7.burn:
 	
 	test.assert_throws( function() { 0.0 | -0.5 }, TypeError )
 	
+	test.assert_throws( function() { 0.0 | "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { 0.0 | "" }, TypeError )
 	
 	test.assert_throws( function() { 0.0 | "apple" }, TypeError )
@@ -309,6 +323,8 @@ union_result_8.burn:
 	test.assert_throws( function() { 2.0 | 2.0 }, TypeError )
 	
 	test.assert_throws( function() { 2.0 | -0.5 }, TypeError )
+	
+	test.assert_throws( function() { 2.0 | "c"[0] }, TypeError )
 	
 	test.assert_throws( function() { 2.0 | "" }, TypeError )
 	
@@ -351,6 +367,8 @@ union_result_9.burn:
 	
 	test.assert_throws( function() { -0.5 | -0.5 }, TypeError )
 	
+	test.assert_throws( function() { -0.5 | "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { -0.5 | "" }, TypeError )
 	
 	test.assert_throws( function() { -0.5 | "apple" }, TypeError )
@@ -374,6 +392,49 @@ union_result_10.burn:
 	import burn.types
 	import burn.errors
 	
+	test.assert_throws( function() { "c"[0] | nothing }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] | true }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] | false }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] | 0 }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] | 2 }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] | -2 }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] | 0.0 }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] | 2.0 }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] | -0.5 }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] | "c"[0] }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] | "" }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] | "apple" }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] | "banana" }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] | repr }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] | function(){} }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] | Integer }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] | Type }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] | types }, TypeError )
+
+$ $BURN union_result_10.burn
+
+union_result_11.burn:
+	import test
+	import burn.types
+	import burn.errors
+	
 	test.assert_throws( function() { "" | nothing }, TypeError )
 	
 	test.assert_throws( function() { "" | true }, TypeError )
@@ -392,6 +453,8 @@ union_result_10.burn:
 	
 	test.assert_throws( function() { "" | -0.5 }, TypeError )
 	
+	test.assert_throws( function() { "" | "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { "" | "" }, TypeError )
 	
 	test.assert_throws( function() { "" | "apple" }, TypeError )
@@ -408,9 +471,9 @@ union_result_10.burn:
 	
 	test.assert_throws( function() { "" | types }, TypeError )
 
-$ $BURN union_result_10.burn
+$ $BURN union_result_11.burn
 
-union_result_11.burn:
+union_result_12.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -433,6 +496,8 @@ union_result_11.burn:
 	
 	test.assert_throws( function() { "apple" | -0.5 }, TypeError )
 	
+	test.assert_throws( function() { "apple" | "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { "apple" | "" }, TypeError )
 	
 	test.assert_throws( function() { "apple" | "apple" }, TypeError )
@@ -449,9 +514,9 @@ union_result_11.burn:
 	
 	test.assert_throws( function() { "apple" | types }, TypeError )
 
-$ $BURN union_result_11.burn
+$ $BURN union_result_12.burn
 
-union_result_12.burn:
+union_result_13.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -474,6 +539,8 @@ union_result_12.burn:
 	
 	test.assert_throws( function() { "banana" | -0.5 }, TypeError )
 	
+	test.assert_throws( function() { "banana" | "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { "banana" | "" }, TypeError )
 	
 	test.assert_throws( function() { "banana" | "apple" }, TypeError )
@@ -490,9 +557,9 @@ union_result_12.burn:
 	
 	test.assert_throws( function() { "banana" | types }, TypeError )
 
-$ $BURN union_result_12.burn
+$ $BURN union_result_13.burn
 
-union_result_13.burn:
+union_result_14.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -515,6 +582,8 @@ union_result_13.burn:
 	
 	test.assert_throws( function() { repr | -0.5 }, TypeError )
 	
+	test.assert_throws( function() { repr | "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { repr | "" }, TypeError )
 	
 	test.assert_throws( function() { repr | "apple" }, TypeError )
@@ -531,9 +600,9 @@ union_result_13.burn:
 	
 	test.assert_throws( function() { repr | types }, TypeError )
 
-$ $BURN union_result_13.burn
+$ $BURN union_result_14.burn
 
-union_result_14.burn:
+union_result_15.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -556,6 +625,8 @@ union_result_14.burn:
 	
 	test.assert_throws( function() { function(){} | -0.5 }, TypeError )
 	
+	test.assert_throws( function() { function(){} | "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { function(){} | "" }, TypeError )
 	
 	test.assert_throws( function() { function(){} | "apple" }, TypeError )
@@ -572,9 +643,9 @@ union_result_14.burn:
 	
 	test.assert_throws( function() { function(){} | types }, TypeError )
 
-$ $BURN union_result_14.burn
+$ $BURN union_result_15.burn
 
-union_result_15.burn:
+union_result_16.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -597,6 +668,8 @@ union_result_15.burn:
 	
 	test.assert_throws( function() { Integer | -0.5 }, TypeError )
 	
+	test.assert_throws( function() { Integer | "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { Integer | "" }, TypeError )
 	
 	test.assert_throws( function() { Integer | "apple" }, TypeError )
@@ -607,23 +680,17 @@ union_result_15.burn:
 	
 	test.assert_throws( function() { Integer | function(){} }, TypeError )
 	
-	let $v14 = Integer | Integer
-	assert( $v14 is Type )
-	assert( nothing is not $v14 )
-	assert( 5 is $v14 )
-	assert( Integer is not $v14 )
-	
-	let $v15 = Integer | Type
+	let $v15 = Integer | Integer
 	assert( $v15 is Type )
-	assert( nothing is not $v15 )
-	assert( 5 is $v15 )
-	assert( Integer is $v15 )
+	
+	let $v16 = Integer | Type
+	assert( $v16 is Type )
 	
 	test.assert_throws( function() { Integer | types }, TypeError )
 
-$ $BURN union_result_15.burn
+$ $BURN union_result_16.burn
 
-union_result_16.burn:
+union_result_17.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -646,6 +713,8 @@ union_result_16.burn:
 	
 	test.assert_throws( function() { Type | -0.5 }, TypeError )
 	
+	test.assert_throws( function() { Type | "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { Type | "" }, TypeError )
 	
 	test.assert_throws( function() { Type | "apple" }, TypeError )
@@ -656,23 +725,17 @@ union_result_16.burn:
 	
 	test.assert_throws( function() { Type | function(){} }, TypeError )
 	
-	let $v14 = Type | Integer
-	assert( $v14 is Type )
-	assert( nothing is not $v14 )
-	assert( 5 is $v14 )
-	assert( Integer is $v14 )
-	
-	let $v15 = Type | Type
+	let $v15 = Type | Integer
 	assert( $v15 is Type )
-	assert( nothing is not $v15 )
-	assert( 5 is not $v15 )
-	assert( Integer is $v15 )
+	
+	let $v16 = Type | Type
+	assert( $v16 is Type )
 	
 	test.assert_throws( function() { Type | types }, TypeError )
 
-$ $BURN union_result_16.burn
+$ $BURN union_result_17.burn
 
-union_result_17.burn:
+union_result_18.burn:
 	import test
 	import burn.types
 	import burn.errors
@@ -695,6 +758,8 @@ union_result_17.burn:
 	
 	test.assert_throws( function() { types | -0.5 }, TypeError )
 	
+	test.assert_throws( function() { types | "c"[0] }, TypeError )
+	
 	test.assert_throws( function() { types | "" }, TypeError )
 	
 	test.assert_throws( function() { types | "apple" }, TypeError )
@@ -711,4 +776,4 @@ union_result_17.burn:
 	
 	test.assert_throws( function() { types | types }, TypeError )
 
-$ $BURN union_result_17.burn
+$ $BURN union_result_18.burn

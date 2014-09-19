@@ -458,6 +458,15 @@ ast.FunctionExpression.prototype.compile = function( output ) {
 	output.code += '})';
 };
 
+ast.TupleLiteral.prototype.compile = function( output ) {
+	output.code += '_.createTuple([';
+	this.items.forEachValue( function( item, i ) {
+		item.compile( output );
+		output.code += ',';
+	} );
+	output.code += '])';
+};
+
 ast.ListLiteral.prototype.compile = function( output ) {
 	output.code += '_.createList([';
 	this.items.forEachValue( function( item, i ) {

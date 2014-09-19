@@ -8,9 +8,8 @@ $ $BURN parameters.burn
 
 typed_parameters.burn:
 	import test
-	import burn.types.Number
 	test.assert_throws( function() {
-		function( Number $p ) {} ( "string" )
+		function( Integer $p ) {} ( "string" )
 	}, ArgumentError )
 
 $ $BURN typed_parameters.burn

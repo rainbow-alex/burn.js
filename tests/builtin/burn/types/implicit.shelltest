@@ -1,0 +1,104 @@
+Nothing.burn:
+	assert( Nothing is Type.Permanent )
+	assert( Something is Type.Permanent )
+	
+	assert( nothing is Nothing )
+	assert( 0 is not Nothing )
+	
+	assert( nothing is not Something )
+	assert( 0 is Something )
+
+$ $BURN Nothing.burn
+
+Boolean.burn:
+	assert( Boolean is Type.Permanent )
+	
+	assert( true is Boolean )
+	assert( false is Boolean )
+	assert( 0 is not Boolean )
+
+$ $BURN Boolean.burn
+
+Integer.burn:
+	assert( Integer is Type.Permanent )
+	assert( Integer.Negative is Type.Permanent )
+	assert( Integer.Zero is Type.Permanent )
+	assert( Integer.Positive is Type.Permanent )
+	assert( Integer.Nonnegative is Type.Permanent )
+	assert( Integer.Nonpositive is Type.Permanent )
+	
+	assert( 0 is Integer )
+	assert( 1 is Integer )
+	assert( -1 is Integer )
+	assert( 0.0 is not Integer )
+	assert( "0" is not Integer )
+	
+	assert( -1 is Integer.Negative )
+	assert( 0 is not Integer.Negative )
+	assert( 1 is not Integer.Negative )
+	
+	assert( -1 is not Integer.Zero )
+	assert( 0 is Integer.Zero )
+	assert( 1 is not Integer.Zero )
+	
+	assert( -1 is not Integer.Positive )
+	assert( 0 is not Integer.Positive )
+	assert( 1 is Integer.Positive )
+	
+	assert( -1 is not Integer.Nonnegative )
+	assert( 0 is Integer.Nonnegative )
+	assert( 1 is Integer.Nonnegative )
+	
+	assert( -1 is Integer.Nonpositive )
+	assert( 0 is Integer.Nonpositive )
+	assert( 1 is not Integer.Nonpositive )
+
+$ $BURN Integer.burn
+
+Float.burn:
+	assert( Float is Type.Permanent )
+	
+	assert( 0.0 is Float )
+	assert( 1.2 is Float )
+	assert( -54.321 is Float )
+	assert( 0 is not Float )
+	assert( "0.0" is not Float )
+	
+	// TODO
+
+$ $BURN Float.burn
+
+String.burn:
+	assert( String is Type.Permanent )
+	
+	assert( "" is String )
+
+$ $BURN String.burn
+
+Function.burn:
+	assert( Function is Type.Permanent )
+	
+	assert( function() {} is Function )
+	assert( assert is Function )
+
+$ $BURN Function.burn
+
+Module.burn:
+	assert( Module is Type.Permanent )
+	
+	import burn
+	assert( burn is Module )
+
+$ $BURN Module.burn
+
+Type.burn:
+	assert( Type is Type.Permanent )
+	assert( Type.Permanent is Type.Permanent )
+	
+	assert( Integer is Type )
+
+$ $BURN Type.burn
+
+// TODO List
+
+// TODO Callable

@@ -41,36 +41,40 @@ not_result.burn:
 	assert( $v8 is Boolean )
 	assert( $v8 == false )
 	
-	let $v9 = not ""
+	let $v9 = not "c"[0]
 	assert( $v9 is Boolean )
-	assert( $v9 == true )
+	assert( $v9 == false )
 	
-	let $v10 = not "apple"
+	let $v10 = not ""
 	assert( $v10 is Boolean )
-	assert( $v10 == false )
+	assert( $v10 == true )
 	
-	let $v11 = not "banana"
+	let $v11 = not "apple"
 	assert( $v11 is Boolean )
 	assert( $v11 == false )
 	
-	let $v12 = not repr
+	let $v12 = not "banana"
 	assert( $v12 is Boolean )
 	assert( $v12 == false )
 	
-	let $v13 = not function(){}
+	let $v13 = not repr
 	assert( $v13 is Boolean )
 	assert( $v13 == false )
 	
-	let $v14 = not Integer
+	let $v14 = not function(){}
 	assert( $v14 is Boolean )
 	assert( $v14 == false )
 	
-	let $v15 = not Type
+	let $v15 = not Integer
 	assert( $v15 is Boolean )
 	assert( $v15 == false )
 	
-	let $v16 = not types
+	let $v16 = not Type
 	assert( $v16 is Boolean )
 	assert( $v16 == false )
+	
+	let $v17 = not types
+	assert( $v17 is Boolean )
+	assert( $v17 == false )
 
 $ $BURN not_result.burn

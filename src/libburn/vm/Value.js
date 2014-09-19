@@ -3,6 +3,13 @@ let Fiber = require( "./Fiber" );
 let utf8 = require( "../utf8" );
 
 let Value = module.exports = CLASS( {
+	init: function( properties ) {
+		if( properties ) {
+			for( let k in properties ) {
+				this[k] = properties[k];
+			}
+		}
+	},
 	toBurnString: function( fiber ) {
 		return new Value.String( this.repr );
 	},
@@ -10,7 +17,7 @@ let Value = module.exports = CLASS( {
 		return true;
 	},
 	canEq: function( value ) {
-		return Object.getPrototypeOf( this ) === Object.getPrototypeOf( value );
+		return false;
 	},
 	eq: function( fiber, other ) {
 		return this === other;
@@ -19,21 +26,22 @@ let Value = module.exports = CLASS( {
 		return false;
 	},
 	canGet: function( name ) {
-		return Boolean( this[ "get_" + name ] || this[ "call_" + name ] );
+		return Boolean( this[ "property_" + name ] || this[ "get_" + name ] || this[ "call_" + name ] );
 	},
 	get: function( fiber, name ) {
-		if( this[ "call_" + name ] ) {
-			return new Value.BoundMethod( this, name );
-		} else {
+		if( this[ "property_" + name ] ) {
+			return this[ "property_" + name ];
+		} else if( this[ "get_" + name ] ) {
 			return this[ "get_" + name ]( fiber );
+		} else {
+			console.assert( this[ "call_" + name ] );
+			return new Value.BoundMethod( this, name );
 		}
 	},
 	canSet: function( property ) {
 		return false;
 	},
-	isSafe: function() {
-		return false;
-	},
+	safe: false,
 } );
 
 Value.Nothing = CLASS( Value, {
@@ -44,12 +52,13 @@ Value.Nothing = CLASS( Value, {
 	isTruthy: function( fiber ) {
 		return false;
 	},
+	canEq: function( value ) {
+		return value instanceof Value.Nothing;
+	},
 	eq: function( fiber, other ) {
 		return true;
 	},
-	isSafe: function() {
-		return true;
-	},
+	safe: true,
 } );
 
 Value.Boolean = CLASS( Value, {
@@ -63,12 +72,13 @@ Value.Boolean = CLASS( Value, {
 	isTruthy: function( fiber ) {
 		return this.value;
 	},
-	isSafe: function() {
-		return true;
+	canEq: function( value ) {
+		return value instanceof Value.Boolean;
 	},
 	eq: function( fiber, other ) {
 		return this.value === other.value;
 	},
+	safe: true,
 } );
 
 Value.Integer = CLASS( Value, {
@@ -82,6 +92,9 @@ Value.Integer = CLASS( Value, {
 	isTruthy: function( fiber ) {
 		return this.value !== 0;
 	},
+	canEq: function( value ) {
+		return value instanceof Value.Integer;
+	},
 	eq: function( fiber, other ) {
 		return this.value === other.value;
 	},
@@ -91,9 +104,7 @@ Value.Integer = CLASS( Value, {
 	lt: function( fiber, other ) {
 		return this.value < other.value;
 	},
-	isSafe: function() {
-		return true;
-	},
+	safe: true,
 } );
 
 Value.Float = CLASS( Value, {
@@ -111,6 +122,9 @@ Value.Float = CLASS( Value, {
 	isTruthy: function( fiber ) {
 		return this.value !== 0;
 	},
+	canEq: function( value ) {
+		return value instanceof Value.Float;
+	},
 	eq: function( fiber, other ) {
 		return this.value === other.value;
 	},
@@ -120,9 +134,81 @@ Value.Float = CLASS( Value, {
 	lt: function( fiber, other ) {
 		return this.value < other.value;
 	},
-	isSafe: function() {
+	safe: true,
+} );
+
+Value.Tuple = CLASS( Value, {
+	init: function( items ) {
+		this.items = items;
+	},
+	repr: "<Tuple>",
+	isTruthy: function( fiber ) {
+		return this.items.length > 0;
+	},
+	canEq: function( other ) {
+		if( ! other instanceof Value.Tuple ) {
+			return false;
+		}
+		if( this.items.length !== other.items.length ) {
+			return false;
+		}
+		for( let i = 0 ; i < this.items.length ; i++ ) {
+			if( ! this.items[ i ].canEq( other.items[ i ] ) ) {
+				return false;
+			}
+		}
 		return true;
 	},
+	eq: function( fiber, other ) {
+		for( let i = 0 ; i < this.get_length() ; i++ ) {
+			if( ! this.items[ i ].eq( other.items[ i ] ) ) {
+				return false;
+			}
+		}
+		return true;
+	},
+	// TODO ord
+	getIndex: function( fiber, index ) {
+		util.validateIndex( fiber, this, types.Integer.Nonnegative, index );
+		return this.items[ index.value ];
+	},
+	get_length: function( fiber ) {
+		return new Value.Integer( this.items.length );
+	},
+	get safe() {
+		for( let i = 0 ; i < this.items.length ; i++ ) {
+			if( ! this.items[i].safe ) {
+				return false;
+			}
+		}
+		return true;
+	},
+} );
+
+Value.Character = CLASS( Value, {
+	init: function( value ) {
+		this.value = value;
+	},
+	repr: "<Character>",
+	toBurnString: function( fiber ) {
+		return new Value.String( this.value );
+	},
+	isTruthy: function( fiber ) {
+		return true;
+	},
+	canEq: function( value ) {
+		return value instanceof Value.Character;
+	},
+	eq: function( fiber, other ) {
+		return this.value === other.value;
+	},
+	canOrd: function( other ) {
+		return other instanceof Value.Character;
+	},
+	lt: function( fiber, other ) {
+		return this.value < other.value;
+	},
+	safe: true,
 } );
 
 Value.String = CLASS( Value, {
@@ -136,6 +222,9 @@ Value.String = CLASS( Value, {
 	isTruthy: function( fiber ) {
 		return this.value.length > 0;
 	},
+	canEq: function( value ) {
+		return value instanceof Value.String;
+	},
 	eq: function( fiber, other ) {
 		return this.value === other.value;
 	},
@@ -146,14 +235,12 @@ Value.String = CLASS( Value, {
 		return this.value < other.value;
 	},
 	getIndex: function( fiber, index ) {
-		// TODO typecheck
-		return new Value.String( this.value.at( index.value ) );
+		util.validateIndex( fiber, this, types.Integer.Nonnegative, index );
+		return new Value.Character( this.value.at( index.value ) );
 	},
+	safe: true,
 	get_length: function( fiber ) {
 		return new Value.Integer( utf8.length( this.value ) );
-	},
-	isSafe: function() {
-		return true;
 	},
 } );
 
@@ -176,6 +263,9 @@ Value.Function = CLASS( Value, {
 			return "<Function>";
 		}
 	},
+	canEq: function( value ) {
+		return value instanceof Value.Function;
+	},
 	call: function( fiber, args ) {
 		fiber.stack.push( new Fiber.FunctionFrame( this ) );
 		try {
@@ -184,9 +274,6 @@ Value.Function = CLASS( Value, {
 			fiber.stack.pop();
 		}
 	},
-	isSafe: function() {
-		return this.safe;
-	},
 } );
 
 Value.Module = CLASS( Value, {
@@ -194,8 +281,8 @@ Value.Module = CLASS( Value, {
 		if( contents ) {
 			for( var k in contents ) {
 				console.assert( contents[k] instanceof Value, "\"" + k + "\" should be a Value" );
-				console.assert( contents[k].isSafe(), "\"" + k + "\" should be Safe" );
-				this._set( k, contents[k] );
+				console.assert( contents[k].safe, "\"" + k + "\" should be Safe" );
+				this[ "$" + k ] = contents[k];
 				if( contents[k].suggestName ) {
 					contents[k].suggestName( k );
 				}
@@ -212,6 +299,9 @@ Value.Module = CLASS( Value, {
 			return "<Module>";
 		}
 	},
+	canEq: function( value ) {
+		return value instanceof Value.Module;
+	},
 	canGet: function( name ) {
 		return Boolean( this[ "$" + name ] );
 	},
@@ -222,27 +312,21 @@ Value.Module = CLASS( Value, {
 		return this[ "$" + name ];
 	},
 	set: function( fiber, name, value ) {
-		this._set( name, value );
-	},
-	_set: function( name, value ) {
 		this[ "$" + name ] = value;
 	},
-	isSafe: function() {
-		return true;
-	},
+	safe: true,
 } );
 
-Value.Special = CLASS( Value, {
-	repr: "<Special>",
-	toBurnString: function( fiber ) {
-		return new Value.String( this.toString() );
+Value.Type = CLASS( Value, {
+	repr: "<Type>",
+	suggestName: function( name ) {
+		this.name = this.name || name;
 	},
-	toString: function() {
-		return this.repr;
+	toBurnString: function() {
+		return new Value.String( this.name || this.repr );
 	},
-	isSafe: function() {
-		return this.safe || false;
-	},
+	safe: false,
+	permanent: false,
 } );
 
 Value.BoundMethod = CLASS( Value, {
@@ -274,6 +358,8 @@ Value.TypeUnion = CLASS( Value, {
 	typeTest: function( fiber, value ) {
 		return this.left.typeTest( fiber, value ) || this.right.typeTest( fiber, value );
 	},
+	// todo get safe
+	// todo get permanent
 } );
 
 Value.TypeIntersection = CLASS( Value, {
@@ -287,6 +373,8 @@ Value.TypeIntersection = CLASS( Value, {
 	typeTest: function( fiber, value ) {
 		return this.left.typeTest( fiber, value ) && this.right.typeTest( fiber, value );
 	},
+	// todo get safe
+	// todo get permanent
 } );
 
 Value.List = CLASS( Value, {

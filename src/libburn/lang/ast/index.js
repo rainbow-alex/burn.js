@@ -60,6 +60,7 @@ exports.FunctionExpression = CLASS( exports.Expression );
 exports.ParenthesizedExpression = CLASS( exports.Expression );
 exports.IdentifierExpression = CLASS( exports.Expression );
 exports.VariableExpression = CLASS( exports.Expression );
+exports.TupleLiteral = CLASS( exports.Expression );
 exports.ListLiteral = CLASS( exports.Expression );
 exports.StringLiteral = CLASS( exports.Expression );
 exports.IntegerLiteral = CLASS( exports.Expression );

@@ -590,10 +590,21 @@ ast.VariableExpression.prototype.toJSON = function() {
 	};
 };
 
+ast.TupleLiteral.prototype.toJSON = function() {
+	return {
+		type: "node/expression/literal/tuple",
+		children: [
+			// TODO parens
+			[ "items", this.items ],
+		],
+	};
+};
+
 ast.ListLiteral.prototype.toJSON = function() {
 	return {
 		type: "node/expression/literal/list",
 		children: [
+			// TODO brackets
 			[ "items", this.items ],
 		],
 	};
