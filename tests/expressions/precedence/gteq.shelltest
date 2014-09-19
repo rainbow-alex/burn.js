@@ -66,8 +66,6 @@ gteq_gteq.burn:
 $ $BURN gteq_gteq.burn
 	* exit status nonzero
 
-// TODO: gteq-union
-
 // TODO: gteq-add
 
 // TODO: gteq-sub
@@ -75,3 +73,7 @@ $ $BURN gteq_gteq.burn
 // TODO: gteq-mul
 
 // TODO: gteq-div
+
+// TODO: gteq-union
+
+// TODO: gteq-intersection

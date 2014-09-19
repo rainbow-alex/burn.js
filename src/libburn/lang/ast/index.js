@@ -48,6 +48,7 @@ exports.GtExpression = CLASS( exports.Expression );
 exports.LteqExpression = CLASS( exports.Expression );
 exports.GteqExpression = CLASS( exports.Expression );
 exports.UnionExpression = CLASS( exports.Expression );
+exports.IntersectionExpression = CLASS( exports.Expression );
 exports.AddExpression = CLASS( exports.Expression );
 exports.SubExpression = CLASS( exports.Expression );
 exports.MulExpression = CLASS( exports.Expression );

@@ -66,8 +66,6 @@ gt_gteq.burn:
 $ $BURN gt_gteq.burn
 	* exit status nonzero
 
-// TODO: gt-union
-
 // TODO: gt-add
 
 // TODO: gt-sub
@@ -75,3 +73,7 @@ $ $BURN gt_gteq.burn
 // TODO: gt-mul
 
 // TODO: gt-div
+
+// TODO: gt-union
+
+// TODO: gt-intersection

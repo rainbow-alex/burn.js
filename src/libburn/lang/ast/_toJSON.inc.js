@@ -434,6 +434,17 @@ ast.UnionExpression.prototype.toJSON = function() {
 	};
 };
 
+ast.IntersectionExpression.prototype.toJSON = function() {
+	return {
+		type: "node/expression/intersection",
+		children: [
+			[ "left", this.left ],
+			[ "operator", this.operator ],
+			[ "right", this.right ],
+		],
+	};
+};
+
 ast.AddExpression.prototype.toJSON = function() {
 	return {
 		type: "node/expression/add",

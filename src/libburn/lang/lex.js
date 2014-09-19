@@ -90,7 +90,7 @@ module.exports = function( origin ) {
 		// symbols
 		} else if( m = source.substr(i).match( /^(==|!=|<=|>=|->)/ ) ) {
 			pushToken( m[0], m[0] );
-		} else if( m = source.substr(i).match( /^(,|<|>|\||=|\+|\*|\/|\.)/ ) ) {
+		} else if( m = source.substr(i).match( /^(,|<|>|=|\+|\*|\/|\.|\||&)/ ) ) {
 			pushToken( m[0], m[0] );
 		// - matched below, after number literals
 		

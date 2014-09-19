@@ -52,8 +52,6 @@ is_not_gteq.burn:
 $ $BURN is_not_gteq.burn
 	* exit status nonzero
 
-// TODO: is_not-union
-
 // TODO: is_not-add
 
 // TODO: is_not-sub
@@ -61,3 +59,7 @@ $ $BURN is_not_gteq.burn
 // TODO: is_not-mul
 
 // TODO: is_not-div
+
+// TODO: is_not-union
+
+// TODO: is_not-intersection

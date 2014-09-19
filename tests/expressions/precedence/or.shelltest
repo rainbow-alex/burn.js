@@ -70,14 +70,6 @@ or_gteq.burn:
 
 $ $BURN or_gteq.burn
 
-or_union.burn:
-	import test
-	test.assert_throws( function() { ( 1 or Something ) | Something }, TypeError )
-	assert( ( 1 or ( Something | Something ) ) == 1 )
-	assert( ( 1 or Something | Something ) == 1 )
-
-$ $BURN or_union.burn
-
 or_add.burn:
 	assert( ( ( 1 or nothing ) + 1 ) == 2 )
 	assert( ( 1 or ( nothing + 1 ) ) == 1 )
@@ -105,3 +97,13 @@ or_div.burn:
 	assert( ( 2 or 2 / 2 ) is Integer )
 
 $ $BURN or_div.burn
+
+or_union.burn:
+	import test
+	test.assert_throws( function() { ( 1 or Something ) | Something }, TypeError )
+	assert( ( 1 or ( Something | Something ) ) == 1 )
+	assert( ( 1 or Something | Something ) == 1 )
+
+$ $BURN or_union.burn
+
+// TODO: or-intersection

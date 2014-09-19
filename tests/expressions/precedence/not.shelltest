@@ -89,8 +89,6 @@ $ $BURN not_eq.burn
 
 // TODO: not-gteq
 
-// TODO: not-union
-
 // TODO: not-add
 
 // TODO: not-sub
@@ -98,3 +96,7 @@ $ $BURN not_eq.burn
 // TODO: not-mul
 
 // TODO: not-div
+
+// TODO: not-union
+
+// TODO: not-intersection

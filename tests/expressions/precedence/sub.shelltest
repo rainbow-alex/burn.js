@@ -30,8 +30,6 @@ $ $BURN sub_and.burn
 
 // TODO: sub-gteq
 
-// TODO: sub-union
-
 sub_add.burn:
 	assert( ( ( 1 - 1 ) + 1 ) == 1 )
 	assert( ( 1 - ( 1 + 1 ) ) == -1 )
@@ -54,3 +52,7 @@ sub_mul.burn:
 $ $BURN sub_mul.burn
 
 // TODO: sub-div
+
+// TODO: sub-union
+
+// TODO: sub-intersection

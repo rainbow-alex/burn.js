@@ -67,6 +67,14 @@ is_gteq.burn:
 $ $BURN is_gteq.burn
 	* exit status nonzero
 
+// TODO: is-add
+
+// TODO: is-sub
+
+// TODO: is-mul
+
+// TODO: is-div
+
 is_union.burn:
 	import test
 	test.assert_throws( function() { ( 1 is Float ) | Integer }, TypeError )
@@ -75,16 +83,10 @@ is_union.burn:
 
 $ $BURN is_union.burn
 
-is_add.burn:
+is_intersection.burn:
 	import test
-	test.assert_throws( function() { ( 1 is Something ) + Nothing }, TypeError )
-	assert( ( 1 is ( Something + Nothing ) ) == false )
-	assert( ( 1 is Something + Nothing ) == false )
+	test.assert_throws( function() { ( 1 is Something ) & Nothing }, TypeError )
+	assert( ( 1 is ( Something & Nothing ) ) == false )
+	assert( ( 1 is Something & Nothing ) == false )
 
-$ $BURN is_add.burn
-
-// TODO: is-sub
-
-// TODO: is-mul
-
-// TODO: is-div
+$ $BURN is_intersection.burn

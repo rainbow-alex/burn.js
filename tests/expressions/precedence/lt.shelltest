@@ -66,8 +66,6 @@ lt_gteq.burn:
 $ $BURN lt_gteq.burn
 	* exit status nonzero
 
-// TODO: lt-union
-
 // TODO: lt-add
 
 // TODO: lt-sub
@@ -75,3 +73,7 @@ $ $BURN lt_gteq.burn
 // TODO: lt-mul
 
 // TODO: lt-div
+
+// TODO: lt-union
+
+// TODO: lt-intersection

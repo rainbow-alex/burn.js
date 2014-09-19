@@ -66,8 +66,6 @@ eq_gteq.burn:
 $ $BURN eq_gteq.burn
 	* exit status nonzero
 
-// TODO: eq-union
-
 // TODO: eq-add
 
 // TODO: eq-sub
@@ -75,3 +73,7 @@ $ $BURN eq_gteq.burn
 // TODO: eq-mul
 
 // TODO: eq-div
+
+// TODO: eq-union
+
+// TODO: eq-intersection

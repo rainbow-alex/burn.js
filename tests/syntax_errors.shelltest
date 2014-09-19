@@ -1,5 +1,5 @@
 lex1.burn:
-	&
+	?
 
 string1.burn:
 	"

@@ -24,8 +24,6 @@ $ $BURN union_not.burn
 
 // TODO: union-gteq
 
-// TODO: union-union
-
 // TODO: union-add
 
 // TODO: union-sub
@@ -33,3 +31,7 @@ $ $BURN union_not.burn
 // TODO: union-mul
 
 // TODO: union-div
+
+// TODO: union-union
+
+// TODO: union-intersection

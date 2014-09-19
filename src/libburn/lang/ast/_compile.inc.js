@@ -352,6 +352,14 @@ ast.UnionExpression.prototype.compile = function( output ) {
 	output.code += ')';
 };
 
+ast.IntersectionExpression.prototype.compile = function( output ) {
+	output.code += '_.intersection(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ')';
+};
+
 ast.AddExpression.prototype.compile = function( output ) {
 	output.code += '_.add(_fiber,';
 	this.left.compile( output );

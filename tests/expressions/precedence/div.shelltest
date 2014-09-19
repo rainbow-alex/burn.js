@@ -24,8 +24,6 @@ $ $BURN div_not.burn
 
 // TODO: div-gteq
 
-// TODO: div-union
-
 // TODO: div-add
 
 // TODO: div-sub
@@ -33,3 +31,7 @@ $ $BURN div_not.burn
 // TODO: div-mul
 
 // TODO: div-div
+
+// TODO: div-union
+
+// TODO: div-intersection

@@ -70,14 +70,6 @@ and_gteq.burn:
 
 $ $BURN and_gteq.burn
 
-and_union.burn:
-	import test
-	test.assert_throws( function() { ( 0 and Something ) | Something }, TypeError )
-	assert( ( 0 and ( Something | Something ) ) == 0 )
-	assert( ( 0 and Something | Something ) == 0 )
-
-$ $BURN and_union.burn
-
 and_add.burn:
 	assert( ( ( 0 and nothing ) + 1 ) == 1 )
 	assert( ( 0 and ( nothing + 1 ) ) == 0 )
@@ -107,3 +99,13 @@ and_div.burn:
 	assert( ( false and 1 / 1 ) == false )
 
 $ $BURN and_div.burn
+
+and_union.burn:
+	import test
+	test.assert_throws( function() { ( 0 and Something ) | Something }, TypeError )
+	assert( ( 0 and ( Something | Something ) ) == 0 )
+	assert( ( 0 and Something | Something ) == 0 )
+
+$ $BURN and_union.burn
+
+// TODO: and-intersection

@@ -112,6 +112,16 @@ rt.union = function( fiber, l, r ) {
 	);
 };
 
+rt.intersection = function( fiber, l, r ) {
+	if( types.Type.typeTest( fiber, l ) && types.Type.typeTest( fiber, r ) ) {
+		return new Value.TypeIntersection( l, r );
+	}
+	throw new errors.TypeErrorInstance(
+		"TypeError: Can't apply `&` to " + l.repr + " and " + r.repr + ".",
+		fiber.stack
+	);
+};
+
 rt.add = function( fiber, l, r ) {
 	if( l instanceof Value.Integer ) {
 		if( r instanceof Value.Integer ) {
@@ -123,8 +133,6 @@ rt.add = function( fiber, l, r ) {
 		if( r instanceof Value.Integer || r instanceof Value.Float ) {
 			return new Value.Float( l.value + r.value );
 		}
-	} else if( types.Type.typeTest( fiber, l ) && types.Type.typeTest( fiber, r ) ) {
-		return new Value.TypeIntersection( l, r );
 	}
 	throw new errors.TypeErrorInstance(
 		"TypeError: Can't apply `+` to " + l.repr + " and " + r.repr + ".",

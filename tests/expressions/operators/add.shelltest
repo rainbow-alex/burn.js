@@ -879,17 +879,9 @@ add_result_15.burn:
 	
 	test.assert_throws( function() { Integer + function(){} }, TypeError )
 	
-	let $v14 = Integer + Integer
-	assert( $v14 is Type )
-	assert( nothing is not $v14 )
-	assert( 5 is $v14 )
-	assert( Integer is not $v14 )
+	test.assert_throws( function() { Integer + Integer }, TypeError )
 	
-	let $v15 = Integer + Type
-	assert( $v15 is Type )
-	assert( nothing is not $v15 )
-	assert( 5 is not $v15 )
-	assert( Integer is not $v15 )
+	test.assert_throws( function() { Integer + Type }, TypeError )
 	
 	test.assert_throws( function() { Integer + types }, TypeError )
 	
@@ -938,17 +930,9 @@ add_result_16.burn:
 	
 	test.assert_throws( function() { Type + function(){} }, TypeError )
 	
-	let $v14 = Type + Integer
-	assert( $v14 is Type )
-	assert( nothing is not $v14 )
-	assert( 5 is not $v14 )
-	assert( Integer is not $v14 )
+	test.assert_throws( function() { Type + Integer }, TypeError )
 	
-	let $v15 = Type + Type
-	assert( $v15 is Type )
-	assert( nothing is not $v15 )
-	assert( 5 is not $v15 )
-	assert( Integer is $v15 )
+	test.assert_throws( function() { Type + Type }, TypeError )
 	
 	test.assert_throws( function() { Type + types }, TypeError )
 	

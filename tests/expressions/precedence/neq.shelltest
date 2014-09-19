@@ -66,8 +66,6 @@ neq_gteq.burn:
 $ $BURN neq_gteq.burn
 	* exit status nonzero
 
-// TODO: neq-union
-
 // TODO: neq-add
 
 // TODO: neq-sub
@@ -75,3 +73,7 @@ $ $BURN neq_gteq.burn
 // TODO: neq-mul
 
 // TODO: neq-div
+
+// TODO: neq-union
+
+// TODO: neq-intersection

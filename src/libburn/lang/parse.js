@@ -480,14 +480,14 @@ module.exports = function( tokens ) {
 	}
 	
 	function parseComparisonExpression() {
-		let left = parseUnionExpression();
+		let left = parseAdditiveExpression();
 		if( peek().type === "is" ) {
 			let operator = read();
 			let not;
 			if( peek().type === "not" ) {
 				not = read();
 			}
-			let type = parseUnionExpression();
+			let type = parseAdditiveExpression();
 			return new ast.IsExpression( {
 				expression: left,
 				operator: operator,
@@ -496,7 +496,7 @@ module.exports = function( tokens ) {
 			} );
 		} else if( peek().type === "==" ) {
 			let operator = read();
-			let right = parseUnionExpression();
+			let right = parseAdditiveExpression();
 			return new ast.EqExpression( {
 				left: left,
 				operator: operator,
@@ -504,7 +504,7 @@ module.exports = function( tokens ) {
 			} );
 		} else if( peek().type === "!=" ) {
 			let operator = read();
-			let right = parseUnionExpression();
+			let right = parseAdditiveExpression();
 			return new ast.NeqExpression( {
 				left: left,
 				operator: operator,
@@ -512,7 +512,7 @@ module.exports = function( tokens ) {
 			} );
 		} else if( peek().type === "<" ) {
 			let operator = read();
-			let right = parseUnionExpression();
+			let right = parseAdditiveExpression();
 			return new ast.LtExpression( {
 				left: left,
 				operator: operator,
@@ -520,7 +520,7 @@ module.exports = function( tokens ) {
 			} );
 		} else if( peek().type === ">" ) {
 			let operator = read();
-			let right = parseUnionExpression();
+			let right = parseAdditiveExpression();
 			return new ast.GtExpression( {
 				left: left,
 				operator: operator,
@@ -528,7 +528,7 @@ module.exports = function( tokens ) {
 			} );
 		} else if( peek().type === "<=" ) {
 			let operator = read();
-			let right = parseUnionExpression();
+			let right = parseAdditiveExpression();
 			return new ast.LteqExpression( {
 				left: left,
 				operator: operator,
@@ -536,7 +536,7 @@ module.exports = function( tokens ) {
 			} );
 		} else if( peek().type === ">=" ) {
 			let operator = read();
-			let right = parseUnionExpression();
+			let right = parseAdditiveExpression();
 			return new ast.GteqExpression( {
 				left: left,
 				operator: operator,
@@ -545,20 +545,6 @@ module.exports = function( tokens ) {
 		} else {
 			return left;
 		}
-	}
-	
-	function parseUnionExpression() {
-		let left = parseAdditiveExpression();
-		while( peek().type === "|" ) {
-			let operator = read();
-			let right = parseAdditiveExpression();
-			left = new ast.UnionExpression( {
-				left: left,
-				operator: operator,
-				right: right,
-			} );
-		}
-		return left;
 	}
 	
 	function parseAdditiveExpression() {
@@ -588,11 +574,11 @@ module.exports = function( tokens ) {
 	}
 	
 	function parseMultiplicativeExpression() {
-		let left = parseAccessExpression();
+		let left = parseUnionExpression();
 		while( true ) {
 			if( peek().type === "*" ) {
 				let operator = read();
-				let right = parseAccessExpression();
+				let right = parseUnionExpression();
 				left = new ast.MulExpression( {
 					left: left,
 					operator: operator,
@@ -600,7 +586,7 @@ module.exports = function( tokens ) {
 				} );
 			} else if( peek().type === "/" ) {
 				let operator = read();
-				let right = parseAccessExpression();
+				let right = parseUnionExpression();
 				left = new ast.DivExpression( {
 					left: left,
 					operator: operator,
@@ -609,6 +595,34 @@ module.exports = function( tokens ) {
 			} else {
 				break;
 			}
+		}
+		return left;
+	}
+	
+	function parseUnionExpression() {
+		let left = parseIntersectionExpression();
+		while( peek().type === "|" ) {
+			let operator = read();
+			let right = parseIntersectionExpression();
+			left = new ast.UnionExpression( {
+				left: left,
+				operator: operator,
+				right: right,
+			} );
+		}
+		return left;
+	}
+	
+	function parseIntersectionExpression() {
+		let left = parseAccessExpression();
+		while( peek().type === "&" ) {
+			let operator = read();
+			let right = parseAccessExpression();
+			left = new ast.IntersectionExpression( {
+				left: left,
+				operator: operator,
+				right: right,
+			} );
 		}
 		return left;
 	}

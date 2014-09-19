@@ -13,7 +13,7 @@ import re
 def eval_burn( source, imports = [] ):
 	source = "".join( "import %s\n" % i for i in imports ) + source
 	process = subprocess.Popen(
-		"../src/bin/burn.js --tolerant -",
+		"../src/bin/burn.js -",
 		stdin = subprocess.PIPE,
 		stdout = subprocess.PIPE,
 		stderr = subprocess.PIPE,
@@ -58,11 +58,12 @@ OPS = [
 	BinOp( "gt", ">" ),
 	BinOp( "lteq", "<=" ),
 	BinOp( "gteq", ">=" ),
-	BinOp( "union", "|" ),
 	BinOp( "add", "+" ),
 	BinOp( "sub", "-" ),
 	BinOp( "mul", "*" ),
 	BinOp( "div", "/" ),
+	BinOp( "union", "|" ),
+	BinOp( "intersection", "&" ),
 ]
 
 UNARY_OPS = list( filter( lambda op: isinstance( op, UnOp ), OPS ) )
@@ -108,6 +109,10 @@ special_tests = {
 	"Integer | Type": ( "nothing is not $v", "5 is $v", "Integer is $v" ),
 	"Type | Integer": ( "nothing is not $v", "5 is $v", "Integer is $v" ),
 	"Type | Type": ( "nothing is not $v", "5 is not $v", "Integer is $v" ),
+	"Integer & Integer": ( "nothing is not $v", "5 is $v", "Integer is not $v" ),
+	"Integer & Type": ( "nothing is not $v", "5 is not $v", "Integer is not $v" ),
+	"Type & Integer": ( "nothing is not $v", "5 is not $v", "Integer is not $v" ),
+	"Type & Type": ( "nothing is not $v", "5 is not $v", "Integer is $v" ),
 	"Integer + Integer": ( "nothing is not $v", "5 is $v", "Integer is not $v" ),
 	"Integer + Type": ( "nothing is not $v", "5 is not $v", "Integer is not $v" ),
 	"Type + Integer": ( "nothing is not $v", "5 is not $v", "Integer is not $v" ),
@@ -133,6 +138,7 @@ for name, expressions in generate_tests():
 	
 	print()
 	print( "%s.burn:" % name )
+	print( "	import test" )
 	print( "	import burn.types" )
 	print( "	import burn.errors" )
 	
@@ -151,7 +157,7 @@ for name, expressions in generate_tests():
 		print( "\t" )
 		
 		if output == "TypeError" or output == "ValueError":
-			print( "	assert.throws( function() { %s }, %s )" % ( expression, output ) )
+			print( "	test.assert_throws( function() { %s }, %s )" % ( expression, output ) )
 		
 		else:
 			var = "$v" + str( i )
@@ -185,6 +191,6 @@ for name, expressions in generate_tests():
 						print( "	assert( %s )" % t.replace( "$v", var ) )
 	
 	print()
-	print( "$ $BURN --tolerant %s.burn" % name )
+	print( "$ $BURN %s.burn" % name )
 
 print( file=sys.stderr )
