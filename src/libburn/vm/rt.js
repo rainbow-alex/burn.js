@@ -133,6 +133,8 @@ rt.add = function( fiber, l, r ) {
 		if( r instanceof Value.Integer || r instanceof Value.Float ) {
 			return new Value.Float( l.value + r.value );
 		}
+	} else if( l instanceof Value.String && r instanceof Value.String ) {
+		return new Value.String( l.value + r.value );
 	}
 	throw new errors.TypeErrorInstance(
 		"TypeError: Can't apply `+` to " + l.repr + " and " + r.repr + ".",

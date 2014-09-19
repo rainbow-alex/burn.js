@@ -614,11 +614,17 @@ add_result_10.burn:
 	
 	test.assert_throws( function() { "" + -0.5 }, TypeError )
 	
-	test.assert_throws( function() { "" + "" }, TypeError )
+	let $v9 = "" + ""
+	assert( $v9 is String )
+	assert( $v9 == "" )
 	
-	test.assert_throws( function() { "" + "apple" }, TypeError )
+	let $v10 = "" + "apple"
+	assert( $v10 is String )
+	assert( $v10 == "apple" )
 	
-	test.assert_throws( function() { "" + "banana" }, TypeError )
+	let $v11 = "" + "banana"
+	assert( $v11 is String )
+	assert( $v11 == "banana" )
 	
 	test.assert_throws( function() { "" + repr }, TypeError )
 	
@@ -665,11 +671,17 @@ add_result_11.burn:
 	
 	test.assert_throws( function() { "apple" + -0.5 }, TypeError )
 	
-	test.assert_throws( function() { "apple" + "" }, TypeError )
+	let $v9 = "apple" + ""
+	assert( $v9 is String )
+	assert( $v9 == "apple" )
 	
-	test.assert_throws( function() { "apple" + "apple" }, TypeError )
+	let $v10 = "apple" + "apple"
+	assert( $v10 is String )
+	assert( $v10 == "appleapple" )
 	
-	test.assert_throws( function() { "apple" + "banana" }, TypeError )
+	let $v11 = "apple" + "banana"
+	assert( $v11 is String )
+	assert( $v11 == "applebanana" )
 	
 	test.assert_throws( function() { "apple" + repr }, TypeError )
 	
@@ -716,11 +728,17 @@ add_result_12.burn:
 	
 	test.assert_throws( function() { "banana" + -0.5 }, TypeError )
 	
-	test.assert_throws( function() { "banana" + "" }, TypeError )
+	let $v9 = "banana" + ""
+	assert( $v9 is String )
+	assert( $v9 == "banana" )
 	
-	test.assert_throws( function() { "banana" + "apple" }, TypeError )
+	let $v10 = "banana" + "apple"
+	assert( $v10 is String )
+	assert( $v10 == "bananaapple" )
 	
-	test.assert_throws( function() { "banana" + "banana" }, TypeError )
+	let $v11 = "banana" + "banana"
+	assert( $v11 is String )
+	assert( $v11 == "bananabanana" )
 	
 	test.assert_throws( function() { "banana" + repr }, TypeError )
 	
