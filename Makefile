@@ -10,14 +10,27 @@ $(patsubst %, %/, $(shell find tests tests_extra -type d)): .FORCE
 todo:
 	grep -HrnIi --color=always "todo" src tests | sed "s/^/    /"
 
-OPERATORS = or and not is is_not eq neq lt gt lteq gteq union intersection add sub mul div
+OPERATORS = or and not is is_not eq neq lt gt lteq gteq add sub mul div union intersection
 
 .PHONY: generate_operator_tests
 generate_operator_tests: $(patsubst %, generate_operator_test_%, $(OPERATORS))
 generate_operator_test_%:
-	@mkdir -p tests/expressions/operators/
-	etc/generate_operator_test.py $* > tests/expressions/operators/$*.shelltest
+	@mkdir -p tests/generated/operators/
+	etc/generate_operator_test.py $* > tests/generated/operators/$*.shelltest
 
-.PHONY: clean_operator_tests
-clean_operator_tests:
-	rm -Rf tests/expressions/operators/
+.PHONY: generate_precedence_tests
+generate_precedence_tests: $(patsubst %, generate_precedence_test_%, $(OPERATORS))
+generate_precedence_test_%:
+	@mkdir -p tests/generated/precedence/
+	etc/generate_precedence_test.py $* > tests/generated/precedence/$*.shelltest
+
+.PHONY: clean_generated_tests
+clean_generated_tests:
+	rm -Rf tests/generated/
+
+.PHONY: check_generated_test_coverage
+check_generated_test_coverage:
+	@grep -rh GREP_ME tests/generated/ | sort > generated.lst
+	@grep -rh GREP_ME tests/expressions/ | sort > handwritten.lst
+	@diff -w generated.lst handwritten.lst || true
+	@rm generated.lst handwritten.lst
