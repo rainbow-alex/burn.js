@@ -6,6 +6,7 @@ module.exports = CLASS( {
 		this.value = value;
 	},
 	toJSON: function() {
+		console.assert( JSON_TYPES[ this.type ] );
 		return {
 			type: "token/" + JSON_TYPES[ this.type ],
 			value: this.value,
@@ -37,11 +38,12 @@ let JSON_TYPES = {
 	">": "symbol/gt",
 	"<=": "symbol/lt_eq",
 	">=": "symbol/gt_eq",
-	"|": "symbol/bar",
 	"+": "symbol/plus",
-	"-": "symbol/sub",
-	"*": "symbol/star",
-	"/": "symbol/slash",
+	"-": "symbol/dash",
+	"*": "symbol/asterisk",
+	"/": "symbol/forward_slash",
+	"|": "symbol/vertical_bar",
+	"&": "symbol/ampersand",
 	
 	and: "keyword/and",
 	break: "keyword/break",
@@ -70,6 +72,7 @@ let JSON_TYPES = {
 	true: "literal/boolean",
 	false: "literal/boolean",
 	string_literal: "literal/string",
+	bytes_literal: "literal/bytes",
 	integer_literal: "literal/integer",
 	float_literal: "literal/float",
 };

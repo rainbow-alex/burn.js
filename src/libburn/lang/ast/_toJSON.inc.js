@@ -621,6 +621,16 @@ ast.StringLiteral.prototype.toJSON = function() {
 	};
 };
 
+ast.BytesLiteral.prototype.toJSON = function() {
+	return {
+		type: "node/expression/literal/bytes",
+		children: [
+			[ "token", this.token ],
+		],
+		value: this.value,
+	};
+};
+
 ast.IntegerLiteral.prototype.toJSON = function() {
 	return {
 		type: "node/expression/literal/integer",

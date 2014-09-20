@@ -1,0 +1,4 @@
+index.burn:
+	assert( b"ABC"[1] == 66 )
+
+$ $BURN index.burn

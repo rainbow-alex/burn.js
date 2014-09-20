@@ -100,10 +100,6 @@ module.exports = function( origin ) {
 		) ) {
 			pushToken( m[0], m[0] );
 		
-		// identifiers
-		} else if( m = source.substr(i).match( /^[A-Za-z_](:?[A-Za-z0-9_])*/ ) ) {
-			pushToken( "identifier", m[0] );
-		
 		// variables
 		} else if( m = source.substr(i).match( /^\$[A-Za-z_](:?[A-Za-z0-9_])*/ ) ) {
 			pushToken( "variable", m[0] );
@@ -135,6 +131,18 @@ module.exports = function( origin ) {
 		// string literals
 		} else if( m = source.substr(i).match( /^"([^\\"]|\\.)*"/ ) ) {
 			pushToken( "string_literal", m[0] );
+		} else if( m = source.substr(i).match( /^"/ ) ) {
+			throw new Error( "Invalid string literal.", origin, line, offset );
+		
+		// bytes literals
+		} else if( m = source.substr(i).match( /^b"([^\\"]|\\.)*"/ ) ) {
+			pushToken( "bytes_literal", m[0] );
+		} else if( m = source.substr(i).match( /^"/ ) ) {
+			throw new Error( "Invalid bytes literal.", origin, line, offset );
+		
+		// identifiers
+		} else if( m = source.substr(i).match( /^[A-Za-z_](:?[A-Za-z0-9_])*/ ) ) {
+			pushToken( "identifier", m[0] );
 		
 		} else {
 			throw new Error( "Unexpected input.", origin, line, offset );

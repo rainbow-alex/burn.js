@@ -79,6 +79,8 @@ types.Tuple = new util.JsInstanceofType( Value.Tuple );
 types.Character = new util.JsInstanceofType( Value.Character );
 types.String = new util.JsInstanceofType( Value.String );
 
+types.Bytes = new util.JsInstanceofType( Value.Bytes );
+
 types.Function = new util.JsInstanceofType( Value.Function );
 
 types.Module = new util.JsInstanceofType( Value.Module );
@@ -168,6 +170,7 @@ types.exposes = new Value.Module( {
 	Integer: types.Integer,
 	Float: types.Float,
 	String: types.String,
+	Bytes: types.Bytes,
 	Function: types.Function,
 	Type: types.Type,
 	Safe: types.Safe,

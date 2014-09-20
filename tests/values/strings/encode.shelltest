@@ -1,0 +1,5 @@
+encode.burn:
+	assert( "abc".encode() == b"abc" )
+	assert( "𝌆".encode() == b"\xF0\x9D\x8C\x86" )
+
+$ $BURN encode.burn

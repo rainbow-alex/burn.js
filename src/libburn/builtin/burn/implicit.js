@@ -17,6 +17,7 @@ implicit.exposes = new Value.Module( {
 	Tuple: types.Tuple,
 	Character: types.Character,
 	String: types.String,
+	Bytes: types.Bytes,
 	Function: types.Function,
 	Module: types.Module,
 	Type: types.Type,

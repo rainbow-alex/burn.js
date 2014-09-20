@@ -64,6 +64,7 @@ exports.VariableExpression = CLASS( exports.Expression );
 exports.TupleLiteral = CLASS( exports.Expression );
 exports.ListLiteral = CLASS( exports.Expression );
 exports.StringLiteral = CLASS( exports.Expression );
+exports.BytesLiteral = CLASS( exports.Expression );
 exports.IntegerLiteral = CLASS( exports.Expression );
 exports.FloatLiteral = CLASS( exports.Expression );
 exports.BooleanLiteral = CLASS( exports.Expression );

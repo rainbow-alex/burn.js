@@ -1,0 +1,7 @@
+decode.burn:
+	assert( b"abc".decode() == "abc" )
+	assert( b"\xF0\x9D\x8C\x86".decode() == "𝌆" )
+
+$ $BURN decode.burn
+
+// TODO invalid utf8 tests

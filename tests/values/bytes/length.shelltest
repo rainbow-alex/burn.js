@@ -1,0 +1,6 @@
+length.burn:
+	assert( b"".length == 0 )
+	assert( b"abc".length == 3 )
+	assert( b"\xF0\x9D\x8C\x86".length == 4 )
+
+$ $BURN length.burn

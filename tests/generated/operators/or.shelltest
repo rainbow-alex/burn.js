@@ -55,25 +55,33 @@ or_result_1.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = nothing or repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = nothing or b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator nothing or b""
 	
-	let $v14 = nothing or function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = nothing or b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator nothing or b"	«"
 	
-	let $v15 = nothing or Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = nothing or repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = nothing or Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = nothing or function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = nothing or types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = nothing or Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = nothing or Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = nothing or types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
 $ $BURN or_result_1.burn
 
@@ -133,25 +141,33 @@ or_result_2.burn:
 	assert( $v12 is Boolean )
 	assert( $v12 == true )
 	
-	let $v13 = true or repr
+	let $v13 = true or b""
 	assert( $v13 is Boolean )
 	assert( $v13 == true )
 	
-	let $v14 = true or function(){}
+	let $v14 = true or b"	«"
 	assert( $v14 is Boolean )
 	assert( $v14 == true )
 	
-	let $v15 = true or Integer
+	let $v15 = true or repr
 	assert( $v15 is Boolean )
 	assert( $v15 == true )
 	
-	let $v16 = true or Type
+	let $v16 = true or function(){}
 	assert( $v16 is Boolean )
 	assert( $v16 == true )
 	
-	let $v17 = true or types
+	let $v17 = true or Integer
 	assert( $v17 is Boolean )
 	assert( $v17 == true )
+	
+	let $v18 = true or Type
+	assert( $v18 is Boolean )
+	assert( $v18 == true )
+	
+	let $v19 = true or types
+	assert( $v19 is Boolean )
+	assert( $v19 == true )
 
 $ $BURN or_result_2.burn
 
@@ -210,25 +226,33 @@ or_result_3.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = false or repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = false or b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator false or b""
 	
-	let $v14 = false or function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = false or b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator false or b"	«"
 	
-	let $v15 = false or Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = false or repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = false or Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = false or function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = false or types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = false or Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = false or Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = false or types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
 $ $BURN or_result_3.burn
 
@@ -287,25 +311,33 @@ or_result_4.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = 0 or repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = 0 or b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator 0 or b""
 	
-	let $v14 = 0 or function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = 0 or b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator 0 or b"	«"
 	
-	let $v15 = 0 or Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = 0 or repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = 0 or Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = 0 or function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = 0 or types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = 0 or Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = 0 or Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = 0 or types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
 $ $BURN or_result_4.burn
 
@@ -365,25 +397,33 @@ or_result_5.burn:
 	assert( $v12 is Integer )
 	assert( $v12 == 2 )
 	
-	let $v13 = 2 or repr
+	let $v13 = 2 or b""
 	assert( $v13 is Integer )
 	assert( $v13 == 2 )
 	
-	let $v14 = 2 or function(){}
+	let $v14 = 2 or b"	«"
 	assert( $v14 is Integer )
 	assert( $v14 == 2 )
 	
-	let $v15 = 2 or Integer
+	let $v15 = 2 or repr
 	assert( $v15 is Integer )
 	assert( $v15 == 2 )
 	
-	let $v16 = 2 or Type
+	let $v16 = 2 or function(){}
 	assert( $v16 is Integer )
 	assert( $v16 == 2 )
 	
-	let $v17 = 2 or types
+	let $v17 = 2 or Integer
 	assert( $v17 is Integer )
 	assert( $v17 == 2 )
+	
+	let $v18 = 2 or Type
+	assert( $v18 is Integer )
+	assert( $v18 == 2 )
+	
+	let $v19 = 2 or types
+	assert( $v19 is Integer )
+	assert( $v19 == 2 )
 
 $ $BURN or_result_5.burn
 
@@ -443,25 +483,33 @@ or_result_6.burn:
 	assert( $v12 is Integer )
 	assert( $v12 == -2 )
 	
-	let $v13 = -2 or repr
+	let $v13 = -2 or b""
 	assert( $v13 is Integer )
 	assert( $v13 == -2 )
 	
-	let $v14 = -2 or function(){}
+	let $v14 = -2 or b"	«"
 	assert( $v14 is Integer )
 	assert( $v14 == -2 )
 	
-	let $v15 = -2 or Integer
+	let $v15 = -2 or repr
 	assert( $v15 is Integer )
 	assert( $v15 == -2 )
 	
-	let $v16 = -2 or Type
+	let $v16 = -2 or function(){}
 	assert( $v16 is Integer )
 	assert( $v16 == -2 )
 	
-	let $v17 = -2 or types
+	let $v17 = -2 or Integer
 	assert( $v17 is Integer )
 	assert( $v17 == -2 )
+	
+	let $v18 = -2 or Type
+	assert( $v18 is Integer )
+	assert( $v18 == -2 )
+	
+	let $v19 = -2 or types
+	assert( $v19 is Integer )
+	assert( $v19 == -2 )
 
 $ $BURN or_result_6.burn
 
@@ -520,25 +568,33 @@ or_result_7.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = 0.0 or repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = 0.0 or b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator 0.0 or b""
 	
-	let $v14 = 0.0 or function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = 0.0 or b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator 0.0 or b"	«"
 	
-	let $v15 = 0.0 or Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = 0.0 or repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = 0.0 or Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = 0.0 or function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = 0.0 or types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = 0.0 or Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = 0.0 or Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = 0.0 or types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
 $ $BURN or_result_7.burn
 
@@ -598,25 +654,33 @@ or_result_8.burn:
 	assert( $v12 is Float )
 	assert( ( 1.9999 < $v12 ) and ( $v12 < 2.0001 ) )
 	
-	let $v13 = 2.0 or repr
+	let $v13 = 2.0 or b""
 	assert( $v13 is Float )
 	assert( ( 1.9999 < $v13 ) and ( $v13 < 2.0001 ) )
 	
-	let $v14 = 2.0 or function(){}
+	let $v14 = 2.0 or b"	«"
 	assert( $v14 is Float )
 	assert( ( 1.9999 < $v14 ) and ( $v14 < 2.0001 ) )
 	
-	let $v15 = 2.0 or Integer
+	let $v15 = 2.0 or repr
 	assert( $v15 is Float )
 	assert( ( 1.9999 < $v15 ) and ( $v15 < 2.0001 ) )
 	
-	let $v16 = 2.0 or Type
+	let $v16 = 2.0 or function(){}
 	assert( $v16 is Float )
 	assert( ( 1.9999 < $v16 ) and ( $v16 < 2.0001 ) )
 	
-	let $v17 = 2.0 or types
+	let $v17 = 2.0 or Integer
 	assert( $v17 is Float )
 	assert( ( 1.9999 < $v17 ) and ( $v17 < 2.0001 ) )
+	
+	let $v18 = 2.0 or Type
+	assert( $v18 is Float )
+	assert( ( 1.9999 < $v18 ) and ( $v18 < 2.0001 ) )
+	
+	let $v19 = 2.0 or types
+	assert( $v19 is Float )
+	assert( ( 1.9999 < $v19 ) and ( $v19 < 2.0001 ) )
 
 $ $BURN or_result_8.burn
 
@@ -676,25 +740,33 @@ or_result_9.burn:
 	assert( $v12 is Float )
 	assert( ( -0.5001 < $v12 ) and ( $v12 < -0.4999 ) )
 	
-	let $v13 = -0.5 or repr
+	let $v13 = -0.5 or b""
 	assert( $v13 is Float )
 	assert( ( -0.5001 < $v13 ) and ( $v13 < -0.4999 ) )
 	
-	let $v14 = -0.5 or function(){}
+	let $v14 = -0.5 or b"	«"
 	assert( $v14 is Float )
 	assert( ( -0.5001 < $v14 ) and ( $v14 < -0.4999 ) )
 	
-	let $v15 = -0.5 or Integer
+	let $v15 = -0.5 or repr
 	assert( $v15 is Float )
 	assert( ( -0.5001 < $v15 ) and ( $v15 < -0.4999 ) )
 	
-	let $v16 = -0.5 or Type
+	let $v16 = -0.5 or function(){}
 	assert( $v16 is Float )
 	assert( ( -0.5001 < $v16 ) and ( $v16 < -0.4999 ) )
 	
-	let $v17 = -0.5 or types
+	let $v17 = -0.5 or Integer
 	assert( $v17 is Float )
 	assert( ( -0.5001 < $v17 ) and ( $v17 < -0.4999 ) )
+	
+	let $v18 = -0.5 or Type
+	assert( $v18 is Float )
+	assert( ( -0.5001 < $v18 ) and ( $v18 < -0.4999 ) )
+	
+	let $v19 = -0.5 or types
+	assert( $v19 is Float )
+	assert( ( -0.5001 < $v19 ) and ( $v19 < -0.4999 ) )
 
 $ $BURN or_result_9.burn
 
@@ -754,25 +826,33 @@ or_result_10.burn:
 	assert( $v12 is Character )
 	assert( $v12 == "c"[0] )
 	
-	let $v13 = "c"[0] or repr
+	let $v13 = "c"[0] or b""
 	assert( $v13 is Character )
 	assert( $v13 == "c"[0] )
 	
-	let $v14 = "c"[0] or function(){}
+	let $v14 = "c"[0] or b"	«"
 	assert( $v14 is Character )
 	assert( $v14 == "c"[0] )
 	
-	let $v15 = "c"[0] or Integer
+	let $v15 = "c"[0] or repr
 	assert( $v15 is Character )
 	assert( $v15 == "c"[0] )
 	
-	let $v16 = "c"[0] or Type
+	let $v16 = "c"[0] or function(){}
 	assert( $v16 is Character )
 	assert( $v16 == "c"[0] )
 	
-	let $v17 = "c"[0] or types
+	let $v17 = "c"[0] or Integer
 	assert( $v17 is Character )
 	assert( $v17 == "c"[0] )
+	
+	let $v18 = "c"[0] or Type
+	assert( $v18 is Character )
+	assert( $v18 == "c"[0] )
+	
+	let $v19 = "c"[0] or types
+	assert( $v19 is Character )
+	assert( $v19 == "c"[0] )
 
 $ $BURN or_result_10.burn
 
@@ -831,25 +911,33 @@ or_result_11.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = "" or repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = "" or b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator "" or b""
 	
-	let $v14 = "" or function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = "" or b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator "" or b"	«"
 	
-	let $v15 = "" or Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = "" or repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = "" or Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = "" or function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = "" or types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = "" or Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = "" or Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = "" or types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
 $ $BURN or_result_11.burn
 
@@ -909,25 +997,33 @@ or_result_12.burn:
 	assert( $v12 is String )
 	assert( $v12 == "apple" )
 	
-	let $v13 = "apple" or repr
+	let $v13 = "apple" or b""
 	assert( $v13 is String )
 	assert( $v13 == "apple" )
 	
-	let $v14 = "apple" or function(){}
+	let $v14 = "apple" or b"	«"
 	assert( $v14 is String )
 	assert( $v14 == "apple" )
 	
-	let $v15 = "apple" or Integer
+	let $v15 = "apple" or repr
 	assert( $v15 is String )
 	assert( $v15 == "apple" )
 	
-	let $v16 = "apple" or Type
+	let $v16 = "apple" or function(){}
 	assert( $v16 is String )
 	assert( $v16 == "apple" )
 	
-	let $v17 = "apple" or types
+	let $v17 = "apple" or Integer
 	assert( $v17 is String )
 	assert( $v17 == "apple" )
+	
+	let $v18 = "apple" or Type
+	assert( $v18 is String )
+	assert( $v18 == "apple" )
+	
+	let $v19 = "apple" or types
+	assert( $v19 is String )
+	assert( $v19 == "apple" )
 
 $ $BURN or_result_12.burn
 
@@ -987,29 +1083,208 @@ or_result_13.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = "banana" or repr
+	let $v13 = "banana" or b""
 	assert( $v13 is String )
 	assert( $v13 == "banana" )
 	
-	let $v14 = "banana" or function(){}
+	let $v14 = "banana" or b"	«"
 	assert( $v14 is String )
 	assert( $v14 == "banana" )
 	
-	let $v15 = "banana" or Integer
+	let $v15 = "banana" or repr
 	assert( $v15 is String )
 	assert( $v15 == "banana" )
 	
-	let $v16 = "banana" or Type
+	let $v16 = "banana" or function(){}
 	assert( $v16 is String )
 	assert( $v16 == "banana" )
 	
-	let $v17 = "banana" or types
+	let $v17 = "banana" or Integer
 	assert( $v17 is String )
 	assert( $v17 == "banana" )
+	
+	let $v18 = "banana" or Type
+	assert( $v18 is String )
+	assert( $v18 == "banana" )
+	
+	let $v19 = "banana" or types
+	assert( $v19 is String )
+	assert( $v19 == "banana" )
 
 $ $BURN or_result_13.burn
 
 or_result_14.burn:
+	import test
+	import burn.types
+	
+	let $v0 = b"" or nothing
+	assert( $v0 is Nothing )
+	
+	let $v1 = b"" or true
+	assert( $v1 is Boolean )
+	assert( $v1 == true )
+	
+	let $v2 = b"" or false
+	assert( $v2 is Boolean )
+	assert( $v2 == false )
+	
+	let $v3 = b"" or 0
+	assert( $v3 is Integer )
+	assert( $v3 == 0 )
+	
+	let $v4 = b"" or 2
+	assert( $v4 is Integer )
+	assert( $v4 == 2 )
+	
+	let $v5 = b"" or -2
+	assert( $v5 is Integer )
+	assert( $v5 == -2 )
+	
+	let $v6 = b"" or 0.0
+	assert( $v6 is Float )
+	assert( ( -0.0001 < $v6 ) and ( $v6 < 0.0001 ) )
+	
+	let $v7 = b"" or 2.0
+	assert( $v7 is Float )
+	assert( ( 1.9999 < $v7 ) and ( $v7 < 2.0001 ) )
+	
+	let $v8 = b"" or -0.5
+	assert( $v8 is Float )
+	assert( ( -0.5001 < $v8 ) and ( $v8 < -0.4999 ) )
+	
+	let $v9 = b"" or "c"[0]
+	assert( $v9 is Character )
+	assert( $v9 == "c"[0] )
+	
+	let $v10 = b"" or ""
+	assert( $v10 is String )
+	assert( $v10 == "" )
+	
+	let $v11 = b"" or "apple"
+	assert( $v11 is String )
+	assert( $v11 == "apple" )
+	
+	let $v12 = b"" or "banana"
+	assert( $v12 is String )
+	assert( $v12 == "banana" )
+	
+	let $v13 = b"" or b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator b"" or b""
+	
+	let $v14 = b"" or b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator b"" or b"	«"
+	
+	let $v15 = b"" or repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
+	
+	let $v16 = b"" or function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
+	
+	let $v17 = b"" or Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = b"" or Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = b"" or types
+	assert( $v19 is Module )
+	assert( $v19 == types )
+
+$ $BURN or_result_14.burn
+
+or_result_15.burn:
+	import test
+	import burn.types
+	
+	let $v0 = b"	«" or nothing
+	assert( $v0 is Bytes )
+	// GREP_ME operator b"	«" or nothing
+	
+	let $v1 = b"	«" or true
+	assert( $v1 is Bytes )
+	// GREP_ME operator b"	«" or true
+	
+	let $v2 = b"	«" or false
+	assert( $v2 is Bytes )
+	// GREP_ME operator b"	«" or false
+	
+	let $v3 = b"	«" or 0
+	assert( $v3 is Bytes )
+	// GREP_ME operator b"	«" or 0
+	
+	let $v4 = b"	«" or 2
+	assert( $v4 is Bytes )
+	// GREP_ME operator b"	«" or 2
+	
+	let $v5 = b"	«" or -2
+	assert( $v5 is Bytes )
+	// GREP_ME operator b"	«" or -2
+	
+	let $v6 = b"	«" or 0.0
+	assert( $v6 is Bytes )
+	// GREP_ME operator b"	«" or 0.0
+	
+	let $v7 = b"	«" or 2.0
+	assert( $v7 is Bytes )
+	// GREP_ME operator b"	«" or 2.0
+	
+	let $v8 = b"	«" or -0.5
+	assert( $v8 is Bytes )
+	// GREP_ME operator b"	«" or -0.5
+	
+	let $v9 = b"	«" or "c"[0]
+	assert( $v9 is Bytes )
+	// GREP_ME operator b"	«" or "c"[0]
+	
+	let $v10 = b"	«" or ""
+	assert( $v10 is Bytes )
+	// GREP_ME operator b"	«" or ""
+	
+	let $v11 = b"	«" or "apple"
+	assert( $v11 is Bytes )
+	// GREP_ME operator b"	«" or "apple"
+	
+	let $v12 = b"	«" or "banana"
+	assert( $v12 is Bytes )
+	// GREP_ME operator b"	«" or "banana"
+	
+	let $v13 = b"	«" or b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator b"	«" or b""
+	
+	let $v14 = b"	«" or b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator b"	«" or b"	«"
+	
+	let $v15 = b"	«" or repr
+	assert( $v15 is Bytes )
+	// GREP_ME operator b"	«" or repr
+	
+	let $v16 = b"	«" or function(){}
+	assert( $v16 is Bytes )
+	// GREP_ME operator b"	«" or function(){}
+	
+	let $v17 = b"	«" or Integer
+	assert( $v17 is Bytes )
+	// GREP_ME operator b"	«" or Integer
+	
+	let $v18 = b"	«" or Type
+	assert( $v18 is Bytes )
+	// GREP_ME operator b"	«" or Type
+	
+	let $v19 = b"	«" or types
+	assert( $v19 is Bytes )
+	// GREP_ME operator b"	«" or types
+
+$ $BURN or_result_15.burn
+
+or_result_16.burn:
 	import test
 	import burn.types
 	
@@ -1065,29 +1340,37 @@ or_result_14.burn:
 	assert( $v12 is Function )
 	assert( $v12 == repr )
 	
-	let $v13 = repr or repr
+	let $v13 = repr or b""
 	assert( $v13 is Function )
 	assert( $v13 == repr )
 	
-	let $v14 = repr or function(){}
+	let $v14 = repr or b"	«"
 	assert( $v14 is Function )
 	assert( $v14 == repr )
 	
-	let $v15 = repr or Integer
+	let $v15 = repr or repr
 	assert( $v15 is Function )
 	assert( $v15 == repr )
 	
-	let $v16 = repr or Type
+	let $v16 = repr or function(){}
 	assert( $v16 is Function )
 	assert( $v16 == repr )
 	
-	let $v17 = repr or types
+	let $v17 = repr or Integer
 	assert( $v17 is Function )
 	assert( $v17 == repr )
+	
+	let $v18 = repr or Type
+	assert( $v18 is Function )
+	assert( $v18 == repr )
+	
+	let $v19 = repr or types
+	assert( $v19 is Function )
+	assert( $v19 == repr )
 
-$ $BURN or_result_14.burn
+$ $BURN or_result_16.burn
 
-or_result_15.burn:
+or_result_17.burn:
 	import test
 	import burn.types
 	
@@ -1143,29 +1426,37 @@ or_result_15.burn:
 	assert( $v12 is Function )
 	assert( $v12 is Function )
 	
-	let $v13 = function(){} or repr
+	let $v13 = function(){} or b""
 	assert( $v13 is Function )
 	assert( $v13 is Function )
 	
-	let $v14 = function(){} or function(){}
+	let $v14 = function(){} or b"	«"
 	assert( $v14 is Function )
 	assert( $v14 is Function )
 	
-	let $v15 = function(){} or Integer
+	let $v15 = function(){} or repr
 	assert( $v15 is Function )
 	assert( $v15 is Function )
 	
-	let $v16 = function(){} or Type
+	let $v16 = function(){} or function(){}
 	assert( $v16 is Function )
 	assert( $v16 is Function )
 	
-	let $v17 = function(){} or types
+	let $v17 = function(){} or Integer
 	assert( $v17 is Function )
 	assert( $v17 is Function )
+	
+	let $v18 = function(){} or Type
+	assert( $v18 is Function )
+	assert( $v18 is Function )
+	
+	let $v19 = function(){} or types
+	assert( $v19 is Function )
+	assert( $v19 is Function )
 
-$ $BURN or_result_15.burn
+$ $BURN or_result_17.burn
 
-or_result_16.burn:
+or_result_18.burn:
 	import test
 	import burn.types
 	
@@ -1221,29 +1512,37 @@ or_result_16.burn:
 	assert( $v12 is Type )
 	assert( $v12 is Type )
 	
-	let $v13 = Integer or repr
+	let $v13 = Integer or b""
 	assert( $v13 is Type )
 	assert( $v13 is Type )
 	
-	let $v14 = Integer or function(){}
+	let $v14 = Integer or b"	«"
 	assert( $v14 is Type )
 	assert( $v14 is Type )
 	
-	let $v15 = Integer or Integer
+	let $v15 = Integer or repr
 	assert( $v15 is Type )
 	assert( $v15 is Type )
 	
-	let $v16 = Integer or Type
+	let $v16 = Integer or function(){}
 	assert( $v16 is Type )
 	assert( $v16 is Type )
 	
-	let $v17 = Integer or types
+	let $v17 = Integer or Integer
 	assert( $v17 is Type )
 	assert( $v17 is Type )
+	
+	let $v18 = Integer or Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = Integer or types
+	assert( $v19 is Type )
+	assert( $v19 is Type )
 
-$ $BURN or_result_16.burn
+$ $BURN or_result_18.burn
 
-or_result_17.burn:
+or_result_19.burn:
 	import test
 	import burn.types
 	
@@ -1299,29 +1598,37 @@ or_result_17.burn:
 	assert( $v12 is Type )
 	assert( $v12 is Type )
 	
-	let $v13 = Type or repr
+	let $v13 = Type or b""
 	assert( $v13 is Type )
 	assert( $v13 is Type )
 	
-	let $v14 = Type or function(){}
+	let $v14 = Type or b"	«"
 	assert( $v14 is Type )
 	assert( $v14 is Type )
 	
-	let $v15 = Type or Integer
+	let $v15 = Type or repr
 	assert( $v15 is Type )
 	assert( $v15 is Type )
 	
-	let $v16 = Type or Type
+	let $v16 = Type or function(){}
 	assert( $v16 is Type )
 	assert( $v16 is Type )
 	
-	let $v17 = Type or types
+	let $v17 = Type or Integer
 	assert( $v17 is Type )
 	assert( $v17 is Type )
+	
+	let $v18 = Type or Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = Type or types
+	assert( $v19 is Type )
+	assert( $v19 is Type )
 
-$ $BURN or_result_17.burn
+$ $BURN or_result_19.burn
 
-or_result_18.burn:
+or_result_20.burn:
 	import test
 	import burn.types
 	
@@ -1377,24 +1684,32 @@ or_result_18.burn:
 	assert( $v12 is Module )
 	assert( $v12 == types )
 	
-	let $v13 = types or repr
+	let $v13 = types or b""
 	assert( $v13 is Module )
 	assert( $v13 == types )
 	
-	let $v14 = types or function(){}
+	let $v14 = types or b"	«"
 	assert( $v14 is Module )
 	assert( $v14 == types )
 	
-	let $v15 = types or Integer
+	let $v15 = types or repr
 	assert( $v15 is Module )
 	assert( $v15 == types )
 	
-	let $v16 = types or Type
+	let $v16 = types or function(){}
 	assert( $v16 is Module )
 	assert( $v16 == types )
 	
-	let $v17 = types or types
+	let $v17 = types or Integer
 	assert( $v17 is Module )
 	assert( $v17 == types )
+	
+	let $v18 = types or Type
+	assert( $v18 is Module )
+	assert( $v18 == types )
+	
+	let $v19 = types or types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
-$ $BURN or_result_18.burn
+$ $BURN or_result_20.burn

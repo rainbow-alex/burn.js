@@ -43,20 +43,26 @@ and_result_1.burn:
 	let $v12 = nothing and "banana"
 	assert( $v12 is Nothing )
 	
-	let $v13 = nothing and repr
+	let $v13 = nothing and b""
 	assert( $v13 is Nothing )
 	
-	let $v14 = nothing and function(){}
+	let $v14 = nothing and b"	«"
 	assert( $v14 is Nothing )
 	
-	let $v15 = nothing and Integer
+	let $v15 = nothing and repr
 	assert( $v15 is Nothing )
 	
-	let $v16 = nothing and Type
+	let $v16 = nothing and function(){}
 	assert( $v16 is Nothing )
 	
-	let $v17 = nothing and types
+	let $v17 = nothing and Integer
 	assert( $v17 is Nothing )
+	
+	let $v18 = nothing and Type
+	assert( $v18 is Nothing )
+	
+	let $v19 = nothing and types
+	assert( $v19 is Nothing )
 
 $ $BURN and_result_1.burn
 
@@ -115,25 +121,33 @@ and_result_2.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = true and repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = true and b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator true and b""
 	
-	let $v14 = true and function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = true and b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator true and b"	«"
 	
-	let $v15 = true and Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = true and repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = true and Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = true and function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = true and types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = true and Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = true and Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = true and types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
 $ $BURN and_result_2.burn
 
@@ -193,25 +207,33 @@ and_result_3.burn:
 	assert( $v12 is Boolean )
 	assert( $v12 == false )
 	
-	let $v13 = false and repr
+	let $v13 = false and b""
 	assert( $v13 is Boolean )
 	assert( $v13 == false )
 	
-	let $v14 = false and function(){}
+	let $v14 = false and b"	«"
 	assert( $v14 is Boolean )
 	assert( $v14 == false )
 	
-	let $v15 = false and Integer
+	let $v15 = false and repr
 	assert( $v15 is Boolean )
 	assert( $v15 == false )
 	
-	let $v16 = false and Type
+	let $v16 = false and function(){}
 	assert( $v16 is Boolean )
 	assert( $v16 == false )
 	
-	let $v17 = false and types
+	let $v17 = false and Integer
 	assert( $v17 is Boolean )
 	assert( $v17 == false )
+	
+	let $v18 = false and Type
+	assert( $v18 is Boolean )
+	assert( $v18 == false )
+	
+	let $v19 = false and types
+	assert( $v19 is Boolean )
+	assert( $v19 == false )
 
 $ $BURN and_result_3.burn
 
@@ -271,25 +293,33 @@ and_result_4.burn:
 	assert( $v12 is Integer )
 	assert( $v12 == 0 )
 	
-	let $v13 = 0 and repr
+	let $v13 = 0 and b""
 	assert( $v13 is Integer )
 	assert( $v13 == 0 )
 	
-	let $v14 = 0 and function(){}
+	let $v14 = 0 and b"	«"
 	assert( $v14 is Integer )
 	assert( $v14 == 0 )
 	
-	let $v15 = 0 and Integer
+	let $v15 = 0 and repr
 	assert( $v15 is Integer )
 	assert( $v15 == 0 )
 	
-	let $v16 = 0 and Type
+	let $v16 = 0 and function(){}
 	assert( $v16 is Integer )
 	assert( $v16 == 0 )
 	
-	let $v17 = 0 and types
+	let $v17 = 0 and Integer
 	assert( $v17 is Integer )
 	assert( $v17 == 0 )
+	
+	let $v18 = 0 and Type
+	assert( $v18 is Integer )
+	assert( $v18 == 0 )
+	
+	let $v19 = 0 and types
+	assert( $v19 is Integer )
+	assert( $v19 == 0 )
 
 $ $BURN and_result_4.burn
 
@@ -348,25 +378,33 @@ and_result_5.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = 2 and repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = 2 and b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator 2 and b""
 	
-	let $v14 = 2 and function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = 2 and b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator 2 and b"	«"
 	
-	let $v15 = 2 and Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = 2 and repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = 2 and Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = 2 and function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = 2 and types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = 2 and Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = 2 and Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = 2 and types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
 $ $BURN and_result_5.burn
 
@@ -425,25 +463,33 @@ and_result_6.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = -2 and repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = -2 and b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator -2 and b""
 	
-	let $v14 = -2 and function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = -2 and b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator -2 and b"	«"
 	
-	let $v15 = -2 and Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = -2 and repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = -2 and Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = -2 and function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = -2 and types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = -2 and Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = -2 and Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = -2 and types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
 $ $BURN and_result_6.burn
 
@@ -503,25 +549,33 @@ and_result_7.burn:
 	assert( $v12 is Float )
 	assert( ( -0.0001 < $v12 ) and ( $v12 < 0.0001 ) )
 	
-	let $v13 = 0.0 and repr
+	let $v13 = 0.0 and b""
 	assert( $v13 is Float )
 	assert( ( -0.0001 < $v13 ) and ( $v13 < 0.0001 ) )
 	
-	let $v14 = 0.0 and function(){}
+	let $v14 = 0.0 and b"	«"
 	assert( $v14 is Float )
 	assert( ( -0.0001 < $v14 ) and ( $v14 < 0.0001 ) )
 	
-	let $v15 = 0.0 and Integer
+	let $v15 = 0.0 and repr
 	assert( $v15 is Float )
 	assert( ( -0.0001 < $v15 ) and ( $v15 < 0.0001 ) )
 	
-	let $v16 = 0.0 and Type
+	let $v16 = 0.0 and function(){}
 	assert( $v16 is Float )
 	assert( ( -0.0001 < $v16 ) and ( $v16 < 0.0001 ) )
 	
-	let $v17 = 0.0 and types
+	let $v17 = 0.0 and Integer
 	assert( $v17 is Float )
 	assert( ( -0.0001 < $v17 ) and ( $v17 < 0.0001 ) )
+	
+	let $v18 = 0.0 and Type
+	assert( $v18 is Float )
+	assert( ( -0.0001 < $v18 ) and ( $v18 < 0.0001 ) )
+	
+	let $v19 = 0.0 and types
+	assert( $v19 is Float )
+	assert( ( -0.0001 < $v19 ) and ( $v19 < 0.0001 ) )
 
 $ $BURN and_result_7.burn
 
@@ -580,25 +634,33 @@ and_result_8.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = 2.0 and repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = 2.0 and b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator 2.0 and b""
 	
-	let $v14 = 2.0 and function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = 2.0 and b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator 2.0 and b"	«"
 	
-	let $v15 = 2.0 and Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = 2.0 and repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = 2.0 and Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = 2.0 and function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = 2.0 and types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = 2.0 and Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = 2.0 and Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = 2.0 and types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
 $ $BURN and_result_8.burn
 
@@ -657,25 +719,33 @@ and_result_9.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = -0.5 and repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = -0.5 and b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator -0.5 and b""
 	
-	let $v14 = -0.5 and function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = -0.5 and b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator -0.5 and b"	«"
 	
-	let $v15 = -0.5 and Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = -0.5 and repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = -0.5 and Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = -0.5 and function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = -0.5 and types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = -0.5 and Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = -0.5 and Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = -0.5 and types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
 $ $BURN and_result_9.burn
 
@@ -734,25 +804,33 @@ and_result_10.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = "c"[0] and repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = "c"[0] and b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator "c"[0] and b""
 	
-	let $v14 = "c"[0] and function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = "c"[0] and b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator "c"[0] and b"	«"
 	
-	let $v15 = "c"[0] and Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = "c"[0] and repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = "c"[0] and Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = "c"[0] and function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = "c"[0] and types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = "c"[0] and Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = "c"[0] and Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = "c"[0] and types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
 $ $BURN and_result_10.burn
 
@@ -812,25 +890,33 @@ and_result_11.burn:
 	assert( $v12 is String )
 	assert( $v12 == "" )
 	
-	let $v13 = "" and repr
+	let $v13 = "" and b""
 	assert( $v13 is String )
 	assert( $v13 == "" )
 	
-	let $v14 = "" and function(){}
+	let $v14 = "" and b"	«"
 	assert( $v14 is String )
 	assert( $v14 == "" )
 	
-	let $v15 = "" and Integer
+	let $v15 = "" and repr
 	assert( $v15 is String )
 	assert( $v15 == "" )
 	
-	let $v16 = "" and Type
+	let $v16 = "" and function(){}
 	assert( $v16 is String )
 	assert( $v16 == "" )
 	
-	let $v17 = "" and types
+	let $v17 = "" and Integer
 	assert( $v17 is String )
 	assert( $v17 == "" )
+	
+	let $v18 = "" and Type
+	assert( $v18 is String )
+	assert( $v18 == "" )
+	
+	let $v19 = "" and types
+	assert( $v19 is String )
+	assert( $v19 == "" )
 
 $ $BURN and_result_11.burn
 
@@ -889,25 +975,33 @@ and_result_12.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = "apple" and repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = "apple" and b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator "apple" and b""
 	
-	let $v14 = "apple" and function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = "apple" and b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator "apple" and b"	«"
 	
-	let $v15 = "apple" and Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = "apple" and repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = "apple" and Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = "apple" and function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = "apple" and types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = "apple" and Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = "apple" and Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = "apple" and types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
 $ $BURN and_result_12.burn
 
@@ -966,29 +1060,208 @@ and_result_13.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = "banana" and repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = "banana" and b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator "banana" and b""
 	
-	let $v14 = "banana" and function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = "banana" and b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator "banana" and b"	«"
 	
-	let $v15 = "banana" and Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = "banana" and repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = "banana" and Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = "banana" and function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = "banana" and types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = "banana" and Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = "banana" and Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = "banana" and types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
 $ $BURN and_result_13.burn
 
 and_result_14.burn:
+	import test
+	import burn.types
+	
+	let $v0 = b"" and nothing
+	assert( $v0 is Bytes )
+	// GREP_ME operator b"" and nothing
+	
+	let $v1 = b"" and true
+	assert( $v1 is Bytes )
+	// GREP_ME operator b"" and true
+	
+	let $v2 = b"" and false
+	assert( $v2 is Bytes )
+	// GREP_ME operator b"" and false
+	
+	let $v3 = b"" and 0
+	assert( $v3 is Bytes )
+	// GREP_ME operator b"" and 0
+	
+	let $v4 = b"" and 2
+	assert( $v4 is Bytes )
+	// GREP_ME operator b"" and 2
+	
+	let $v5 = b"" and -2
+	assert( $v5 is Bytes )
+	// GREP_ME operator b"" and -2
+	
+	let $v6 = b"" and 0.0
+	assert( $v6 is Bytes )
+	// GREP_ME operator b"" and 0.0
+	
+	let $v7 = b"" and 2.0
+	assert( $v7 is Bytes )
+	// GREP_ME operator b"" and 2.0
+	
+	let $v8 = b"" and -0.5
+	assert( $v8 is Bytes )
+	// GREP_ME operator b"" and -0.5
+	
+	let $v9 = b"" and "c"[0]
+	assert( $v9 is Bytes )
+	// GREP_ME operator b"" and "c"[0]
+	
+	let $v10 = b"" and ""
+	assert( $v10 is Bytes )
+	// GREP_ME operator b"" and ""
+	
+	let $v11 = b"" and "apple"
+	assert( $v11 is Bytes )
+	// GREP_ME operator b"" and "apple"
+	
+	let $v12 = b"" and "banana"
+	assert( $v12 is Bytes )
+	// GREP_ME operator b"" and "banana"
+	
+	let $v13 = b"" and b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator b"" and b""
+	
+	let $v14 = b"" and b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator b"" and b"	«"
+	
+	let $v15 = b"" and repr
+	assert( $v15 is Bytes )
+	// GREP_ME operator b"" and repr
+	
+	let $v16 = b"" and function(){}
+	assert( $v16 is Bytes )
+	// GREP_ME operator b"" and function(){}
+	
+	let $v17 = b"" and Integer
+	assert( $v17 is Bytes )
+	// GREP_ME operator b"" and Integer
+	
+	let $v18 = b"" and Type
+	assert( $v18 is Bytes )
+	// GREP_ME operator b"" and Type
+	
+	let $v19 = b"" and types
+	assert( $v19 is Bytes )
+	// GREP_ME operator b"" and types
+
+$ $BURN and_result_14.burn
+
+and_result_15.burn:
+	import test
+	import burn.types
+	
+	let $v0 = b"	«" and nothing
+	assert( $v0 is Nothing )
+	
+	let $v1 = b"	«" and true
+	assert( $v1 is Boolean )
+	assert( $v1 == true )
+	
+	let $v2 = b"	«" and false
+	assert( $v2 is Boolean )
+	assert( $v2 == false )
+	
+	let $v3 = b"	«" and 0
+	assert( $v3 is Integer )
+	assert( $v3 == 0 )
+	
+	let $v4 = b"	«" and 2
+	assert( $v4 is Integer )
+	assert( $v4 == 2 )
+	
+	let $v5 = b"	«" and -2
+	assert( $v5 is Integer )
+	assert( $v5 == -2 )
+	
+	let $v6 = b"	«" and 0.0
+	assert( $v6 is Float )
+	assert( ( -0.0001 < $v6 ) and ( $v6 < 0.0001 ) )
+	
+	let $v7 = b"	«" and 2.0
+	assert( $v7 is Float )
+	assert( ( 1.9999 < $v7 ) and ( $v7 < 2.0001 ) )
+	
+	let $v8 = b"	«" and -0.5
+	assert( $v8 is Float )
+	assert( ( -0.5001 < $v8 ) and ( $v8 < -0.4999 ) )
+	
+	let $v9 = b"	«" and "c"[0]
+	assert( $v9 is Character )
+	assert( $v9 == "c"[0] )
+	
+	let $v10 = b"	«" and ""
+	assert( $v10 is String )
+	assert( $v10 == "" )
+	
+	let $v11 = b"	«" and "apple"
+	assert( $v11 is String )
+	assert( $v11 == "apple" )
+	
+	let $v12 = b"	«" and "banana"
+	assert( $v12 is String )
+	assert( $v12 == "banana" )
+	
+	let $v13 = b"	«" and b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator b"	«" and b""
+	
+	let $v14 = b"	«" and b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator b"	«" and b"	«"
+	
+	let $v15 = b"	«" and repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
+	
+	let $v16 = b"	«" and function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
+	
+	let $v17 = b"	«" and Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = b"	«" and Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = b"	«" and types
+	assert( $v19 is Module )
+	assert( $v19 == types )
+
+$ $BURN and_result_15.burn
+
+and_result_16.burn:
 	import test
 	import burn.types
 	
@@ -1043,29 +1316,37 @@ and_result_14.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = repr and repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = repr and b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator repr and b""
 	
-	let $v14 = repr and function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = repr and b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator repr and b"	«"
 	
-	let $v15 = repr and Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = repr and repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = repr and Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = repr and function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = repr and types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = repr and Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = repr and Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = repr and types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
-$ $BURN and_result_14.burn
+$ $BURN and_result_16.burn
 
-and_result_15.burn:
+and_result_17.burn:
 	import test
 	import burn.types
 	
@@ -1120,29 +1401,37 @@ and_result_15.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = function(){} and repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = function(){} and b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator function(){} and b""
 	
-	let $v14 = function(){} and function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = function(){} and b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator function(){} and b"	«"
 	
-	let $v15 = function(){} and Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = function(){} and repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = function(){} and Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = function(){} and function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = function(){} and types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = function(){} and Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = function(){} and Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = function(){} and types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
-$ $BURN and_result_15.burn
+$ $BURN and_result_17.burn
 
-and_result_16.burn:
+and_result_18.burn:
 	import test
 	import burn.types
 	
@@ -1197,29 +1486,37 @@ and_result_16.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = Integer and repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = Integer and b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator Integer and b""
 	
-	let $v14 = Integer and function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = Integer and b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator Integer and b"	«"
 	
-	let $v15 = Integer and Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = Integer and repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = Integer and Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = Integer and function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = Integer and types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = Integer and Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = Integer and Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = Integer and types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
-$ $BURN and_result_16.burn
+$ $BURN and_result_18.burn
 
-and_result_17.burn:
+and_result_19.burn:
 	import test
 	import burn.types
 	
@@ -1274,29 +1571,37 @@ and_result_17.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = Type and repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = Type and b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator Type and b""
 	
-	let $v14 = Type and function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = Type and b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator Type and b"	«"
 	
-	let $v15 = Type and Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = Type and repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = Type and Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = Type and function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = Type and types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = Type and Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = Type and Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = Type and types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
-$ $BURN and_result_17.burn
+$ $BURN and_result_19.burn
 
-and_result_18.burn:
+and_result_20.burn:
 	import test
 	import burn.types
 	
@@ -1351,24 +1656,32 @@ and_result_18.burn:
 	assert( $v12 is String )
 	assert( $v12 == "banana" )
 	
-	let $v13 = types and repr
-	assert( $v13 is Function )
-	assert( $v13 == repr )
+	let $v13 = types and b""
+	assert( $v13 is Bytes )
+	// GREP_ME operator types and b""
 	
-	let $v14 = types and function(){}
-	assert( $v14 is Function )
-	assert( $v14 is Function )
+	let $v14 = types and b"	«"
+	assert( $v14 is Bytes )
+	// GREP_ME operator types and b"	«"
 	
-	let $v15 = types and Integer
-	assert( $v15 is Type )
-	assert( $v15 is Type )
+	let $v15 = types and repr
+	assert( $v15 is Function )
+	assert( $v15 == repr )
 	
-	let $v16 = types and Type
-	assert( $v16 is Type )
-	assert( $v16 is Type )
+	let $v16 = types and function(){}
+	assert( $v16 is Function )
+	assert( $v16 is Function )
 	
-	let $v17 = types and types
-	assert( $v17 is Module )
-	assert( $v17 == types )
+	let $v17 = types and Integer
+	assert( $v17 is Type )
+	assert( $v17 is Type )
+	
+	let $v18 = types and Type
+	assert( $v18 is Type )
+	assert( $v18 is Type )
+	
+	let $v19 = types and types
+	assert( $v19 is Module )
+	assert( $v19 == types )
 
-$ $BURN and_result_18.burn
+$ $BURN and_result_20.burn

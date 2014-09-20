@@ -519,6 +519,14 @@ ast.StringLiteral.prototype.compile = function( output ) {
 	output.code += '")';
 };
 
+ast.BytesLiteral.prototype.compile = function( output ) {
+	output.code += '_.createBytes([';
+	for( let i = 0 ; i < this.value.length ; i++ ) {
+		output.code += this.value[i] + ',';
+	}
+	output.code += '])';
+};
+
 ast.IntegerLiteral.prototype.compile = function( output ) {
 	output.code += '_.createInteger(' + this.token.value + ')';
 };

@@ -1,0 +1,5 @@
+concat.burn:
+	assert( b"12" + b"34" == b"1234" )
+	assert( "12".encode() + "34".encode() == b"1234" )
+
+$ $BURN concat.burn

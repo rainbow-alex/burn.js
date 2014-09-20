@@ -30,6 +30,10 @@ lt_result_1.burn:
 	
 	test.assert_throws( function() { nothing < "banana" }, TypeError )
 	
+	test.assert_throws( function() { nothing < b"" }, TypeError )
+	
+	test.assert_throws( function() { nothing < b"	«" }, TypeError )
+	
 	test.assert_throws( function() { nothing < repr }, TypeError )
 	
 	test.assert_throws( function() { nothing < function(){} }, TypeError )
@@ -72,6 +76,10 @@ lt_result_2.burn:
 	
 	test.assert_throws( function() { true < "banana" }, TypeError )
 	
+	test.assert_throws( function() { true < b"" }, TypeError )
+	
+	test.assert_throws( function() { true < b"	«" }, TypeError )
+	
 	test.assert_throws( function() { true < repr }, TypeError )
 	
 	test.assert_throws( function() { true < function(){} }, TypeError )
@@ -113,6 +121,10 @@ lt_result_3.burn:
 	test.assert_throws( function() { false < "apple" }, TypeError )
 	
 	test.assert_throws( function() { false < "banana" }, TypeError )
+	
+	test.assert_throws( function() { false < b"" }, TypeError )
+	
+	test.assert_throws( function() { false < b"	«" }, TypeError )
 	
 	test.assert_throws( function() { false < repr }, TypeError )
 	
@@ -168,6 +180,10 @@ lt_result_4.burn:
 	
 	test.assert_throws( function() { 0 < "banana" }, TypeError )
 	
+	test.assert_throws( function() { 0 < b"" }, TypeError )
+	
+	test.assert_throws( function() { 0 < b"	«" }, TypeError )
+	
 	test.assert_throws( function() { 0 < repr }, TypeError )
 	
 	test.assert_throws( function() { 0 < function(){} }, TypeError )
@@ -221,6 +237,10 @@ lt_result_5.burn:
 	test.assert_throws( function() { 2 < "apple" }, TypeError )
 	
 	test.assert_throws( function() { 2 < "banana" }, TypeError )
+	
+	test.assert_throws( function() { 2 < b"" }, TypeError )
+	
+	test.assert_throws( function() { 2 < b"	«" }, TypeError )
 	
 	test.assert_throws( function() { 2 < repr }, TypeError )
 	
@@ -276,6 +296,10 @@ lt_result_6.burn:
 	
 	test.assert_throws( function() { -2 < "banana" }, TypeError )
 	
+	test.assert_throws( function() { -2 < b"" }, TypeError )
+	
+	test.assert_throws( function() { -2 < b"	«" }, TypeError )
+	
 	test.assert_throws( function() { -2 < repr }, TypeError )
 	
 	test.assert_throws( function() { -2 < function(){} }, TypeError )
@@ -329,6 +353,10 @@ lt_result_7.burn:
 	test.assert_throws( function() { 0.0 < "apple" }, TypeError )
 	
 	test.assert_throws( function() { 0.0 < "banana" }, TypeError )
+	
+	test.assert_throws( function() { 0.0 < b"" }, TypeError )
+	
+	test.assert_throws( function() { 0.0 < b"	«" }, TypeError )
 	
 	test.assert_throws( function() { 0.0 < repr }, TypeError )
 	
@@ -384,6 +412,10 @@ lt_result_8.burn:
 	
 	test.assert_throws( function() { 2.0 < "banana" }, TypeError )
 	
+	test.assert_throws( function() { 2.0 < b"" }, TypeError )
+	
+	test.assert_throws( function() { 2.0 < b"	«" }, TypeError )
+	
 	test.assert_throws( function() { 2.0 < repr }, TypeError )
 	
 	test.assert_throws( function() { 2.0 < function(){} }, TypeError )
@@ -438,6 +470,10 @@ lt_result_9.burn:
 	
 	test.assert_throws( function() { -0.5 < "banana" }, TypeError )
 	
+	test.assert_throws( function() { -0.5 < b"" }, TypeError )
+	
+	test.assert_throws( function() { -0.5 < b"	«" }, TypeError )
+	
 	test.assert_throws( function() { -0.5 < repr }, TypeError )
 	
 	test.assert_throws( function() { -0.5 < function(){} }, TypeError )
@@ -481,6 +517,10 @@ lt_result_10.burn:
 	test.assert_throws( function() { "c"[0] < "apple" }, TypeError )
 	
 	test.assert_throws( function() { "c"[0] < "banana" }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] < b"" }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] < b"	«" }, TypeError )
 	
 	test.assert_throws( function() { "c"[0] < repr }, TypeError )
 	
@@ -530,6 +570,10 @@ lt_result_11.burn:
 	assert( $v12 is Boolean )
 	assert( $v12 == true )
 	
+	test.assert_throws( function() { "" < b"" }, TypeError )
+	
+	test.assert_throws( function() { "" < b"	«" }, TypeError )
+	
 	test.assert_throws( function() { "" < repr }, TypeError )
 	
 	test.assert_throws( function() { "" < function(){} }, TypeError )
@@ -577,6 +621,10 @@ lt_result_12.burn:
 	let $v12 = "apple" < "banana"
 	assert( $v12 is Boolean )
 	assert( $v12 == true )
+	
+	test.assert_throws( function() { "apple" < b"" }, TypeError )
+	
+	test.assert_throws( function() { "apple" < b"	«" }, TypeError )
 	
 	test.assert_throws( function() { "apple" < repr }, TypeError )
 	
@@ -626,6 +674,10 @@ lt_result_13.burn:
 	assert( $v12 is Boolean )
 	assert( $v12 == false )
 	
+	test.assert_throws( function() { "banana" < b"" }, TypeError )
+	
+	test.assert_throws( function() { "banana" < b"	«" }, TypeError )
+	
 	test.assert_throws( function() { "banana" < repr }, TypeError )
 	
 	test.assert_throws( function() { "banana" < function(){} }, TypeError )
@@ -639,6 +691,98 @@ lt_result_13.burn:
 $ $BURN lt_result_13.burn
 
 lt_result_14.burn:
+	import test
+	import burn.types
+	
+	test.assert_throws( function() { b"" < nothing }, TypeError )
+	
+	test.assert_throws( function() { b"" < true }, TypeError )
+	
+	test.assert_throws( function() { b"" < false }, TypeError )
+	
+	test.assert_throws( function() { b"" < 0 }, TypeError )
+	
+	test.assert_throws( function() { b"" < 2 }, TypeError )
+	
+	test.assert_throws( function() { b"" < -2 }, TypeError )
+	
+	test.assert_throws( function() { b"" < 0.0 }, TypeError )
+	
+	test.assert_throws( function() { b"" < 2.0 }, TypeError )
+	
+	test.assert_throws( function() { b"" < -0.5 }, TypeError )
+	
+	test.assert_throws( function() { b"" < "c"[0] }, TypeError )
+	
+	test.assert_throws( function() { b"" < "" }, TypeError )
+	
+	test.assert_throws( function() { b"" < "apple" }, TypeError )
+	
+	test.assert_throws( function() { b"" < "banana" }, TypeError )
+	
+	test.assert_throws( function() { b"" < b"" }, TypeError )
+	
+	test.assert_throws( function() { b"" < b"	«" }, TypeError )
+	
+	test.assert_throws( function() { b"" < repr }, TypeError )
+	
+	test.assert_throws( function() { b"" < function(){} }, TypeError )
+	
+	test.assert_throws( function() { b"" < Integer }, TypeError )
+	
+	test.assert_throws( function() { b"" < Type }, TypeError )
+	
+	test.assert_throws( function() { b"" < types }, TypeError )
+
+$ $BURN lt_result_14.burn
+
+lt_result_15.burn:
+	import test
+	import burn.types
+	
+	test.assert_throws( function() { b"	«" < nothing }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < true }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < false }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < 0 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < 2 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < -2 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < 0.0 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < 2.0 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < -0.5 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < "c"[0] }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < "" }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < "apple" }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < "banana" }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < b"" }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < b"	«" }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < repr }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < function(){} }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < Integer }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < Type }, TypeError )
+	
+	test.assert_throws( function() { b"	«" < types }, TypeError )
+
+$ $BURN lt_result_15.burn
+
+lt_result_16.burn:
 	import test
 	import burn.types
 	
@@ -668,6 +812,10 @@ lt_result_14.burn:
 	
 	test.assert_throws( function() { repr < "banana" }, TypeError )
 	
+	test.assert_throws( function() { repr < b"" }, TypeError )
+	
+	test.assert_throws( function() { repr < b"	«" }, TypeError )
+	
 	test.assert_throws( function() { repr < repr }, TypeError )
 	
 	test.assert_throws( function() { repr < function(){} }, TypeError )
@@ -678,9 +826,9 @@ lt_result_14.burn:
 	
 	test.assert_throws( function() { repr < types }, TypeError )
 
-$ $BURN lt_result_14.burn
+$ $BURN lt_result_16.burn
 
-lt_result_15.burn:
+lt_result_17.burn:
 	import test
 	import burn.types
 	
@@ -710,6 +858,10 @@ lt_result_15.burn:
 	
 	test.assert_throws( function() { function(){} < "banana" }, TypeError )
 	
+	test.assert_throws( function() { function(){} < b"" }, TypeError )
+	
+	test.assert_throws( function() { function(){} < b"	«" }, TypeError )
+	
 	test.assert_throws( function() { function(){} < repr }, TypeError )
 	
 	test.assert_throws( function() { function(){} < function(){} }, TypeError )
@@ -720,9 +872,9 @@ lt_result_15.burn:
 	
 	test.assert_throws( function() { function(){} < types }, TypeError )
 
-$ $BURN lt_result_15.burn
+$ $BURN lt_result_17.burn
 
-lt_result_16.burn:
+lt_result_18.burn:
 	import test
 	import burn.types
 	
@@ -752,6 +904,10 @@ lt_result_16.burn:
 	
 	test.assert_throws( function() { Integer < "banana" }, TypeError )
 	
+	test.assert_throws( function() { Integer < b"" }, TypeError )
+	
+	test.assert_throws( function() { Integer < b"	«" }, TypeError )
+	
 	test.assert_throws( function() { Integer < repr }, TypeError )
 	
 	test.assert_throws( function() { Integer < function(){} }, TypeError )
@@ -762,9 +918,9 @@ lt_result_16.burn:
 	
 	test.assert_throws( function() { Integer < types }, TypeError )
 
-$ $BURN lt_result_16.burn
+$ $BURN lt_result_18.burn
 
-lt_result_17.burn:
+lt_result_19.burn:
 	import test
 	import burn.types
 	
@@ -794,6 +950,10 @@ lt_result_17.burn:
 	
 	test.assert_throws( function() { Type < "banana" }, TypeError )
 	
+	test.assert_throws( function() { Type < b"" }, TypeError )
+	
+	test.assert_throws( function() { Type < b"	«" }, TypeError )
+	
 	test.assert_throws( function() { Type < repr }, TypeError )
 	
 	test.assert_throws( function() { Type < function(){} }, TypeError )
@@ -804,9 +964,9 @@ lt_result_17.burn:
 	
 	test.assert_throws( function() { Type < types }, TypeError )
 
-$ $BURN lt_result_17.burn
+$ $BURN lt_result_19.burn
 
-lt_result_18.burn:
+lt_result_20.burn:
 	import test
 	import burn.types
 	
@@ -836,6 +996,10 @@ lt_result_18.burn:
 	
 	test.assert_throws( function() { types < "banana" }, TypeError )
 	
+	test.assert_throws( function() { types < b"" }, TypeError )
+	
+	test.assert_throws( function() { types < b"	«" }, TypeError )
+	
 	test.assert_throws( function() { types < repr }, TypeError )
 	
 	test.assert_throws( function() { types < function(){} }, TypeError )
@@ -846,4 +1010,4 @@ lt_result_18.burn:
 	
 	test.assert_throws( function() { types < types }, TypeError )
 
-$ $BURN lt_result_18.burn
+$ $BURN lt_result_20.burn

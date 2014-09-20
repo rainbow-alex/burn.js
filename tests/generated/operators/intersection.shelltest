@@ -30,6 +30,10 @@ intersection_result_1.burn:
 	
 	test.assert_throws( function() { nothing & "banana" }, TypeError )
 	
+	test.assert_throws( function() { nothing & b"" }, TypeError )
+	
+	test.assert_throws( function() { nothing & b"	«" }, TypeError )
+	
 	test.assert_throws( function() { nothing & repr }, TypeError )
 	
 	test.assert_throws( function() { nothing & function(){} }, TypeError )
@@ -71,6 +75,10 @@ intersection_result_2.burn:
 	test.assert_throws( function() { true & "apple" }, TypeError )
 	
 	test.assert_throws( function() { true & "banana" }, TypeError )
+	
+	test.assert_throws( function() { true & b"" }, TypeError )
+	
+	test.assert_throws( function() { true & b"	«" }, TypeError )
 	
 	test.assert_throws( function() { true & repr }, TypeError )
 	
@@ -114,6 +122,10 @@ intersection_result_3.burn:
 	
 	test.assert_throws( function() { false & "banana" }, TypeError )
 	
+	test.assert_throws( function() { false & b"" }, TypeError )
+	
+	test.assert_throws( function() { false & b"	«" }, TypeError )
+	
 	test.assert_throws( function() { false & repr }, TypeError )
 	
 	test.assert_throws( function() { false & function(){} }, TypeError )
@@ -155,6 +167,10 @@ intersection_result_4.burn:
 	test.assert_throws( function() { 0 & "apple" }, TypeError )
 	
 	test.assert_throws( function() { 0 & "banana" }, TypeError )
+	
+	test.assert_throws( function() { 0 & b"" }, TypeError )
+	
+	test.assert_throws( function() { 0 & b"	«" }, TypeError )
 	
 	test.assert_throws( function() { 0 & repr }, TypeError )
 	
@@ -198,6 +214,10 @@ intersection_result_5.burn:
 	
 	test.assert_throws( function() { 2 & "banana" }, TypeError )
 	
+	test.assert_throws( function() { 2 & b"" }, TypeError )
+	
+	test.assert_throws( function() { 2 & b"	«" }, TypeError )
+	
 	test.assert_throws( function() { 2 & repr }, TypeError )
 	
 	test.assert_throws( function() { 2 & function(){} }, TypeError )
@@ -239,6 +259,10 @@ intersection_result_6.burn:
 	test.assert_throws( function() { -2 & "apple" }, TypeError )
 	
 	test.assert_throws( function() { -2 & "banana" }, TypeError )
+	
+	test.assert_throws( function() { -2 & b"" }, TypeError )
+	
+	test.assert_throws( function() { -2 & b"	«" }, TypeError )
 	
 	test.assert_throws( function() { -2 & repr }, TypeError )
 	
@@ -282,6 +306,10 @@ intersection_result_7.burn:
 	
 	test.assert_throws( function() { 0.0 & "banana" }, TypeError )
 	
+	test.assert_throws( function() { 0.0 & b"" }, TypeError )
+	
+	test.assert_throws( function() { 0.0 & b"	«" }, TypeError )
+	
 	test.assert_throws( function() { 0.0 & repr }, TypeError )
 	
 	test.assert_throws( function() { 0.0 & function(){} }, TypeError )
@@ -323,6 +351,10 @@ intersection_result_8.burn:
 	test.assert_throws( function() { 2.0 & "apple" }, TypeError )
 	
 	test.assert_throws( function() { 2.0 & "banana" }, TypeError )
+	
+	test.assert_throws( function() { 2.0 & b"" }, TypeError )
+	
+	test.assert_throws( function() { 2.0 & b"	«" }, TypeError )
 	
 	test.assert_throws( function() { 2.0 & repr }, TypeError )
 	
@@ -366,6 +398,10 @@ intersection_result_9.burn:
 	
 	test.assert_throws( function() { -0.5 & "banana" }, TypeError )
 	
+	test.assert_throws( function() { -0.5 & b"" }, TypeError )
+	
+	test.assert_throws( function() { -0.5 & b"	«" }, TypeError )
+	
 	test.assert_throws( function() { -0.5 & repr }, TypeError )
 	
 	test.assert_throws( function() { -0.5 & function(){} }, TypeError )
@@ -407,6 +443,10 @@ intersection_result_10.burn:
 	test.assert_throws( function() { "c"[0] & "apple" }, TypeError )
 	
 	test.assert_throws( function() { "c"[0] & "banana" }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] & b"" }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] & b"	«" }, TypeError )
 	
 	test.assert_throws( function() { "c"[0] & repr }, TypeError )
 	
@@ -450,6 +490,10 @@ intersection_result_11.burn:
 	
 	test.assert_throws( function() { "" & "banana" }, TypeError )
 	
+	test.assert_throws( function() { "" & b"" }, TypeError )
+	
+	test.assert_throws( function() { "" & b"	«" }, TypeError )
+	
 	test.assert_throws( function() { "" & repr }, TypeError )
 	
 	test.assert_throws( function() { "" & function(){} }, TypeError )
@@ -491,6 +535,10 @@ intersection_result_12.burn:
 	test.assert_throws( function() { "apple" & "apple" }, TypeError )
 	
 	test.assert_throws( function() { "apple" & "banana" }, TypeError )
+	
+	test.assert_throws( function() { "apple" & b"" }, TypeError )
+	
+	test.assert_throws( function() { "apple" & b"	«" }, TypeError )
 	
 	test.assert_throws( function() { "apple" & repr }, TypeError )
 	
@@ -534,6 +582,10 @@ intersection_result_13.burn:
 	
 	test.assert_throws( function() { "banana" & "banana" }, TypeError )
 	
+	test.assert_throws( function() { "banana" & b"" }, TypeError )
+	
+	test.assert_throws( function() { "banana" & b"	«" }, TypeError )
+	
 	test.assert_throws( function() { "banana" & repr }, TypeError )
 	
 	test.assert_throws( function() { "banana" & function(){} }, TypeError )
@@ -547,6 +599,98 @@ intersection_result_13.burn:
 $ $BURN intersection_result_13.burn
 
 intersection_result_14.burn:
+	import test
+	import burn.types
+	
+	test.assert_throws( function() { b"" & nothing }, TypeError )
+	
+	test.assert_throws( function() { b"" & true }, TypeError )
+	
+	test.assert_throws( function() { b"" & false }, TypeError )
+	
+	test.assert_throws( function() { b"" & 0 }, TypeError )
+	
+	test.assert_throws( function() { b"" & 2 }, TypeError )
+	
+	test.assert_throws( function() { b"" & -2 }, TypeError )
+	
+	test.assert_throws( function() { b"" & 0.0 }, TypeError )
+	
+	test.assert_throws( function() { b"" & 2.0 }, TypeError )
+	
+	test.assert_throws( function() { b"" & -0.5 }, TypeError )
+	
+	test.assert_throws( function() { b"" & "c"[0] }, TypeError )
+	
+	test.assert_throws( function() { b"" & "" }, TypeError )
+	
+	test.assert_throws( function() { b"" & "apple" }, TypeError )
+	
+	test.assert_throws( function() { b"" & "banana" }, TypeError )
+	
+	test.assert_throws( function() { b"" & b"" }, TypeError )
+	
+	test.assert_throws( function() { b"" & b"	«" }, TypeError )
+	
+	test.assert_throws( function() { b"" & repr }, TypeError )
+	
+	test.assert_throws( function() { b"" & function(){} }, TypeError )
+	
+	test.assert_throws( function() { b"" & Integer }, TypeError )
+	
+	test.assert_throws( function() { b"" & Type }, TypeError )
+	
+	test.assert_throws( function() { b"" & types }, TypeError )
+
+$ $BURN intersection_result_14.burn
+
+intersection_result_15.burn:
+	import test
+	import burn.types
+	
+	test.assert_throws( function() { b"	«" & nothing }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & true }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & false }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & 0 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & 2 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & -2 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & 0.0 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & 2.0 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & -0.5 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & "c"[0] }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & "" }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & "apple" }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & "banana" }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & b"" }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & b"	«" }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & repr }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & function(){} }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & Integer }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & Type }, TypeError )
+	
+	test.assert_throws( function() { b"	«" & types }, TypeError )
+
+$ $BURN intersection_result_15.burn
+
+intersection_result_16.burn:
 	import test
 	import burn.types
 	
@@ -576,6 +720,10 @@ intersection_result_14.burn:
 	
 	test.assert_throws( function() { repr & "banana" }, TypeError )
 	
+	test.assert_throws( function() { repr & b"" }, TypeError )
+	
+	test.assert_throws( function() { repr & b"	«" }, TypeError )
+	
 	test.assert_throws( function() { repr & repr }, TypeError )
 	
 	test.assert_throws( function() { repr & function(){} }, TypeError )
@@ -586,9 +734,9 @@ intersection_result_14.burn:
 	
 	test.assert_throws( function() { repr & types }, TypeError )
 
-$ $BURN intersection_result_14.burn
+$ $BURN intersection_result_16.burn
 
-intersection_result_15.burn:
+intersection_result_17.burn:
 	import test
 	import burn.types
 	
@@ -618,6 +766,10 @@ intersection_result_15.burn:
 	
 	test.assert_throws( function() { function(){} & "banana" }, TypeError )
 	
+	test.assert_throws( function() { function(){} & b"" }, TypeError )
+	
+	test.assert_throws( function() { function(){} & b"	«" }, TypeError )
+	
 	test.assert_throws( function() { function(){} & repr }, TypeError )
 	
 	test.assert_throws( function() { function(){} & function(){} }, TypeError )
@@ -628,9 +780,9 @@ intersection_result_15.burn:
 	
 	test.assert_throws( function() { function(){} & types }, TypeError )
 
-$ $BURN intersection_result_15.burn
+$ $BURN intersection_result_17.burn
 
-intersection_result_16.burn:
+intersection_result_18.burn:
 	import test
 	import burn.types
 	
@@ -660,23 +812,27 @@ intersection_result_16.burn:
 	
 	test.assert_throws( function() { Integer & "banana" }, TypeError )
 	
+	test.assert_throws( function() { Integer & b"" }, TypeError )
+	
+	test.assert_throws( function() { Integer & b"	«" }, TypeError )
+	
 	test.assert_throws( function() { Integer & repr }, TypeError )
 	
 	test.assert_throws( function() { Integer & function(){} }, TypeError )
 	
-	let $v15 = Integer & Integer
-	assert( $v15 is Type )
+	let $v17 = Integer & Integer
+	assert( $v17 is Type )
 	// GREP_ME operator Integer & Integer
 	
-	let $v16 = Integer & Type
-	assert( $v16 is Type )
+	let $v18 = Integer & Type
+	assert( $v18 is Type )
 	// GREP_ME operator Integer & Type
 	
 	test.assert_throws( function() { Integer & types }, TypeError )
 
-$ $BURN intersection_result_16.burn
+$ $BURN intersection_result_18.burn
 
-intersection_result_17.burn:
+intersection_result_19.burn:
 	import test
 	import burn.types
 	
@@ -706,23 +862,27 @@ intersection_result_17.burn:
 	
 	test.assert_throws( function() { Type & "banana" }, TypeError )
 	
+	test.assert_throws( function() { Type & b"" }, TypeError )
+	
+	test.assert_throws( function() { Type & b"	«" }, TypeError )
+	
 	test.assert_throws( function() { Type & repr }, TypeError )
 	
 	test.assert_throws( function() { Type & function(){} }, TypeError )
 	
-	let $v15 = Type & Integer
-	assert( $v15 is Type )
+	let $v17 = Type & Integer
+	assert( $v17 is Type )
 	// GREP_ME operator Type & Integer
 	
-	let $v16 = Type & Type
-	assert( $v16 is Type )
+	let $v18 = Type & Type
+	assert( $v18 is Type )
 	// GREP_ME operator Type & Type
 	
 	test.assert_throws( function() { Type & types }, TypeError )
 
-$ $BURN intersection_result_17.burn
+$ $BURN intersection_result_19.burn
 
-intersection_result_18.burn:
+intersection_result_20.burn:
 	import test
 	import burn.types
 	
@@ -752,6 +912,10 @@ intersection_result_18.burn:
 	
 	test.assert_throws( function() { types & "banana" }, TypeError )
 	
+	test.assert_throws( function() { types & b"" }, TypeError )
+	
+	test.assert_throws( function() { types & b"	«" }, TypeError )
+	
 	test.assert_throws( function() { types & repr }, TypeError )
 	
 	test.assert_throws( function() { types & function(){} }, TypeError )
@@ -762,4 +926,4 @@ intersection_result_18.burn:
 	
 	test.assert_throws( function() { types & types }, TypeError )
 
-$ $BURN intersection_result_18.burn
+$ $BURN intersection_result_20.burn

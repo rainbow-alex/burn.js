@@ -30,6 +30,10 @@ div_result_1.burn:
 	
 	test.assert_throws( function() { nothing / "banana" }, TypeError )
 	
+	test.assert_throws( function() { nothing / b"" }, TypeError )
+	
+	test.assert_throws( function() { nothing / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { nothing / repr }, TypeError )
 	
 	test.assert_throws( function() { nothing / function(){} }, TypeError )
@@ -82,6 +86,10 @@ div_result_2.burn:
 	
 	test.assert_throws( function() { true / "banana" }, TypeError )
 	
+	test.assert_throws( function() { true / b"" }, TypeError )
+	
+	test.assert_throws( function() { true / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { true / repr }, TypeError )
 	
 	test.assert_throws( function() { true / function(){} }, TypeError )
@@ -133,6 +141,10 @@ div_result_3.burn:
 	test.assert_throws( function() { false / "apple" }, TypeError )
 	
 	test.assert_throws( function() { false / "banana" }, TypeError )
+	
+	test.assert_throws( function() { false / b"" }, TypeError )
+	
+	test.assert_throws( function() { false / b"	«" }, TypeError )
 	
 	test.assert_throws( function() { false / repr }, TypeError )
 	
@@ -194,6 +206,10 @@ div_result_4.burn:
 	
 	test.assert_throws( function() { 0 / "banana" }, TypeError )
 	
+	test.assert_throws( function() { 0 / b"" }, TypeError )
+	
+	test.assert_throws( function() { 0 / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { 0 / repr }, TypeError )
 	
 	test.assert_throws( function() { 0 / function(){} }, TypeError )
@@ -204,25 +220,25 @@ div_result_4.burn:
 	
 	test.assert_throws( function() { 0 / types }, TypeError )
 	
-	let $v18 = 0 / 3
-	assert( $v18 is Float )
-	assert( ( -0.0001 < $v18 ) and ( $v18 < 0.0001 ) )
-	
-	let $v19 = 0 / 8
-	assert( $v19 is Float )
-	assert( ( -0.0001 < $v19 ) and ( $v19 < 0.0001 ) )
-	
-	let $v20 = 0 / 0.3
+	let $v20 = 0 / 3
 	assert( $v20 is Float )
 	assert( ( -0.0001 < $v20 ) and ( $v20 < 0.0001 ) )
 	
-	let $v21 = 0 / 0.33333333333
+	let $v21 = 0 / 8
 	assert( $v21 is Float )
 	assert( ( -0.0001 < $v21 ) and ( $v21 < 0.0001 ) )
 	
-	let $v22 = 0 / 0.7
+	let $v22 = 0 / 0.3
 	assert( $v22 is Float )
 	assert( ( -0.0001 < $v22 ) and ( $v22 < 0.0001 ) )
+	
+	let $v23 = 0 / 0.33333333333
+	assert( $v23 is Float )
+	assert( ( -0.0001 < $v23 ) and ( $v23 < 0.0001 ) )
+	
+	let $v24 = 0 / 0.7
+	assert( $v24 is Float )
+	assert( ( -0.0001 < $v24 ) and ( $v24 < 0.0001 ) )
 
 $ $BURN div_result_4.burn
 
@@ -264,6 +280,10 @@ div_result_5.burn:
 	
 	test.assert_throws( function() { 2 / "banana" }, TypeError )
 	
+	test.assert_throws( function() { 2 / b"" }, TypeError )
+	
+	test.assert_throws( function() { 2 / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { 2 / repr }, TypeError )
 	
 	test.assert_throws( function() { 2 / function(){} }, TypeError )
@@ -274,25 +294,25 @@ div_result_5.burn:
 	
 	test.assert_throws( function() { 2 / types }, TypeError )
 	
-	let $v18 = 2 / 3
-	assert( $v18 is Float )
-	assert( ( 0.6666 < $v18 ) and ( $v18 < 0.6668 ) )
-	
-	let $v19 = 2 / 8
-	assert( $v19 is Float )
-	assert( ( 0.2499 < $v19 ) and ( $v19 < 0.2501 ) )
-	
-	let $v20 = 2 / 0.3
+	let $v20 = 2 / 3
 	assert( $v20 is Float )
-	assert( ( 6.6666 < $v20 ) and ( $v20 < 6.6668 ) )
+	assert( ( 0.6666 < $v20 ) and ( $v20 < 0.6668 ) )
 	
-	let $v21 = 2 / 0.33333333333
+	let $v21 = 2 / 8
 	assert( $v21 is Float )
-	assert( ( 5.9999 < $v21 ) and ( $v21 < 6.0001 ) )
+	assert( ( 0.2499 < $v21 ) and ( $v21 < 0.2501 ) )
 	
-	let $v22 = 2 / 0.7
+	let $v22 = 2 / 0.3
 	assert( $v22 is Float )
-	assert( ( 2.8570 < $v22 ) and ( $v22 < 2.8572 ) )
+	assert( ( 6.6666 < $v22 ) and ( $v22 < 6.6668 ) )
+	
+	let $v23 = 2 / 0.33333333333
+	assert( $v23 is Float )
+	assert( ( 5.9999 < $v23 ) and ( $v23 < 6.0001 ) )
+	
+	let $v24 = 2 / 0.7
+	assert( $v24 is Float )
+	assert( ( 2.8570 < $v24 ) and ( $v24 < 2.8572 ) )
 
 $ $BURN div_result_5.burn
 
@@ -334,6 +354,10 @@ div_result_6.burn:
 	
 	test.assert_throws( function() { -2 / "banana" }, TypeError )
 	
+	test.assert_throws( function() { -2 / b"" }, TypeError )
+	
+	test.assert_throws( function() { -2 / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { -2 / repr }, TypeError )
 	
 	test.assert_throws( function() { -2 / function(){} }, TypeError )
@@ -344,25 +368,25 @@ div_result_6.burn:
 	
 	test.assert_throws( function() { -2 / types }, TypeError )
 	
-	let $v18 = -2 / 3
-	assert( $v18 is Float )
-	assert( ( -0.6668 < $v18 ) and ( $v18 < -0.6666 ) )
-	
-	let $v19 = -2 / 8
-	assert( $v19 is Float )
-	assert( ( -0.2501 < $v19 ) and ( $v19 < -0.2499 ) )
-	
-	let $v20 = -2 / 0.3
+	let $v20 = -2 / 3
 	assert( $v20 is Float )
-	assert( ( -6.6668 < $v20 ) and ( $v20 < -6.6666 ) )
+	assert( ( -0.6668 < $v20 ) and ( $v20 < -0.6666 ) )
 	
-	let $v21 = -2 / 0.33333333333
+	let $v21 = -2 / 8
 	assert( $v21 is Float )
-	assert( ( -6.0001 < $v21 ) and ( $v21 < -5.9999 ) )
+	assert( ( -0.2501 < $v21 ) and ( $v21 < -0.2499 ) )
 	
-	let $v22 = -2 / 0.7
+	let $v22 = -2 / 0.3
 	assert( $v22 is Float )
-	assert( ( -2.8572 < $v22 ) and ( $v22 < -2.8570 ) )
+	assert( ( -6.6668 < $v22 ) and ( $v22 < -6.6666 ) )
+	
+	let $v23 = -2 / 0.33333333333
+	assert( $v23 is Float )
+	assert( ( -6.0001 < $v23 ) and ( $v23 < -5.9999 ) )
+	
+	let $v24 = -2 / 0.7
+	assert( $v24 is Float )
+	assert( ( -2.8572 < $v24 ) and ( $v24 < -2.8570 ) )
 
 $ $BURN div_result_6.burn
 
@@ -404,6 +428,10 @@ div_result_7.burn:
 	
 	test.assert_throws( function() { 0.0 / "banana" }, TypeError )
 	
+	test.assert_throws( function() { 0.0 / b"" }, TypeError )
+	
+	test.assert_throws( function() { 0.0 / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { 0.0 / repr }, TypeError )
 	
 	test.assert_throws( function() { 0.0 / function(){} }, TypeError )
@@ -414,25 +442,25 @@ div_result_7.burn:
 	
 	test.assert_throws( function() { 0.0 / types }, TypeError )
 	
-	let $v18 = 0.0 / 3
-	assert( $v18 is Float )
-	assert( ( -0.0001 < $v18 ) and ( $v18 < 0.0001 ) )
-	
-	let $v19 = 0.0 / 8
-	assert( $v19 is Float )
-	assert( ( -0.0001 < $v19 ) and ( $v19 < 0.0001 ) )
-	
-	let $v20 = 0.0 / 0.3
+	let $v20 = 0.0 / 3
 	assert( $v20 is Float )
 	assert( ( -0.0001 < $v20 ) and ( $v20 < 0.0001 ) )
 	
-	let $v21 = 0.0 / 0.33333333333
+	let $v21 = 0.0 / 8
 	assert( $v21 is Float )
 	assert( ( -0.0001 < $v21 ) and ( $v21 < 0.0001 ) )
 	
-	let $v22 = 0.0 / 0.7
+	let $v22 = 0.0 / 0.3
 	assert( $v22 is Float )
 	assert( ( -0.0001 < $v22 ) and ( $v22 < 0.0001 ) )
+	
+	let $v23 = 0.0 / 0.33333333333
+	assert( $v23 is Float )
+	assert( ( -0.0001 < $v23 ) and ( $v23 < 0.0001 ) )
+	
+	let $v24 = 0.0 / 0.7
+	assert( $v24 is Float )
+	assert( ( -0.0001 < $v24 ) and ( $v24 < 0.0001 ) )
 
 $ $BURN div_result_7.burn
 
@@ -474,6 +502,10 @@ div_result_8.burn:
 	
 	test.assert_throws( function() { 2.0 / "banana" }, TypeError )
 	
+	test.assert_throws( function() { 2.0 / b"" }, TypeError )
+	
+	test.assert_throws( function() { 2.0 / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { 2.0 / repr }, TypeError )
 	
 	test.assert_throws( function() { 2.0 / function(){} }, TypeError )
@@ -484,25 +516,25 @@ div_result_8.burn:
 	
 	test.assert_throws( function() { 2.0 / types }, TypeError )
 	
-	let $v18 = 2.0 / 3
-	assert( $v18 is Float )
-	assert( ( 0.6666 < $v18 ) and ( $v18 < 0.6668 ) )
-	
-	let $v19 = 2.0 / 8
-	assert( $v19 is Float )
-	assert( ( 0.2499 < $v19 ) and ( $v19 < 0.2501 ) )
-	
-	let $v20 = 2.0 / 0.3
+	let $v20 = 2.0 / 3
 	assert( $v20 is Float )
-	assert( ( 6.6666 < $v20 ) and ( $v20 < 6.6668 ) )
+	assert( ( 0.6666 < $v20 ) and ( $v20 < 0.6668 ) )
 	
-	let $v21 = 2.0 / 0.33333333333
+	let $v21 = 2.0 / 8
 	assert( $v21 is Float )
-	assert( ( 5.9999 < $v21 ) and ( $v21 < 6.0001 ) )
+	assert( ( 0.2499 < $v21 ) and ( $v21 < 0.2501 ) )
 	
-	let $v22 = 2.0 / 0.7
+	let $v22 = 2.0 / 0.3
 	assert( $v22 is Float )
-	assert( ( 2.8570 < $v22 ) and ( $v22 < 2.8572 ) )
+	assert( ( 6.6666 < $v22 ) and ( $v22 < 6.6668 ) )
+	
+	let $v23 = 2.0 / 0.33333333333
+	assert( $v23 is Float )
+	assert( ( 5.9999 < $v23 ) and ( $v23 < 6.0001 ) )
+	
+	let $v24 = 2.0 / 0.7
+	assert( $v24 is Float )
+	assert( ( 2.8570 < $v24 ) and ( $v24 < 2.8572 ) )
 
 $ $BURN div_result_8.burn
 
@@ -544,6 +576,10 @@ div_result_9.burn:
 	
 	test.assert_throws( function() { -0.5 / "banana" }, TypeError )
 	
+	test.assert_throws( function() { -0.5 / b"" }, TypeError )
+	
+	test.assert_throws( function() { -0.5 / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { -0.5 / repr }, TypeError )
 	
 	test.assert_throws( function() { -0.5 / function(){} }, TypeError )
@@ -554,25 +590,25 @@ div_result_9.burn:
 	
 	test.assert_throws( function() { -0.5 / types }, TypeError )
 	
-	let $v18 = -0.5 / 3
-	assert( $v18 is Float )
-	assert( ( -0.1668 < $v18 ) and ( $v18 < -0.1666 ) )
-	
-	let $v19 = -0.5 / 8
-	assert( $v19 is Float )
-	assert( ( -0.0626 < $v19 ) and ( $v19 < -0.0624 ) )
-	
-	let $v20 = -0.5 / 0.3
+	let $v20 = -0.5 / 3
 	assert( $v20 is Float )
-	assert( ( -1.6668 < $v20 ) and ( $v20 < -1.6666 ) )
+	assert( ( -0.1668 < $v20 ) and ( $v20 < -0.1666 ) )
 	
-	let $v21 = -0.5 / 0.33333333333
+	let $v21 = -0.5 / 8
 	assert( $v21 is Float )
-	assert( ( -1.5001 < $v21 ) and ( $v21 < -1.4999 ) )
+	assert( ( -0.0626 < $v21 ) and ( $v21 < -0.0624 ) )
 	
-	let $v22 = -0.5 / 0.7
+	let $v22 = -0.5 / 0.3
 	assert( $v22 is Float )
-	assert( ( -0.7144 < $v22 ) and ( $v22 < -0.7142 ) )
+	assert( ( -1.6668 < $v22 ) and ( $v22 < -1.6666 ) )
+	
+	let $v23 = -0.5 / 0.33333333333
+	assert( $v23 is Float )
+	assert( ( -1.5001 < $v23 ) and ( $v23 < -1.4999 ) )
+	
+	let $v24 = -0.5 / 0.7
+	assert( $v24 is Float )
+	assert( ( -0.7144 < $v24 ) and ( $v24 < -0.7142 ) )
 
 $ $BURN div_result_9.burn
 
@@ -605,6 +641,10 @@ div_result_10.burn:
 	test.assert_throws( function() { "c"[0] / "apple" }, TypeError )
 	
 	test.assert_throws( function() { "c"[0] / "banana" }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] / b"" }, TypeError )
+	
+	test.assert_throws( function() { "c"[0] / b"	«" }, TypeError )
 	
 	test.assert_throws( function() { "c"[0] / repr }, TypeError )
 	
@@ -658,6 +698,10 @@ div_result_11.burn:
 	
 	test.assert_throws( function() { "" / "banana" }, TypeError )
 	
+	test.assert_throws( function() { "" / b"" }, TypeError )
+	
+	test.assert_throws( function() { "" / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { "" / repr }, TypeError )
 	
 	test.assert_throws( function() { "" / function(){} }, TypeError )
@@ -709,6 +753,10 @@ div_result_12.burn:
 	test.assert_throws( function() { "apple" / "apple" }, TypeError )
 	
 	test.assert_throws( function() { "apple" / "banana" }, TypeError )
+	
+	test.assert_throws( function() { "apple" / b"" }, TypeError )
+	
+	test.assert_throws( function() { "apple" / b"	«" }, TypeError )
 	
 	test.assert_throws( function() { "apple" / repr }, TypeError )
 	
@@ -762,6 +810,10 @@ div_result_13.burn:
 	
 	test.assert_throws( function() { "banana" / "banana" }, TypeError )
 	
+	test.assert_throws( function() { "banana" / b"" }, TypeError )
+	
+	test.assert_throws( function() { "banana" / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { "banana" / repr }, TypeError )
 	
 	test.assert_throws( function() { "banana" / function(){} }, TypeError )
@@ -785,6 +837,118 @@ div_result_13.burn:
 $ $BURN div_result_13.burn
 
 div_result_14.burn:
+	import test
+	import burn.types
+	
+	test.assert_throws( function() { b"" / nothing }, TypeError )
+	
+	test.assert_throws( function() { b"" / true }, TypeError )
+	
+	test.assert_throws( function() { b"" / false }, TypeError )
+	
+	test.assert_throws( function() { b"" / 0 }, TypeError )
+	
+	test.assert_throws( function() { b"" / 2 }, TypeError )
+	
+	test.assert_throws( function() { b"" / -2 }, TypeError )
+	
+	test.assert_throws( function() { b"" / 0.0 }, TypeError )
+	
+	test.assert_throws( function() { b"" / 2.0 }, TypeError )
+	
+	test.assert_throws( function() { b"" / -0.5 }, TypeError )
+	
+	test.assert_throws( function() { b"" / "c"[0] }, TypeError )
+	
+	test.assert_throws( function() { b"" / "" }, TypeError )
+	
+	test.assert_throws( function() { b"" / "apple" }, TypeError )
+	
+	test.assert_throws( function() { b"" / "banana" }, TypeError )
+	
+	test.assert_throws( function() { b"" / b"" }, TypeError )
+	
+	test.assert_throws( function() { b"" / b"	«" }, TypeError )
+	
+	test.assert_throws( function() { b"" / repr }, TypeError )
+	
+	test.assert_throws( function() { b"" / function(){} }, TypeError )
+	
+	test.assert_throws( function() { b"" / Integer }, TypeError )
+	
+	test.assert_throws( function() { b"" / Type }, TypeError )
+	
+	test.assert_throws( function() { b"" / types }, TypeError )
+	
+	test.assert_throws( function() { b"" / 3 }, TypeError )
+	
+	test.assert_throws( function() { b"" / 8 }, TypeError )
+	
+	test.assert_throws( function() { b"" / 0.3 }, TypeError )
+	
+	test.assert_throws( function() { b"" / 0.33333333333 }, TypeError )
+	
+	test.assert_throws( function() { b"" / 0.7 }, TypeError )
+
+$ $BURN div_result_14.burn
+
+div_result_15.burn:
+	import test
+	import burn.types
+	
+	test.assert_throws( function() { b"	«" / nothing }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / true }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / false }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / 0 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / 2 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / -2 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / 0.0 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / 2.0 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / -0.5 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / "c"[0] }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / "" }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / "apple" }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / "banana" }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / b"" }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / b"	«" }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / repr }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / function(){} }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / Integer }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / Type }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / types }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / 3 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / 8 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / 0.3 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / 0.33333333333 }, TypeError )
+	
+	test.assert_throws( function() { b"	«" / 0.7 }, TypeError )
+
+$ $BURN div_result_15.burn
+
+div_result_16.burn:
 	import test
 	import burn.types
 	
@@ -814,6 +978,10 @@ div_result_14.burn:
 	
 	test.assert_throws( function() { repr / "banana" }, TypeError )
 	
+	test.assert_throws( function() { repr / b"" }, TypeError )
+	
+	test.assert_throws( function() { repr / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { repr / repr }, TypeError )
 	
 	test.assert_throws( function() { repr / function(){} }, TypeError )
@@ -834,9 +1002,9 @@ div_result_14.burn:
 	
 	test.assert_throws( function() { repr / 0.7 }, TypeError )
 
-$ $BURN div_result_14.burn
+$ $BURN div_result_16.burn
 
-div_result_15.burn:
+div_result_17.burn:
 	import test
 	import burn.types
 	
@@ -866,6 +1034,10 @@ div_result_15.burn:
 	
 	test.assert_throws( function() { function(){} / "banana" }, TypeError )
 	
+	test.assert_throws( function() { function(){} / b"" }, TypeError )
+	
+	test.assert_throws( function() { function(){} / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { function(){} / repr }, TypeError )
 	
 	test.assert_throws( function() { function(){} / function(){} }, TypeError )
@@ -886,9 +1058,9 @@ div_result_15.burn:
 	
 	test.assert_throws( function() { function(){} / 0.7 }, TypeError )
 
-$ $BURN div_result_15.burn
+$ $BURN div_result_17.burn
 
-div_result_16.burn:
+div_result_18.burn:
 	import test
 	import burn.types
 	
@@ -918,6 +1090,10 @@ div_result_16.burn:
 	
 	test.assert_throws( function() { Integer / "banana" }, TypeError )
 	
+	test.assert_throws( function() { Integer / b"" }, TypeError )
+	
+	test.assert_throws( function() { Integer / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { Integer / repr }, TypeError )
 	
 	test.assert_throws( function() { Integer / function(){} }, TypeError )
@@ -938,9 +1114,9 @@ div_result_16.burn:
 	
 	test.assert_throws( function() { Integer / 0.7 }, TypeError )
 
-$ $BURN div_result_16.burn
+$ $BURN div_result_18.burn
 
-div_result_17.burn:
+div_result_19.burn:
 	import test
 	import burn.types
 	
@@ -970,6 +1146,10 @@ div_result_17.burn:
 	
 	test.assert_throws( function() { Type / "banana" }, TypeError )
 	
+	test.assert_throws( function() { Type / b"" }, TypeError )
+	
+	test.assert_throws( function() { Type / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { Type / repr }, TypeError )
 	
 	test.assert_throws( function() { Type / function(){} }, TypeError )
@@ -990,9 +1170,9 @@ div_result_17.burn:
 	
 	test.assert_throws( function() { Type / 0.7 }, TypeError )
 
-$ $BURN div_result_17.burn
+$ $BURN div_result_19.burn
 
-div_result_18.burn:
+div_result_20.burn:
 	import test
 	import burn.types
 	
@@ -1022,6 +1202,10 @@ div_result_18.burn:
 	
 	test.assert_throws( function() { types / "banana" }, TypeError )
 	
+	test.assert_throws( function() { types / b"" }, TypeError )
+	
+	test.assert_throws( function() { types / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { types / repr }, TypeError )
 	
 	test.assert_throws( function() { types / function(){} }, TypeError )
@@ -1042,9 +1226,9 @@ div_result_18.burn:
 	
 	test.assert_throws( function() { types / 0.7 }, TypeError )
 
-$ $BURN div_result_18.burn
+$ $BURN div_result_20.burn
 
-div_result_19.burn:
+div_result_21.burn:
 	import test
 	import burn.types
 	
@@ -1082,6 +1266,10 @@ div_result_19.burn:
 	
 	test.assert_throws( function() { 3 / "banana" }, TypeError )
 	
+	test.assert_throws( function() { 3 / b"" }, TypeError )
+	
+	test.assert_throws( function() { 3 / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { 3 / repr }, TypeError )
 	
 	test.assert_throws( function() { 3 / function(){} }, TypeError )
@@ -1092,29 +1280,29 @@ div_result_19.burn:
 	
 	test.assert_throws( function() { 3 / types }, TypeError )
 	
-	let $v18 = 3 / 3
-	assert( $v18 is Float )
-	assert( ( 0.9999 < $v18 ) and ( $v18 < 1.0001 ) )
-	
-	let $v19 = 3 / 8
-	assert( $v19 is Float )
-	assert( ( 0.3749 < $v19 ) and ( $v19 < 0.3751 ) )
-	
-	let $v20 = 3 / 0.3
+	let $v20 = 3 / 3
 	assert( $v20 is Float )
-	assert( ( 9.9999 < $v20 ) and ( $v20 < 10.0001 ) )
+	assert( ( 0.9999 < $v20 ) and ( $v20 < 1.0001 ) )
 	
-	let $v21 = 3 / 0.33333333333
+	let $v21 = 3 / 8
 	assert( $v21 is Float )
-	assert( ( 8.9999 < $v21 ) and ( $v21 < 9.0001 ) )
+	assert( ( 0.3749 < $v21 ) and ( $v21 < 0.3751 ) )
 	
-	let $v22 = 3 / 0.7
+	let $v22 = 3 / 0.3
 	assert( $v22 is Float )
-	assert( ( 4.2856 < $v22 ) and ( $v22 < 4.2858 ) )
+	assert( ( 9.9999 < $v22 ) and ( $v22 < 10.0001 ) )
+	
+	let $v23 = 3 / 0.33333333333
+	assert( $v23 is Float )
+	assert( ( 8.9999 < $v23 ) and ( $v23 < 9.0001 ) )
+	
+	let $v24 = 3 / 0.7
+	assert( $v24 is Float )
+	assert( ( 4.2856 < $v24 ) and ( $v24 < 4.2858 ) )
 
-$ $BURN div_result_19.burn
+$ $BURN div_result_21.burn
 
-div_result_20.burn:
+div_result_22.burn:
 	import test
 	import burn.types
 	
@@ -1152,6 +1340,10 @@ div_result_20.burn:
 	
 	test.assert_throws( function() { 8 / "banana" }, TypeError )
 	
+	test.assert_throws( function() { 8 / b"" }, TypeError )
+	
+	test.assert_throws( function() { 8 / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { 8 / repr }, TypeError )
 	
 	test.assert_throws( function() { 8 / function(){} }, TypeError )
@@ -1162,29 +1354,29 @@ div_result_20.burn:
 	
 	test.assert_throws( function() { 8 / types }, TypeError )
 	
-	let $v18 = 8 / 3
-	assert( $v18 is Float )
-	assert( ( 2.6666 < $v18 ) and ( $v18 < 2.6668 ) )
-	
-	let $v19 = 8 / 8
-	assert( $v19 is Float )
-	assert( ( 0.9999 < $v19 ) and ( $v19 < 1.0001 ) )
-	
-	let $v20 = 8 / 0.3
+	let $v20 = 8 / 3
 	assert( $v20 is Float )
-	assert( ( 26.6666 < $v20 ) and ( $v20 < 26.6668 ) )
+	assert( ( 2.6666 < $v20 ) and ( $v20 < 2.6668 ) )
 	
-	let $v21 = 8 / 0.33333333333
+	let $v21 = 8 / 8
 	assert( $v21 is Float )
-	assert( ( 23.9999 < $v21 ) and ( $v21 < 24.0001 ) )
+	assert( ( 0.9999 < $v21 ) and ( $v21 < 1.0001 ) )
 	
-	let $v22 = 8 / 0.7
+	let $v22 = 8 / 0.3
 	assert( $v22 is Float )
-	assert( ( 11.4285 < $v22 ) and ( $v22 < 11.4287 ) )
+	assert( ( 26.6666 < $v22 ) and ( $v22 < 26.6668 ) )
+	
+	let $v23 = 8 / 0.33333333333
+	assert( $v23 is Float )
+	assert( ( 23.9999 < $v23 ) and ( $v23 < 24.0001 ) )
+	
+	let $v24 = 8 / 0.7
+	assert( $v24 is Float )
+	assert( ( 11.4285 < $v24 ) and ( $v24 < 11.4287 ) )
 
-$ $BURN div_result_20.burn
+$ $BURN div_result_22.burn
 
-div_result_21.burn:
+div_result_23.burn:
 	import test
 	import burn.types
 	
@@ -1222,6 +1414,10 @@ div_result_21.burn:
 	
 	test.assert_throws( function() { 0.3 / "banana" }, TypeError )
 	
+	test.assert_throws( function() { 0.3 / b"" }, TypeError )
+	
+	test.assert_throws( function() { 0.3 / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { 0.3 / repr }, TypeError )
 	
 	test.assert_throws( function() { 0.3 / function(){} }, TypeError )
@@ -1232,29 +1428,29 @@ div_result_21.burn:
 	
 	test.assert_throws( function() { 0.3 / types }, TypeError )
 	
-	let $v18 = 0.3 / 3
-	assert( $v18 is Float )
-	assert( ( 0.0999 < $v18 ) and ( $v18 < 0.1001 ) )
-	
-	let $v19 = 0.3 / 8
-	assert( $v19 is Float )
-	assert( ( 0.0374 < $v19 ) and ( $v19 < 0.0376 ) )
-	
-	let $v20 = 0.3 / 0.3
+	let $v20 = 0.3 / 3
 	assert( $v20 is Float )
-	assert( ( 0.9999 < $v20 ) and ( $v20 < 1.0001 ) )
+	assert( ( 0.0999 < $v20 ) and ( $v20 < 0.1001 ) )
 	
-	let $v21 = 0.3 / 0.33333333333
+	let $v21 = 0.3 / 8
 	assert( $v21 is Float )
-	assert( ( 0.8999 < $v21 ) and ( $v21 < 0.9001 ) )
+	assert( ( 0.0374 < $v21 ) and ( $v21 < 0.0376 ) )
 	
-	let $v22 = 0.3 / 0.7
+	let $v22 = 0.3 / 0.3
 	assert( $v22 is Float )
-	assert( ( 0.4285 < $v22 ) and ( $v22 < 0.4287 ) )
+	assert( ( 0.9999 < $v22 ) and ( $v22 < 1.0001 ) )
+	
+	let $v23 = 0.3 / 0.33333333333
+	assert( $v23 is Float )
+	assert( ( 0.8999 < $v23 ) and ( $v23 < 0.9001 ) )
+	
+	let $v24 = 0.3 / 0.7
+	assert( $v24 is Float )
+	assert( ( 0.4285 < $v24 ) and ( $v24 < 0.4287 ) )
 
-$ $BURN div_result_21.burn
+$ $BURN div_result_23.burn
 
-div_result_22.burn:
+div_result_24.burn:
 	import test
 	import burn.types
 	
@@ -1292,6 +1488,10 @@ div_result_22.burn:
 	
 	test.assert_throws( function() { 0.33333333333 / "banana" }, TypeError )
 	
+	test.assert_throws( function() { 0.33333333333 / b"" }, TypeError )
+	
+	test.assert_throws( function() { 0.33333333333 / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { 0.33333333333 / repr }, TypeError )
 	
 	test.assert_throws( function() { 0.33333333333 / function(){} }, TypeError )
@@ -1302,29 +1502,29 @@ div_result_22.burn:
 	
 	test.assert_throws( function() { 0.33333333333 / types }, TypeError )
 	
-	let $v18 = 0.33333333333 / 3
-	assert( $v18 is Float )
-	assert( ( 0.1110 < $v18 ) and ( $v18 < 0.1112 ) )
-	
-	let $v19 = 0.33333333333 / 8
-	assert( $v19 is Float )
-	assert( ( 0.0416 < $v19 ) and ( $v19 < 0.0418 ) )
-	
-	let $v20 = 0.33333333333 / 0.3
+	let $v20 = 0.33333333333 / 3
 	assert( $v20 is Float )
-	assert( ( 1.1110 < $v20 ) and ( $v20 < 1.1112 ) )
+	assert( ( 0.1110 < $v20 ) and ( $v20 < 0.1112 ) )
 	
-	let $v21 = 0.33333333333 / 0.33333333333
+	let $v21 = 0.33333333333 / 8
 	assert( $v21 is Float )
-	assert( ( 0.9999 < $v21 ) and ( $v21 < 1.0001 ) )
+	assert( ( 0.0416 < $v21 ) and ( $v21 < 0.0418 ) )
 	
-	let $v22 = 0.33333333333 / 0.7
+	let $v22 = 0.33333333333 / 0.3
 	assert( $v22 is Float )
-	assert( ( 0.4761 < $v22 ) and ( $v22 < 0.4763 ) )
+	assert( ( 1.1110 < $v22 ) and ( $v22 < 1.1112 ) )
+	
+	let $v23 = 0.33333333333 / 0.33333333333
+	assert( $v23 is Float )
+	assert( ( 0.9999 < $v23 ) and ( $v23 < 1.0001 ) )
+	
+	let $v24 = 0.33333333333 / 0.7
+	assert( $v24 is Float )
+	assert( ( 0.4761 < $v24 ) and ( $v24 < 0.4763 ) )
 
-$ $BURN div_result_22.burn
+$ $BURN div_result_24.burn
 
-div_result_23.burn:
+div_result_25.burn:
 	import test
 	import burn.types
 	
@@ -1362,6 +1562,10 @@ div_result_23.burn:
 	
 	test.assert_throws( function() { 0.7 / "banana" }, TypeError )
 	
+	test.assert_throws( function() { 0.7 / b"" }, TypeError )
+	
+	test.assert_throws( function() { 0.7 / b"	«" }, TypeError )
+	
 	test.assert_throws( function() { 0.7 / repr }, TypeError )
 	
 	test.assert_throws( function() { 0.7 / function(){} }, TypeError )
@@ -1372,24 +1576,24 @@ div_result_23.burn:
 	
 	test.assert_throws( function() { 0.7 / types }, TypeError )
 	
-	let $v18 = 0.7 / 3
-	assert( $v18 is Float )
-	assert( ( 0.2332 < $v18 ) and ( $v18 < 0.2334 ) )
-	
-	let $v19 = 0.7 / 8
-	assert( $v19 is Float )
-	assert( ( 0.0874 < $v19 ) and ( $v19 < 0.0876 ) )
-	
-	let $v20 = 0.7 / 0.3
+	let $v20 = 0.7 / 3
 	assert( $v20 is Float )
-	assert( ( 2.3332 < $v20 ) and ( $v20 < 2.3334 ) )
+	assert( ( 0.2332 < $v20 ) and ( $v20 < 0.2334 ) )
 	
-	let $v21 = 0.7 / 0.33333333333
+	let $v21 = 0.7 / 8
 	assert( $v21 is Float )
-	assert( ( 2.0999 < $v21 ) and ( $v21 < 2.1001 ) )
+	assert( ( 0.0874 < $v21 ) and ( $v21 < 0.0876 ) )
 	
-	let $v22 = 0.7 / 0.7
+	let $v22 = 0.7 / 0.3
 	assert( $v22 is Float )
-	assert( ( 0.9999 < $v22 ) and ( $v22 < 1.0001 ) )
+	assert( ( 2.3332 < $v22 ) and ( $v22 < 2.3334 ) )
+	
+	let $v23 = 0.7 / 0.33333333333
+	assert( $v23 is Float )
+	assert( ( 2.0999 < $v23 ) and ( $v23 < 2.1001 ) )
+	
+	let $v24 = 0.7 / 0.7
+	assert( $v24 is Float )
+	assert( ( 0.9999 < $v24 ) and ( $v24 < 1.0001 ) )
 
-$ $BURN div_result_23.burn
+$ $BURN div_result_25.burn

@@ -31,6 +31,10 @@ rt.createString = function( v ) {
 	return new Value.String( v );
 };
 
+rt.createBytes = function( v ) {
+	return new Value.Bytes( v );
+};
+
 rt.createFunction = function( implementation, options ) {
 	return new Value.Function( implementation, options );
 };
@@ -139,6 +143,8 @@ rt.add = function( fiber, l, r ) {
 		}
 	} else if( l instanceof Value.String && r instanceof Value.String ) {
 		return new Value.String( l.value + r.value );
+	} else if( l instanceof Value.Bytes && r instanceof Value.Bytes ) {
+		return new Value.Bytes( Buffer.concat( [ l.value, r.value ] ) );
 	}
 	throw new errors.TypeErrorInstance(
 		"TypeError: Can't apply `+` to " + l.repr + " and " + r.repr + ".",

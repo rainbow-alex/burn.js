@@ -694,6 +694,8 @@ module.exports = function( tokens ) {
 			return new ast.VariableExpression( { token: read() } );
 		} else if( peek().type === "string_literal" ) {
 			return parseStringLiteral();
+		} else if( peek().type === "bytes_literal" ) {
+			return parseBytesLiteral();
 		} else if( peek().type === "integer_literal" ) {
 			let token = read();
 			return new ast.IntegerLiteral( {
@@ -824,6 +826,7 @@ module.exports = function( tokens ) {
 	}
 	
 	function parseStringLiteral() {
+		// do not read the token until we are done, that way any errors we throw will point at the right token
 		let token = peek();
 		console.assert( token.type === "string_literal" );
 		let source = token.value;
@@ -885,6 +888,49 @@ module.exports = function( tokens ) {
 		}
 		read();
 		return new ast.StringLiteral( {
+			token: token,
+			value: value,
+		} );
+	}
+	
+	function parseBytesLiteral() {
+		// do not read the token until we are done, that way any errors we throw will point at the right token
+		let token = peek();
+		console.assert( token.type === "bytes_literal" );
+		let source = token.value;
+		let value = [];
+		let i = 2;
+		while( i < source.length - 1 ) {
+			let c = source[i];
+			if( c === "\\" ) {
+				i++;
+				c = source[i];
+				if( c === "\\" ) {
+					value.push( "\\".charCodeAt( 0 ) )
+					i++;
+				} else if( c === "n" ) {
+					value.push( "\n".charCodeAt( 0 ) )
+					i++;
+				} else if( c === "t" ) {
+					value.push( "\t".charCodeAt( 0 ) )
+					i++;
+				} else if( c === "x" ) {
+					let hex = source.substr( i+1, 2 );
+					if( ! hex.match( /^[0-9a-fA-F]{2}$/ ) ) {
+						throwError( "Invalid unicode escape sequence." );
+					}
+					value.push( parseInt( hex, 16 ) );
+					i += 3;
+				} else {
+					throwError( "Invalid escape sequence." );
+				}
+			} else {
+				value.push( c.charCodeAt( 0 ) )
+				i++;
+			}
+		}
+		read();
+		return new ast.BytesLiteral( {
 			token: token,
 			value: value,
 		} );

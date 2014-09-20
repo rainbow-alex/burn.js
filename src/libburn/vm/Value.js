@@ -137,54 +137,6 @@ Value.Float = CLASS( Value, {
 	safe: true,
 } );
 
-Value.Tuple = CLASS( Value, {
-	init: function( items ) {
-		this.items = items;
-	},
-	repr: "<Tuple>",
-	isTruthy: function( fiber ) {
-		return this.items.length > 0;
-	},
-	canEq: function( other ) {
-		if( ! other instanceof Value.Tuple ) {
-			return false;
-		}
-		if( this.items.length !== other.items.length ) {
-			return false;
-		}
-		for( let i = 0 ; i < this.items.length ; i++ ) {
-			if( ! this.items[ i ].canEq( other.items[ i ] ) ) {
-				return false;
-			}
-		}
-		return true;
-	},
-	eq: function( fiber, other ) {
-		for( let i = 0 ; i < this.get_length() ; i++ ) {
-			if( ! this.items[ i ].eq( other.items[ i ] ) ) {
-				return false;
-			}
-		}
-		return true;
-	},
-	// TODO ord
-	getIndex: function( fiber, index ) {
-		util.validateIndex( fiber, this, types.Integer.Nonnegative, index );
-		return this.items[ index.value ];
-	},
-	get_length: function( fiber ) {
-		return new Value.Integer( this.items.length );
-	},
-	get safe() {
-		for( let i = 0 ; i < this.items.length ; i++ ) {
-			if( ! this.items[i].safe ) {
-				return false;
-			}
-		}
-		return true;
-	},
-} );
-
 Value.Character = CLASS( Value, {
 	init: function( value ) {
 		this.value = value;
@@ -242,6 +194,50 @@ Value.String = CLASS( Value, {
 	get_length: function( fiber ) {
 		return new Value.Integer( utf8.length( this.value ) );
 	},
+	call_encode: function( fiber, callee, args ) {
+		util.validateCallArguments( fiber, callee, args, [] );
+		return new Value.Bytes( utf8.encode( this.value ) );
+	},
+} );
+
+Value.Bytes = CLASS( Value, {
+	init: function( value ) {
+		if( Array.isArray( value ) ) {
+			value = new Buffer( value );
+		}
+		this.value = value;
+	},
+	repr: "<Bytes>",
+	isTruthy: function( fiber ) {
+		return this.value.length > 0;
+	},
+	canEq: function( value ) {
+		return value instanceof Value.Bytes;
+	},
+	eq: function( fiber, other ) {
+		if( this.value.length !== other.value.length ) {
+			return false;
+		}
+		for( let i = 0 ; i < this.value.length ; i++ ) {
+			if( this.value[i] !== other.value[i] ) {
+				return false;
+			}
+		}
+		return true;
+	},
+	// TODO ord
+	getIndex: function( fiber, index ) {
+		util.validateIndex( fiber, this, types.Integer.Nonnegative, index );
+		return new Value.Integer( this.value[ index.value ] );
+	},
+	safe: true,
+	get_length: function( fiber ) {
+		return new Value.Integer( this.value.length );
+	},
+	call_decode: function( fiber, callee, args ) {
+		util.validateCallArguments( fiber, callee, args, [] );
+		return new Value.String( utf8.decode( this.value ) );
+	},
 } );
 
 Value.Function = CLASS( Value, {
@@ -273,6 +269,72 @@ Value.Function = CLASS( Value, {
 		} finally {
 			fiber.stack.pop();
 		}
+	},
+} );
+
+Value.BoundMethod = CLASS( Value, {
+	init: function( value, method ) {
+		this.value = value;
+		this.method = method;
+	},
+	get repr() {
+		return "<BoundMethod '" + this.method + "' of " + this.value.repr + ">";
+	},
+	call: function( fiber, args ) {
+		fiber.stack.push( new Fiber.BoundMethodFrame( this ) );
+		try {
+			return this.value[ "call_" + this.method ]( fiber, this, args ) || new Value.Nothing();
+		} finally {
+			fiber.stack.pop();
+		}
+	},
+} );
+
+Value.Tuple = CLASS( Value, {
+	init: function( items ) {
+		this.items = items;
+	},
+	repr: "<Tuple>",
+	isTruthy: function( fiber ) {
+		return this.items.length > 0;
+	},
+	canEq: function( other ) {
+		if( ! other instanceof Value.Tuple ) {
+			return false;
+		}
+		if( this.items.length !== other.items.length ) {
+			return false;
+		}
+		for( let i = 0 ; i < this.items.length ; i++ ) {
+			if( ! this.items[ i ].canEq( other.items[ i ] ) ) {
+				return false;
+			}
+		}
+		return true;
+	},
+	eq: function( fiber, other ) {
+		for( let i = 0 ; i < this.get_length() ; i++ ) {
+			if( ! this.items[ i ].eq( other.items[ i ] ) ) {
+				return false;
+			}
+		}
+		return true;
+	},
+	// TODO ord
+	getIndex: function( fiber, index ) {
+		util.validateIndex( fiber, this, types.Integer.Nonnegative, index );
+		return this.items[ index.value ];
+	},
+	get_length: function( fiber ) {
+		return new Value.Integer( this.items.length );
+	},
+	get safe() {
+		for( let i = 0 ; i < this.items.length ; i++ ) {
+			if( ! this.items[i].safe ) {
+				return false;
+			}
+		}
+		return true;
 	},
 } );
 
@@ -327,24 +389,6 @@ Value.Type = CLASS( Value, {
 	},
 	safe: false,
 	permanent: false,
-} );
-
-Value.BoundMethod = CLASS( Value, {
-	init: function( value, method ) {
-		this.value = value;
-		this.method = method;
-	},
-	get repr() {
-		return "<BoundMethod '" + this.method + "' of " + this.value.repr + ">";
-	},
-	call: function( fiber, args ) {
-		fiber.stack.push( new Fiber.BoundMethodFrame( this ) );
-		try {
-			return this.value[ "call_" + this.method ]( fiber, this, args ) || new Value.Nothing();
-		} finally {
-			fiber.stack.pop();
-		}
-	},
 } );
 
 Value.TypeUnion = CLASS( Value, {
