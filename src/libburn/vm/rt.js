@@ -191,6 +191,14 @@ rt.mul = function( fiber, l, r ) {
 	);
 };
 
+function repeatString( s, n ) {
+	let o = "";
+	for( let i = 0 ; i < n ; i++ ) {
+		o += s;
+	}
+	return o;
+}
+
 rt.div = function( fiber, l, r ) {
 	if( ( l instanceof Value.Integer || l instanceof Value.Float ) && ( r instanceof Value.Integer || r instanceof Value.Float ) ) {
 		if( r.value === 0 ) {
@@ -243,14 +251,6 @@ rt.sub = function( fiber, l, r ) {
 		fiber.stack
 	);
 };
-
-function repeatString( s, n ) {
-	let o = "";
-	for( let i = 0 ; i < n ; i++ ) {
-		o += s;
-	}
-	return o;
-}
 
 rt.is = function( fiber, l, r ) {
 	if( ! types.Type.typeTest( fiber, r ) ) {
