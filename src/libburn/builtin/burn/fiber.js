@@ -7,20 +7,26 @@ let fiber = module.exports;
 
 fiber.exposes = new Value.Module( {
 	
-	fork: new Value.Function( function( fiber, callee, args ) {
-		util.validateCallArguments( fiber, callee, args, [
-			{ type: types.Callable },
-		] );
-		fiber.vm.fork( function( forkFiber ) {
-			args[0].call( forkFiber, [] );
-		} );
-	}, { safe: true } ),
+	fork: new Value.Function( {
+		safe: true,
+		implementation: function( fiber, args ) {
+			util.validateCallArguments( fiber, this, args, [
+				{ type: types.Callable },
+			] );
+			fiber.vm.fork( function( forkFiber ) {
+				args[0].call( forkFiber, [] );
+			} );
+		},
+	} ),
 	
-	yield: new Value.Function( function( fiber, callee, args ) {
-		util.validateCallArguments( fiber, callee, args, [] );
-		fiber.async( function( cb ) {
-			setImmediate( cb );
-		} );
-	}, { safe: true } ),
+	yield: new Value.Function( {
+		safe: true,
+		implementation: function( fiber, args ) {
+			util.validateCallArguments( fiber, this, args, [] );
+			fiber.async( function( cb ) {
+				setImmediate( cb );
+			} );
+		},
+	} ),
 	
 } );

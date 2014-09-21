@@ -51,8 +51,8 @@ rt.createList = function( items ) {
 	return new Value.List( items );
 };
 
-rt.createFunction = function( implementation, options ) {
-	return new Value.Function( implementation, options );
+rt.createFunction = function( properties ) {
+	return new Value.Function( properties );
 };
 
 rt.validateFunctionCallArguments = function( fiber, fn, args, parameters ) {

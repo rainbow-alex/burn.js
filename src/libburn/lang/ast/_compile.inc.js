@@ -118,8 +118,13 @@ ast.ListLiteral.prototype.compile = function( output ) {
 };
 
 ast.FunctionExpression.prototype.compile = function( output ) {
-	output.code += '_.createFunction(function(_fiber,fn,args){args=args||[];';
-	output.code += '_.validateFunctionCallArguments(_fiber,fn,args,[';
+	output.code += '_.createFunction({';
+	output.code += 'safe:' + encodeBoolean( this.safe ) + ',';
+	if( this.name ) {
+		output.code += 'name:' + encodeString( this.name ) + ',';
+	}
+	output.code += 'implementation:function(_fiber,args){args=args||[];';
+	output.code += '_.validateFunctionCallArguments(_fiber,this,args,[';
 	this.parameters.forEachValue( function( parameter ) {
 		output.code += '{';
 		if( parameter.type ) {
@@ -148,11 +153,7 @@ ast.FunctionExpression.prototype.compile = function( output ) {
 		this.returnType.compile( output );
 		output.code += ');';
 	}
-	output.code += 'return r;},{';
-	if( this.name ) {
-		output.code += 'name:' + encodeString( this.name ) + ',';
-	}
-	output.code += 'safe:' + encodeBoolean( this.safe ) + ',';
+	output.code += 'return r;},';
 	output.code += 'origin:_origin,';
 	output.code += 'line:' + this.keyword.line + ',';
 	output.code += '})';

@@ -35,35 +35,44 @@ implicit.exposes = new Value.Module( {
 	IncludeError: errors.IncludeError,
 	AssertionError: errors.AssertionError,
 	
-	main: new Value.Function( function( fiber, callee, args ) {
-		util.validateCallArguments( fiber, callee, args, [
-			{ type: types.Callable },
-		] );
-		fiber.vm.main = args[0];
-	}, { safe: true } ),
+	main: new Value.Function( {
+		safe: true,
+		implementation: function( fiber, args ) {
+			util.validateCallArguments( fiber, this, args, [
+				{ type: types.Callable },
+			] );
+			fiber.vm.main = args[0];
+		},
+	} ),
 	
-	repr: new Value.Function( function( fiber, callee, args ) {
-		util.validateCallArguments( fiber, callee, args, [
-			{},
-		] );
-		return new Value.String( args[0].repr );
-	}, { safe: true } ),
+	repr: new Value.Function( {
+		safe: true,
+		implementation: function( fiber, args ) {
+			util.validateCallArguments( fiber, this, args, [
+				{},
+			] );
+			return new Value.String( args[0].repr );
+		},
+	} ),
 	
-	assert: new Value.Function( function( fiber, callee, args ) {
-		util.validateCallArguments( fiber, callee, args, [
-			{},
-			{ type: types.String, default: null }
-		] );
-		if( ! args[0].isTruthy( fiber ) ) {
-			if( args[1] instanceof Value.String ) {
-				throw new errors.AssertionErrorInstance(
-					"AssertionError: " + args[1].value,
-					fiber.stack
-				);
-			} else {
-				throw new errors.AssertionErrorInstance( "AssertionError", fiber.stack );
+	assert: new Value.Function( {
+		safe: true,
+		implementation: function( fiber, args ) {
+			util.validateCallArguments( fiber, this, args, [
+				{},
+				{ type: types.String, default: null }
+			] );
+			if( ! args[0].isTruthy( fiber ) ) {
+				if( args[1] instanceof Value.String ) {
+					throw new errors.AssertionErrorInstance(
+						"AssertionError: " + args[1].value,
+						fiber.stack
+					);
+				} else {
+					throw new errors.AssertionErrorInstance( "AssertionError", fiber.stack );
+				}
 			}
-		}
-	}, { safe: true } ),
+		},
+	} ),
 	
 } );

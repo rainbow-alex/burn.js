@@ -293,14 +293,7 @@ Value.Bytes = CLASS( Value, {
 
 Value.Function = CLASS( Value, {
 	
-	init: function( implementation, options ) {
-		this.implementation = implementation;
-		options = options || {};
-		this.name = options.name;
-		this.origin = options.origin;
-		this.line = options.line;
-		this.safe = options.safe || false;
-	},
+	safe: false,
 	
 	suggestName: function( name ) {
 		this.name = this.name || name;
@@ -320,11 +313,15 @@ Value.Function = CLASS( Value, {
 	call: function( fiber, args ) {
 		fiber.stack.push( new Fiber.FunctionFrame( this ) );
 		try {
-			return this.implementation( fiber, this, args ) || new Value.Nothing();
+			return this.implementation( fiber, args ) || new Value.Nothing();
 		} finally {
 			fiber.stack.pop();
 		}
 	},
+	
+	// implementation
+	// origin
+	// line
 } );
 
 Value.BoundMethod = CLASS( Value, {
