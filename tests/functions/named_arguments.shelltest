@@ -1,0 +1,40 @@
+named.burn:
+	let $f = function( $a, $b ) {
+		return $a + $b
+	}
+	assert( $f( $b = "foo", $a = "bar" ) == "barfoo" )
+
+$ $BURN named.burn
+
+positional_and_named.burn:
+	let $f = function( $a, $b, $c ) {
+		return $a + $b + $c
+	}
+	assert( $f( "foo", $c = "baz", $b = "bar" ) == "foobarbaz" )
+
+$ $BURN positional_and_named.burn
+
+skip_optional.burn:
+	let $f = function( $a, $b = "bar", $c = "" ) {
+		return $a + $b + $c
+	}
+	assert( $f( "foo", $c = "baz" ) == "foobarbaz" )
+
+$ $BURN skip_optional.burn
+
+no_such_param.burn:
+	import test
+	let $f = function( $a ) {
+	}
+	test.assert_throws( function() { $f( $b = 1 ) }, ArgumentError )
+
+$ $BURN no_such_param.burn
+
+skip_required.burn:
+	import test
+	let $f = function( $a, $b, $c = "" ) {
+		return $a + $b + $c
+	}
+	test.assert_throws( function() { $f( "foo", $c = "baz" ) }, ArgumentError )
+
+$ $BURN skip_required.burn

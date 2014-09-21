@@ -34,16 +34,16 @@ ast.TupleLiteral = CLASS( ast.Expression );
 ast.ListLiteral = CLASS( ast.Expression );
 
 ast.FunctionExpression = CLASS( ast.Expression );
+	ast.FunctionParameter = CLASS( ast.Node );
 ast.ClassExpression = CLASS( ast.Expression );
-
-	ast.CallArgument = CLASS( ast.Node );
-	ast.CallableParameter = CLASS( ast.Node );
 	ast.ClassProperty = CLASS( ast.Node );
 	ast.ClassMethod = CLASS( ast.Node );
+		ast.ClassMethodParameter = CLASS( ast.Node );
 
 ast.NewExpression = CLASS( ast.Expression );
 
 ast.CallExpression = CLASS( ast.Expression );
+	ast.NamedArgument = CLASS( ast.Node );
 ast.PropertyExpression = CLASS( ast.Expression );
 ast.IndexExpression = CLASS( ast.Expression );
 

@@ -37,32 +37,40 @@ util.validateIndex = function( fiber, context, type, index ) {
 	}
 };
 
-util.validateCallArguments = function( fiber, callee, args, parameters ) {
-	errors = errors || require( "libburn/builtin/burn/errors" );
+util.validateCallArguments = function( fiber, callee, args, nargs, parameters ) {
+	console.assert( Array.isArray( parameters ) );
 	
-	let min = parameters.length;
-	while( min && parameters[ min - 1 ].default !== undefined ) { min--; }
-	if( args.length < min ) {
-		throw new errors.ArgumentErrorInstance(
-			msg.call_not_enough_args( fiber, callee, args, parameters ),
-			fiber.stack
-		);
+	// put named arguments in order
+	nargloop: for( let k in nargs ) {
+		for( let i = 0 ; i < parameters.length ; i++ ) {
+			if( parameters[i].name === k ) {
+				if( args[i] ) {
+					throwError( msg.call_named_arg_conflicts_with_positional_arg( fiber, callee, args, parameters, k, i ) );
+				}
+				args[i] = nargs[k];
+				continue nargloop;
+			}
+		}
+		throwError( msg.call_no_such_named_arg( fiber, callee, k ) );
 	}
 	
+	// check if there are too many args
 	if( args.length > parameters.length ) {
-		throw new errors.ArgumentErrorInstance(
-			msg.call_too_many_args( fiber, callee, args, parameters ),
-			fiber.stack
-		);
+		throwError( msg.call_too_many_args( fiber, callee, args, parameters ) );
+	}
+	
+	// check if there are missing args
+	for( let i = 0 ; i < parameters.length ; i++ ) {
+		console.error( parameters[i] );
+		if( ! args[i] && parameters[i].default === undefined ) {
+			throwError( msg.call_missing_arg( fiber, callee, args, parameters, i ) );
+		}
 	}
 	
 	parameters.forEach( function( parameter, i ) {
 		if( args[i] ) {
 			if( parameter.type && ! parameter.type.typeTest( fiber, args[i] ) ) {
-				throw new errors.ArgumentErrorInstance(
-					msg.call_wrong_arg_type( fiber, callee, args, parameters, i ),
-					fiber.stack
-				);
+				throwError( msg.call_wrong_arg_type( fiber, callee, args, parameters, i ) );
 			}
 		} else {
 			console.assert( parameter.default !== undefined );
@@ -73,6 +81,11 @@ util.validateCallArguments = function( fiber, callee, args, parameters ) {
 			}
 		}
 	} );
+	
+	function throwError( message ) {
+		errors = errors || require( "libburn/builtin/burn/errors" );
+		throw new errors.ArgumentErrorInstance( message, fiber.stack );
+	}
 };
 
 util.JsInstanceofType = CLASS( Value.Type, {

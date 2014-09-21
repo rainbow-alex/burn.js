@@ -123,18 +123,19 @@ ast.FunctionExpression.prototype.compile = function( output ) {
 	if( this.name ) {
 		output.code += 'name:' + encodeString( this.name ) + ',';
 	}
-	output.code += 'implementation:function(_fiber,args){args=args||[];';
-	output.code += '_.validateFunctionCallArguments(_fiber,this,args,[';
+	output.code += 'implementation:function(_fiber,args,nargs){args=args||[];';
+	output.code += '_.validateCallArguments(_fiber,this,args,nargs,[';
 	this.parameters.forEachValue( function( parameter ) {
 		output.code += '{';
+		output.code += 'name:"' + parameter.variable.value.substr(1) + '",';
 		if( parameter.type ) {
 			output.code += 'type:';
 			parameter.type.compile( output );
 			output.code += ',';
 		}
-		if( parameter.default ) {
+		if( parameter.defaultValue ) {
 			output.code += 'default:function(){return(';
-			parameter.default.compile( output );
+			parameter.defaultValue.compile( output );
 			output.code += ');},';
 		}
 		output.code += '},';
@@ -149,7 +150,7 @@ ast.FunctionExpression.prototype.compile = function( output ) {
 	} );
 	output.code += '}();';
 	if( this.returnType ) {
-		output.code += '_.validateFunctionCallReturnType(_fiber,this,r,';
+		output.code += '_.validateCallReturnType(_fiber,this,r,';
 		this.returnType.compile( output );
 		output.code += ');';
 	}
@@ -188,8 +189,8 @@ ast.ClassProperty.prototype.compile = function( output ) {
 };
 
 ast.ClassMethod.prototype.compile = function( output ) {
-	output.code += '_.createClassMethod(function(_fiber,fn,instance,args){args=args||[];';
-	output.code += '_.validateFunctionCallArguments(_fiber,fn,args,[';
+	output.code += '_.createClassMethod(function(_fiber,fn,instance,args,nargs){args=args||[];';
+	output.code += '_.validateCallArguments(_fiber,fn,args,nargs,[';
 	this.parameters.forEachValue( function( parameter ) {
 		output.code += '{';
 		if( parameter.type ) {
@@ -214,7 +215,7 @@ ast.ClassMethod.prototype.compile = function( output ) {
 	} );
 	output.code += '}();';
 	if( this.returnType ) {
-		output.code += '_.validateFunctionCallReturnType(_fiber,this,r,';
+		output.code += '_.validateCallReturnType(_fiber,this,r,';
 		this.returnType.compile( output );
 		output.code += ');';
 	}
@@ -239,7 +240,17 @@ ast.CallExpression.prototype.compile = function( output ) {
 		a.compile( output );
 		output.code += ',';
 	} );
-	output.code += '],void _fiber.setLine(' + this.lparen.line + '))';
+	output.code += '],';
+	if( this.namedArguments.countValues() ) {
+		output.code += '{';
+		this.namedArguments.forEachValue( function( na ) {
+			output.code += '"' + na.variable.value.substr(1) + '":';
+			na.expression.compile( output );
+			output.code += ',';
+		} );
+		output.code += '},';
+	}
+	output.code += 'void _fiber.setLine(' + this.lparen.line + '))';
 };
 
 ast.PropertyExpression.prototype.compile = function( output ) {

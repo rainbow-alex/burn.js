@@ -230,8 +230,8 @@ Value.String = CLASS( Value, {
 	get_length: function( fiber ) {
 		return new Value.Integer( utf8.length( this.value ) );
 	},
-	call_encode: function( fiber, callee, args ) {
-		util.validateCallArguments( fiber, callee, args, [] );
+	call_encode: function( fiber, callee, args, nargs ) {
+		util.validateCallArguments( fiber, callee, args, nargs, [] );
 		return new Value.Bytes( utf8.encode( this.value ) );
 	},
 } );
@@ -285,8 +285,8 @@ Value.Bytes = CLASS( Value, {
 	get_length: function( fiber ) {
 		return new Value.Integer( this.value.length );
 	},
-	call_decode: function( fiber, callee, args ) {
-		util.validateCallArguments( fiber, callee, args, [] );
+	call_decode: function( fiber, callee, args, nargs ) {
+		util.validateCallArguments( fiber, callee, args, nargs, [] );
 		return new Value.String( utf8.decode( this.value ) );
 	},
 } );
@@ -310,10 +310,10 @@ Value.Function = CLASS( Value, {
 		return value instanceof Value.Function;
 	},
 	
-	call: function( fiber, args ) {
+	call: function( fiber, args, nargs ) {
 		fiber.stack.push( new Fiber.FunctionFrame( this ) );
 		try {
-			return this.implementation( fiber, args ) || new Value.Nothing();
+			return this.implementation( fiber, args, nargs ) || new Value.Nothing();
 		} finally {
 			fiber.stack.pop();
 		}
@@ -335,10 +335,10 @@ Value.BoundMethod = CLASS( Value, {
 		return "<BoundMethod '" + this.method + "' of " + this.value.repr + ">";
 	},
 	
-	call: function( fiber, args ) {
+	call: function( fiber, args, nargs ) {
 		fiber.stack.push( new Fiber.BoundMethodFrame( this ) );
 		try {
-			return this.value[ "call_" + this.method ]( fiber, this, args ) || new Value.Nothing();
+			return this.value[ "call_" + this.method ]( fiber, this, args, nargs ) || new Value.Nothing();
 		} finally {
 			fiber.stack.pop();
 		}
@@ -538,8 +538,8 @@ Value.List = CLASS( Value, {
 	get_length: function( fiber ) {
 		return new Value.Integer( this.items.length );
 	},
-	call_push: function( fiber, callee, args ) {
-		util.validateCallArguments( fiber, callee, args, [
+	call_push: function( fiber, callee, args, nargs ) {
+		util.validateCallArguments( fiber, callee, args, nargs, [
 			{},
 		] );
 		this.items.push( args[0] );
@@ -569,7 +569,7 @@ Value.Class = CLASS( Value, {
 	},
 	instanceGet: function( fiber, instance, name ) {
 		if( this.methods[ "magic:get:" + name ] ) {
-			return this.methods[ "magic:get:" + name ].call( fiber, instance, [] );
+			return this.methods[ "magic:get:" + name ].call( fiber, instance, [], {} );
 		} else if( this.methods[ name ] ) {
 			return new Value.Class.BoundMethod( instance, this.methods[ name ] );
 		} else {
@@ -596,10 +596,10 @@ Value.Class.Method = CLASS( {
 		this.implementation = implementation;
 	},
 	
-	callFor: function( fiber, callee, instance, args ) {
+	callFor: function( fiber, callee, instance, args, nargs ) {
 		fiber.stack.push( new Fiber.BoundMethodFrame( this ) );
 		try {
-			return (this.implementation)( fiber, callee, instance, args ) || new Value.Nothing();
+			return this.implementation( fiber, callee, instance, args, nargs ) || new Value.Nothing();
 		} finally {
 			fiber.stack.pop();
 		}
@@ -617,8 +617,8 @@ Value.Class.BoundMethod = CLASS( Value, {
 		return "<BoundMethod '" + this.method + "' of " + this.instance.repr + ">";
 	},
 	
-	call: function( fiber, args ) {
-		return this.method.callFor( fiber, this, this.instance, args );
+	call: function( fiber, args, nargs ) {
+		return this.method.callFor( fiber, this, this.instance, args, nargs );
 	},
 } );
 

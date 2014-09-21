@@ -234,7 +234,7 @@ module.exports = function( tokens ) {
 	
 	function parseFunction() {
 		let keyword = read( "function" );
-		let r = parseCallableSignature();
+		let r = parseCallableSignature( ast.FunctionParameter );
 		let lparen = r[0];
 		let parameters = r[1];
 		let rparen = r[2];
@@ -292,7 +292,7 @@ module.exports = function( tokens ) {
 		function parseClassMethod() {
 			let keyword = read( "method" );
 			let name = read( "identifier" );
-			let r = parseCallableSignature();
+			let r = parseCallableSignature( ast.ClassMethodParameter );
 			let lparen = r[0];
 			let parameters = r[1];
 			let rparen = r[2];
@@ -314,7 +314,7 @@ module.exports = function( tokens ) {
 		}
 	}
 	
-	function parseCallableSignature() {
+	function parseCallableSignature( ParameterClass ) {
 		let lparen = read( "(" );
 		let parameters = new SeparatedList();
 		if( peek().type !== ")" ) {
@@ -330,7 +330,7 @@ module.exports = function( tokens ) {
 					equalitySign = read();
 					defaultValue = parseExpression();
 				}
-				parameters.pushValue( new ast.CallableParameter( {
+				parameters.pushValue( new ParameterClass( {
 					type: type,
 					variable: variable,
 					equalitySign: equalitySign,
@@ -411,13 +411,34 @@ module.exports = function( tokens ) {
 			if( peek().type === "(" ) {
 				let lparen = read();
 				let args = new SeparatedList();
+				let namedArgs = new SeparatedList();
 				if( peek().type !== ")" ) {
 					while( true ) {
+						if( peek().type === "variable" && peek(1).type === "=" ) {
+							break;
+						}
 						args.pushValue( parseExpression() );
 						if( peek().type === "," ) {
 							args.pushSeparator( read() );
 						} else {
 							break;
+						}
+					}
+					if( peek().type !== ")" ) {
+						while( true ) {
+							let variable = read( "variable" );
+							let equalitySign = read( "=" );
+							let expression = parseExpression();
+							namedArgs.pushValue( {
+								variable: variable,
+								equalitySign: equalitySign,
+								expression: expression,
+							} );
+							if( peek().type === "," ) {
+								namedArgs.pushSeparator( read() );
+							} else {
+								break;
+							}
 						}
 					}
 				}
@@ -426,6 +447,7 @@ module.exports = function( tokens ) {
 					callee: expression,
 					lparen: lparen,
 					arguments: args,
+					namedArguments: namedArgs,
 					rparen: rparen,
 				} );
 			} else if( peek().type === "." ) {

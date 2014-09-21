@@ -13,6 +13,7 @@ module.exports = CLASS( {
 		this._contents.push( separator );
 	},
 	getLastValue: function() {
+		console.assert( this._contents.length );
 		if( this._contents.length % 2 === 0 ) {
 			return this._contents[ this._contents.length - 2 ];
 		} else {
@@ -27,6 +28,13 @@ module.exports = CLASS( {
 	forEachValueOrSeparator: function( f ) {
 		for( let i = 0 ; i < this._contents.length ; i++ ) {
 			f( this._contents[i], i );
+		}
+	},
+	countValues: function() {
+		if( this._contents.length % 2 === 0 ) {
+			return this._contents.length / 2;
+		} else {
+			return ( this._contents.length + 1 ) / 2;
 		}
 	},
 	toJSON: function() {

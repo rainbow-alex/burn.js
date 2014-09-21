@@ -9,8 +9,8 @@ fiber.exposes = new Value.Module( {
 	
 	fork: new Value.Function( {
 		safe: true,
-		implementation: function( fiber, args ) {
-			util.validateCallArguments( fiber, this, args, [
+		implementation: function( fiber, args, nargs ) {
+			util.validateCallArguments( fiber, this, args, nargs, [
 				{ type: types.Callable },
 			] );
 			fiber.vm.fork( function( forkFiber ) {
@@ -21,8 +21,8 @@ fiber.exposes = new Value.Module( {
 	
 	yield: new Value.Function( {
 		safe: true,
-		implementation: function( fiber, args ) {
-			util.validateCallArguments( fiber, this, args, [] );
+		implementation: function( fiber, args, nargs ) {
+			util.validateCallArguments( fiber, this, args, nargs, [] );
 			fiber.async( function( cb ) {
 				setImmediate( cb );
 			} );

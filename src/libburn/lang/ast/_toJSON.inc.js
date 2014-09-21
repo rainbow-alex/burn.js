@@ -140,11 +140,9 @@ ast.FunctionExpression.prototype.toJSON = function() {
 	};
 };
 
-// TODO class, property, method
-
-ast.CallableParameter.prototype.toJSON = function() {
+ast.FunctionParameter.prototype.toJSON = function() {
 	return {
-		type: "node/parameter",
+		type: "node/function_parameter",
 		children: [
 			[ "type", this.type ],
 			[ "variable", this.variable ],
@@ -158,6 +156,8 @@ ast.CallableParameter.prototype.toJSON = function() {
 		],
 	};
 };
+
+// TODO class, property, method
 
 // TODO new
 

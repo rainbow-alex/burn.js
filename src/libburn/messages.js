@@ -33,6 +33,13 @@ function calleeToString( callee ) {
 	}
 }
 
+function parameterToString( parameters, i ) {
+	return format(
+		parameters[i].name ? "#$n: $$$name" : "#$n",
+		{ name: parameters[i].name, n: i+1 }
+	);
+}
+
 messages.implicit_name_error = function( name ) {
 	return format(
 		"NameError: implicit name $name is not defined.",
@@ -61,18 +68,22 @@ messages.index_wrong_type = function( context, type, index ) {
 	);
 };
 
-messages.call_not_enough_args = function( fiber, callee, args, parameters ) {
-	let min = parameters.length;
-	while( parameters[ min - 1 ].default ) { min--; }
+messages.call_named_arg_conflicts_with_positional_arg = function( fiber, callee, args, parameters, name, i ) {
 	return format(
-		parameters.length === 1 ? "ArgumentError: $callee takes one parameter, $n given."
-		: min === 1 ? "ArgumentError: $callee takes at least one parameter, $n given."
-		: min < parameters.length ? "ArgumentError: $callee takes at least $min parameters, $n given."
-		: "ArgumentError: $callee takes $min parameters, $n given.",
+		"ArgumentError: $callee parameter $param was provided positionally and by name.",
 		{
 			callee: calleeToString( callee ),
-			min: min,
-			n: args.length || "none",
+			param: parameterToString( parameters, i ),
+		}
+	);
+};
+
+messages.call_no_such_named_arg = function( fiber, callee, name ) {
+	return format(
+		"ArgumentError: $callee has no named parameter $name.",
+		{
+			callee: calleeToString( callee ),
+			name: "$" + name,
 		}
 	);
 };
@@ -90,15 +101,22 @@ messages.call_too_many_args = function( fiber, callee, args, parameters ) {
 	);
 };
 
+messages.call_missing_arg = function( fiber, callee, args, parameters, i ) {
+	return format(
+		"ArgumentError: $callee missing argument $param.",
+		{
+			callee: calleeToString( callee ),
+			param: parameterToString( parameters, i ),
+		}
+	);
+};
+
 messages.call_wrong_arg_type = function( fiber, callee, args, parameters, i ) {
 	return format(
 		"ArgumentError: $callee parameter $param should be $type, got $arg.",
 		{
 			callee: calleeToString( callee ),
-			param: format(
-				parameters[i].name ? "$$$name (#$i)" : "#$i",
-				{ name: parameters[i].name, i: i+1 }
-			),
+			param: parameterToString( parameters, i ),
 			type: toString( fiber, parameters[i].type ),
 			arg: args[i].repr,
 		}

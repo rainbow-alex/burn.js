@@ -37,8 +37,8 @@ implicit.exposes = new Value.Module( {
 	
 	main: new Value.Function( {
 		safe: true,
-		implementation: function( fiber, args ) {
-			util.validateCallArguments( fiber, this, args, [
+		implementation: function( fiber, args, nargs ) {
+			util.validateCallArguments( fiber, this, args, nargs, [
 				{ type: types.Callable },
 			] );
 			fiber.vm.main = args[0];
@@ -47,8 +47,8 @@ implicit.exposes = new Value.Module( {
 	
 	repr: new Value.Function( {
 		safe: true,
-		implementation: function( fiber, args ) {
-			util.validateCallArguments( fiber, this, args, [
+		implementation: function( fiber, args, nargs ) {
+			util.validateCallArguments( fiber, this, args, nargs, [
 				{},
 			] );
 			return new Value.String( args[0].repr );
@@ -57,8 +57,8 @@ implicit.exposes = new Value.Module( {
 	
 	assert: new Value.Function( {
 		safe: true,
-		implementation: function( fiber, args ) {
-			util.validateCallArguments( fiber, this, args, [
+		implementation: function( fiber, args, nargs ) {
+			util.validateCallArguments( fiber, this, args, nargs, [
 				{},
 				{ type: types.String, default: null }
 			] );

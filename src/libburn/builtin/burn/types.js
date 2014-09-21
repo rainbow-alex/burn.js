@@ -97,8 +97,8 @@ types.List = new Value.Type( {
 	typeTest: function( fiber, value ) {
 		return value instanceof Value.List;
 	},
-	call_of: function( fiber, callee, args ) {
-		util.validateCallArguments( fiber, callee, args, [
+	call_of: function( fiber, callee, args, nargs ) {
+		util.validateCallArguments( fiber, callee, args, nargs, [
 			{ type: types.Type },
 		] );
 		return new types.ListOf( args[0] );

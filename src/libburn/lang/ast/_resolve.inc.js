@@ -112,7 +112,9 @@ ast.IdentifierExpression.prototype.resolve = function( scope ) {
 ast.FunctionExpression.prototype.resolve = function( scope ) {
 	let functionScope = scope.spawnNestedFunctionScope( this );
 	this.parameters.forEachValue( function( p ) {
-		p.resolveType( scope );
+		if( p.type ) {
+			p.type.resolve( scope );
+		}
 		p.resolve( functionScope );
 	} );
 	if( this.returnType ) {
@@ -124,13 +126,7 @@ ast.FunctionExpression.prototype.resolve = function( scope ) {
 	this.safe = ! functionScope.isClosure();
 };
 
-ast.CallableParameter.prototype.resolveType = function( scope ) {
-	if( this.type ) {
-		this.type.resolve( scope );
-	}
-};
-
-ast.CallableParameter.prototype.resolve = function( scope ) {
+ast.FunctionParameter.prototype.resolve = function( scope ) {
 	if( scope.isVariableDeclaredInThisScope( this.variable.value ) ) {
 		throw new Error( "Duplicate declaration of " + this.variable.value, this.variable );
 	}
@@ -143,7 +139,9 @@ ast.CallableParameter.prototype.resolve = function( scope ) {
 ast.ClassMethod.prototype.resolve = function( scope ) {
 	let methodScope = scope.spawnNestedFunctionScope( this );
 	this.parameters.forEachValue( function( p ) {
-		p.resolveType( scope );
+		if( p.type ) {
+			p.type.resolve( scope );
+		}
 		p.resolve( methodScope );
 	} );
 	if( this.returnType ) {
@@ -154,6 +152,8 @@ ast.ClassMethod.prototype.resolve = function( scope ) {
 	} );
 	this.safe = ! methodScope.isClosure();
 };
+
+ast.ClassMethodParameter.prototype.resolve = ast.FunctionParameter.prototype.resolve;
 
 //
 // Lvalues

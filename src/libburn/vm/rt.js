@@ -55,11 +55,11 @@ rt.createFunction = function( properties ) {
 	return new Value.Function( properties );
 };
 
-rt.validateFunctionCallArguments = function( fiber, fn, args, parameters ) {
-	util.validateCallArguments( fiber, fn, args, parameters );
+rt.validateCallArguments = function( fiber, fn, args, nargs, parameters ) {
+	util.validateCallArguments( fiber, fn, args, nargs, parameters );
 };
 
-rt.validateFunctionCallReturnType = function( fiber, fn, value, type ) {
+rt.validateCallReturnType = function( fiber, fn, value, type ) {
 	if( ! types.Type.typeTest( fiber, type ) ) {
 		throw new errors.TypeErrorInstance(
 			msg.call_return_type_is_not_a_type( fiber, fn, type ),
