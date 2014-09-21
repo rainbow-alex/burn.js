@@ -100,3 +100,11 @@ labelled_break_else.burn:
 $ $BURN labelled_break_else.burn
 	* stdout
 		else
+
+not_iterable.burn:
+	import test
+	test.assert_throws( function() {
+		for $i in 3 {}
+	}, TypeError )
+
+$ $BURN not_iterable.burn

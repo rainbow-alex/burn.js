@@ -112,3 +112,11 @@ Callable.burn:
 	assert( [].push is Callable )
 
 $ $BURN Callable.burn
+
+Iterable.burn:
+	assert( Iterable is Type.Permanent )
+	
+	assert( [] is Iterable )
+	assert( 3 is not Iterable )
+
+$ $BURN Iterable.burn

@@ -23,6 +23,7 @@ implicit.exposes = new Value.Module( {
 	Type: types.Type,
 	List: types.List,
 	Callable: types.Callable,
+	Iterable: types.Iterable,
 	
 	NameError: errors.NameError,
 	TypeError: errors.TypeError,

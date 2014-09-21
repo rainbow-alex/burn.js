@@ -284,7 +284,12 @@ rt.not = function( fiber, e ) {
 };
 
 rt.forInIter = function( fiber, iterable ) {
-	console.assert( iterable.iter ); // TODO error handling
+	if( ! types.Iterable.typeTest( fiber, iterable ) ) {
+		throw new errors.TypeErrorInstance(
+			iterable.repr + " is not Iterable",
+			fiber.stack
+		);
+	}
 	return iterable.iter();
 };
 

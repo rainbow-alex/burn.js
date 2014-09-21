@@ -140,6 +140,14 @@ types.Callable = new Value.Type( {
 	permanent: true,
 } );
 
+types.Iterable = new Value.Type( {
+	typeTest: function( fiber, v ) {
+		return typeof v.iter === "function";
+	},
+	safe: true,
+	permanent: true,
+} );
+
 types.Truthy = new Value.Type( {
 	typeTest: function( fiber, v ) {
 		return v.isTruthy();
@@ -173,7 +181,10 @@ types.exposes = new Value.Module( {
 	Bytes: types.Bytes,
 	Function: types.Function,
 	Type: types.Type,
-	Safe: types.Safe,
+	List: types.List,
+	Callable: types.Callable,
+	Iterable: types.Iterable,
 	Truthy: types.Truthy,
 	Falsy: types.Falsy,
+	Safe: types.Safe,
 } );
