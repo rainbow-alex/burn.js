@@ -1,6 +1,10 @@
 "use strict";
 let ast = require( "./" );
 
+//
+// helpers
+//
+
 function encodeVariable( v ) {
 	console.assert( v[0] === "$" );
 	return '$' + v.replace( /:/g, '$' );
@@ -28,15 +32,394 @@ let OutputHelper = CLASS( {
 	},
 } );
 
-ast.Root.prototype.compile = function() {
-	let output = new OutputHelper();
-	output.code += 'let _=require("libburn/vm/rt");';
-	output.code += 'let _origin=_._origin;delete _._origin;';
-	output.code += 'let _fiber=_._fiber;delete _._fiber;';
-	this.statements.forEach( function( s ) {
+//
+// Expressions
+//
+
+ast.NothingLiteral.prototype.compile = function( output ) {
+	output.code += '_.createNothing()';
+};
+
+ast.BooleanLiteral.prototype.compile = function( output ) {
+	output.code += '_.createBoolean(' + this.token.type + ')';
+};
+
+ast.IntegerLiteral.prototype.compile = function( output ) {
+	output.code += '_.createInteger(' + this.token.value + ')';
+};
+
+ast.FloatLiteral.prototype.compile = function( output ) {
+	output.code += '_.createFloat(' + this.token.value + ')';
+};
+
+ast.StringLiteral.prototype.compile = function( output ) {
+	output.code += '_.createString("';
+	for( let i = 0 ; i < this.value.length ; i++ ) {
+		let c = this.value.charCodeAt( i );
+		output.code += "\\u" + ( "0000" + c.toString( 16 ) ).slice( -4 );
+	}
+	output.code += '")';
+};
+
+ast.BytesLiteral.prototype.compile = function( output ) {
+	output.code += '_.createBytes([';
+	for( let i = 0 ; i < this.value.length ; i++ ) {
+		output.code += this.value[i] + ',';
+	}
+	output.code += '])';
+};
+
+ast.VariableExpression.prototype.compile = function( output ) {
+	output.code += encodeVariable( this.token.value );
+};
+
+ast.IdentifierExpression.prototype.compile = function( output ) {
+	if( this.magicValue ) {
+		if( typeof this.magicValue === "string" ) {
+			output.code += '_.createString(' + encodeString( this.magicValue ) + ')';
+		} else if( typeof this.magicValue === "number" ) {
+			output.code += '_.createInteger(' + this.magicValue + ')';
+		} else {
+			console.assert( false );
+		}
+	} else if( this.declared ) {
+		output.code += encodeName( this.token.value );
+	} else {
+		output.code += '_.implicit(_fiber,"' + this.token.value + '",void _fiber.setLine(' + this.token.line + '))';
+	}
+};
+
+ast.ThisExpression.prototype.compile = function( output ) {
+	output.code += 'instance';
+};
+
+ast.ParenthesizedExpression.prototype.compile = function( output ) {
+	output.code += '(';
+	this.expression.compile( output );
+	output.code += ')';
+};
+
+ast.TupleLiteral.prototype.compile = function( output ) {
+	output.code += '_.createTuple([';
+	this.items.forEachValue( function( item ) {
+		item.compile( output );
+		output.code += ',';
+	} );
+	output.code += '])';
+};
+
+ast.ListLiteral.prototype.compile = function( output ) {
+	output.code += '_.createList([';
+	this.items.forEachValue( function( item, i ) {
+		item.compile( output );
+		output.code += ',';
+	} );
+	output.code += '])';
+};
+
+ast.FunctionExpression.prototype.compile = function( output ) {
+	output.code += '_.createFunction(function(_fiber,fn,args){args=args||[];';
+	output.code += '_.validateFunctionCallArguments(_fiber,fn,args,[';
+	this.parameters.forEachValue( function( parameter ) {
+		output.code += '{';
+		if( parameter.type ) {
+			output.code += 'type:';
+			parameter.type.compile( output );
+			output.code += ',';
+		}
+		if( parameter.default ) {
+			output.code += 'default:function(){return(';
+			parameter.default.compile( output );
+			output.code += ');},';
+		}
+		output.code += '},';
+	} );
+	output.code += ']);';
+	output.code += 'let r=function(){';
+	this.parameters.forEachValue( function( parameter, i ) {
+		output.code += 'let ' + encodeVariable( parameter.variable.value ) + '=args[' + i + '];';
+	} );
+	this.block.statements.forEach( function( s ) {
 		s.compile( output );
 	} );
-	return output.code;
+	output.code += '}();';
+	if( this.returnType ) {
+		output.code += '_.validateFunctionCallReturnType(_fiber,this,r,';
+		this.returnType.compile( output );
+		output.code += ');';
+	}
+	output.code += 'return r;},{';
+	if( this.name ) {
+		output.code += 'name:' + encodeString( this.name ) + ',';
+	}
+	output.code += 'safe:' + encodeBoolean( this.safe ) + ',';
+	output.code += 'origin:_origin,';
+	output.code += 'line:' + this.keyword.line + ',';
+	output.code += '})';
+};
+
+ast.ClassExpression.prototype.compile = function( output ) {
+	output.code += '_.createClass({';
+	this.items.forEach( function( item ) {
+		if( item instanceof ast.ClassProperty ) {
+			output.code += encodeString( item.name.value ) + ':';
+			item.compile( output );
+			output.code += ',';
+		}
+	} );
+	output.code += '},{';
+	this.items.forEach( function( item ) {
+		if( item instanceof ast.ClassMethod ) {
+			output.code += encodeString( item.name.value ) + ':';
+			item.compile( output );
+			output.code += ',';
+		}
+	} );
+	output.code += '})';
+};
+
+ast.ClassProperty.prototype.compile = function( output ) {
+	output.code += '_.createClassProperty(';
+	if( this.type ) {
+		this.type.compile( output );
+	}
+	output.code += ')';
+};
+
+ast.ClassMethod.prototype.compile = function( output ) {
+	output.code += '_.createClassMethod(function(_fiber,fn,instance,args){args=args||[];';
+	output.code += '_.validateFunctionCallArguments(_fiber,fn,args,[';
+	this.parameters.forEachValue( function( parameter ) {
+		output.code += '{';
+		if( parameter.type ) {
+			output.code += 'type:';
+			parameter.type.compile( output );
+			output.code += ',';
+		}
+		if( parameter.default ) {
+			output.code += 'default:function(){return(';
+			parameter.default.compile( output );
+			output.code += ');},';
+		}
+		output.code += '},';
+	} );
+	output.code += ']);';
+	output.code += 'let r=function(){';
+	this.parameters.forEachValue( function( parameter, i ) {
+		output.code += 'let ' + encodeVariable( parameter.variable.value ) + '=args[' + i + '];';
+	} );
+	this.block.statements.forEach( function( s ) {
+		s.compile( output );
+	} );
+	output.code += '}();';
+	if( this.returnType ) {
+		output.code += '_.validateFunctionCallReturnType(_fiber,this,r,';
+		this.returnType.compile( output );
+		output.code += ');';
+	}
+	output.code += 'return r;},{';
+	output.code += 'safe:' + encodeBoolean( this.safe ) + ',';
+	output.code += 'origin:_origin,';
+	output.code += 'line:' + this.keyword.line + ',';
+	output.code += '})';
+};
+
+ast.NewExpression.prototype.compile = function( output ) {
+	output.code += '_.new_(';
+	this.instantiatable.compile( output );
+	output.code += ')';
+};
+
+ast.CallExpression.prototype.compile = function( output ) {
+	output.code += '(';
+	this.callee.compile( output );
+	output.code += ').call(_fiber,[';
+	this.arguments.forEachValue( function( a ) {
+		a.compile( output );
+		output.code += ',';
+	} );
+	output.code += '],void _fiber.setLine(' + this.lparen.line + '))';
+};
+
+ast.PropertyExpression.prototype.compile = function( output ) {
+	output.code += '_.get(_fiber,';
+	this.expression.compile( output );
+	output.code += ',"' + this.property.value + '",void _fiber.setLine(' + this.dot.line + '))';
+};
+
+ast.IndexExpression.prototype.compile = function( output ) {
+	output.code += '_.getIndex(_fiber,';
+	this.expression.compile( output );
+	output.code += ',';
+	this.index.compile( output );
+	output.code += ',void _fiber.setLine(' + this.lbracket.line + '))';
+};
+
+ast.IntersectionExpression.prototype.compile = function( output ) {
+	output.code += '_.intersection(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ')';
+};
+
+ast.UnionExpression.prototype.compile = function( output ) {
+	output.code += '_.union(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ')';
+};
+
+ast.MulExpression.prototype.compile = function( output ) {
+	output.code += '_.mul(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ',void _fiber.setLine(' + this.operator.line + '))';
+};
+
+ast.DivExpression.prototype.compile = function( output ) {
+	output.code += '_.div(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ',void _fiber.setLine(' + this.operator.line + '))';
+};
+
+ast.AddExpression.prototype.compile = function( output ) {
+	output.code += '_.add(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ',void _fiber.setLine(' + this.operator.line + '))';
+};
+
+ast.SubExpression.prototype.compile = function( output ) {
+	output.code += '_.sub(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ',void _fiber.setLine(' + this.operator.line + '))';
+};
+
+ast.IsExpression.prototype.compile = function( output ) {
+	output.code += '_.is(_fiber,';
+	this.expression.compile( output );
+	output.code += ',';
+	this.type.compile( output );
+	output.code += ')';
+};
+
+ast.IsNotExpression.prototype.compile = function( output ) {
+	output.code += '_.is_not(_fiber,';
+	this.expression.compile( output );
+	output.code += ',';
+	this.type.compile( output );
+	output.code += ')';
+};
+
+ast.EqExpression.prototype.compile = function( output ) {
+	output.code += '_.eq(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ')';
+};
+
+ast.NeqExpression.prototype.compile = function( output ) {
+	output.code += '_.neq(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ')';
+};
+
+ast.LtExpression.prototype.compile = function( output ) {
+	output.code += '_.lt(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ')';
+};
+
+ast.GtExpression.prototype.compile = function( output ) {
+	output.code += '_.gt(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ')';
+};
+
+ast.LteqExpression.prototype.compile = function( output ) {
+	output.code += '_.lteq(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ')';
+};
+
+ast.GteqExpression.prototype.compile = function( output ) {
+	output.code += '_.gteq(_fiber,';
+	this.left.compile( output );
+	output.code += ',';
+	this.right.compile( output );
+	output.code += ')';
+};
+
+ast.NotExpression.prototype.compile = function( output ) {
+	output.code += '_.not(_fiber,';
+	this.expression.compile( output );
+	output.code += ')';
+};
+
+ast.AndExpression.prototype.compile = function( output ) {
+	output.code += '_.and(_fiber,';
+	this.left.compile( output );
+	output.code += ',function(){return (';
+	this.right.compile( output );
+	output.code += ');})';
+};
+
+ast.OrExpression.prototype.compile = function( output ) {
+	output.code += '_.or(_fiber,';
+	this.left.compile( output );
+	output.code += ',function(){return (';
+	this.right.compile( output );
+	output.code += ');})';
+};
+
+//
+// Statements
+//
+
+ast.ExpressionStatement.prototype.compile = function( output ) {
+	this.expression.compile( output );
+	output.code += ';';
+};
+
+ast.AssignmentStatement.prototype.compile = function( output ) {
+	if( this.lvalue instanceof ast.VariableLvalue ) {
+		output.code += encodeVariable( this.lvalue.token.value ) + '=';
+		this.rvalue.compile( output );
+		output.code += ';';
+	} else if( this.lvalue instanceof ast.PropertyLvalue ) {
+		output.code += '_.set(_fiber,';
+		this.lvalue.expression.compile( output );
+		output.code += ',"' + this.lvalue.property.value + '",';
+		this.rvalue.compile( output );
+		output.code += ');';
+	} else if( this.lvalue instanceof ast.IndexLvalue ) {
+		output.code += '_.setIndex(_fiber,';
+		this.lvalue.expression.compile( output );
+		output.code += ',';
+		this.lvalue.index.compile( output );
+		output.code += ',';
+		this.rvalue.compile( output );
+		output.code += ');';
+	} else {
+		console.assert( false );
+	}
 };
 
 ast.BreakStatement.prototype.compile = function( output ) {
@@ -56,6 +439,51 @@ ast.ContinueStatement.prototype.compile = function( output ) {
 	} else {
 		output.code += 'continue;';
 	}
+};
+
+ast.ImportStatement.prototype.compile = function( output ) {
+	let alias = this.fqn.getLastValue();
+	output.code += 'let ' + encodeName( alias.value ) + '=' + '_.import(_fiber,[';
+	this.fqn.forEachValue( function( p ) {
+		output.code += '"' + p.value + '",';
+	} );
+	output.code += '],void _fiber.setLine(' + this.keyword.line + '));';
+};
+
+ast.IncludeStatement.prototype.compile = function( output ) {
+	output.code += '_.include(_fiber,_origin,';
+	this.expression.compile( output );
+	output.code += ',void _fiber.setLine(' + this.keyword.line + '));';
+};
+
+ast.LetStatement.prototype.compile = function( output ) {
+	output.code += 'let ' + encodeVariable( this.variable.value ) + '=';
+	if( this.initialValue ) {
+		this.initialValue.compile( output );
+	} else {
+		output.code += '_.createNothing()';
+	}
+	output.code += ';';
+};
+
+ast.PrintStatement.prototype.compile = function( output ) {
+	output.code += 'console.log((';
+	this.expression.compile( output );
+	output.code += ').toBurnString(_fiber).value);';
+};
+
+ast.ReturnStatement.prototype.compile = function( output ) {
+	output.code += 'return ';
+	if( this.expression ) {
+		this.expression.compile( output );
+	}
+	output.code += ';';
+};
+
+ast.ThrowStatement.prototype.compile = function( output ) {
+	output.code += 'throw ';
+	this.expression.compile( output );
+	output.code += ';';
 };
 
 ast.ForInStatement.prototype.compile = function( output ) {
@@ -111,51 +539,6 @@ ast.IfStatement.prototype.compile = function( output ) {
 		} );
 		output.code += '}';
 	}
-};
-
-ast.ImportStatement.prototype.compile = function( output ) {
-	let alias = this.fqn.getLastValue();
-	output.code += 'let ' + encodeName( alias.value ) + '=' + '_.import(_fiber,[';
-	this.fqn.forEachValue( function( p ) {
-		output.code += '"' + p.value + '",';
-	} );
-	output.code += '],void _fiber.setLine(' + this.keyword.line + '));';
-};
-
-ast.IncludeStatement.prototype.compile = function( output ) {
-	output.code += '_.include(_fiber,_origin,';
-	this.expression.compile( output );
-	output.code += ',void _fiber.setLine(' + this.keyword.line + '));';
-};
-
-ast.LetStatement.prototype.compile = function( output ) {
-	output.code += 'let ' + encodeVariable( this.variable.value ) + '=';
-	if( this.initialValue ) {
-		this.initialValue.compile( output );
-	} else {
-		output.code += '_.createNothing()';
-	}
-	output.code += ';';
-};
-
-ast.PrintStatement.prototype.compile = function( output ) {
-	output.code += 'console.log((';
-	this.expression.compile( output );
-	output.code += ').toBurnString(_fiber).value);';
-};
-
-ast.ReturnStatement.prototype.compile = function( output ) {
-	output.code += 'return ';
-	if( this.expression ) {
-		this.expression.compile( output );
-	}
-	output.code += ';';
-};
-
-ast.ThrowStatement.prototype.compile = function( output ) {
-	output.code += 'throw ';
-	this.expression.compile( output );
-	output.code += ';';
 };
 
 ast.TryStatement.prototype.compile = function( output ) {
@@ -237,308 +620,17 @@ ast.WhileStatement.prototype.compile = function( output ) {
 	}
 };
 
-ast.AssignmentStatement.prototype.compile = function( output ) {
-	if( this.lvalue instanceof ast.VariableLvalue ) {
-		output.code += encodeVariable( this.lvalue.token.value ) + '=';
-		this.rvalue.compile( output );
-		output.code += ';';
-	} else if( this.lvalue instanceof ast.PropertyLvalue ) {
-		output.code += '_.set(_fiber,';
-		this.lvalue.expression.compile( output );
-		output.code += ',"' + this.lvalue.property.value + '",';
-		this.rvalue.compile( output );
-		output.code += ');';
-	} else if( this.lvalue instanceof ast.IndexLvalue ) {
-		output.code += '_.setIndex(_fiber,';
-		this.lvalue.expression.compile( output );
-		output.code += ',';
-		this.lvalue.index.compile( output );
-		output.code += ',';
-		this.rvalue.compile( output );
-		output.code += ');';
-	} else {
-		console.assert( false );
-	}
-};
+//
+// Root node
+//
 
-ast.ExpressionStatement.prototype.compile = function( output ) {
-	this.expression.compile( output );
-	output.code += ';';
-};
-
-ast.AndExpression.prototype.compile = function( output ) {
-	output.code += '_.and(_fiber,';
-	this.left.compile( output );
-	output.code += ',function(){return (';
-	this.right.compile( output );
-	output.code += ');})';
-};
-
-ast.OrExpression.prototype.compile = function( output ) {
-	output.code += '_.or(_fiber,';
-	this.left.compile( output );
-	output.code += ',function(){return (';
-	this.right.compile( output );
-	output.code += ');})';
-};
-
-ast.NotExpression.prototype.compile = function( output ) {
-	output.code += '_.not(_fiber,';
-	this.expression.compile( output );
-	output.code += ')';
-};
-
-ast.IsExpression.prototype.compile = function( output ) {
-	output.code += '_.is(_fiber,';
-	this.expression.compile( output );
-	output.code += ',';
-	this.type.compile( output );
-	output.code += ')';
-};
-
-ast.IsNotExpression.prototype.compile = function( output ) {
-	output.code += '_.is_not(_fiber,';
-	this.expression.compile( output );
-	output.code += ',';
-	this.type.compile( output );
-	output.code += ')';
-};
-
-ast.EqExpression.prototype.compile = function( output ) {
-	output.code += '_.eq(_fiber,';
-	this.left.compile( output );
-	output.code += ',';
-	this.right.compile( output );
-	output.code += ')';
-};
-
-ast.NeqExpression.prototype.compile = function( output ) {
-	output.code += '_.neq(_fiber,';
-	this.left.compile( output );
-	output.code += ',';
-	this.right.compile( output );
-	output.code += ')';
-};
-
-ast.LtExpression.prototype.compile = function( output ) {
-	output.code += '_.lt(_fiber,';
-	this.left.compile( output );
-	output.code += ',';
-	this.right.compile( output );
-	output.code += ')';
-};
-
-ast.GtExpression.prototype.compile = function( output ) {
-	output.code += '_.gt(_fiber,';
-	this.left.compile( output );
-	output.code += ',';
-	this.right.compile( output );
-	output.code += ')';
-};
-
-ast.LteqExpression.prototype.compile = function( output ) {
-	output.code += '_.lteq(_fiber,';
-	this.left.compile( output );
-	output.code += ',';
-	this.right.compile( output );
-	output.code += ')';
-};
-
-ast.GteqExpression.prototype.compile = function( output ) {
-	output.code += '_.gteq(_fiber,';
-	this.left.compile( output );
-	output.code += ',';
-	this.right.compile( output );
-	output.code += ')';
-};
-
-ast.UnionExpression.prototype.compile = function( output ) {
-	output.code += '_.union(_fiber,';
-	this.left.compile( output );
-	output.code += ',';
-	this.right.compile( output );
-	output.code += ')';
-};
-
-ast.IntersectionExpression.prototype.compile = function( output ) {
-	output.code += '_.intersection(_fiber,';
-	this.left.compile( output );
-	output.code += ',';
-	this.right.compile( output );
-	output.code += ')';
-};
-
-ast.AddExpression.prototype.compile = function( output ) {
-	output.code += '_.add(_fiber,';
-	this.left.compile( output );
-	output.code += ',';
-	this.right.compile( output );
-	output.code += ',void _fiber.setLine(' + this.operator.line + '))';
-};
-
-ast.SubExpression.prototype.compile = function( output ) {
-	output.code += '_.sub(_fiber,';
-	this.left.compile( output );
-	output.code += ',';
-	this.right.compile( output );
-	output.code += ',void _fiber.setLine(' + this.operator.line + '))';
-};
-
-ast.MulExpression.prototype.compile = function( output ) {
-	output.code += '_.mul(_fiber,';
-	this.left.compile( output );
-	output.code += ',';
-	this.right.compile( output );
-	output.code += ',void _fiber.setLine(' + this.operator.line + '))';
-};
-
-ast.DivExpression.prototype.compile = function( output ) {
-	output.code += '_.div(_fiber,';
-	this.left.compile( output );
-	output.code += ',';
-	this.right.compile( output );
-	output.code += ',void _fiber.setLine(' + this.operator.line + '))';
-};
-
-ast.CallExpression.prototype.compile = function( output ) {
-	output.code += '(';
-	this.callee.compile( output );
-	output.code += ').call(_fiber,[';
-	this.arguments.forEachValue( function( a ) {
-		a.compile( output );
-		output.code += ',';
-	} );
-	output.code += '],void _fiber.setLine(' + this.lparen.line + '))';
-};
-
-ast.PropertyExpression.prototype.compile = function( output ) {
-	output.code += '_.get(_fiber,';
-	this.expression.compile( output );
-	output.code += ',"' + this.property.value + '",void _fiber.setLine(' + this.dot.line + '))';
-};
-
-ast.IndexExpression.prototype.compile = function( output ) {
-	output.code += '_.getIndex(_fiber,';
-	this.expression.compile( output );
-	output.code += ',';
-	this.index.compile( output );
-	output.code += ',void _fiber.setLine(' + this.lbracket.line + '))';
-};
-
-ast.FunctionExpression.prototype.compile = function( output ) {
-	output.code += '_.createFunction(function(_fiber,fn,args){args=args||[];';
-	output.code += '_.validateFunctionCallArguments(_fiber,fn,args,[';
-	this.parameters.forEachValue( function( parameter ) {
-		output.code += '{';
-		if( parameter.type ) {
-			output.code += 'type:';
-			parameter.type.compile( output );
-			output.code += ',';
-		}
-		if( parameter.default ) {
-			output.code += 'default:function(){return(';
-			parameter.default.compile( output );
-			output.code += ');},';
-		}
-		output.code += '},';
-	} );
-	output.code += ']);';
-	output.code += 'let r=function(){';
-	this.parameters.forEachValue( function( parameter, i ) {
-		output.code += 'let ' + encodeVariable( parameter.variable.value ) + '=args[' + i + '];';
-	} );
-	this.block.statements.forEach( function( s ) {
+ast.Root.prototype.compile = function() {
+	let output = new OutputHelper();
+	output.code += 'let _=require("libburn/vm/rt");';
+	output.code += 'let _origin=_._origin;delete _._origin;';
+	output.code += 'let _fiber=_._fiber;delete _._fiber;';
+	this.statements.forEach( function( s ) {
 		s.compile( output );
 	} );
-	output.code += '}();';
-	if( this.returnType ) {
-		output.code += '_.validateFunctionCallReturnType(_fiber,this,r,';
-		this.returnType.compile( output );
-		output.code += ');';
-	}
-	output.code += 'return r;},{';
-	if( this.name ) {
-		output.code += 'name:' + encodeString( this.name ) + ',';
-	}
-	output.code += 'safe:' + encodeBoolean( this.safe ) + ',';
-	output.code += 'origin:_origin,';
-	output.code += 'line:' + this.keyword.line + ',';
-	output.code += '})';
-};
-
-ast.TupleLiteral.prototype.compile = function( output ) {
-	output.code += '_.createTuple([';
-	this.items.forEachValue( function( item, i ) {
-		item.compile( output );
-		output.code += ',';
-	} );
-	output.code += '])';
-};
-
-ast.ListLiteral.prototype.compile = function( output ) {
-	output.code += '_.createList([';
-	this.items.forEachValue( function( item, i ) {
-		item.compile( output );
-		output.code += ',';
-	} );
-	output.code += '])';
-};
-
-ast.ParenthesizedExpression.prototype.compile = function( output ) {
-	output.code += '(';
-	this.expression.compile( output );
-	output.code += ')';
-};
-
-ast.IdentifierExpression.prototype.compile = function( output ) {
-	if( this.magicValue ) {
-		if( typeof this.magicValue === "string" ) {
-			output.code += '_.createString(' + encodeString( this.magicValue ) + ')';
-		} else if( typeof this.magicValue === "number" ) {
-			output.code += '_.createInteger(' + this.magicValue + ')';
-		} else {
-			console.assert( false );
-		}
-	} else if( this.declared ) {
-		output.code += encodeName( this.token.value );
-	} else {
-		output.code += '_.implicit(_fiber,"' + this.token.value + '",void _fiber.setLine(' + this.token.line + '))';
-	}
-};
-
-ast.VariableExpression.prototype.compile = function( output ) {
-	output.code += encodeVariable( this.token.value );
-};
-
-ast.StringLiteral.prototype.compile = function( output ) {
-	output.code += '_.createString("';
-	for( let i = 0 ; i < this.value.length ; i++ ) {
-		let c = this.value.charCodeAt( i );
-		output.code += "\\u" + ( "0000" + c.toString( 16 ) ).slice( -4 );
-	}
-	output.code += '")';
-};
-
-ast.BytesLiteral.prototype.compile = function( output ) {
-	output.code += '_.createBytes([';
-	for( let i = 0 ; i < this.value.length ; i++ ) {
-		output.code += this.value[i] + ',';
-	}
-	output.code += '])';
-};
-
-ast.IntegerLiteral.prototype.compile = function( output ) {
-	output.code += '_.createInteger(' + this.token.value + ')';
-};
-
-ast.FloatLiteral.prototype.compile = function( output ) {
-	output.code += '_.createFloat(' + this.token.value + ')';
-};
-
-ast.BooleanLiteral.prototype.compile = function( output ) {
-	output.code += '_.createBoolean(' + this.token.type + ')';
-};
-
-ast.NothingLiteral.prototype.compile = function( output ) {
-	output.code += '_.createNothing()';
+	return output.code;
 };

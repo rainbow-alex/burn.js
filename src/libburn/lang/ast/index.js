@@ -1,6 +1,8 @@
 "use strict";
 
-exports.Node = CLASS( {
+let ast = module.exports;
+
+ast.Node = CLASS( {
 	init: function( properties ) {
 		if( properties ) {
 			for( let k in properties ) {
@@ -10,77 +12,115 @@ exports.Node = CLASS( {
 	},
 } );
 
-exports.Root = CLASS( exports.Node );
-exports.Block = CLASS( exports.Node );
+//
+// Expressions
+//
 
-exports.Annotation = CLASS( exports.Node );
+ast.Expression = CLASS( ast.Node );
 
-exports.Statement = CLASS( exports.Node );
-exports.BreakStatement = CLASS( exports.Statement );
-exports.ContinueStatement = CLASS( exports.Statement );
-exports.ForInStatement = CLASS( exports.Statement );
-exports.IfStatement = CLASS( exports.Statement );
-exports.ImportStatement = CLASS( exports.Statement );
-exports.IncludeStatement = CLASS( exports.Statement );
-exports.LetStatement = CLASS( exports.Statement );
-exports.PrintStatement = CLASS( exports.Statement );
-exports.ReturnStatement = CLASS( exports.Statement );
-exports.ThrowStatement = CLASS( exports.Statement );
-exports.TryStatement = CLASS( exports.Statement );
-exports.WhileStatement = CLASS( exports.Statement );
-exports.ExpressionStatement = CLASS( exports.Statement );
-exports.AssignmentStatement = CLASS( exports.Statement );
+ast.NothingLiteral = CLASS( ast.Expression );
+ast.BooleanLiteral = CLASS( ast.Expression );
+ast.IntegerLiteral = CLASS( ast.Expression );
+ast.FloatLiteral = CLASS( ast.Expression );
+ast.StringLiteral = CLASS( ast.Expression );
+ast.BytesLiteral = CLASS( ast.Expression );
 
-exports.ElseIfClause = CLASS( exports.Node );
-exports.ElseClause = CLASS( exports.Node );
-exports.CatchClause = CLASS( exports.Node );
-exports.FinallyClause = CLASS( exports.Node );
+ast.VariableExpression = CLASS( ast.Expression );
+ast.IdentifierExpression = CLASS( ast.Expression );
+ast.ThisExpression = CLASS( ast.Expression );
 
-exports.Expression = CLASS( exports.Node );
-exports.AndExpression = CLASS( exports.Expression );
-exports.OrExpression = CLASS( exports.Expression );
-exports.NotExpression = CLASS( exports.Expression );
-exports.IsExpression = CLASS( exports.Expression );
-exports.IsNotExpression = CLASS( exports.Expression );
-exports.EqExpression = CLASS( exports.Expression );
-exports.NeqExpression = CLASS( exports.Expression );
-exports.LtExpression = CLASS( exports.Expression );
-exports.GtExpression = CLASS( exports.Expression );
-exports.LteqExpression = CLASS( exports.Expression );
-exports.GteqExpression = CLASS( exports.Expression );
-exports.UnionExpression = CLASS( exports.Expression );
-exports.IntersectionExpression = CLASS( exports.Expression );
-exports.AddExpression = CLASS( exports.Expression );
-exports.SubExpression = CLASS( exports.Expression );
-exports.MulExpression = CLASS( exports.Expression );
-exports.DivExpression = CLASS( exports.Expression );
-exports.CallExpression = CLASS( exports.Expression );
-exports.PropertyExpression = CLASS( exports.Expression );
-exports.IndexExpression = CLASS( exports.Expression );
-exports.FunctionExpression = CLASS( exports.Expression );
-exports.ParenthesizedExpression = CLASS( exports.Expression );
-exports.IdentifierExpression = CLASS( exports.Expression );
-exports.VariableExpression = CLASS( exports.Expression );
-exports.TupleLiteral = CLASS( exports.Expression );
-exports.ListLiteral = CLASS( exports.Expression );
-exports.StringLiteral = CLASS( exports.Expression );
-exports.BytesLiteral = CLASS( exports.Expression );
-exports.IntegerLiteral = CLASS( exports.Expression );
-exports.FloatLiteral = CLASS( exports.Expression );
-exports.BooleanLiteral = CLASS( exports.Expression );
-exports.NothingLiteral = CLASS( exports.Expression );
+ast.ParenthesizedExpression = CLASS( ast.Expression );
+ast.TupleLiteral = CLASS( ast.Expression );
+ast.ListLiteral = CLASS( ast.Expression );
 
-exports.CallArgument = CLASS( exports.Node );
-exports.FunctionParameter = CLASS( exports.Node );
+ast.FunctionExpression = CLASS( ast.Expression );
+ast.ClassExpression = CLASS( ast.Expression );
 
-exports.Lvalue = CLASS( exports.Node );
-exports.VariableLvalue = CLASS( exports.Lvalue );
-exports.PropertyLvalue = CLASS( exports.Lvalue );
-exports.IndexLvalue = CLASS( exports.Lvalue );
+	ast.CallArgument = CLASS( ast.Node );
+	ast.CallableParameter = CLASS( ast.Node );
+	ast.ClassProperty = CLASS( ast.Node );
+	ast.ClassMethod = CLASS( ast.Node );
 
-for( let k in exports ) {
-	if( exports[k].prototype instanceof exports.Node ) {
-		exports[k].prototype.toString = function() {
+ast.NewExpression = CLASS( ast.Expression );
+
+ast.CallExpression = CLASS( ast.Expression );
+ast.PropertyExpression = CLASS( ast.Expression );
+ast.IndexExpression = CLASS( ast.Expression );
+
+ast.IntersectionExpression = CLASS( ast.Expression );
+ast.UnionExpression = CLASS( ast.Expression );
+
+ast.MulExpression = CLASS( ast.Expression );
+ast.DivExpression = CLASS( ast.Expression );
+
+ast.AddExpression = CLASS( ast.Expression );
+ast.SubExpression = CLASS( ast.Expression );
+
+ast.IsExpression = CLASS( ast.Expression );
+ast.IsNotExpression = CLASS( ast.Expression );
+ast.EqExpression = CLASS( ast.Expression );
+ast.NeqExpression = CLASS( ast.Expression );
+ast.LtExpression = CLASS( ast.Expression );
+ast.GtExpression = CLASS( ast.Expression );
+ast.LteqExpression = CLASS( ast.Expression );
+ast.GteqExpression = CLASS( ast.Expression );
+
+ast.NotExpression = CLASS( ast.Expression );
+ast.AndExpression = CLASS( ast.Expression );
+ast.OrExpression = CLASS( ast.Expression );
+
+//
+// Lvalues
+//
+
+ast.Lvalue = CLASS( ast.Node );
+
+ast.VariableLvalue = CLASS( ast.Lvalue );
+ast.PropertyLvalue = CLASS( ast.Lvalue );
+ast.IndexLvalue = CLASS( ast.Lvalue );
+
+//
+// Statements
+//
+
+ast.Statement = CLASS( ast.Node );
+ast.Block = CLASS( ast.Node );
+ast.Annotation = CLASS( ast.Node );
+
+ast.ExpressionStatement = CLASS( ast.Statement );
+ast.AssignmentStatement = CLASS( ast.Statement );
+
+ast.BreakStatement = CLASS( ast.Statement );
+ast.ContinueStatement = CLASS( ast.Statement );
+ast.ImportStatement = CLASS( ast.Statement );
+ast.IncludeStatement = CLASS( ast.Statement );
+ast.LetStatement = CLASS( ast.Statement );
+ast.PrintStatement = CLASS( ast.Statement );
+ast.ReturnStatement = CLASS( ast.Statement );
+ast.ThrowStatement = CLASS( ast.Statement );
+
+ast.ForInStatement = CLASS( ast.Statement );
+ast.IfStatement = CLASS( ast.Statement );
+ast.TryStatement = CLASS( ast.Statement );
+ast.WhileStatement = CLASS( ast.Statement );
+
+	ast.ElseIfClause = CLASS( ast.Node );
+	ast.ElseClause = CLASS( ast.Node );
+	ast.CatchClause = CLASS( ast.Node );
+	ast.FinallyClause = CLASS( ast.Node );
+
+//
+// Root node
+//
+
+ast.Root = CLASS( ast.Node );
+
+// ***
+
+// Create a helpful toString for every Node type
+for( let k in ast ) {
+	if( ast[k].prototype instanceof ast.Node ) {
+		ast[k].prototype.toString = function() {
 			return "<ast." + k + ">";
 		}
 	}

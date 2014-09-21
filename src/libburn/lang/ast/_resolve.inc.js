@@ -88,11 +88,101 @@ ast.Node.prototype.resolve = function( scope ) {
 	}
 };
 
-ast.Root.prototype.resolve = function() {
-	let scope = new Scope();
-	this.statements.forEach( function( s ) {
-		s.resolve( scope );
+//
+// Expressions
+//
+
+ast.VariableExpression.prototype.resolve = function( scope ) {
+	if( ! scope.isVariableDeclared( this.token.value ) ) {
+		throw new Error( "Variable " + this.token.value + " not found.", this.token );
+	}
+	scope.useVariable( this.token.value );
+};
+
+ast.IdentifierExpression.prototype.resolve = function( scope ) {
+	if( this.token.value === "magic:filename" && this.token.origin.filename ) {
+		this.magicValue = path.resolve( this.token.origin.filename );
+	} else if( this.token.value === "magic:line" ) {
+		this.magicValue = this.token.line;
+	} else {
+		this.declared = scope.isNameDeclared( this.token.value );
+	}
+};
+
+ast.FunctionExpression.prototype.resolve = function( scope ) {
+	let functionScope = scope.spawnNestedFunctionScope( this );
+	this.parameters.forEachValue( function( p ) {
+		p.resolveType( scope );
+		p.resolve( functionScope );
 	} );
+	if( this.returnType ) {
+		this.returnType.resolve( scope );
+	}
+	this.block.statements.forEach( function( s ) {
+		s.resolve( functionScope );
+	} );
+	this.safe = ! functionScope.isClosure();
+};
+
+ast.CallableParameter.prototype.resolveType = function( scope ) {
+	if( this.type ) {
+		this.type.resolve( scope );
+	}
+};
+
+ast.CallableParameter.prototype.resolve = function( scope ) {
+	if( scope.isVariableDeclaredInThisScope( this.variable.value ) ) {
+		throw new Error( "Duplicate declaration of " + this.variable.value, this.variable );
+	}
+	scope.declareVariable( this.variable.value );
+	if( this.defaultValue ) {
+		this.defaultValue.resolve( scope );
+	}
+};
+
+ast.ClassMethod.prototype.resolve = function( scope ) {
+	let methodScope = scope.spawnNestedFunctionScope( this );
+	this.parameters.forEachValue( function( p ) {
+		p.resolveType( scope );
+		p.resolve( methodScope );
+	} );
+	if( this.returnType ) {
+		this.returnType.resolve( scope );
+	}
+	this.block.statements.forEach( function( s ) {
+		s.resolve( methodScope );
+	} );
+	this.safe = ! methodScope.isClosure();
+};
+
+//
+// Lvalues
+//
+
+ast.VariableLvalue.prototype.resolve = function( scope ) {
+	if( ! scope.isVariableDeclared( this.token.value ) ) {
+		throw new Error( "Variable " + this.token.value + " not found.", this.token );
+	}
+	scope.useVariable( this.token.value );
+};
+
+ast.VariableLvalue.prototype.suggestName = function() {
+	return this.token.value.substr(1);
+};
+
+ast.PropertyLvalue.prototype.suggestName = function() {
+	return this.property.value;
+};
+
+//
+// Statements
+//
+
+ast.AssignmentStatement.prototype.resolve = function( scope ) {
+	ast.Node.prototype.resolve.call( this, scope );
+	if( this.rvalue instanceof ast.FunctionExpression && this.lvalue.suggestName ) {
+		this.rvalue.name = this.lvalue.suggestName();
+	}
 };
 
 ast.BreakStatement.prototype.resolve = function( scope ) {
@@ -121,6 +211,21 @@ ast.ContinueStatement.prototype.resolve = function( scope ) {
 			throw new Error( "Continue outside of loop.", this.keyword );
 		}
 	}
+};
+
+ast.LetStatement.prototype.resolve = function( scope ) {
+	if( scope.isVariableDeclaredInThisScope( this.variable.value ) ) {
+		throw new Error( "Duplicate declaration of " + this.variable.value + ".", this.variable );
+	}
+	scope.declareVariable( this.variable.value );
+	ast.Node.prototype.resolve.call( this, scope );
+	if( this.initialValue instanceof ast.FunctionExpression ) {
+		this.initialValue.name = this.variable.value;
+	}
+};
+
+ast.ImportStatement.prototype.resolve = function( scope ) {
+	scope.declareName( this.fqn.getLastValue().value );
 };
 
 ast.ForInStatement.prototype.resolve = function( scope ) {
@@ -181,28 +286,6 @@ ast.WhileStatement.prototype.resolve = function( scope ) {
 	} );
 };
 
-ast.LetStatement.prototype.resolve = function( scope ) {
-	if( scope.isVariableDeclaredInThisScope( this.variable.value ) ) {
-		throw new Error( "Duplicate declaration of " + this.variable.value + ".", this.variable );
-	}
-	scope.declareVariable( this.variable.value );
-	ast.Node.prototype.resolve.call( this, scope );
-	if( this.initialValue instanceof ast.FunctionExpression ) {
-		this.initialValue.name = this.variable.value;
-	}
-};
-
-ast.ImportStatement.prototype.resolve = function( scope ) {
-	scope.declareName( this.fqn.getLastValue().value );
-};
-
-ast.AssignmentStatement.prototype.resolve = function( scope ) {
-	ast.Node.prototype.resolve.call( this, scope );
-	if( this.rvalue instanceof ast.FunctionExpression && this.lvalue.suggestName ) {
-		this.rvalue.name = this.lvalue.suggestName();
-	}
-};
-
 ast.ElseIfClause.prototype.resolve = function( scope ) {
 	this.test.resolve( scope );
 	let blockScope = scope.spawnNestedBlockScope();
@@ -236,65 +319,13 @@ ast.FinallyClause.prototype.resolve = function( scope ) {
 	} );
 };
 
-ast.FunctionExpression.prototype.resolve = function( scope ) {
-	let functionScope = scope.spawnNestedFunctionScope( this );
-	this.parameters.forEachValue( function( p ) {
-		p.resolveType( scope );
-		p.resolve( functionScope );
+//
+// Root node
+//
+
+ast.Root.prototype.resolve = function() {
+	let scope = new Scope();
+	this.statements.forEach( function( s ) {
+		s.resolve( scope );
 	} );
-	if( this.returnType ) {
-		this.returnType.resolve( scope );
-	}
-	this.block.statements.forEach( function( s ) {
-		s.resolve( functionScope );
-	} );
-	this.safe = ! functionScope.isClosure();
-};
-
-ast.FunctionParameter.prototype.resolveType = function( scope ) {
-	if( this.type ) {
-		this.type.resolve( scope );
-	}
-};
-
-ast.FunctionParameter.prototype.resolve = function( scope ) {
-	if( scope.isVariableDeclaredInThisScope( this.variable.value ) ) {
-		throw new Error( "Duplicate declaration of " + this.variable.value, this.variable );
-	}
-	scope.declareVariable( this.variable.value );
-	if( this.defaultValue ) {
-		this.defaultValue.resolve( scope );
-	}
-};
-
-ast.IdentifierExpression.prototype.resolve = function( scope ) {
-	if( this.token.value === "magic:filename" && this.token.origin.filename ) {
-		this.magicValue = path.resolve( this.token.origin.filename );
-	} else if( this.token.value === "magic:line" ) {
-		this.magicValue = this.token.line;
-	} else {
-		this.declared = scope.isNameDeclared( this.token.value );
-	}
-};
-
-ast.VariableExpression.prototype.resolve = function( scope ) {
-	if( ! scope.isVariableDeclared( this.token.value ) ) {
-		throw new Error( "Variable " + this.token.value + " not found.", this.token );
-	}
-	scope.useVariable( this.token.value );
-};
-
-ast.VariableLvalue.prototype.resolve = function( scope ) {
-	if( ! scope.isVariableDeclared( this.token.value ) ) {
-		throw new Error( "Variable " + this.token.value + " not found.", this.token );
-	}
-	scope.useVariable( this.token.value );
-};
-
-ast.VariableLvalue.prototype.suggestName = function() {
-	return this.token.value.substr(1);
-};
-
-ast.PropertyLvalue.prototype.suggestName = function() {
-	return this.property.value;
 };

@@ -96,7 +96,7 @@ module.exports = function( origin ) {
 		
 		// keywords
 		} else if( m = source.substr(i).match(
-			/^(and|break|catch|class|continue|else|false|finally|for|function|if|import|in|include|is|let|not|nothing|or|print|return|this|throw|true|try|while)\b/
+			/^(and|break|catch|class|continue|else|false|finally|for|function|if|import|in|include|is|let|method|new|not|nothing|or|print|property|return|this|throw|true|try|while)\b/
 		) ) {
 			pushToken( m[0], m[0] );
 		

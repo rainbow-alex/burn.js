@@ -3,6 +3,7 @@ let Fiber = require( "./Fiber" );
 let utf8 = require( "../utf8" );
 
 let Value = module.exports = CLASS( {
+	
 	init: function( properties ) {
 		if( properties ) {
 			for( let k in properties ) {
@@ -10,9 +11,9 @@ let Value = module.exports = CLASS( {
 			}
 		}
 	},
-	toBurnString: function( fiber ) {
-		return new Value.String( this.repr );
-	},
+	
+	safe: false,
+	
 	isTruthy: function( fiber ) {
 		return true;
 	},
@@ -25,6 +26,10 @@ let Value = module.exports = CLASS( {
 	canOrd: function( value ) {
 		return false;
 	},
+	toBurnString: function( fiber ) {
+		return new Value.String( this.repr );
+	},
+	
 	canGet: function( name ) {
 		return Boolean( this[ "property_" + name ] || this[ "get_" + name ] || this[ "call_" + name ] );
 	},
@@ -41,14 +46,14 @@ let Value = module.exports = CLASS( {
 	canSet: function( property ) {
 		return false;
 	},
-	safe: false,
 } );
 
 Value.Nothing = CLASS( Value, {
+	
+	safe: true,
+	
 	repr: "<Nothing>",
-	toBurnString: function( fiber ) {
-		return new Value.String( "nothing" );
-	},
+	
 	isTruthy: function( fiber ) {
 		return false;
 	},
@@ -58,17 +63,21 @@ Value.Nothing = CLASS( Value, {
 	eq: function( fiber, other ) {
 		return true;
 	},
-	safe: true,
+	toBurnString: function( fiber ) {
+		return new Value.String( "nothing" );
+	},
 } );
 
 Value.Boolean = CLASS( Value, {
+	
 	init: function( value ) {
 		this.value = value;
 	},
+	
+	safe: true,
+	
 	repr: "<Boolean>",
-	toBurnString: function( fiber ) {
-		return new Value.String( this.value ? "true" : "false" );
-	},
+	
 	isTruthy: function( fiber ) {
 		return this.value;
 	},
@@ -78,17 +87,21 @@ Value.Boolean = CLASS( Value, {
 	eq: function( fiber, other ) {
 		return this.value === other.value;
 	},
-	safe: true,
+	toBurnString: function( fiber ) {
+		return new Value.String( this.value ? "true" : "false" );
+	},
 } );
 
 Value.Integer = CLASS( Value, {
+	
 	init: function( value ) {
 		this.value = value;
 	},
+	
+	safe: true,
+	
 	repr: "<Integer>",
-	toBurnString: function( fiber ) {
-		return new Value.String( String(this.value) );
-	},
+	
 	isTruthy: function( fiber ) {
 		return this.value !== 0;
 	},
@@ -104,21 +117,21 @@ Value.Integer = CLASS( Value, {
 	lt: function( fiber, other ) {
 		return this.value < other.value;
 	},
-	safe: true,
+	toBurnString: function( fiber ) {
+		return new Value.String( String(this.value) );
+	},
 } );
 
 Value.Float = CLASS( Value, {
+	
 	init: function( value ) {
 		this.value = value;
 	},
+	
+	safe: true,
+	
 	repr: "<Float>",
-	toBurnString: function( fiber ) {
-		if( Math.round( this.value ) === this.value ) {
-			return new Value.String( this.value.toFixed( 1 ) );
-		} else {
-			return new Value.String( this.value.toString() );
-		}
-	},
+	
 	isTruthy: function( fiber ) {
 		return this.value !== 0;
 	},
@@ -134,17 +147,25 @@ Value.Float = CLASS( Value, {
 	lt: function( fiber, other ) {
 		return this.value < other.value;
 	},
-	safe: true,
+	toBurnString: function( fiber ) {
+		if( Math.round( this.value ) === this.value ) {
+			return new Value.String( this.value.toFixed( 1 ) );
+		} else {
+			return new Value.String( this.value.toString() );
+		}
+	},
 } );
 
 Value.Character = CLASS( Value, {
+	
 	init: function( value ) {
 		this.value = value;
 	},
+	
+	safe: true,
+	
 	repr: "<Character>",
-	toBurnString: function( fiber ) {
-		return new Value.String( this.value );
-	},
+	
 	isTruthy: function( fiber ) {
 		return true;
 	},
@@ -160,17 +181,20 @@ Value.Character = CLASS( Value, {
 	lt: function( fiber, other ) {
 		return this.value < other.value;
 	},
-	safe: true,
+	toBurnString: function( fiber ) {
+		return new Value.String( this.value );
+	},
 } );
 
 Value.String = CLASS( Value, {
 	init: function( value ) {
 		this.value = value;
 	},
+	
+	safe: true,
+	
 	repr: "<String>",
-	toBurnString: function( fiber ) {
-		return this;
-	},
+	
 	isTruthy: function( fiber ) {
 		return this.value.length > 0;
 	},
@@ -186,6 +210,10 @@ Value.String = CLASS( Value, {
 	lt: function( fiber, other ) {
 		return this.value < other.value;
 	},
+	toBurnString: function( fiber ) {
+		return this;
+	},
+	
 	getIndex: function( fiber, index ) {
 		util.validateIndex( fiber, this, types.Integer.Nonnegative, index );
 		return new Value.Character( this.value.at( index.value ) );
@@ -198,7 +226,7 @@ Value.String = CLASS( Value, {
 			return c && new Value.Character( c );
 		};
 	},
-	safe: true,
+	
 	get_length: function( fiber ) {
 		return new Value.Integer( utf8.length( this.value ) );
 	},
@@ -209,13 +237,18 @@ Value.String = CLASS( Value, {
 } );
 
 Value.Bytes = CLASS( Value, {
+	
 	init: function( value ) {
 		if( Array.isArray( value ) ) {
 			value = new Buffer( value );
 		}
 		this.value = value;
 	},
+	
+	safe: true,
+	
 	repr: "<Bytes>",
+	
 	isTruthy: function( fiber ) {
 		return this.value.length > 0;
 	},
@@ -234,10 +267,7 @@ Value.Bytes = CLASS( Value, {
 		return true;
 	},
 	// TODO ord
-	getIndex: function( fiber, index ) {
-		util.validateIndex( fiber, this, types.Integer.Nonnegative, index );
-		return new Value.Integer( this.value[ index.value ] );
-	},
+	
 	iter: function() {
 		let value = this.value;
 		let i = 0;
@@ -246,7 +276,12 @@ Value.Bytes = CLASS( Value, {
 			return b && new Value.Integer( b );
 		};
 	},
-	safe: true,
+	
+	getIndex: function( fiber, index ) {
+		util.validateIndex( fiber, this, types.Integer.Nonnegative, index );
+		return new Value.Integer( this.value[ index.value ] );
+	},
+	
 	get_length: function( fiber ) {
 		return new Value.Integer( this.value.length );
 	},
@@ -257,6 +292,7 @@ Value.Bytes = CLASS( Value, {
 } );
 
 Value.Function = CLASS( Value, {
+	
 	init: function( implementation, options ) {
 		this.implementation = implementation;
 		options = options || {};
@@ -265,6 +301,7 @@ Value.Function = CLASS( Value, {
 		this.line = options.line;
 		this.safe = options.safe || false;
 	},
+	
 	suggestName: function( name ) {
 		this.name = this.name || name;
 	},
@@ -275,9 +312,11 @@ Value.Function = CLASS( Value, {
 			return "<Function>";
 		}
 	},
+	
 	canEq: function( value ) {
 		return value instanceof Value.Function;
 	},
+	
 	call: function( fiber, args ) {
 		fiber.stack.push( new Fiber.FunctionFrame( this ) );
 		try {
@@ -289,13 +328,16 @@ Value.Function = CLASS( Value, {
 } );
 
 Value.BoundMethod = CLASS( Value, {
+	
 	init: function( value, method ) {
 		this.value = value;
 		this.method = method;
 	},
+	
 	get repr() {
 		return "<BoundMethod '" + this.method + "' of " + this.value.repr + ">";
 	},
+	
 	call: function( fiber, args ) {
 		fiber.stack.push( new Fiber.BoundMethodFrame( this ) );
 		try {
@@ -307,10 +349,22 @@ Value.BoundMethod = CLASS( Value, {
 } );
 
 Value.Tuple = CLASS( Value, {
+	
 	init: function( items ) {
 		this.items = items;
 	},
+	
+	get safe() {
+		for( let i = 0 ; i < this.items.length ; i++ ) {
+			if( ! this.items[i].safe ) {
+				return false;
+			}
+		}
+		return true;
+	},
+	
 	repr: "<Tuple>",
+	
 	isTruthy: function( fiber ) {
 		return this.items.length > 0;
 	},
@@ -337,10 +391,7 @@ Value.Tuple = CLASS( Value, {
 		return true;
 	},
 	// TODO ord
-	getIndex: function( fiber, index ) {
-		util.validateIndex( fiber, this, types.Integer.Nonnegative, index );
-		return this.items[ index.value ];
-	},
+	
 	iter: function() {
 		let items = this.items;
 		let i = 0;
@@ -348,20 +399,19 @@ Value.Tuple = CLASS( Value, {
 			return items[ i++ ];
 		};
 	},
+	
+	getIndex: function( fiber, index ) {
+		util.validateIndex( fiber, this, types.Integer.Nonnegative, index );
+		return this.items[ index.value ];
+	},
+	
 	get_length: function( fiber ) {
 		return new Value.Integer( this.items.length );
-	},
-	get safe() {
-		for( let i = 0 ; i < this.items.length ; i++ ) {
-			if( ! this.items[i].safe ) {
-				return false;
-			}
-		}
-		return true;
 	},
 } );
 
 Value.Module = CLASS( Value, {
+	
 	init: function( contents ) {
 		if( contents ) {
 			for( var k in contents ) {
@@ -374,6 +424,9 @@ Value.Module = CLASS( Value, {
 			}
 		}
 	},
+	
+	safe: true,
+	
 	suggestName: function( name ) {
 		this.name = this.name || name;
 	},
@@ -384,9 +437,11 @@ Value.Module = CLASS( Value, {
 			return "<Module>";
 		}
 	},
+	
 	canEq: function( value ) {
 		return value instanceof Value.Module;
 	},
+	
 	canGet: function( name ) {
 		return Boolean( this[ "$" + name ] );
 	},
@@ -399,59 +454,81 @@ Value.Module = CLASS( Value, {
 	set: function( fiber, name, value ) {
 		this[ "$" + name ] = value;
 	},
-	safe: true,
 } );
 
 Value.Type = CLASS( Value, {
-	repr: "<Type>",
+	
+	safe: false,
+	permanent: false,
+	
 	suggestName: function( name ) {
 		this.name = this.name || name;
 	},
+	repr: "<Type>",
+	
 	toBurnString: function() {
 		return new Value.String( this.name || this.repr );
 	},
-	safe: false,
-	permanent: false,
 } );
 
 Value.TypeUnion = CLASS( Value, {
+	
 	init: function( left, right ) {
 		this.left = left;
 		this.right = right;
 	},
+	
+	// TODO get safe
+	// TODO get permanent
+	
 	get repr() {
 		return "<Union " + this.left.repr + " " + this.right.repr + ">";
 	},
+	
 	typeTest: function( fiber, value ) {
 		return this.left.typeTest( fiber, value ) || this.right.typeTest( fiber, value );
 	},
-	// todo get safe
-	// todo get permanent
 } );
 
 Value.TypeIntersection = CLASS( Value, {
+	
 	init: function( left, right ) {
 		this.left = left;
 		this.right = right;
 	},
+	
+	// TODO get safe
+	// TODO get permanent
+	
 	get repr() {
 		return "<Intersection " + this.left.repr + " " + this.right.repr + ">";
 	},
+	
 	typeTest: function( fiber, value ) {
 		return this.left.typeTest( fiber, value ) && this.right.typeTest( fiber, value );
 	},
-	// todo get safe
-	// todo get permanent
 } );
 
 Value.List = CLASS( Value, {
+	
 	init: function( items ) {
 		this.items = items || [];
 	},
+	
 	repr: "<List>",
+	
 	isTruthy: function() {
 		return this.items.length !== 0;
 	},
+	
+	iter: function() {
+		let items = this.items;
+		let i = 0;
+		return function() {
+			return items[ i++ ];
+		};
+	},
+	
 	getIndex: function( fiber, index ) {
 		util.validateIndex( fiber, this, types.Integer, index );
 		return this.items[ index.value ];
@@ -460,13 +537,7 @@ Value.List = CLASS( Value, {
 		util.validateIndex( fiber, this, types.Integer, index );
 		this.items[ index.value ] = value;
 	},
-	iter: function() {
-		let items = this.items;
-		let i = 0;
-		return function() {
-			return items[ i++ ];
-		};
-	},
+	
 	get_length: function( fiber ) {
 		return new Value.Integer( this.items.length );
 	},
@@ -475,6 +546,106 @@ Value.List = CLASS( Value, {
 			{},
 		] );
 		this.items.push( args[0] );
+	},
+} );
+
+Value.Class = CLASS( Value, {
+	
+	init: function( properties, methods ) {
+		this.properties = properties;
+		this.methods = methods;
+	},
+	
+	suggestName: function( name ) {
+		this.name = this.name || name;
+	},
+	get repr() {
+		return this.name || "<Class>";
+	},
+	
+	new_: function() {
+		return new Value.ClassInstance( this );
+	},
+	
+	instanceCanGet: function( name ) {
+		return Boolean( this.properties[ name ] || this.methods[ name ] );
+	},
+	instanceGet: function( fiber, instance, name ) {
+		if( this.methods[ "magic:get:" + name ] ) {
+			return this.methods[ "magic:get:" + name ].call( fiber, instance, [] );
+		} else if( this.methods[ name ] ) {
+			return new Value.Class.BoundMethod( instance, this.methods[ name ] );
+		} else {
+			return instance[ "$" + name ] || new Value.Nothing();
+		}
+	},
+	instanceCanSet: function( name ) {
+		return Boolean( this.properties[ name ] );
+	},
+} );
+
+Value.Class.Property = CLASS( {
+	
+	init: function( type ) {
+		this.type = type;
+	},
+} );
+
+Value.Class.Method = CLASS( {
+	
+	init: function( parameters, returnType, implementation ) {
+		this.parameters = parameters;
+		this.returnType = returnType;
+		this.implementation = implementation;
+	},
+	
+	callFor: function( fiber, callee, instance, args ) {
+		fiber.stack.push( new Fiber.BoundMethodFrame( this ) );
+		try {
+			return (this.implementation)( fiber, callee, instance, args ) || new Value.Nothing();
+		} finally {
+			fiber.stack.pop();
+		}
+	},
+} );
+
+Value.Class.BoundMethod = CLASS( Value, {
+	
+	init: function( instance, method ) {
+		this.instance = instance;
+		this.method = method;
+	},
+	
+	get repr() {
+		return "<BoundMethod '" + this.method + "' of " + this.instance.repr + ">";
+	},
+	
+	call: function( fiber, args ) {
+		return this.method.callFor( fiber, this, this.instance, args );
+	},
+} );
+
+Value.ClassInstance = CLASS( Value, {
+	
+	init: function( class_ ) {
+		this.class_ = class_;
+	},
+	
+	get repr() {
+		return "<" + this.class_.repr + ">";
+	},
+	
+	canGet: function( name ) {
+		return this.class_.instanceCanGet( name );
+	},
+	get: function( fiber, name ) {
+		return this.class_.instanceGet( fiber, this, name );
+	},
+	canSet: function( name ) {
+		return this.class_.instanceCanSet( name );
+	},
+	set: function( fiber, name, value ) {
+		this[ "$" + name ] = value;
 	},
 } );
 

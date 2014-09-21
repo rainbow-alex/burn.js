@@ -6,10 +6,13 @@ let types = require( "libburn/builtin/burn/types" );
 let sys = module.exports;
 
 sys.ProcessInstance = CLASS( Value, {
+	
 	init: function( argv ) {
 		this.argv = argv;
 	},
+	
 	repr: "<Process>",
+	
 	get_pid: function( fiber ) {
 		return new Value.Integer( process.pid );
 	},

@@ -35,6 +35,22 @@ rt.createBytes = function( v ) {
 	return new Value.Bytes( v );
 };
 
+rt.implicit = function( fiber, name ) {
+	if( implicit.exposes.canGet( name ) ) {
+		return implicit.exposes.get( fiber, name );
+	} else {
+		throw new errors.NameErrorInstance( msg.implicit_name_error( name ), fiber.stack );
+	}
+};
+
+rt.createTuple = function( items ) {
+	return new Value.Tuple( items );
+};
+
+rt.createList = function( items ) {
+	return new Value.List( items );
+};
+
 rt.createFunction = function( implementation, options ) {
 	return new Value.Function( implementation, options );
 };
@@ -58,12 +74,21 @@ rt.validateFunctionCallReturnType = function( fiber, fn, value, type ) {
 	}
 };
 
-rt.createTuple = function( items ) {
-	return new Value.Tuple( items );
+rt.createClass = function( properties, methods ) {
+	return new Value.Class( properties, methods );
 };
 
-rt.createList = function( items ) {
-	return new Value.List( items );
+rt.createClassProperty = function( type ) {
+	return new Value.Class.Property( type );
+};
+
+rt.createClassMethod = function( implementation, options ) {
+	return new Value.Class.Method( [], null, implementation );
+};
+
+rt.new_ = function( instantiatable ) {
+	// TODO typecheck
+	return instantiatable.new_();
 };
 
 rt.get = function( fiber, value, property ) {
@@ -110,6 +135,16 @@ rt.setIndex = function( fiber, value, index, itemValue ) {
 	}
 };
 
+rt.intersection = function( fiber, l, r ) {
+	if( types.Type.typeTest( fiber, l ) && types.Type.typeTest( fiber, r ) ) {
+		return new Value.TypeIntersection( l, r );
+	}
+	throw new errors.TypeErrorInstance(
+		"TypeError: Can't apply `&` to " + l.repr + " and " + r.repr + ".",
+		fiber.stack
+	);
+};
+
 rt.union = function( fiber, l, r ) {
 	if( types.Type.typeTest( fiber, l ) && types.Type.typeTest( fiber, r ) ) {
 		return new Value.TypeUnion( l, r );
@@ -120,12 +155,51 @@ rt.union = function( fiber, l, r ) {
 	);
 };
 
-rt.intersection = function( fiber, l, r ) {
-	if( types.Type.typeTest( fiber, l ) && types.Type.typeTest( fiber, r ) ) {
-		return new Value.TypeIntersection( l, r );
+rt.mul = function( fiber, l, r ) {
+	if( l instanceof Value.Integer ) {
+		if( r instanceof Value.Integer ) {
+			return new Value.Integer( l.value * r.value );
+		} else if( r instanceof Value.Float ) {
+			return new Value.Float( l.value * r.value );
+		} else if( r instanceof Value.String ) {
+			if( l.value < 0 ) {
+				throw new errors.TypeErrorInstance(
+					"TypeError: Can't apply `*` to " + l.repr + " and <burn.math.StrictlyNegative>",
+					fiber.stack
+				);
+			}
+			return new Value.String( repeatString( r.value, l.value ) );
+		}
+	} else if( l instanceof Value.Float ) {
+		if( r instanceof Value.Integer || r instanceof Value.Float ) {
+			return new Value.Float( l.value * r.value );
+		}
+	} else if( l instanceof Value.String ) {
+		if( r instanceof Value.Integer ) {
+			if( r.value < 0 ) {
+				throw new errors.TypeErrorInstance(
+					"TypeError: Can't apply `*` to <burn.math.StrictlyNegative> and " + r.repr,
+					fiber.stack
+				);
+			}
+			return new Value.String( repeatString( l.value, r.value ) );
+		}
 	}
 	throw new errors.TypeErrorInstance(
-		"TypeError: Can't apply `&` to " + l.repr + " and " + r.repr + ".",
+		"TypeError: Can't apply `*` to " + l.repr + " and " + r.repr + ".",
+		fiber.stack
+	);
+};
+
+rt.div = function( fiber, l, r ) {
+	if( ( l instanceof Value.Integer || l instanceof Value.Float ) && ( r instanceof Value.Integer || r instanceof Value.Float ) ) {
+		if( r.value === 0 ) {
+			throw new errors.TypeErrorInstance( "TypeError: Division by burn.math.Zero.", fiber.stack );
+		}
+		return new Value.Float( l.value / r.value );
+	}
+	throw new errors.TypeErrorInstance(
+		"TypeError: Can't apply `/` to " + l.repr + " and " + r.repr + ".",
 		fiber.stack
 	);
 };
@@ -178,55 +252,6 @@ function repeatString( s, n ) {
 	return o;
 }
 
-rt.mul = function( fiber, l, r ) {
-	if( l instanceof Value.Integer ) {
-		if( r instanceof Value.Integer ) {
-			return new Value.Integer( l.value * r.value );
-		} else if( r instanceof Value.Float ) {
-			return new Value.Float( l.value * r.value );
-		} else if( r instanceof Value.String ) {
-			if( l.value < 0 ) {
-				throw new errors.TypeErrorInstance(
-					"TypeError: Can't apply `*` to " + l.repr + " and <burn.math.StrictlyNegative>",
-					fiber.stack
-				);
-			}
-			return new Value.String( repeatString( r.value, l.value ) );
-		}
-	} else if( l instanceof Value.Float ) {
-		if( r instanceof Value.Integer || r instanceof Value.Float ) {
-			return new Value.Float( l.value * r.value );
-		}
-	} else if( l instanceof Value.String ) {
-		if( r instanceof Value.Integer ) {
-			if( r.value < 0 ) {
-				throw new errors.TypeErrorInstance(
-					"TypeError: Can't apply `*` to <burn.math.StrictlyNegative> and " + r.repr,
-					fiber.stack
-				);
-			}
-			return new Value.String( repeatString( l.value, r.value ) );
-		}
-	}
-	throw new errors.TypeErrorInstance(
-		"TypeError: Can't apply `*` to " + l.repr + " and " + r.repr + ".",
-		fiber.stack
-	);
-};
-
-rt.div = function( fiber, l, r ) {
-	if( ( l instanceof Value.Integer || l instanceof Value.Float ) && ( r instanceof Value.Integer || r instanceof Value.Float ) ) {
-		if( r.value === 0 ) {
-			throw new errors.TypeErrorInstance( "TypeError: Division by burn.math.Zero.", fiber.stack );
-		}
-		return new Value.Float( l.value / r.value );
-	}
-	throw new errors.TypeErrorInstance(
-		"TypeError: Can't apply `/` to " + l.repr + " and " + r.repr + ".",
-		fiber.stack
-	);
-};
-
 rt.is = function( fiber, l, r ) {
 	if( ! types.Type.typeTest( fiber, r ) ) {
 		throw new errors.TypeErrorInstance(
@@ -271,6 +296,10 @@ rt.gteq = function( fiber, l, r ) {
 	return new Value.Boolean( ! rt.lt( fiber, l, r ).value );
 };
 
+rt.not = function( fiber, e ) {
+	return new Value.Boolean( ! e.isTruthy( fiber ) );
+};
+
 rt.and = function( fiber, l, rf ) {
 	return l.isTruthy( fiber ) ? rf() : l;
 };
@@ -279,19 +308,9 @@ rt.or = function( fiber, l, rf ) {
 	return l.isTruthy( fiber ) ? l : rf();
 };
 
-rt.not = function( fiber, e ) {
-	return new Value.Boolean( ! e.isTruthy( fiber ) );
-};
-
-rt.forInIter = function( fiber, iterable ) {
-	if( ! types.Iterable.typeTest( fiber, iterable ) ) {
-		throw new errors.TypeErrorInstance(
-			iterable.repr + " is not Iterable",
-			fiber.stack
-		);
-	}
-	return iterable.iter();
-};
+//
+// Statements
+//
 
 rt.import = function( fiber, fqn ) {
 	let x = fiber.vm.importRootModule( fiber, fqn[0] );
@@ -320,10 +339,12 @@ rt.include = function( fiber, origin, filename ) {
 	fiber.vm.include( fiber, filename );
 };
 
-rt.implicit = function( fiber, name ) {
-	if( implicit.exposes.canGet( name ) ) {
-		return implicit.exposes.get( fiber, name );
-	} else {
-		throw new errors.NameErrorInstance( msg.implicit_name_error( name ), fiber.stack );
+rt.forInIter = function( fiber, iterable ) {
+	if( ! types.Iterable.typeTest( fiber, iterable ) ) {
+		throw new errors.TypeErrorInstance(
+			iterable.repr + " is not Iterable",
+			fiber.stack
+		);
 	}
+	return iterable.iter();
 };
