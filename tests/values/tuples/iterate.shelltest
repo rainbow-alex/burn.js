@@ -1,0 +1,11 @@
+iterate.burn:
+	for $i in ( "a", 2 ) {
+		print $i
+	}
+	print "done"
+
+$ $BURN iterate.burn
+	* stdout
+		a
+		2
+		done

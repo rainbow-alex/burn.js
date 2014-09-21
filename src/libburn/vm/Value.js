@@ -190,6 +190,14 @@ Value.String = CLASS( Value, {
 		util.validateIndex( fiber, this, types.Integer.Nonnegative, index );
 		return new Value.Character( this.value.at( index.value ) );
 	},
+	iter: function() {
+		let value = this.value;
+		let i = 0;
+		return function() {
+			let c = value.at( i++ );
+			return c && new Value.Character( c );
+		};
+	},
 	safe: true,
 	get_length: function( fiber ) {
 		return new Value.Integer( utf8.length( this.value ) );
@@ -229,6 +237,14 @@ Value.Bytes = CLASS( Value, {
 	getIndex: function( fiber, index ) {
 		util.validateIndex( fiber, this, types.Integer.Nonnegative, index );
 		return new Value.Integer( this.value[ index.value ] );
+	},
+	iter: function() {
+		let value = this.value;
+		let i = 0;
+		return function() {
+			let b = value[i++];
+			return b && new Value.Integer( b );
+		};
 	},
 	safe: true,
 	get_length: function( fiber ) {
@@ -324,6 +340,13 @@ Value.Tuple = CLASS( Value, {
 	getIndex: function( fiber, index ) {
 		util.validateIndex( fiber, this, types.Integer.Nonnegative, index );
 		return this.items[ index.value ];
+	},
+	iter: function() {
+		let items = this.items;
+		let i = 0;
+		return function() {
+			return items[ i++ ];
+		};
 	},
 	get_length: function( fiber ) {
 		return new Value.Integer( this.items.length );
@@ -438,10 +461,10 @@ Value.List = CLASS( Value, {
 		this.items[ index.value ] = value;
 	},
 	iter: function() {
-		let list = this;
+		let items = this.items;
 		let i = 0;
 		return function() {
-			return list.items[ i++ ];
+			return items[ i++ ];
 		};
 	},
 	get_length: function( fiber ) {

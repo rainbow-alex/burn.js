@@ -1,0 +1,13 @@
+iterate.burn:
+	for $c in "abc" {
+		assert( $c is Character )
+		print $c
+	}
+	print "done"
+
+$ $BURN iterate.burn
+	* stdout
+		a
+		b
+		c
+		done

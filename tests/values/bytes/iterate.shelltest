@@ -1,0 +1,13 @@
+iterate.burn:
+	for $b in b"abc" {
+		assert( $b is Integer.Byte )
+		print $b
+	}
+	print "done"
+
+$ $BURN iterate.burn
+	* stdout
+		97
+		98
+		99
+		done
